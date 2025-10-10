@@ -61,6 +61,35 @@ Custom JavaScript should be:
 
 ### JavaScript
 
+#### script.js
+- **Purpose:** Main custom scripts for By Default website
+- **Author:** Erlen Masson
+- **Version:** 1.0
+- **Created:** 2025-06-29
+- **Last Updated:** 2025-07-04
+- **Dependencies:** 
+  - GSAP (GreenSock Animation Platform)
+  - ScrollSmoother (GSAP plugin)
+  - ScrollTrigger (GSAP plugin)
+  - ScrollToPlugin (GSAP plugin)
+  - Splide.js (slider library)
+  - Splide AutoScroll extension
+- **Features:**
+  - **ScrollSmoother:** Smooth scrolling on non-touch devices (smoothness: 1.5)
+  - **Touch Detection:** Disables smooth scroll on mobile/tablet devices
+  - **Logo Slider:** Auto-scrolling logo ticker with Splide
+  - **Blog Slider:** Responsive blog post carousel (3 → 2 → 1 posts)
+  - **Pin Elements:** Desktop-only sticky pinning with `data-pin` attribute
+  - **Table of Contents:** Auto-generated TOC with smooth scroll and active states
+  - **GSAP Refresh Observer:** Automatic ScrollTrigger refresh on resize
+- **Usage:**
+  - Add `data-pin="100"` to elements for sticky pinning (desktop only, value in px)
+  - Add class `.logo-slider` for auto-scrolling logo carousels
+  - Add class `.blog-slider` for blog post sliders
+  - Use `#single-article` and `#toc` for table of contents
+  - Add `data-toc-offset="100"` to customize TOC scroll offset
+- **Implementation:** Add to Webflow Site Settings > Custom Code > Footer Code (after GSAP and Splide)
+
 #### cursor.js
 - **Purpose:** Desktop custom cursor with GSAP follow animation
 - **Author:** Erlen Masson
