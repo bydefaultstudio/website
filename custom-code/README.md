@@ -60,7 +60,24 @@ Custom JavaScript should be:
 (Add entries as custom CSS is created)
 
 ### JavaScript
-(Add entries as custom JavaScript is created)
+
+#### cursor.js
+- **Purpose:** Desktop custom cursor with GSAP follow animation
+- **Author:** Erlen Masson
+- **Version:** 2.3
+- **Last Updated:** 2025-10-08
+- **Dependencies:** GSAP (GreenSock Animation Platform)
+- **Features:**
+  - Smooth cursor following with GSAP animations
+  - Support for nested `data-cursor` attributes (child elements win)
+  - Custom cursor types via CSS classes
+  - Press/release animations
+  - Safeguard checks for required elements
+- **Required HTML Elements:**
+  - `.cursor-default` - Main cursor element
+  - `.cursor-halo` - Cursor halo/outer ring element
+- **Usage:** Add `data-cursor="type"` attribute to elements to trigger custom cursor states
+- **Implementation:** Add to Webflow Site Settings > Custom Code > Footer Code
 
 ## Best Practices
 
