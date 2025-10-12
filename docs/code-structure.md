@@ -131,11 +131,18 @@ Every module:
 
 ## Console Logging
 
-Each script should include one `console.log()` at the top to confirm the script has loaded:
+**Each script should include ONE `console.log()` at the top** to confirm the script has loaded:
 
 ```js
 console.log("Script v1.0 — [ModuleName] Loaded");
 ```
 
-Use console logging as needed throughout the rest of the code.
+**That's it.** Don't add excessive console logs throughout your code.
+
+Only add additional console logs when:
+- Debugging a specific issue
+- Monitoring critical functionality
+- Required for custom functionality (e.g., error tracking)
+
+Keep your console clean and purposeful.
 
