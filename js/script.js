@@ -327,6 +327,6 @@ document.addEventListener("DOMContentLoaded", () => {
   pinElements();
   tableOfContents();
   // refreshObserve();
-  // logoSlider();
+  logoSlider();
   blogPostSlider();
 });

@@ -6,7 +6,7 @@
  * Last Updated: 2025-10-08
  */
 
-console.log("Script - Cursor v2.3 (cursorHalo rename + safeguard)");
+console.log("Script - Cursor v2");
 
 document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".cursor-default");
