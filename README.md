@@ -36,9 +36,8 @@ By Default is a first of its kind neurodiverse-led interactive brand experiences
 ├── assets/                   # Project assets
 │   ├── images/              # Image assets
 │   └── videos/              # Video assets
-└── custom-code/             # Custom code snippets
-    ├── css/                 # Custom CSS
-    └── js/                  # Custom JavaScript
+├── css/                     # Custom CSS
+└── js/                      # Custom JavaScript
 ```
 
 ## 🚀 Getting Started
@@ -73,7 +72,7 @@ Any custom CSS or JavaScript should be:
    - Publish changes
 
 3. **Custom Code**
-   - Add custom code snippets to `/custom-code/`
+   - Add custom CSS to `/css/` and JavaScript to `/js/`
    - Document usage and purpose
    - Test thoroughly before implementation
    - Add to Webflow via Custom Code sections
@@ -113,6 +112,86 @@ The website is optimized for:
 - Newsletter integration
 - Cookie consent management
 - Privacy preferences
+
+## 💻 Custom Code Documentation
+
+### JavaScript Files
+
+#### script.js
+- **Purpose:** Main custom scripts for By Default website
+- **Author:** Erlen Masson
+- **Version:** 1.0
+- **Created:** 2025-06-29
+- **Last Updated:** 2025-07-04
+- **Dependencies:** 
+  - GSAP (GreenSock Animation Platform)
+  - ScrollSmoother (GSAP plugin)
+  - ScrollTrigger (GSAP plugin)
+  - ScrollToPlugin (GSAP plugin)
+  - Splide.js (slider library)
+  - Splide AutoScroll extension
+- **Features:**
+  - **ScrollSmoother:** Smooth scrolling on non-touch devices (smoothness: 1.5)
+  - **Touch Detection:** Disables smooth scroll on mobile/tablet devices
+  - **Logo Slider:** Auto-scrolling logo ticker with Splide
+  - **Blog Slider:** Responsive blog post carousel (3 → 2 → 1 posts)
+  - **Pin Elements:** Desktop-only sticky pinning with `data-pin` attribute
+  - **Table of Contents:** Auto-generated TOC with smooth scroll and active states
+  - **GSAP Refresh Observer:** Automatic ScrollTrigger refresh on resize
+- **Usage:**
+  - Add `data-pin="100"` to elements for sticky pinning (desktop only, value in px)
+  - Add class `.logo-slider` for auto-scrolling logo carousels
+  - Add class `.blog-slider` for blog post sliders
+  - Use `#single-article` and `#toc` for table of contents
+  - Add `data-toc-offset="100"` to customize TOC scroll offset
+- **Implementation:** Add to Webflow Site Settings > Custom Code > Footer Code (after GSAP and Splide)
+
+#### cursor.js
+- **Purpose:** Desktop custom cursor with GSAP follow animation
+- **Author:** Erlen Masson
+- **Version:** 2.3
+- **Last Updated:** 2025-10-08
+- **Dependencies:** GSAP (GreenSock Animation Platform)
+- **Features:**
+  - Smooth cursor following with GSAP animations
+  - Support for nested `data-cursor` attributes (child elements win)
+  - Custom cursor types via CSS classes
+  - Press/release animations
+  - Safeguard checks for required elements
+- **Required HTML Elements:**
+  - `.cursor-default` - Main cursor element
+  - `.cursor-halo` - Cursor halo/outer ring element
+- **Usage:** Add `data-cursor="type"` attribute to elements to trigger custom cursor states
+- **Implementation:** Add to Webflow Site Settings > Custom Code > Footer Code
+
+### Implementation in Webflow
+
+#### Site-wide Code
+1. Go to Project Settings > Custom Code
+2. Add CSS in the Head Code section
+3. Add JavaScript in the Footer Code section
+
+#### Page-specific Code
+1. Go to Page Settings > Custom Code
+2. Add code in appropriate section (Head or Footer)
+
+#### Embedded Code
+1. Use Embed element in Webflow
+2. Paste code snippet
+3. Preview and test
+
+### Best Practices
+
+- Always backup code before making changes
+- Test in staging environment first
+- Minimize and optimize for production
+- Keep code modular and reusable
+- Comment thoroughly for future reference
+- Version control all changes
+- Well-commented CSS and JavaScript
+- Error-handled and performance-optimized
+- Consider accessibility (focus states, contrast, keyboard support, ARIA)
+- Compatible with Webflow's jQuery
 
 ## 📊 Sections
 

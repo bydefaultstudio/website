@@ -1,11 +1,12 @@
-# By Default Website - Git Ignore
-
 # macOS
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon
+
+# Thumbnails
 ._*
+
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -13,92 +14,30 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-# Windows
-Thumbs.db
-Thumbs.db:encryptable
-ehthumbs.db
-ehthumbs_vista.db
-*.stackdump
-[Dd]esktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-*.lnk
-
-# Editors
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
-.project
-.settings/
-*.sublime-project
-*.sublime-workspace
 
 # Logs
-logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # Temporary files
 tmp/
 temp/
-*.tmp
 
-# Archive files
-*.zip
-*.tar.gz
-*.rar
+# Node modules (if using npm)
+node_modules/
 
-# Backup files
-*.bak
-*.backup
-
-# Build outputs (if applicable)
-dist/
-build/
-
-# Cache
-.cache/
-
-# Webflow specific
-# Note: Webflow exports can be ignored if not needed
-webflow-export/
-*.webflow
-
-# Asset originals (keep optimized versions only)
-assets/originals/
-
-# Google Drive specific
-.drive/
-
+# Environment variables
+.env
+.env.local

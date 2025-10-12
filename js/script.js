@@ -330,4 +330,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // logoSlider();
   blogPostSlider();
 });
-
