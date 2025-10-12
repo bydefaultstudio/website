@@ -35,8 +35,9 @@ Temporary Items
 tmp/
 temp/
 
-# Node modules (if using npm)
+# Node modules
 node_modules/
+package-lock.json
 
 # Environment variables
 .env
@@ -44,3 +45,6 @@ node_modules/
 
 # Webflow custom code (local reference only)
 webflow/
+
+# MCP configuration (contains API tokens)
+.cursor/

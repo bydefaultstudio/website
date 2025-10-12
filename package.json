@@ -1,0 +1,28 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "description": "A neurodiverse-led interactive brand experiences and innovation studio designing with inclusion, accessibility, and culture as our default starting point.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bydefaultstudio/website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bydefaultstudio/website/issues"
+  },
+  "homepage": "https://github.com/bydefaultstudio/website#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "webflow-api": "^3.2.0"
+  }
+}
