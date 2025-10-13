@@ -1,12 +1,12 @@
 /**
- * Script Purpose: TextAnimations
+ * Script Purpose: ByDefault Animations
  * Author: Erlen Masson
- * Version: 3.4
+ * Version: 4.0
  * Created: 5 Feb 2025
  * Last Updated: 2nd July 2025
  */
 
-console.log("ByDefault Text Animations v3.4 - ByDefault Animation Attributes");
+console.log("ByDefault Animations v4.0 - Canonical data-bd-* namespace");
 
 // ------- Configurable Parameters ------- //
 function getFadeStart() {
@@ -34,15 +34,15 @@ let splitTextInstances = [];
 //
 
 function textAnimations() {
-  // Select all elements with animation attributes (canonical + aliases)
-  const animatedElements = document.querySelectorAll("[data-bd-animate], [data-anim], [data-text-animate]");
+  // Select all elements with animation attributes
+  const animatedElements = document.querySelectorAll("[data-bd-animate], [data-text-animate]");
 
   animatedElements.forEach((element) => {
     // Set the aria-label attribute to the original text
     element.setAttribute("aria-label", element.textContent);
   });
 
-  // New base text animations (fade/slide) - v3.4 ByDefault Animation Attributes
+  // Base ByDefault animations (fade/slide only)
   baseTextAnimations();
   
   fadeCharacters();
@@ -51,7 +51,7 @@ function textAnimations() {
   fadeRichText();
   fadeElements();
   fadeList();
-  // New Animations
+  // Specialized ByDefault effects
   slideUp();
   slideDown();
   slideFromLeft();
@@ -61,7 +61,6 @@ function textAnimations() {
   expandSpacing();
   skewText();
   flipText();
-  // New Animations
   fadeInOut();
   blurIn();
   bounceIn();
@@ -73,16 +72,7 @@ function textAnimations() {
 }
 
 function getScrubValue(element) {
-  // Check canonical attribute first
-  let scrubAttr = element.getAttribute("data-bd-scrub");
-  if (!scrubAttr) {
-    // Check generic alias
-    scrubAttr = element.getAttribute("data-scrub");
-  }
-  if (!scrubAttr) {
-    // Check legacy text attribute
-    scrubAttr = element.getAttribute("data-text-scrub");
-  }
+  const scrubAttr = element.getAttribute("data-bd-scrub");
   
   if (!scrubAttr) {
     return undefined; // No scrub
@@ -109,18 +99,8 @@ function getScrubValue(element) {
   return undefined;
 }
 
-// Get delay value with precedence: data-bd-delay > data-delay > data-text-delay
 function getDelayValue(element, defaultDelay = 0) {
-  // Check canonical attribute first
-  let delayAttr = element.getAttribute("data-bd-delay");
-  if (!delayAttr) {
-    // Check generic alias
-    delayAttr = element.getAttribute("data-delay");
-  }
-  if (!delayAttr) {
-    // Check legacy text attribute
-    delayAttr = element.getAttribute("data-text-delay");
-  }
+  const delayAttr = element.getAttribute("data-bd-delay");
   
   if (!delayAttr) {
     return defaultDelay; // Default delay
@@ -147,11 +127,11 @@ function isInViewport(element) {
   );
 }
 
-// Base text animations for simple fade/slide effects (v3.4 - ByDefault Animation Attributes)
+// Base ByDefault animations (fade/slide only)
 function baseTextAnimations() {
   // Kill existing ScrollTriggers for fade/slide elements to prevent duplicates
   ScrollTrigger.getAll().forEach(trigger => {
-    if (trigger.trigger?.matches("[data-bd-animate='fade'], [data-bd-animate='slide'], [data-anim='fade'], [data-anim='slide'], [data-text-animate='fade'], [data-text-animate='slide']")) {
+    if (trigger.trigger?.matches("[data-bd-animate='fade'], [data-bd-animate='slide']")) {
       trigger.kill();
     }
   });
@@ -159,35 +139,9 @@ function baseTextAnimations() {
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   
-  // Select all elements with animation attributes (new canonical + aliases)
-  const allAnimatedElements = document.querySelectorAll("[data-bd-animate], [data-anim], [data-text-animate]");
-  
-  // Filter to only "fade" and "slide" types, ignoring SplitText-driven animations
-  const fadeEls = [];
-  const slideEls = [];
-  let legacyAttributeDetected = false;
-  
-  allAnimatedElements.forEach((element) => {
-    // Parse animation type with precedence: data-bd-animate > data-anim > data-text-animate
-    const animationType = getAnimationType(element);
-    
-    if (animationType === "fade") {
-      fadeEls.push(element);
-    } else if (animationType === "slide") {
-      slideEls.push(element);
-    }
-    
-    // Track if legacy attributes are being used (for optional console message)
-    if (element.hasAttribute("data-text-animate") || element.hasAttribute("data-anim")) {
-      legacyAttributeDetected = true;
-    }
-  });
-  
-  // Optional: One-time console info message when legacy attributes are detected
-  if (legacyAttributeDetected && !window.byDefaultLegacyWarningShown) {
-    console.info("ByDefault Animations v3.4: Legacy attributes detected. Consider migrating to data-bd-* namespace for future compatibility.");
-    window.byDefaultLegacyWarningShown = true;
-  }
+  // Select only fade and slide elements
+  const fadeEls = document.querySelectorAll("[data-bd-animate='fade']");
+  const slideEls = document.querySelectorAll("[data-bd-animate='slide']");
   
   // Handle reduced motion - just reveal elements without animation
   if (prefersReducedMotion) {
@@ -199,8 +153,8 @@ function baseTextAnimations() {
   
   // Process fade elements
   fadeEls.forEach((element) => {
-    const scrubValue = parseScrubValue(element);
-    const delayValue = parseDelayValue(element);
+    const scrubValue = getScrubValue(element);
+    const delayValue = getDelayValue(element);
     
     gsap.set(element, { opacity: 0 });
     
@@ -217,7 +171,7 @@ function baseTextAnimations() {
     };
     
     // Only add scrub if it's provided
-    if (scrubValue !== null) {
+    if (scrubValue !== undefined) {
       tweenConfig.scrollTrigger.scrub = scrubValue;
     }
     
@@ -226,8 +180,8 @@ function baseTextAnimations() {
   
   // Process slide elements
   slideEls.forEach((element) => {
-    const scrubValue = parseScrubValue(element);
-    const delayValue = parseDelayValue(element);
+    const scrubValue = getScrubValue(element);
+    const delayValue = getDelayValue(element);
     
     gsap.set(element, { opacity: 0, y: 40 });
     
@@ -245,7 +199,7 @@ function baseTextAnimations() {
     };
     
     // Only add scrub if it's provided
-    if (scrubValue !== null) {
+    if (scrubValue !== undefined) {
       tweenConfig.scrollTrigger.scrub = scrubValue;
     }
     
@@ -253,87 +207,6 @@ function baseTextAnimations() {
   });
 }
 
-// Parse animation type with precedence: data-bd-animate > data-anim > data-text-animate
-function getAnimationType(element) {
-  // Check canonical attribute first
-  let animationType = element.getAttribute("data-bd-animate");
-  if (animationType) return animationType;
-  
-  // Check generic alias
-  animationType = element.getAttribute("data-anim");
-  if (animationType) return animationType;
-  
-  // Check legacy text attribute
-  animationType = element.getAttribute("data-text-animate");
-  if (animationType) return animationType;
-  
-  return null;
-}
-
-// Parse scrub value with precedence: data-bd-scrub > data-scrub > data-text-scrub
-function parseScrubValue(element) {
-  // Check canonical attribute first
-  let scrubAttr = element.getAttribute("data-bd-scrub");
-  if (!scrubAttr) {
-    // Check generic alias
-    scrubAttr = element.getAttribute("data-scrub");
-  }
-  if (!scrubAttr) {
-    // Check legacy text attribute
-    scrubAttr = element.getAttribute("data-text-scrub");
-  }
-  
-  if (!scrubAttr) {
-    return null; // No scrub
-  }
-  
-  // If attribute exists but string is empty, treat as "true"
-  if (scrubAttr === "") {
-    return true;
-  }
-  
-  // Check for "true" (case-insensitive)
-  if (scrubAttr.toLowerCase() === "true") {
-    return true;
-  }
-  
-  // Check for numeric value
-  const numericValue = parseFloat(scrubAttr);
-  if (!isNaN(numericValue) && numericValue > 0) {
-    // Clamp to minimum 0.1 for smoothness
-    return Math.max(numericValue, 0.1);
-  }
-  
-  // Invalid value, treat as absent
-  return null;
-}
-
-// Parse delay value with precedence: data-bd-delay > data-delay > data-text-delay
-function parseDelayValue(element) {
-  // Check canonical attribute first
-  let delayAttr = element.getAttribute("data-bd-delay");
-  if (!delayAttr) {
-    // Check generic alias
-    delayAttr = element.getAttribute("data-delay");
-  }
-  if (!delayAttr) {
-    // Check legacy text attribute
-    delayAttr = element.getAttribute("data-text-delay");
-  }
-  
-  if (!delayAttr) {
-    return 0; // Default delay
-  }
-  
-  const delayValue = parseFloat(delayAttr);
-  
-  // If NaN or negative, use default delay of 0
-  if (isNaN(delayValue) || delayValue < 0) {
-    return 0;
-  }
-  
-  return delayValue;
-}
 
 // Fade in elements that are already in viewport
 function fadeInViewport() {
@@ -490,7 +363,7 @@ function fadeList() {
 
 // Slide Up Animation
 function slideUp() {
-  gsap.utils.toArray("[data-text-animate='slide-up']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='slide-up']").forEach((element) => {
     gsap.set(element, { opacity: 0, y: 50 });
 
     gsap.to(element, {
@@ -510,7 +383,7 @@ function slideUp() {
 
 // Slide Down Animation
 function slideDown() {
-  gsap.utils.toArray("[data-text-animate='slide-down']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='slide-down']").forEach((element) => {
     gsap.set(element, { opacity: 0, y: -50 });
 
     gsap.to(element, {
@@ -530,7 +403,7 @@ function slideDown() {
 
 // Slide From Left Animation
 function slideFromLeft() {
-  gsap.utils.toArray("[data-text-animate='slide-left']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='slide-left']").forEach((element) => {
     gsap.set(element, { opacity: 0, x: -50 });
 
     gsap.to(element, {
@@ -550,7 +423,7 @@ function slideFromLeft() {
 
 // Slide From Right Animation
 function slideFromRight() {
-  gsap.utils.toArray("[data-text-animate='slide-right']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='slide-right']").forEach((element) => {
     gsap.set(element, { opacity: 0, x: 50 });
 
     gsap.to(element, {
@@ -570,7 +443,7 @@ function slideFromRight() {
 
 // Scale In Animation
 function scaleIn() {
-  gsap.utils.toArray("[data-text-animate='scale-in']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='scale-in']").forEach((element) => {
     gsap.set(element, { opacity: 0, scale: 0.8 });
 
     gsap.to(element, {
@@ -590,7 +463,7 @@ function scaleIn() {
 
 // Rotate In Animation
 function rotateIn() {
-  gsap.utils.toArray("[data-text-animate='rotate-in']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='rotate-in']").forEach((element) => {
     gsap.set(element, { opacity: 0, rotate: -15 });
     gsap.to(element, {
       opacity: 1,
@@ -610,7 +483,7 @@ function rotateIn() {
 // Expand Letter Spacing Animation
 function expandSpacing() {
   gsap.utils
-    .toArray("[data-text-animate='expand-spacing']")
+    .toArray("[data-bd-animate='expand-spacing']")
     .forEach((element) => {
       gsap.set(element, { opacity: 0, letterSpacing: "-2px" });
       gsap.to(element, {
@@ -630,7 +503,7 @@ function expandSpacing() {
 
 // Skew Text Animation
 function skewText() {
-  gsap.utils.toArray("[data-text-animate='skew']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='skew']").forEach((element) => {
     gsap.set(element, { opacity: 0, skewX: "15deg" });
     gsap.to(element, {
       opacity: 1,
@@ -649,7 +522,7 @@ function skewText() {
 
 // Flip Text Animation
 function flipText() {
-  gsap.utils.toArray("[data-text-animate='flip']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='flip']").forEach((element) => {
     gsap.set(element, { opacity: 0, rotateX: -90 });
     gsap.to(element, {
       opacity: 1,
@@ -670,7 +543,7 @@ function flipText() {
 
 // Fade In and Out Animation
 function fadeInOut() {
-  gsap.utils.toArray("[data-text-animate='fade-in-out']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='fade-in-out']").forEach((element) => {
     gsap.set(element, { opacity: 0 });
     gsap.to(element, {
       opacity: 1,
@@ -688,7 +561,7 @@ function fadeInOut() {
 
 // Blur In Animation
 function blurIn() {
-  gsap.utils.toArray("[data-text-animate='blur-in']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='blur-in']").forEach((element) => {
     gsap.set(element, { opacity: 0, filter: "blur(10px)" });
     gsap.to(element, {
       opacity: 1,
@@ -707,7 +580,7 @@ function blurIn() {
 
 // Bounce In Animation
 function bounceIn() {
-  gsap.utils.toArray("[data-text-animate='bounce-in']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='bounce-in']").forEach((element) => {
     gsap.set(element, { opacity: 0, y: 50 });
 
     gsap.to(element, {
@@ -727,7 +600,7 @@ function bounceIn() {
 
 // Shake Animation
 function shakeText() {
-  gsap.utils.toArray("[data-text-animate='shake']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='shake']").forEach((element) => {
     gsap.set(element, { x: 0 }); // Ensures the element starts at its original position
     gsap.to(element, {
       x: "+=10",
@@ -747,7 +620,7 @@ function shakeText() {
 
 // Flashing Text Animation
 function flashText() {
-  gsap.utils.toArray("[data-text-animate='flash']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='flash']").forEach((element) => {
     gsap.fromTo(
       element,
       { opacity: 0 },
@@ -764,7 +637,7 @@ function flashText() {
 
 // Neon Glow Flicker (Cyberpunk Style)
 function neonText() {
-  gsap.utils.toArray("[data-text-animate='neon']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='neon']").forEach((element) => {
     gsap.fromTo(
       element,
       { textShadow: "0px 0px 5px #fff, 0px 0px 10px #09F", opacity: 0.5 },
@@ -782,7 +655,7 @@ function neonText() {
 
 // 3D Perspective Tilt Animation
 function tiltText() {
-  gsap.utils.toArray("[data-text-animate='tilt']").forEach((element) => {
+  gsap.utils.toArray("[data-bd-animate='tilt']").forEach((element) => {
     gsap.set(element, { rotateY: 90, opacity: 0 });
 
     gsap.to(element, {
