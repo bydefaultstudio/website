@@ -174,6 +174,9 @@ function baseTextAnimations() {
     // Only add scrub if it's provided
     if (scrubValue !== undefined) {
       tweenConfig.scrollTrigger.scrub = scrubValue;
+    } else {
+      // Add once: true for non-scrub animations to prevent replay
+      tweenConfig.scrollTrigger.once = true;
     }
     
     gsap.to(element, tweenConfig);
@@ -202,6 +205,9 @@ function baseTextAnimations() {
     // Only add scrub if it's provided
     if (scrubValue !== undefined) {
       tweenConfig.scrollTrigger.scrub = scrubValue;
+    } else {
+      // Add once: true for non-scrub animations to prevent replay
+      tweenConfig.scrollTrigger.once = true;
     }
     
     gsap.to(element, tweenConfig);
@@ -245,6 +251,9 @@ function fadeCharacters() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -266,6 +275,9 @@ function fadeWords() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -287,6 +299,9 @@ function fadeLines() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -337,6 +352,9 @@ function fadeElements() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -359,12 +377,18 @@ function fadeList() {
         scrub: getScrubValue(list),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Slide Up Animation
 function slideUp() {
   gsap.utils.toArray("[data-bd-animate='slide-up']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
+    
     gsap.set(element, { opacity: 0, y: 50 });
 
     gsap.to(element, {
@@ -379,12 +403,18 @@ function slideUp() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Slide Down Animation
 function slideDown() {
   gsap.utils.toArray("[data-bd-animate='slide-down']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
+    
     gsap.set(element, { opacity: 0, y: -50 });
 
     gsap.to(element, {
@@ -399,12 +429,18 @@ function slideDown() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Slide From Left Animation
 function slideFromLeft() {
   gsap.utils.toArray("[data-bd-animate='slide-left']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
+    
     gsap.set(element, { opacity: 0, x: -50 });
 
     gsap.to(element, {
@@ -419,12 +455,17 @@ function slideFromLeft() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Slide From Right Animation
 function slideFromRight() {
   gsap.utils.toArray("[data-bd-animate='slide-right']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, x: 50 });
 
     gsap.to(element, {
@@ -439,12 +480,17 @@ function slideFromRight() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Scale In Animation
 function scaleIn() {
   gsap.utils.toArray("[data-bd-animate='scale-in']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, scale: 0.8 });
 
     gsap.to(element, {
@@ -459,12 +505,18 @@ function scaleIn() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Rotate In Animation
 function rotateIn() {
   gsap.utils.toArray("[data-bd-animate='rotate-in']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
+    
     gsap.set(element, { opacity: 0, rotate: -15 });
     gsap.to(element, {
       opacity: 1,
@@ -478,6 +530,9 @@ function rotateIn() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -486,6 +541,9 @@ function expandSpacing() {
   gsap.utils
     .toArray("[data-bd-animate='expand-spacing']")
     .forEach((element) => {
+      // Guard against double-binding
+      if (element.dataset.bdBound) return;
+      
       gsap.set(element, { opacity: 0, letterSpacing: "-2px" });
       gsap.to(element, {
         opacity: 1,
@@ -505,6 +563,8 @@ function expandSpacing() {
 // Skew Text Animation
 function skewText() {
   gsap.utils.toArray("[data-bd-animate='skew']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, skewX: "15deg" });
     gsap.to(element, {
       opacity: 1,
@@ -518,12 +578,17 @@ function skewText() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Flip Text Animation
 function flipText() {
   gsap.utils.toArray("[data-bd-animate='flip']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, rotateX: -90 });
     gsap.to(element, {
       opacity: 1,
@@ -537,6 +602,9 @@ function flipText() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -545,6 +613,8 @@ function flipText() {
 // Fade In and Out Animation
 function fadeInOut() {
   gsap.utils.toArray("[data-bd-animate='fade-in-out']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0 });
     gsap.to(element, {
       opacity: 1,
@@ -557,12 +627,17 @@ function fadeInOut() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Blur In Animation
 function blurIn() {
   gsap.utils.toArray("[data-bd-animate='blur-in']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, filter: "blur(10px)" });
     gsap.to(element, {
       opacity: 1,
@@ -576,12 +651,17 @@ function blurIn() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Bounce In Animation
 function bounceIn() {
   gsap.utils.toArray("[data-bd-animate='bounce-in']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { opacity: 0, y: 50 });
 
     gsap.to(element, {
@@ -596,12 +676,17 @@ function bounceIn() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Shake Animation
 function shakeText() {
   gsap.utils.toArray("[data-bd-animate='shake']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { x: 0 }); // Ensures the element starts at its original position
     gsap.to(element, {
       x: "+=10",
@@ -616,12 +701,17 @@ function shakeText() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
 // Flashing Text Animation
 function flashText() {
   gsap.utils.toArray("[data-bd-animate='flash']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.fromTo(
       element,
       { opacity: 0 },
@@ -639,6 +729,8 @@ function flashText() {
 // Neon Glow Flicker (Cyberpunk Style)
 function neonText() {
   gsap.utils.toArray("[data-bd-animate='neon']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.fromTo(
       element,
       { textShadow: "0px 0px 5px #fff, 0px 0px 10px #09F", opacity: 0.5 },
@@ -657,6 +749,8 @@ function neonText() {
 // 3D Perspective Tilt Animation
 function tiltText() {
   gsap.utils.toArray("[data-bd-animate='tilt']").forEach((element) => {
+    // Guard against double-binding
+    if (element.dataset.bdBound) return;
     gsap.set(element, { rotateY: 90, opacity: 0 });
 
     gsap.to(element, {
@@ -672,6 +766,9 @@ function tiltText() {
         scrub: getScrubValue(element),
       },
     });
+    
+    // Mark as bound
+    element.dataset.bdBound = "1";
   });
 }
 
@@ -698,18 +795,29 @@ function debounce(func) {
   };
 }
 
+// Rebuild only SplitText animations on resize
+function rebuildSplitTextAnimations() {
+  // Revert existing SplitText instances
+  splitTextInstances.forEach((instance) => instance.revert());
+  splitTextInstances = [];
+
+  // Rebuild only SplitText functions
+  fadeCharacters();
+  fadeWords();
+  fadeLines();
+  fadeRichText();
+  fadeList();
+}
+
 // Optional: Define the resize event handling logic
 function handleResize() {
   console.log("Window resized, refreshing animations");
 
-  // Revert SplitText instances
-  splitTextInstances.forEach((instance) => instance.revert());
+  // Rebuild only SplitText (not all animations)
+  rebuildSplitTextAnimations();
 
-  // Refresh ScrollTrigger
+  // Refresh ScrollTrigger (handles all bd element-level effects)
   ScrollTrigger.refresh();
-
-  // Re-initialize the fade animations on resize
-  textAnimations();
 }
 
 // Optional: Add event listener for window resize if needed
