@@ -49,7 +49,6 @@ function textAnimations() {
   fadeWords();
   fadeLines();
   fadeRichText();
-  fadeElements();
   fadeList();
   // Specialized ByDefault effects
   slideUp();
@@ -130,9 +129,16 @@ function isInViewport(element) {
 
 // Base ByDefault animations (fade/slide only)
 function baseTextAnimations() {
+  // Legacy shim: convert data-text-animate="element" to data-bd-animate="fade"
+  document.querySelectorAll("[data-text-animate='element']").forEach((element) => {
+    if (!element.hasAttribute("data-bd-animate")) {
+      element.setAttribute("data-bd-animate", "fade");
+    }
+  });
+  
   // Kill existing ScrollTriggers for fade/slide elements to prevent duplicates
   ScrollTrigger.getAll().forEach(trigger => {
-    if (trigger.trigger?.matches("[data-bd-animate='fade'], [data-bd-animate='slide']")) {
+    if (trigger.trigger?.matches("[data-bd-animate='fade'], [data-bd-animate='slide'], [data-bd-animate]")) {
       trigger.kill();
     }
   });
@@ -140,20 +146,36 @@ function baseTextAnimations() {
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   
-  // Select only fade and slide elements
-  const fadeEls = document.querySelectorAll("[data-bd-animate='fade']");
-  const slideEls = document.querySelectorAll("[data-bd-animate='slide']");
+  // Select all elements with data-bd-animate attribute
+  const allElements = document.querySelectorAll("[data-bd-animate]");
+  const fadeElements = [];
+  const slideElements = [];
+  
+  // Categorize elements by their animation type
+  allElements.forEach((element) => {
+    const animateValue = element.getAttribute("data-bd-animate");
+    
+    // Empty attribute or "fade" = default fade behavior
+    if (!animateValue || animateValue === "fade") {
+      fadeElements.push(element);
+    }
+    // "slide" = slide behavior
+    else if (animateValue === "slide") {
+      slideElements.push(element);
+    }
+    // All other values (slide-up, tilt, etc.) are ignored - handled by specialized functions
+  });
   
   // Handle reduced motion - just reveal elements without animation
   if (prefersReducedMotion) {
-    [...fadeEls, ...slideEls].forEach((element) => {
+    [...fadeElements, ...slideElements].forEach((element) => {
       gsap.set(element, { opacity: 1, clearProps: "transform,filter" });
     });
     return; // Don't create ScrollTriggers for reduced motion
   }
   
-  // Process fade elements
-  fadeEls.forEach((element) => {
+  // Process fade elements (default behavior)
+  fadeElements.forEach((element) => {
     const scrubValue = getScrubValue(element);
     const delayValue = getDelayValue(element);
     
@@ -183,7 +205,7 @@ function baseTextAnimations() {
   });
   
   // Process slide elements
-  slideEls.forEach((element) => {
+  slideElements.forEach((element) => {
     const scrubValue = getScrubValue(element);
     const delayValue = getDelayValue(element);
     
@@ -217,16 +239,40 @@ function baseTextAnimations() {
 
 // Fade in elements that are already in viewport
 function fadeInViewport() {
-  gsap.utils.toArray("[data-text-animate='in-view']").forEach((element) => {
-    if (isInViewport(element)) {
-      gsap.set(element, { opacity: 0 });
-      gsap.to(element, {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out",
-        delay: getDelayValue(element, 0)
-      });
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  gsap.utils.toArray("[data-bd-animate='in-view'], [data-text-animate='in-view']").forEach((el) => {
+    // Only animate if visible in viewport
+    if (!isInViewport(el)) return;
+
+    // Skip reanimation if already revealed once
+    if (el.dataset.bdRevealed === "true") return;
+    el.dataset.bdRevealed = "true";
+
+    // Respect reduced motion preference
+    if (prefersReduced) {
+      gsap.set(el, { autoAlpha: 1, clearProps: "transform,filter" });
+      return;
     }
+
+    const delay = getDelayValue(el, 0);
+    const fromY = parseFloat(el.getAttribute("data-bd-from-y") || "0") || 0;
+    const fromX = parseFloat(el.getAttribute("data-bd-from-x") || "0") || 0;
+    const fromScale = parseFloat(el.getAttribute("data-bd-from-scale") || "1") || 1;
+
+    gsap.fromTo(
+      el,
+      { autoAlpha: 0, y: fromY, x: fromX, scale: fromScale, force3D: true },
+      {
+        autoAlpha: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        duration: 0.8,
+        delay,
+        ease: "power2.out"
+      }
+    );
   });
 }
 
@@ -336,27 +382,6 @@ function fadeRichText() {
     });
 }
 
-// Fade by Individual Elements
-function fadeElements() {
-  gsap.utils.toArray("[data-text-animate='element']").forEach((element) => {
-    gsap.set(element, { opacity: 0, y: 0 });
-    gsap.to(element, {
-      opacity: 1,
-      ease: "power2.inOut",
-      y: 0,
-      delay: getDelayValue(element),
-      scrollTrigger: {
-        trigger: element,
-        start: "top 90%",
-        end: "top 60%",
-        scrub: getScrubValue(element),
-      },
-    });
-    
-    // Mark as bound
-    element.dataset.bdBound = "1";
-  });
-}
 
 // Fade by List Items
 function fadeList() {
