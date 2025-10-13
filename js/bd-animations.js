@@ -73,13 +73,67 @@ function textAnimations() {
 }
 
 function getScrubValue(element) {
-  return element.hasAttribute("data-text-scrub") || undefined;
+  // Check canonical attribute first
+  let scrubAttr = element.getAttribute("data-bd-scrub");
+  if (!scrubAttr) {
+    // Check generic alias
+    scrubAttr = element.getAttribute("data-scrub");
+  }
+  if (!scrubAttr) {
+    // Check legacy text attribute
+    scrubAttr = element.getAttribute("data-text-scrub");
+  }
+  
+  if (!scrubAttr) {
+    return undefined; // No scrub
+  }
+  
+  // If attribute exists but string is empty, treat as "true"
+  if (scrubAttr === "") {
+    return true;
+  }
+  
+  // Check for "true" (case-insensitive)
+  if (scrubAttr.toLowerCase() === "true") {
+    return true;
+  }
+  
+  // Check for numeric value
+  const numericValue = parseFloat(scrubAttr);
+  if (!isNaN(numericValue) && numericValue > 0) {
+    // Clamp to minimum 0.1 for smoothness
+    return Math.max(numericValue, 0.1);
+  }
+  
+  // Invalid value, treat as absent
+  return undefined;
 }
 
-// Get delay value from data-text-delay attribute
+// Get delay value with precedence: data-bd-delay > data-delay > data-text-delay
 function getDelayValue(element, defaultDelay = 0) {
-  const customDelay = element.getAttribute("data-text-delay");
-  return customDelay ? parseFloat(customDelay) : defaultDelay;
+  // Check canonical attribute first
+  let delayAttr = element.getAttribute("data-bd-delay");
+  if (!delayAttr) {
+    // Check generic alias
+    delayAttr = element.getAttribute("data-delay");
+  }
+  if (!delayAttr) {
+    // Check legacy text attribute
+    delayAttr = element.getAttribute("data-text-delay");
+  }
+  
+  if (!delayAttr) {
+    return defaultDelay; // Default delay
+  }
+  
+  const delayValue = parseFloat(delayAttr);
+  
+  // If NaN or negative, use default delay
+  if (isNaN(delayValue) || delayValue < 0) {
+    return defaultDelay;
+  }
+  
+  return delayValue;
 }
 
 // Check if element is in viewport
@@ -231,6 +285,11 @@ function parseScrubValue(element) {
   
   if (!scrubAttr) {
     return null; // No scrub
+  }
+  
+  // If attribute exists but string is empty, treat as "true"
+  if (scrubAttr === "") {
+    return true;
   }
   
   // Check for "true" (case-insensitive)
