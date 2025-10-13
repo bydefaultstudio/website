@@ -1,17 +1,26 @@
 /**
  * Script Purpose: TextAnimations
  * Author: Erlen Masson
- * Version: 3.1
+ * Version: 3.4
  * Created: 5 Feb 2025
  * Last Updated: 2nd July 2025
  */
 
-console.log("Anonivate Text Animations v3.3");
+console.log("ByDefault Text Animations v3.4 - ByDefault Animation Attributes");
 
 // ------- Configurable Parameters ------- //
-const fadeStart = window.innerWidth < 768 ? "top 100%" : "top 85%";
-const fadeEnd = window.innerWidth < 768 ? "top 60%" : "bottom 75%";
-const fadeEnd2 = window.innerWidth < 768 ? "top 50%" : "bottom 75%";
+function getFadeStart() {
+  return window.innerWidth < 768 ? "top 100%" : "top 85%";
+}
+
+function getFadeEnd() {
+  return window.innerWidth < 768 ? "top 60%" : "bottom 75%";
+}
+
+function getFadeEndChars() {
+  return window.innerWidth < 768 ? "top 50%" : "bottom 75%";
+}
+
 const animationStagger = { chars: 0.05, words: 0.1, lines: 0.15 };
 const debounceTimeout = 150;
 
@@ -25,14 +34,17 @@ let splitTextInstances = [];
 //
 
 function textAnimations() {
-  // Select all elements with the [data-text-animate] attribute
-  const animatedElements = document.querySelectorAll("[data-text-animate]");
+  // Select all elements with animation attributes (canonical + aliases)
+  const animatedElements = document.querySelectorAll("[data-bd-animate], [data-anim], [data-text-animate]");
 
   animatedElements.forEach((element) => {
     // Set the aria-label attribute to the original text
     element.setAttribute("aria-label", element.textContent);
   });
 
+  // New base text animations (fade/slide) - v3.4 ByDefault Animation Attributes
+  baseTextAnimations();
+  
   fadeCharacters();
   fadeWords();
   fadeLines();
@@ -81,6 +93,189 @@ function isInViewport(element) {
   );
 }
 
+// Base text animations for simple fade/slide effects (v3.4 - ByDefault Animation Attributes)
+function baseTextAnimations() {
+  // Kill existing ScrollTriggers for fade/slide elements to prevent duplicates
+  ScrollTrigger.getAll().forEach(trigger => {
+    if (trigger.trigger?.matches("[data-bd-animate='fade'], [data-bd-animate='slide'], [data-anim='fade'], [data-anim='slide'], [data-text-animate='fade'], [data-text-animate='slide']")) {
+      trigger.kill();
+    }
+  });
+  
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  
+  // Select all elements with animation attributes (new canonical + aliases)
+  const allAnimatedElements = document.querySelectorAll("[data-bd-animate], [data-anim], [data-text-animate]");
+  
+  // Filter to only "fade" and "slide" types, ignoring SplitText-driven animations
+  const fadeEls = [];
+  const slideEls = [];
+  let legacyAttributeDetected = false;
+  
+  allAnimatedElements.forEach((element) => {
+    // Parse animation type with precedence: data-bd-animate > data-anim > data-text-animate
+    const animationType = getAnimationType(element);
+    
+    if (animationType === "fade") {
+      fadeEls.push(element);
+    } else if (animationType === "slide") {
+      slideEls.push(element);
+    }
+    
+    // Track if legacy attributes are being used (for optional console message)
+    if (element.hasAttribute("data-text-animate") || element.hasAttribute("data-anim")) {
+      legacyAttributeDetected = true;
+    }
+  });
+  
+  // Optional: One-time console info message when legacy attributes are detected
+  if (legacyAttributeDetected && !window.byDefaultLegacyWarningShown) {
+    console.info("ByDefault Animations v3.4: Legacy attributes detected. Consider migrating to data-bd-* namespace for future compatibility.");
+    window.byDefaultLegacyWarningShown = true;
+  }
+  
+  // Handle reduced motion - just reveal elements without animation
+  if (prefersReducedMotion) {
+    [...fadeEls, ...slideEls].forEach((element) => {
+      gsap.set(element, { opacity: 1, clearProps: "transform,filter" });
+    });
+    return; // Don't create ScrollTriggers for reduced motion
+  }
+  
+  // Process fade elements
+  fadeEls.forEach((element) => {
+    const scrubValue = parseScrubValue(element);
+    const delayValue = parseDelayValue(element);
+    
+    gsap.set(element, { opacity: 0 });
+    
+    const tweenConfig = {
+      opacity: 1,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: delayValue,
+      scrollTrigger: {
+        trigger: element,
+        start: getFadeStart(),
+        end: getFadeEnd()
+      }
+    };
+    
+    // Only add scrub if it's provided
+    if (scrubValue !== null) {
+      tweenConfig.scrollTrigger.scrub = scrubValue;
+    }
+    
+    gsap.to(element, tweenConfig);
+  });
+  
+  // Process slide elements
+  slideEls.forEach((element) => {
+    const scrubValue = parseScrubValue(element);
+    const delayValue = parseDelayValue(element);
+    
+    gsap.set(element, { opacity: 0, y: 40 });
+    
+    const tweenConfig = {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      delay: delayValue,
+      scrollTrigger: {
+        trigger: element,
+        start: getFadeStart(),
+        end: getFadeEnd()
+      }
+    };
+    
+    // Only add scrub if it's provided
+    if (scrubValue !== null) {
+      tweenConfig.scrollTrigger.scrub = scrubValue;
+    }
+    
+    gsap.to(element, tweenConfig);
+  });
+}
+
+// Parse animation type with precedence: data-bd-animate > data-anim > data-text-animate
+function getAnimationType(element) {
+  // Check canonical attribute first
+  let animationType = element.getAttribute("data-bd-animate");
+  if (animationType) return animationType;
+  
+  // Check generic alias
+  animationType = element.getAttribute("data-anim");
+  if (animationType) return animationType;
+  
+  // Check legacy text attribute
+  animationType = element.getAttribute("data-text-animate");
+  if (animationType) return animationType;
+  
+  return null;
+}
+
+// Parse scrub value with precedence: data-bd-scrub > data-scrub > data-text-scrub
+function parseScrubValue(element) {
+  // Check canonical attribute first
+  let scrubAttr = element.getAttribute("data-bd-scrub");
+  if (!scrubAttr) {
+    // Check generic alias
+    scrubAttr = element.getAttribute("data-scrub");
+  }
+  if (!scrubAttr) {
+    // Check legacy text attribute
+    scrubAttr = element.getAttribute("data-text-scrub");
+  }
+  
+  if (!scrubAttr) {
+    return null; // No scrub
+  }
+  
+  // Check for "true" (case-insensitive)
+  if (scrubAttr.toLowerCase() === "true") {
+    return true;
+  }
+  
+  // Check for numeric value
+  const numericValue = parseFloat(scrubAttr);
+  if (!isNaN(numericValue) && numericValue > 0) {
+    // Clamp to minimum 0.1 for smoothness
+    return Math.max(numericValue, 0.1);
+  }
+  
+  // Invalid value, treat as absent
+  return null;
+}
+
+// Parse delay value with precedence: data-bd-delay > data-delay > data-text-delay
+function parseDelayValue(element) {
+  // Check canonical attribute first
+  let delayAttr = element.getAttribute("data-bd-delay");
+  if (!delayAttr) {
+    // Check generic alias
+    delayAttr = element.getAttribute("data-delay");
+  }
+  if (!delayAttr) {
+    // Check legacy text attribute
+    delayAttr = element.getAttribute("data-text-delay");
+  }
+  
+  if (!delayAttr) {
+    return 0; // Default delay
+  }
+  
+  const delayValue = parseFloat(delayAttr);
+  
+  // If NaN or negative, use default delay of 0
+  if (isNaN(delayValue) || delayValue < 0) {
+    return 0;
+  }
+  
+  return delayValue;
+}
+
 // Fade in elements that are already in viewport
 function fadeInViewport() {
   gsap.utils.toArray("[data-text-animate='in-view']").forEach((element) => {
@@ -90,7 +285,7 @@ function fadeInViewport() {
         opacity: 1,
         duration: 1,
         ease: "power2.out",
-        delay: getDelayValue(element, 0.2)
+        delay: getDelayValue(element, 0)
       });
     }
   });
@@ -112,8 +307,8 @@ function fadeCharacters() {
       stagger: animationStagger.chars,
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd2,
+        start: getFadeStart(),
+        end: getFadeEndChars(),
         scrub: getScrubValue(element),
       },
     });
@@ -133,8 +328,8 @@ function fadeWords() {
       stagger: animationStagger.words,
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -154,8 +349,8 @@ function fadeLines() {
       stagger: animationStagger.lines,
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -184,8 +379,8 @@ function fadeRichText() {
           stagger: animationStagger?.lines || 0.1,
           scrollTrigger: {
             trigger: element,
-            start: fadeStart || "top bottom",
-            end: fadeEnd || "top center",
+            start: getFadeStart(),
+            end: getFadeEnd(),
             scrub: getScrubValue(richTextElement),
           },
         });
@@ -226,8 +421,8 @@ function fadeList() {
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: list,
-        start: fadeStart || "top bottom",
-        end: fadeEnd || "top center",
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(list),
       },
     });
@@ -246,8 +441,8 @@ function slideUp() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -266,8 +461,8 @@ function slideDown() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -286,8 +481,8 @@ function slideFromLeft() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -306,8 +501,8 @@ function slideFromRight() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -326,8 +521,8 @@ function scaleIn() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -345,8 +540,8 @@ function rotateIn() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -364,12 +559,12 @@ function expandSpacing() {
         letterSpacing: "normal",
         ease: "power2.out",
         delay: getDelayValue(element),
-        scrollTrigger: {
-          trigger: element,
-          start: fadeStart,
-          end: fadeEnd,
-          scrub: getScrubValue(element),
-        },
+      scrollTrigger: {
+        trigger: element,
+        start: getFadeStart(),
+        end: getFadeEnd(),
+        scrub: getScrubValue(element),
+      },
       });
     });
 }
@@ -385,8 +580,8 @@ function skewText() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -404,8 +599,8 @@ function flipText() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -424,8 +619,8 @@ function fadeInOut() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -443,8 +638,8 @@ function blurIn() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -463,8 +658,8 @@ function bounceIn() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -483,8 +678,8 @@ function shakeText() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });
@@ -539,8 +734,8 @@ function tiltText() {
       delay: getDelayValue(element),
       scrollTrigger: {
         trigger: element,
-        start: fadeStart,
-        end: fadeEnd,
+        start: getFadeStart(),
+        end: getFadeEnd(),
         scrub: getScrubValue(element),
       },
     });

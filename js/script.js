@@ -165,6 +165,7 @@ function refreshObserve(attribute = "data-refresh") {
   });
 }
 
+
 // Setup once the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   setupScrollSmoother();

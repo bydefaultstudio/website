@@ -1,13 +1,12 @@
 /**
- * Script Purpose: Auto-generated table of contents with smooth scroll and active states
+ * Script Purpose: Auto-generated table of contents
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 1.0
- * Last Updated: 2025-10-12
- * Dependencies: GSAP (optional), ScrollSmoother (optional), ScrollToPlugin (optional)
+ * Version: 2.0
+ * Last Updated: 2025-10-13
  */
 
-console.log("Table of Contents v1.0 — Loaded");
+console.log("Table of Contents v2.0 — Loaded");
 
 //
 //------- Utility Functions -------//
@@ -25,162 +24,105 @@ function slugifyHeading(text) {
   );
 }
 
-// Smooth scroll helper using GSAP ScrollTo
-function smoothScrollTo(targetEl, offset = 100) {
-  // Check for GSAP and ScrollToPlugin
-  if (window.gsap && window.ScrollToPlugin) {
-    gsap.to(window, {
-      duration: 1,
-      scrollTo: {
-        y: targetEl,
-        offsetY: offset,
-        autoKill: false
-      },
-      ease: "power3.inOut",
-      overwrite: "auto"
-    });
-    return;
-  }
-
-  // Fallback to native smooth scroll
-  const rect = targetEl.getBoundingClientRect();
-  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  
-  window.scrollTo({
-    top: scrollTop + rect.top - offset,
-    behavior: "smooth"
-  });
-}
-
 //
-//------- Main Functions -------//
+//------- Core Functions -------//
 //
 
-// Build the TOC
-function buildTOC(article, tocContainer) {
+// Function 1: Add anchor IDs to content headings
+function addAnchorIds(article) {
   const headings = article.querySelectorAll("h2, h3, h4");
-  if (!headings.length) return;
-
-  const frag = document.createDocumentFragment();
-
+  
   headings.forEach((heading) => {
     const title = heading.textContent.trim();
     const anchorId = slugifyHeading(title);
     heading.id = anchorId;
+  });
+  
+  console.log(`✓ Added ${headings.length} anchor IDs to headings`);
+}
 
+// Function 2: Build TOC elements from article content
+function buildTocElements(article, tocContainer) {
+  const headings = article.querySelectorAll("h2, h3, h4");
+  
+  if (!headings.length) {
+    console.warn("No headings found in article");
+    return;
+  }
+
+  // Create list items
+  const ul = document.createElement("ul");
+  
+  headings.forEach((heading) => {
+    const title = heading.textContent.trim();
+    const anchorId = heading.id;
+    
     const li = document.createElement("li");
     const a = document.createElement("a");
+    
     a.textContent = title;
     a.href = `#${anchorId}`;
-    li.appendChild(a);
-    frag.appendChild(li);
-  });
-
-  const ul = document.createElement("ul");
-  ul.appendChild(frag);
-  tocContainer.appendChild(ul);
-}
-
-// Setup active states and interactions
-function setupActiveState(article, tocContainer) {
-  const tocItems = tocContainer.querySelectorAll("a");
-  const headings = article.querySelectorAll("h2, h3, h4");
-  const defaultOffset =
-    parseFloat(tocContainer.getAttribute("data-toc-offset")) || 100;
-  
-  let isScrolling = false;
-
-  function setActiveById(id) {
-    tocItems.forEach((item) => {
-      item.classList.toggle("active", item.getAttribute("href") === `#${id}`);
-    });
-  }
-
-  // Click event → smooth scroll with GSAP
-  tocItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
+    
+    // Option A: Disable ScrollSmoother Only for TOC Navigation (WORKING SOLUTION)
+    a.addEventListener("click", (e) => {
       e.preventDefault();
-      const id = item.getAttribute("href").substring(1);
-      const target = document.getElementById(id);
-      if (!target) return;
-
-      // Prevent observer from updating during scroll
-      isScrolling = true;
-      setActiveById(id);
-
-      // Update URL hash without jumping
-      if (history.pushState) history.pushState(null, "", `#${id}`);
-      else location.hash = `#${id}`;
-
-      smoothScrollTo(target, defaultOffset);
       
-      // Re-enable observer after scroll animation completes
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1200);
+      console.log("TOC Navigation: Temporarily disabling ScrollSmoother");
+      
+      const smoother = ScrollSmoother ? ScrollSmoother.get() : null;
+      if (smoother) {
+        // Kill ScrollSmoother temporarily
+        smoother.kill();
+        
+        // Use native smooth scroll
+        heading.scrollIntoView({ behavior: 'smooth' });
+        
+        // Recreate ScrollSmoother after scroll completes
+        setTimeout(() => {
+          ScrollSmoother.create({
+            smooth: 1.5,
+            effects: true,
+            smoothTouch: 0,
+          });
+          console.log("ScrollSmoother recreated after TOC navigation");
+        }, 1500);
+      } else {
+        // Fallback to native scroll
+        heading.scrollIntoView({ behavior: 'smooth' });
+      }
     });
+    
+    li.appendChild(a);
+    ul.appendChild(li);
   });
-
-  // Observe headings → highlight active section while scrolling
   
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (isScrolling) return; // Don't update during programmatic scroll
-      
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-          setActiveById(entry.target.id);
-        }
-      });
-    },
-    { 
-      rootMargin: "-20% 0px -60% 0px",
-      threshold: [0, 0.25, 0.5, 0.75, 1]
-    }
-  );
-
-  headings.forEach((h) => observer.observe(h));
-
-  // Handle hash navigation
-  function handleHash() {
-    if (!location.hash) return;
-    const id = location.hash.slice(1);
-    const target = document.getElementById(id);
-    if (!target) return;
-    
-    isScrolling = true;
-    setActiveById(id);
-    smoothScrollTo(target, defaultOffset);
-    
-    setTimeout(() => {
-      isScrolling = false;
-    }, 1200);
-  }
-
-  window.addEventListener("hashchange", handleHash);
-  
-  // Handle initial hash on page load
-  if (location.hash) {
-    setTimeout(handleHash, 100);
-  }
-}
-
-// Initialize table of contents
-function initTableOfContents() {
-  const article = document.getElementById("single-article");
-  const tocContainer = document.getElementById("toc");
-
-  if (!article || !tocContainer) return;
-
-  buildTOC(article, tocContainer);
-  setupActiveState(article, tocContainer);
+  tocContainer.appendChild(ul);
+  console.log(`✓ Built TOC with ${headings.length} links (WORKING: Disable ScrollSmoother for TOC)`);
 }
 
 //
 //------- Initialize -------//
 //
 
+function initTableOfContents() {
+  const article = document.getElementById("single-article");
+  const tocContainer = document.getElementById("toc");
+
+  if (!article || !tocContainer) {
+    console.warn("Article or TOC container not found");
+    return;
+  }
+
+  // Step 1: Add IDs to headings
+  addAnchorIds(article);
+  
+  // Step 2: Build TOC list
+  buildTocElements(article, tocContainer);
+  
+  console.log("✓ Table of Contents initialized");
+}
+
+// Run when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   initTableOfContents();
 });
-
