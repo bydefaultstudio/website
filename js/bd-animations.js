@@ -72,14 +72,15 @@ function textAnimations() {
 }
 
 function getScrubValue(element) {
-  const scrubAttr = element.getAttribute("data-bd-scrub");
-  
-  if (!scrubAttr) {
-    return undefined; // No scrub
+  // Check if the attribute exists (regardless of value)
+  if (!element.hasAttribute("data-bd-scrub")) {
+    return undefined; // No scrub attribute at all
   }
   
-  // If attribute exists but string is empty, treat as "true"
-  if (scrubAttr === "") {
+  const scrubAttr = element.getAttribute("data-bd-scrub");
+  
+  // If attribute exists but has no value or empty string, treat as "true"
+  if (!scrubAttr || scrubAttr === "") {
     return true;
   }
   
