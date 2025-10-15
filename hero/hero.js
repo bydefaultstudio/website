@@ -249,8 +249,8 @@ function heroPlayPop(impact = 1) {
     osc = window.heroPhysics.audioCtx.createOscillator(),
     gain = window.heroPhysics.audioCtx.createGain();
   const speed = Math.min(Math.max(impact, 0), 10),
-    peak = 0.12 + 0.12 * (speed / 10),
-    pitch = 220 + 70 * speed;
+    peak = 0.01 + 0.02 * (speed / 10), // Reduced from 0.12 + 0.12 to 0.04 + 0.06
+    pitch = 100 + 10 * speed; // Reduced from 220 + 70 to 180 + 40 for softer tone
   osc.type = "triangle";
   osc.frequency.setValueAtTime(pitch, t);
   gain.gain.setValueAtTime(0.0001, t);
@@ -559,8 +559,8 @@ function setupResponsiveHandling() {
 
 // Collisions
 function setupCollisionEvents() {
-  const SOUND_COOLDOWN_MS = 120;
-  const MIN_SPEED_FOR_SOUND = 1.2;
+  const SOUND_COOLDOWN_MS = 300; // Increased from 120ms to 300ms (less frequent)
+  const MIN_SPEED_FOR_SOUND = 2.0; // Increased from 1.2 to 2.0 (only faster collisions)
   Matter.Events.on(window.heroPhysics.engine, "collisionStart", (evt) => {
     if (!window.heroPhysics.soundEnabled) return;
     const now = performance.now();
