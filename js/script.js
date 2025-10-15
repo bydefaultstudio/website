@@ -20,7 +20,7 @@ function isTouchDevice() {
 function setupScrollSmoother() {
   if (!isTouchDevice()) {
     ScrollSmoother.create({
-      smooth: 1.5, // Adjust smoothness
+      smooth: 1, // Adjust smoothness
       effects: true,
       smoothTouch: 0, // This value is for non-touch devices
     });
@@ -46,7 +46,7 @@ function logoSlider() {
       drag: false,
       autoScroll: {
         autoStart: true,
-        speed: 0.5,
+        speed: 0.3,
         pauseOnHover: false,
       },
       breakpoints: {
@@ -170,7 +170,7 @@ function refreshObserve(attribute = "data-refresh") {
 document.addEventListener("DOMContentLoaded", () => {
   setupScrollSmoother();
   pinElements();
-  // refreshObserve();
+  refreshObserve();
   logoSlider();
   blogPostSlider();
 });

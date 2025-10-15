@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Study Pinning Test - By Default</title>
+  
+  <!-- GSAP and ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollSmoother.min.js"></script>
+  
+  <!-- Splide for sliders -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f8f9fa;
+    }
+
+    /* Fixed header for testing */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e9ecef;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    /* Main content with top padding to account for fixed header */
+    .main-content {
+      padding-top: 80px;
+    }
+
+    /* Section styling */
+    .section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #2c3e50;
+    }
+
+    .section p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+
+    /* Case study content styling */
+    .case-study-content {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin: 40px 0;
+    }
+
+    .case-study_content-block {
+      padding: 40px;
+    }
+
+    .case-study_content-block h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+    }
+
+    .case-study_content-block p {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: #555;
+    }
+
+    .case-study_content-block ul {
+      margin: 1.5rem 0;
+      padding-left: 2rem;
+    }
+
+    .case-study_content-block li {
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+
+    /* Short content block (should pin from top) */
+    .short-content {
+      min-height: 400px;
+    }
+
+    /* Long content block (should scroll through content) */
+    .long-content {
+      min-height: 150vh; /* Much taller than viewport */
+    }
+
+    /* Toggle button */
+    .toggle-button {
+      position: fixed;
+      top: 100px;
+      right: 40px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 1001;
+      transition: background-color 0.2s;
+    }
+
+    .toggle-button:hover {
+      background: #0056b3;
+    }
+
+    /* Debug info */
+    .debug-info {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 12px;
+      z-index: 1001;
+      max-width: 300px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+      .section {
+        padding: 40px 20px;
+      }
+      
+      .case-study_content-block {
+        padding: 20px;
+      }
+      
+      .toggle-button {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed header for testing offset -->
+  <header class="fixed-header" data-fixed>
+    Case Study Pinning Test - Desktop Only
+  </header>
+
+  <!-- Toggle button for testing -->
+  <button class="toggle-button" id="btn-project-info">
+    <span class="icn-info">
+      <svg class="svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M13 18H11V10H13V18Z" fill="white"/>
+        <path d="M12 6C12.35 6 12.646 6.12064 12.8877 6.3623C13.1294 6.60397 13.25 6.9 13.25 7.25C13.25 7.6 13.1294 7.89603 12.8877 8.1377C12.646 8.37936 12.35 8.5 12 8.5C11.65 8.5 11.354 8.37936 11.1123 8.1377C10.8706 7.89603 10.75 7.6 10.75 7.25C10.75 6.9 10.8706 6.60397 11.1123 6.3623C11.354 6.12064 11.65 6 12 6Z" fill="white"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12C0 5.37258 5.37258 0 12 0ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2Z" fill="white"/>
+      </svg>
+    </span>
+    <span class="icn-close" style="display: none;">
+      <svg class="svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M6.4 19L5 17.6L9.18579 13.4142C9.96684 12.6332 9.96684 11.3668 9.18579 10.5858L5 6.4L6.4 5L10.5858 9.18579C11.3668 9.96684 12.6332 9.96684 13.4142 9.18579L17.6 5L19 6.4L14.8142 10.5858C14.0332 11.3668 14.0332 12.6332 14.8142 13.4142L19 17.6L17.6 19L13.4142 14.8142C12.6332 14.0332 11.3668 14.0332 10.5858 14.8142L6.4 19Z" fill="white"/>
+      </svg>
+    </span>
+  </button>
+
+  <!-- Debug info -->
+  <div class="debug-info" id="debug-info">
+    <div>Device: <span id="device-info">Checking...</span></div>
+    <div>Viewport: <span id="viewport-info">-</span></div>
+    <div>Blocks found: <span id="blocks-info">-</span></div>
+  </div>
+
+  <div class="main-content">
+    <!-- Introduction section -->
+    <section class="section">
+      <h2>Case Study Pinning Test</h2>
+      <p>This page demonstrates the new case study content pinning functionality. The pinning only works on desktop devices (992px and above) and will be skipped on touch devices.</p>
+      <p>Scroll down to see the case study content blocks in action. The first block is short (should pin from top), the second is long (should scroll through content).</p>
+    </section>
+
+    <!-- Short content block test -->
+    <section class="section">
+      <h2>Short Content Block Test</h2>
+      <p>This section contains a case study content block that is shorter than the viewport height. It should pin from the top when you scroll into the section.</p>
+      
+      <div class="case-study-content">
+        <div class="case-study_content-block short-content">
+          <h3>Short Content Block</h3>
+          <p>This content block is designed to be shorter than the viewport height. When you scroll down and reach this section, the content block should pin to the top of the viewport and stay there while the rest of the page scrolls past.</p>
+          <p>This demonstrates the "Short Mode" pinning behavior where the entire content block remains visible while pinned.</p>
+          <ul>
+            <li>Content height is less than viewport height</li>
+            <li>Pins from the top of the viewport</li>
+            <li>Stays fully visible during scroll</li>
+            <li>Unpins when the section ends</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Long content block test -->
+    <section class="section">
+      <h2>Long Content Block Test</h2>
+      <p>This section contains a case study content block that is much taller than the viewport height. It should pin and allow you to scroll through the content.</p>
+      
+      <div class="case-study-content">
+        <div class="case-study_content-block long-content">
+          <h3>Long Content Block</h3>
+          <p>This content block is designed to be much taller than the viewport height. When you scroll down and reach this section, the content block should pin to the viewport and allow you to scroll through its content.</p>
+          <p>This demonstrates the "Long Mode" pinning behavior where the page scroll drives the internal reading progress of the content block.</p>
+          
+          <h4>Section 1: Introduction</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          
+          <h4>Section 2: Methodology</h4>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          
+          <h4>Section 3: Results</h4>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          
+          <h4>Section 4: Analysis</h4>
+          <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+          
+          <h4>Section 5: Conclusion</h4>
+          <p>Consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.</p>
+          
+          <h4>Section 6: Future Work</h4>
+          <p>Nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+          
+          <h4>Section 7: References</h4>
+          <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+          
+          <h4>Section 8: Appendix</h4>
+          <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional content to ensure scrolling -->
+    <section class="section">
+      <h2>Additional Content</h2>
+      <p>This section provides additional content to ensure there's enough scrollable area to test the pinning behavior thoroughly.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </section>
+  </div>
+
+  <!-- Include the scripts -->
+  <script src="/js/script.js"></script>
+  <script src="/js/case-study.js"></script>
+  
+  <!-- Debug script -->
+  <script>
+    // Update debug info
+    function updateDebugInfo() {
+      const deviceInfo = document.getElementById('device-info');
+      const viewportInfo = document.getElementById('viewport-info');
+      const blocksInfo = document.getElementById('blocks-info');
+      
+      // Device info
+      const isDesktop = window.matchMedia("(min-width: 992px)").matches;
+      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      deviceInfo.textContent = `${isDesktop ? 'Desktop' : 'Mobile'} ${isTouch ? '(Touch)' : '(No Touch)'}`;
+      
+      // Viewport info
+      viewportInfo.textContent = `${window.innerWidth}x${window.innerHeight}`;
+      
+      // Blocks info
+      const blocks = document.querySelectorAll('.case-study_content-block');
+      blocksInfo.textContent = blocks.length;
+      
+      // Log measurements for each block
+      blocks.forEach((block, index) => {
+        const measurements = {
+          VH: window.innerHeight,
+          CBH: block.offsetHeight,
+          CTH: block.closest('.case-study-content').offsetHeight,
+          mode: block.offsetHeight <= window.innerHeight ? 'Short' : 'Long'
+        };
+        console.log(`Block ${index + 1} measurements:`, measurements);
+      });
+    }
+    
+    // Update on load and resize
+    window.addEventListener('load', updateDebugInfo);
+    window.addEventListener('resize', updateDebugInfo);
+    
+    // Update every 2 seconds to catch dynamic changes
+    setInterval(updateDebugInfo, 2000);
+  </script>
+</body>
+</html>

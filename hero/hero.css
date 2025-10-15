@@ -1,0 +1,92 @@
+/* Hero Physics Canvas Styles */
+
+#hero-physics-canvas {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+  border: none;
+  outline: none;
+  touch-action: pan-y;
+}
+/* Remove any border/outline/shadow around container/canvas */
+#hero-physics-canvas,
+#hero-physics-canvas canvas,
+canvas {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+
+
+body.hero-modal-open {
+  overflow: hidden;
+}
+
+/* Sound toggle styling */
+#hero-sound-toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 54px;
+  height: 32px;
+  background:var(--_semantic---background--background-secondary);
+  border: 1px solid var(--_semantic---border--border-faded);
+  outline: none;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+#hero-sound-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  background: var(--_semantic---text--text-primary);
+  transform: translate(0, -50%);
+  transition: transform 0.2s ease;
+}
+#hero-sound-toggle:checked {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+}
+#hero-sound-toggle:checked::before {
+  transform: translate(22px, -50%);
+}
+#hero-sound-toggle:focus-visible {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25),
+    0 0 0 3px rgba(99, 102, 241, 0.45);
+}
+#hero-sound-toggle:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+@media (prefers-reduced-motion: reduce) {
+  #hero-sound-toggle,
+  #hero-sound-toggle::before {
+    transition: none;
+  }
+}
+
+/* === Score HUD === */
+.hero-score-bar > span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #3b82f6);
+  transition: width 0.18s ease;
+}
+
+
+
+/* Voice control for accessibility */
+.hero-voice-control {
+  cursor: pointer;
+}
