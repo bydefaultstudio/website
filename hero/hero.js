@@ -309,12 +309,36 @@ class KeyVisualCollection {
       debouncedSpawn(e);
     });
     
-    // Touch events for mobile
+    // Touch events for mobile - distinguish between tap and scroll
+    let touchStartTime = 0;
+    let touchStartY = 0;
+    let touchMoved = false;
+    
     this.container.addEventListener('touchstart', (e) => {
-      console.log('👆 Touch event detected');
-      e.preventDefault();
-      debouncedSpawn(e.touches[0]);
-    }, { passive: false });
+      console.log('👆 Touch start detected');
+      touchStartTime = Date.now();
+      touchStartY = e.touches[0].clientY;
+      touchMoved = false;
+    }, { passive: true });
+    
+    this.container.addEventListener('touchmove', (e) => {
+      if (Math.abs(e.touches[0].clientY - touchStartY) > 10) {
+        touchMoved = true;
+      }
+    }, { passive: true });
+    
+    this.container.addEventListener('touchend', (e) => {
+      const touchDuration = Date.now() - touchStartTime;
+      console.log(`👆 Touch end - duration: ${touchDuration}ms, moved: ${touchMoved}`);
+      
+      // Only spawn if it was a quick tap (not a scroll)
+      if (touchDuration < 300 && !touchMoved) {
+        console.log('✅ Quick tap detected, spawning key visual');
+        debouncedSpawn(e.changedTouches[0]);
+      } else {
+        console.log('📱 Scroll gesture detected, not spawning');
+      }
+    }, { passive: true });
     
     console.log('🎧 Event listeners setup complete');
   }
