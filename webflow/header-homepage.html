@@ -26,6 +26,58 @@
 <!-- Hero Section CSS -->
 <link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.7.1/hero/hero.css" rel="stylesheet">
 
+
+<style>
+/*--current theme css--*/
+.w-nav-overlay {
+    width: 100%!important;
+}
+
+.nav-menu-wrapper-overlay {
+    background-color: #fceda2;
+    width: 100%;
+    height: 99.9vh!important;
+    padding-bottom: 40px;
+    position: fixed;
+    inset: 0%;
+    overflow-y: scroll;
+}
+.menu-button-burger.w-nav-button.w--open {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    width: 52px;
+    height: 52px;
+    z-index: 15;
+    opacity: 0;
+}
+/*--current theme css ends--*/
+
+  body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  .nav-menu.menu-open {
+    display: flex !important;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 100vh;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 991px) {
+    .nav-menu {
+      display: none;
+    }
+  }
+body { margin: 0; }
+#myContainer {
+  border: none;
+}
+</style>
+
 <!-- Full width on mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"> 
 
