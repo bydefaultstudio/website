@@ -6,7 +6,7 @@
  * Last Updated: 2024-12-19
  */
 
-console.log("Script — Key Visuals");
+console.log("Script v1.0 — Key Visual Collection Loaded");
 
 //
 //------- Utility Functions -------//
@@ -63,30 +63,27 @@ class KeyVisualCollection {
     console.log("Key Visual Collection initialized");
   }
 
-  // Create the overlay for key visuals within the hero section
+  // Create the fixed overlay for key visuals
   createOverlay() {
     const overlay = document.createElement('div');
     overlay.id = 'key-visual-overlay';
     overlay.style.cssText = `
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       z-index: 1000;
       overflow: hidden;
     `;
-    // Append to the hero container instead of body
-    this.container.appendChild(overlay);
+    document.body.appendChild(overlay);
     this.overlay = overlay;
   }
 
   // Check if device is mobile
   isMobile() {
-    const isMobile = window.innerWidth <= 768;
-    console.log(`📱 Mobile detection: ${isMobile} (width: ${window.innerWidth}px)`);
-    return isMobile;
+    return window.innerWidth <= 768;
   }
 
   // Get responsive animation config based on screen size
@@ -99,7 +96,7 @@ class KeyVisualCollection {
         exitDuration: 0.8,         // Faster exit on mobile
         scaleRange: [0.95, 1.05],  // Less dramatic scaling
         rotationRange: [-3, 3],    // Less rotation on mobile
-        driftDistance: 10,         // Very short drift distance
+        driftDistance: 20,         // Very short drift distance
         driftXMultiplier: 0.05,    // Much less X movement on mobile
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
@@ -111,7 +108,7 @@ class KeyVisualCollection {
         exitDuration: 3.0,
         scaleRange: [0.9, 1.1],
         rotationRange: [-5, 5],
-        driftDistance: 10,
+        driftDistance: 30,
         driftXMultiplier: 0.1,
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
@@ -126,175 +123,57 @@ class KeyVisualCollection {
         '16:9': '70vw',  // Landscape - larger on mobile
         '4:5': '50vw',   // Portrait - medium width
         '1:1': '55vw',   // Square - medium width
-        '2:1': '60vw',   // Ultra-wide landscape - larger
+        '2:1': '70vw',   // Ultra-wide landscape - larger
         '9:16': '45vw'   // Ultra-tall portrait - smaller
       };
     } else {
       // Desktop: original widths
       return {
-        '16:9': '45vw',  // Landscape - larger width
-        '4:5': '30vw',   // Portrait - smaller width
-        '1:1': '35vw',   // Square - medium width
-        '2:1': '60vw',   // Ultra-wide landscape - extra large width
-        '9:16': '20vw'   // Ultra-tall portrait - smaller width
+        '16:9': '50vw',  // Landscape - larger width
+        '4:5': '35vw',   // Portrait - smaller width
+        '1:1': '40vw',   // Square - medium width
+        '2:1': '50vw',   // Ultra-wide landscape - extra large width
+        '9:16': '30vw'   // Ultra-tall portrait - smaller width
       };
     }
   }
 
-  // Load key visuals from Webflow CMS inline JSON feed
+  // Load the curated collection of key visuals
   loadCollection() {
     // Get responsive display widths
     this.ratioDisplayWidths = this.getResponsiveDisplayWidths();
 
-    // Try to load from Webflow CMS JSON feed first
-    const cmsData = this.parseWebflowCMSFeed();
-    
-    if (cmsData && cmsData.length > 0) {
-      this.collection = cmsData;
-      console.log(`📊 Loaded ${cmsData.length} key visuals from Webflow CMS`);
-      
-      // Pre-warm the first asset for better performance
-      this.preWarmFirstAsset();
-    } else {
-      // Fallback to default collection if no CMS data
-      this.collection = this.getDefaultCollection();
-      console.log('📊 Using default key visual collection');
-    }
-  }
-
-  // Parse Webflow CMS inline JSON feed
-  parseWebflowCMSFeed() {
-    const feedContainer = document.querySelector('#kv-json-feed');
-    
-    if (!feedContainer) {
-      console.log('📊 No Webflow CMS feed found (#kv-json-feed), using defaults');
-      return null;
-    }
-
-    const jsonBlocks = feedContainer.querySelectorAll('.kv-json');
-    console.log(`📦 Found ${jsonBlocks.length} JSON blocks`);
-
-    const parsedItems = [];
-
-    jsonBlocks.forEach((block, index) => {
-      try {
-        const jsonText = block.textContent.trim();
-        console.log(`📄 JSON block ${index}:`, jsonText);
-        
-        const item = JSON.parse(jsonText);
-        
-        // Validate required fields
-        if (!item.src) {
-          console.warn(`⚠️ Skipping item ${index} - no src`);
-          return;
-        }
-
-        // Normalize to internal format (Webflow JSON structure)
-        const normalizedItem = {
-          type: item.type || 'image',
-          src: item.src,
-          poster: item.poster || null,
-          alt: item.alt || 'Key visual',
-          ratio: item.ratio || '16:9',
-          weight: item.weight || 1,
-          drop: item.drop || null,
-          order: item.order || index
-        };
-
-        parsedItems.push(normalizedItem);
-      } catch (error) {
-        console.error(`❌ Failed to parse JSON block ${index}:`, error);
-        console.error(`❌ Raw content:`, block.textContent);
-      }
-    });
-
-    // Sort by order
-    parsedItems.sort((a, b) => a.order - b.order);
-
-    // Remove the feed from DOM to free memory
-    feedContainer.remove();
-
-    return parsedItems;
-  }
-
-  // Pre-warm the first asset for better performance
-  preWarmFirstAsset() {
-    if (!this.collection || this.collection.length === 0) return;
-
-    const firstVisual = this.collection[0];
-    
-    if (firstVisual.type === 'video') {
-      // Pre-warm video metadata
-      const preloadLink = document.createElement('link');
-      preloadLink.rel = 'preload';
-      preloadLink.as = 'video';
-      preloadLink.href = firstVisual.src;
-      document.head.appendChild(preloadLink);
-      
-      if (firstVisual.poster) {
-        // Pre-warm poster image
-        const posterLink = document.createElement('link');
-        posterLink.rel = 'preload';
-        posterLink.as = 'image';
-        posterLink.href = firstVisual.poster;
-        document.head.appendChild(posterLink);
-      }
-    } else {
-      // Pre-warm image
-      const preloadLink = document.createElement('link');
-      preloadLink.rel = 'preload';
-      preloadLink.as = 'image';
-      preloadLink.href = firstVisual.src;
-      document.head.appendChild(preloadLink);
-    }
-    
-    console.log('🔥 Pre-warmed first asset:', firstVisual.src);
-  }
-
-  // Default fallback collection
-  getDefaultCollection() {
-    return [
+    // Curated collection of key visuals with varied dimensions and asset types
+    this.collection = [
       { 
         type: 'image', 
         src: 'https://placehold.co/1920x1080/094C45/B6D6A5?text=PNG', 
-        ratio: '16:9',
-        weight: 1,
-        order: 1
+        ratio: '16:9'
       },
       { 
         type: 'gif', 
         src: 'https://placehold.co/1200x1500/F7A3BC/2B2B2B?text=GIF', 
-        ratio: '4:5',
-        weight: 1,
-        order: 2
+        ratio: '4:5'
       },
       { 
         type: 'video', 
         src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4', 
-        ratio: '16:9',
-        weight: 1,
-        order: 3
+        ratio: '16:9'
       },
       { 
         type: 'image', 
         src: 'https://placehold.co/1080x1080/FFB533/2B2B2B?text=PNG', 
-        ratio: '1:1',
-        weight: 1,
-        order: 4
+        ratio: '1:1'
       },
       { 
         type: 'video', 
         src: 'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4', 
-        ratio: '16:9',
-        weight: 1,
-        order: 5
+        ratio: '16:9'
       },
       { 
         type: 'image', 
         src: 'https://placehold.co/900x1600/094C45/B6D6A5?text=PNG', 
-        ratio: '9:16',
-        weight: 1,
-        order: 6
+        ratio: '9:16'
       }
     ];
   }
@@ -304,19 +183,13 @@ class KeyVisualCollection {
     const debouncedSpawn = debounce((e) => this.spawnKeyVisual(e), this.spawnCooldown);
     
     // Mouse events
-    this.container.addEventListener('click', (e) => {
-      console.log('🖱️ Click event detected');
-      debouncedSpawn(e);
-    });
+    this.container.addEventListener('click', debouncedSpawn);
     
     // Touch events for mobile
     this.container.addEventListener('touchstart', (e) => {
-      console.log('👆 Touch event detected');
       e.preventDefault();
       debouncedSpawn(e.touches[0]);
     }, { passive: false });
-    
-    console.log('🎧 Event listeners setup complete');
   }
 
   // Setup responsive listener for screen size changes
@@ -335,45 +208,22 @@ class KeyVisualCollection {
 
   // Spawn a key visual at the click position
   spawnKeyVisual(event) {
-    console.log('🎯 spawnKeyVisual called');
-    console.log('📊 Initialized:', this.isInitialized);
-    console.log('📊 Active visuals:', this.activeKeyVisuals.length, '/', this.maxKeyVisuals);
-    
-    if (!this.isInitialized) {
-      console.log('❌ Not initialized, skipping');
-      return;
-    }
-    
-    if (this.activeKeyVisuals.length >= this.maxKeyVisuals) {
-      console.log('❌ Max visuals reached, skipping');
-      return;
-    }
+    if (!this.isInitialized || this.activeKeyVisuals.length >= this.maxKeyVisuals) return;
     
     const now = Date.now();
-    if (now - this.lastSpawnTime < this.spawnCooldown) {
-      console.log('❌ Cooldown active, skipping');
-      return;
-    }
+    if (now - this.lastSpawnTime < this.spawnCooldown) return;
     this.lastSpawnTime = now;
 
     const rect = this.container.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-    
-    console.log(`📍 Position: x=${x}, y=${y}`);
-    console.log(`📐 Container: width=${rect.width}, height=${rect.height}`);
 
     // Don't spawn too close to edges
-    if (x < 50 || x > rect.width - 50 || y < 50 || y > rect.height - 50) {
-      console.log('❌ Too close to edges, skipping');
-      return;
-    }
+    if (x < 50 || x > rect.width - 50 || y < 50 || y > rect.height - 50) return;
 
-    console.log('✅ Creating key visual...');
     const keyVisual = this.createKeyVisual(x, y);
     this.animateKeyVisual(keyVisual);
     this.activeKeyVisuals.push(keyVisual);
-    console.log('🎨 Key visual created and added to active list');
   }
 
   // Create a key visual element
@@ -400,13 +250,8 @@ class KeyVisualCollection {
       mediaElement.loop = true;                     // Loop continuously
       mediaElement.playsInline = true;              // Play inline on mobile
       mediaElement.controls = false;                // No controls for clean look
-      mediaElement.preload = 'metadata';            // Load metadata for poster
+      mediaElement.preload = 'none';                // Don't preload until needed
       mediaElement.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
-      
-      // Set poster image if provided
-      if (visual.poster) {
-        mediaElement.poster = visual.poster;
-      }
       
       // Load and play video when it becomes visible
       mediaElement.load();
@@ -416,20 +261,20 @@ class KeyVisualCollection {
       // GIF: treat as image for optimal performance
       mediaElement = document.createElement('img');
       mediaElement.src = visual.src;
-      mediaElement.alt = visual.alt || 'Key visual GIF';
+      mediaElement.alt = `Key visual GIF`;
       mediaElement.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
       
     } else {
       // Default: PNG/JPEG images
       mediaElement = document.createElement('img');
       mediaElement.src = visual.src;
-      mediaElement.alt = visual.alt || 'Key visual';
+      mediaElement.alt = `Key visual`;
       mediaElement.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
     }
     
     keyVisual.appendChild(mediaElement);
     
-    // Set common styling with relative positioning within hero container
+    // Set common styling
     keyVisual.style.cssText = `
       position: absolute;
       left: ${x}px;
@@ -456,16 +301,10 @@ class KeyVisualCollection {
     return keyVisual;
   }
 
-  // Select key visual consecutively
+  // Select next key visual from collection consecutively
   selectNextKeyVisual() {
-    if (!this.collection || this.collection.length === 0) {
-      return null;
-    }
-
-    // Simple consecutive selection
     const visual = this.collection[this.currentImageIndex];
     this.currentImageIndex = (this.currentImageIndex + 1) % this.collection.length;
-    
     return visual;
   }
 
@@ -543,14 +382,9 @@ class KeyVisualCollection {
     return this.collection.map((visual, index) => ({
       index,
       type: visual.type,
-      src: visual.src,
-      poster: visual.poster,
-      alt: visual.alt,
       ratio: visual.ratio,
-      weight: visual.weight,
-      drop: visual.drop,
-      order: visual.order,
-      displayWidth: this.ratioDisplayWidths[visual.ratio] || '40vw'
+      displayWidth: this.ratioDisplayWidths[visual.ratio] || '40vw',
+      url: visual.src
     }));
   }
 

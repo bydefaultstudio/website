@@ -1,92 +1,100 @@
-/* Hero Physics Canvas Styles */
+/* ========================================
+   Hero Section Styles
+   ======================================== */
 
-#hero-physics-canvas {
+/* === Key Visual Container === */
+#key-visual-container {
+  position: relative;
   width: 100%;
   height: 100vh;
+  min-height: 600px;
   overflow: hidden;
-}
-canvas {
-  display: block;
-  border: none;
-  outline: none;
-  touch-action: pan-y;
-}
-/* Remove any border/outline/shadow around container/canvas */
-#hero-physics-canvas,
-#hero-physics-canvas canvas,
-canvas {
-  border: 0 !important;
-  outline: 0 !important;
-  box-shadow: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
+
+  user-select: none;
 }
 
-
-
-body.hero-modal-open {
-  overflow: hidden;
-}
-
-/* Sound toggle styling */
-#hero-sound-toggle {
-  -webkit-appearance: none;
-  appearance: none;
+/* === Hero Content === */
+.hero-content {
   position: relative;
-  width: 54px;
-  height: 32px;
-  background:var(--_semantic---background--background-secondary);
-  border: 1px solid var(--_semantic---border--border-faded);
-  outline: none;
-  cursor: pointer;
-  vertical-align: middle;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  padding: 2rem;
+  pointer-events: none; /* Allow clicks to pass through to container */
 }
-#hero-sound-toggle::before {
-  content: "";
+
+/* === Hero Title === */
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  color: #111;
+}
+
+
+/* === Key Visual Overlay === */
+#key-visual-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* === Key Visual Styles === */
+.key-visual {
   position: absolute;
-  top: 50%;
-  left: 4px;
-  width: 24px;
-  height: 24px;
-  background: var(--_semantic---text--text-primary);
-  transform: translate(0, -50%);
-  transition: transform 0.2s ease;
+  pointer-events: none;
+  will-change: transform, opacity;
+  overflow: hidden;
+  transition: none; /* Disable CSS transitions for Web Animations API */
 }
-#hero-sound-toggle:checked {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
+
+.key-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-#hero-sound-toggle:checked::before {
-  transform: translate(22px, -50%);
-}
-#hero-sound-toggle:focus-visible {
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25),
-    0 0 0 3px rgba(99, 102, 241, 0.45);
-}
-#hero-sound-toggle:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
+
+/* === Reduced Motion Support === */
 @media (prefers-reduced-motion: reduce) {
-  #hero-sound-toggle,
-  #hero-sound-toggle::before {
-    transition: none;
+  .key-visual {
+    transition: opacity 0.3s ease;
+  }
+  
+  #key-visual-container {
+    cursor: default;
   }
 }
 
-/* === Score HUD === */
-.hero-score-bar > span {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #22c55e, #3b82f6);
-  transition: width 0.18s ease;
+/* === Performance Optimizations === */
+.key-visual {
+  /* Force hardware acceleration */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 1rem;
+  }
+}
 
-
-/* Voice control for accessibility */
-.hero-voice-control {
-  cursor: pointer;
+/* === High DPI Displays === */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .key-visual img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
