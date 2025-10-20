@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - ByDefault Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{CSS_PATH}}">
+    <style>
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <a href="../index.html" class="flex items-center">
+                            <img src="../assets/images/logo_bydefault_primary.svg" alt="ByDefault" class="h-8 w-auto">
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="../index.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="overview/quick-start.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Docs</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="flex min-h-screen">
+            <!-- Sidebar Navigation -->
+            <aside class="SideNavRoot w-64 bg-white border-r border-gray-200 overflow-y-auto">
+                <div class="p-4">
+                    <!-- Overview Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Overview</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="quick-start.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick start</a></li>
+                            <li class="SideNavItem"><a href="accessibility.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accessibility</a></li>
+                            <li class="SideNavItem"><a href="releases.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Releases</a></li>
+                            <li class="SideNavItem"><a href="about.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">About</a></li>
+                        </ul>
+                    </div>
+                    <!-- Handbook Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Handbook</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../handbook/styling.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Styling</a></li>
+                            <li class="SideNavItem"><a href="../handbook/animation.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Animation</a></li>
+                            <li class="SideNavItem"><a href="../handbook/composition.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Composition</a></li>
+                            <li class="SideNavItem"><a href="../handbook/customization.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Customization<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                            <li class="SideNavItem"><a href="../handbook/typescript.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">TypeScript<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Components Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Components</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../components/accordion.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accordion</a></li>
+                            <li class="SideNavItem"><a href="../components/alert-dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Alert Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/autocomplete.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Autocomplete</a></li>
+                            <li class="SideNavItem"><a href="../components/avatar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Avatar</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox Group</a></li>
+                            <li class="SideNavItem"><a href="../components/collapsible.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Collapsible</a></li>
+                            <li class="SideNavItem"><a href="../components/combobox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Combobox</a></li>
+                            <li class="SideNavItem"><a href="../components/context-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Context Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Field</a></li>
+                            <li class="SideNavItem"><a href="../components/fieldset.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Fieldset</a></li>
+                            <li class="SideNavItem"><a href="../components/form.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Form</a></li>
+                            <li class="SideNavItem"><a href="../components/input.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Input</a></li>
+                            <li class="SideNavItem"><a href="../components/menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/menubar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menubar</a></li>
+                            <li class="SideNavItem"><a href="../components/meter.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Meter</a></li>
+                            <li class="SideNavItem"><a href="../components/navigation-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Navigation Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/number-field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Number Field</a></li>
+                            <li class="SideNavItem"><a href="../components/popover.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Popover</a></li>
+                            <li class="SideNavItem"><a href="../components/preview-card.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Preview Card</a></li>
+                            <li class="SideNavItem"><a href="../components/progress.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Progress</a></li>
+                            <li class="SideNavItem"><a href="../components/radio.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Radio</a></li>
+                            <li class="SideNavItem"><a href="../components/scroll-area.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Scroll Area</a></li>
+                            <li class="SideNavItem"><a href="../components/select.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Select</a></li>
+                            <li class="SideNavItem"><a href="../components/separator.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Separator</a></li>
+                            <li class="SideNavItem"><a href="../components/slider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Slider</a></li>
+                            <li class="SideNavItem"><a href="../components/switch.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Switch</a></li>
+                            <li class="SideNavItem"><a href="../components/tabs.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tabs</a></li>
+                            <li class="SideNavItem"><a href="../components/toast.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toast</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle Group</a></li>
+                            <li class="SideNavItem"><a href="../components/toolbar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toolbar</a></li>
+                            <li class="SideNavItem"><a href="../components/tooltip.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tooltip</a></li>
+                        </ul>
+                    </div>
+                    <!-- Utilities Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Utilities</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../utilities/direction-provider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Direction Provider</a></li>
+                            <li class="SideNavItem"><a href="../utilities/use-render.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">useRender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 max-w-4xl">
+                <!-- Hero Section -->
+                <div class="mb-12">
+                    <main class="ContentLayoutMain flex-1 min-w-0" id="main-content">
+                        <div class="max-w-6xl mx-auto px-6 py-8">
+                            <div class="flex gap-8">
+                                <!-- Content Area -->
+                                <div class="flex-1 min-w-0">
+        <h1 class="mb-4 text-3xl font-bold text-balance" id="webflow-guidelines">Webflow Guidelines</h1>
+        <div class="Subtitle flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-5">
+          <p>Documentation for Webflow Guidelines</p>
+          <a href="webflow-guidelines.md" class="flex-shrink-0" aria-label="View markdown source" rel="alternate" type="text/markdown">
+            <span class="MarkdownLink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <title>Markdown</title>
+                <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+              </svg>
+              View as Markdown
+            </span>
+          </a>
+        </div>
+        
+        <div class="prose max-w-none">
+          <h1 class="mb-4 text-3xl font-bold text-balance" id="Webflow Development Guidelines">Webflow Development Guidelines</h1>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Overview"><a class="HeadingLink" href="#Overview">Overview</a></h2>
+
+<p className="mb-4">This document outlines best practices and guidelines for working with the By Default website in Webflow.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow Project Structure"><a class="HeadingLink" href="#Webflow Project Structure">Webflow Project Structure</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Pages"><a class="HeadingLink" href="#Pages">Pages</a></h3>
+<p className="mb-4">Maintain consistent page structure and naming conventions:</p>
+<p className="mb-4">- Use lowercase for page slugs</p>
+<p className="mb-4">- Keep URLs clean and SEO-friendly</p>
+<p className="mb-4">- Organize pages in logical folders</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Classes"><a class="HeadingLink" href="#Classes">Classes</a></h3>
+<p className="mb-4">- Use BEM (Block Element Modifier) naming convention where possible</p>
+<p className="mb-4">- Create reusable combo classes</p>
+<p className="mb-4">- Maintain a consistent naming system</p>
+<p className="mb-4">- Document custom classes</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Components"><a class="HeadingLink" href="#Components">Components</a></h3>
+<p className="mb-4">- Create reusable components for repeated elements</p>
+<p className="mb-4">- Use Webflow's component system for:</p>
+<p className="mb-4">  - Navigation</p>
+<p className="mb-4">  - Footer</p>
+<p className="mb-4">  - Cards</p>
+<p className="mb-4">  - Buttons</p>
+<p className="mb-4">  - Forms</p>
+<p className="mb-4">  - CTAs</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="CMS Collections"><a class="HeadingLink" href="#CMS Collections">CMS Collections</a></h3>
+<p className="mb-4">Current/Potential collections:</p>
+<p className="mb-4">- Blog Posts</p>
+<p className="mb-4">- Case Studies/Projects</p>
+<p className="mb-4">- Services</p>
+<p className="mb-4">- Team Members</p>
+<p className="mb-4">- Testimonials</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Custom Code Integration"><a class="HeadingLink" href="#Custom Code Integration">Custom Code Integration</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Where to Add Custom Code"><a class="HeadingLink" href="#Where to Add Custom Code">Where to Add Custom Code</a></h3>
+
+<p className="mb-4">1. <strong>Site-wide Head Code</strong></p>
+<p className="mb-4">   - Analytics tracking</p>
+<p className="mb-4">   - Font loading</p>
+<p className="mb-4">   - Meta tags</p>
+
+<p className="mb-4">2. <strong>Site-wide Footer Code</strong></p>
+<p className="mb-4">   - Global JavaScript</p>
+<p className="mb-4">   - Third-party scripts</p>
+
+<p className="mb-4">3. <strong>Page-specific Code</strong></p>
+<p className="mb-4">   - Page-unique functionality</p>
+<p className="mb-4">   - Specific tracking codes</p>
+
+<p className="mb-4">4. <strong>Embed Elements</strong></p>
+<p className="mb-4">   - Inline code snippets</p>
+<p className="mb-4">   - Custom widgets</p>
+<p className="mb-4">   - Third-party integrations</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Custom Code Repository"><a class="HeadingLink" href="#Custom Code Repository">Custom Code Repository</a></h3>
+<p className="mb-4">All custom code should be:</p>
+<p className="mb-4">1. Saved in <code className="Code">/custom-code/</code> directory</p>
+<p className="mb-4">2. Documented with comments</p>
+<p className="mb-4">3. Version controlled</p>
+<p className="mb-4">4. Tested before deployment</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Accessibility Checklist"><a class="HeadingLink" href="#Accessibility Checklist">Accessibility Checklist</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Required for All Pages"><a class="HeadingLink" href="#Required for All Pages">Required for All Pages</a></h3>
+<p className="mb-4">- [ ] Proper heading hierarchy (H1-H6)</p>
+<p className="mb-4">- [ ] Alt text for all images</p>
+<p className="mb-4">- [ ] ARIA labels for interactive elements</p>
+<p className="mb-4">- [ ] Keyboard navigation support</p>
+<p className="mb-4">- [ ] Focus states for interactive elements</p>
+<p className="mb-4">- [ ] Sufficient color contrast (4.5:1 minimum)</p>
+<p className="mb-4">- [ ] Form labels and error messages</p>
+<p className="mb-4">- [ ] Skip navigation links</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Testing"><a class="HeadingLink" href="#Testing">Testing</a></h3>
+<p className="mb-4">- Test with screen readers (VoiceOver, NVDA, JAWS)</p>
+<p className="mb-4">- Keyboard-only navigation</p>
+<p className="mb-4">- Color contrast checker</p>
+<p className="mb-4">- Responsive design checker</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Responsive Design"><a class="HeadingLink" href="#Responsive Design">Responsive Design</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Breakpoints"><a class="HeadingLink" href="#Breakpoints">Breakpoints</a></h3>
+<p className="mb-4">- Desktop: 1920px+</p>
+<p className="mb-4">- Laptop: 1440px</p>
+<p className="mb-4">- Tablet: 768px - 991px</p>
+<p className="mb-4">- Mobile Landscape: 480px - 767px</p>
+<p className="mb-4">- Mobile Portrait: 320px - 479px</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Best Practices"><a class="HeadingLink" href="#Best Practices">Best Practices</a></h3>
+<p className="mb-4">- Mobile-first approach</p>
+<p className="mb-4">- Test all breakpoints</p>
+<p className="mb-4">- Optimize images for different sizes</p>
+<p className="mb-4">- Ensure touch targets are 44px minimum</p>
+<p className="mb-4">- Stack content appropriately</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Performance Optimization"><a class="HeadingLink" href="#Performance Optimization">Performance Optimization</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Images"><a class="HeadingLink" href="#Images">Images</a></h3>
+<p className="mb-4">- Use WebP format where possible</p>
+<p className="mb-4">- Lazy load below-the-fold images</p>
+<p className="mb-4">- Provide multiple sizes for responsive images</p>
+<p className="mb-4">- Compress images before upload</p>
+<p className="mb-4">- Maximum file size: 200KB for photos, 100KB for graphics</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Interactions"><a class="HeadingLink" href="#Interactions">Interactions</a></h3>
+<p className="mb-4">- Keep animations subtle and purposeful</p>
+<p className="mb-4">- Respect prefers-reduced-motion</p>
+<p className="mb-4">- Test performance on mobile devices</p>
+<p className="mb-4">- Avoid excessive DOM manipulation</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Loading"><a class="HeadingLink" href="#Loading">Loading</a></h3>
+<p className="mb-4">- Minimize custom code in head</p>
+<p className="mb-4">- Defer non-critical scripts</p>
+<p className="mb-4">- Use async loading where appropriate</p>
+<p className="mb-4">- Monitor page load times</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="SEO Best Practices"><a class="HeadingLink" href="#SEO Best Practices">SEO Best Practices</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Meta Information"><a class="HeadingLink" href="#Meta Information">Meta Information</a></h3>
+<p className="mb-4">- Unique title tags (50-60 characters)</p>
+<p className="mb-4">- Compelling meta descriptions (150-160 characters)</p>
+<p className="mb-4">- Open Graph tags for social sharing</p>
+<p className="mb-4">- Twitter card meta tags</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Content"><a class="HeadingLink" href="#Content">Content</a></h3>
+<p className="mb-4">- H1 tag on every page (only one)</p>
+<p className="mb-4">- Logical heading structure</p>
+<p className="mb-4">- Descriptive link text</p>
+<p className="mb-4">- Schema markup where applicable</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Technical"><a class="HeadingLink" href="#Technical">Technical</a></h3>
+<p className="mb-4">- Clean URL structure</p>
+<p className="mb-4">- XML sitemap</p>
+<p className="mb-4">- Robots.txt configuration</p>
+<p className="mb-4">- 301 redirects for changed URLs</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Forms"><a class="HeadingLink" href="#Forms">Forms</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Best Practices"><a class="HeadingLink" href="#Best Practices">Best Practices</a></h3>
+<p className="mb-4">- Clear labels for all fields</p>
+<p className="mb-4">- Helpful placeholder text</p>
+<p className="mb-4">- Required field indicators</p>
+<p className="mb-4">- Error validation messages</p>
+<p className="mb-4">- Success confirmation</p>
+<p className="mb-4">- Privacy policy link</p>
+<p className="mb-4">- reCAPTCHA or similar spam protection</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Newsletter Forms"><a class="HeadingLink" href="#Newsletter Forms">Newsletter Forms</a></h3>
+<p className="mb-4">- Double opt-in confirmation</p>
+<p className="mb-4">- Clear value proposition</p>
+<p className="mb-4">- Privacy compliance</p>
+<p className="mb-4">- Integration with email service</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Integrations"><a class="HeadingLink" href="#Integrations">Integrations</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Current Integrations"><a class="HeadingLink" href="#Current Integrations">Current Integrations</a></h3>
+<p className="mb-4">- Newsletter/Email marketing</p>
+<p className="mb-4">- Analytics</p>
+<p className="mb-4">- Cookie consent management</p>
+<p className="mb-4">- Social media feeds (if applicable)</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Adding New Integrations"><a class="HeadingLink" href="#Adding New Integrations">Adding New Integrations</a></h3>
+<p className="mb-4">1. Document integration purpose</p>
+<p className="mb-4">2. Test in staging environment</p>
+<p className="mb-4">3. Verify data privacy compliance</p>
+<p className="mb-4">4. Monitor performance impact</p>
+<p className="mb-4">5. Update documentation</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Testing Checklist"><a class="HeadingLink" href="#Testing Checklist">Testing Checklist</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Before Publishing"><a class="HeadingLink" href="#Before Publishing">Before Publishing</a></h3>
+<p className="mb-4">- [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)</p>
+<p className="mb-4">- [ ] Mobile device testing (iOS, Android)</p>
+<p className="mb-4">- [ ] Accessibility audit</p>
+<p className="mb-4">- [ ] Performance check (PageSpeed Insights)</p>
+<p className="mb-4">- [ ] Form submissions work</p>
+<p className="mb-4">- [ ] All links functional</p>
+<p className="mb-4">- [ ] Images load correctly</p>
+<p className="mb-4">- [ ] Animations work smoothly</p>
+<p className="mb-4">- [ ] SEO meta tags present</p>
+<p className="mb-4">- [ ] Cookie consent functions properly</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Staging Environment"><a class="HeadingLink" href="#Staging Environment">Staging Environment</a></h3>
+<p className="mb-4">- Always test in staging first</p>
+<p className="mb-4">- Get stakeholder approval</p>
+<p className="mb-4">- Document changes</p>
+<p className="mb-4">- Create backup if major changes</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Deployment Process"><a class="HeadingLink" href="#Deployment Process">Deployment Process</a></h2>
+
+<p className="mb-4">1. <strong>Make Changes in Webflow Designer</strong></p>
+<p className="mb-4">2. <strong>Review in Preview Mode</strong></p>
+<p className="mb-4">3. <strong>Publish to Staging</strong> (bydefault.webflow.io)</p>
+<p className="mb-4">4. <strong>Test Thoroughly</strong></p>
+<p className="mb-4">5. <strong>Get Approval</strong></p>
+<p className="mb-4">6. <strong>Publish to Production</strong> (bydefault.studio)</p>
+<p className="mb-4">7. <strong>Verify Live Site</strong></p>
+<p className="mb-4">8. <strong>Document Changes</strong></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Maintenance"><a class="HeadingLink" href="#Maintenance">Maintenance</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Regular Tasks"><a class="HeadingLink" href="#Regular Tasks">Regular Tasks</a></h3>
+<p className="mb-4">- Update blog content</p>
+<p className="mb-4">- Review and update case studies</p>
+<p className="mb-4">- Check for broken links</p>
+<p className="mb-4">- Monitor site performance</p>
+<p className="mb-4">- Review accessibility</p>
+<p className="mb-4">- Update plugins/integrations</p>
+<p className="mb-4">- Backup Webflow project regularly</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Monthly Review"><a class="HeadingLink" href="#Monthly Review">Monthly Review</a></h3>
+<p className="mb-4">- Analytics review</p>
+<p className="mb-4">- SEO performance</p>
+<p className="mb-4">- User feedback implementation</p>
+<p className="mb-4">- Content updates</p>
+<p className="mb-4">- Technical improvements</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Support & Resources"><a class="HeadingLink" href="#Support & Resources">Support & Resources</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow Resources"><a class="HeadingLink" href="#Webflow Resources">Webflow Resources</a></h3>
+<p className="mb-4">- <a className="Link" href="https://university.webflow.com/">Webflow University</a></p>
+<p className="mb-4">- <a className="Link" href="https://forum.webflow.com/">Webflow Forum</a></p>
+<p className="mb-4">- <a className="Link" href="https://university.webflow.com/docs">Webflow Documentation</a></p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Accessibility Resources"><a class="HeadingLink" href="#Accessibility Resources">Accessibility Resources</a></h3>
+<p className="mb-4">- <a className="Link" href="https://www.w3.org/WAI/WCAG21/quickref/">WCAG Guidelines</a></p>
+<p className="mb-4">- <a className="Link" href="https://webaim.org/">WebAIM</a></p>
+<p className="mb-4">- <a className="Link" href="https://www.a11yproject.com/">A11y Project</a></p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Contact"><a class="HeadingLink" href="#Contact">Contact</a></h3>
+<p className="mb-4">For Webflow-specific questions:</p>
+<p className="mb-4">- Webflow Support</p>
+<p className="mb-4">- hello@bydefault.studio</p>
+
+
+        </div>
+      </div>
+                                <!-- Table of Contents -->
+                                {{QUICK_NAV}}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

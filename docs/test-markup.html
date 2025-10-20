@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markup Test Guide - ByDefault Documentation</title>
+    <meta name="description" content="A complete test file showcasing headers, lists, code blocks, callouts, and other styling elements">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+                            <!-- Deployment Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
+                                <ul class="space-y-1">
+                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Features Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
+                                <ul class="space-y-1">
+                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
+                                <ul class="space-y-1">
+                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Testing Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
+                                <ul class="space-y-1">
+                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Markup Test Guide">Markup Test Guide</h1>
+<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
+  <p class="text-lg text-gray-600 leading-relaxed">Comprehensive testing of all documentation markup features and styling</p>
+  <a href="test-markup.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a>
+</div>
+
+<p class="mb-4 text-gray-700 leading-6">This is a comprehensive test file to verify all the markup styling features work correctly in our documentation system.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Headers and Typography"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Headers and Typography">Headers and Typography</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="H3 Header Test"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#H3 Header Test">H3 Header Test</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This is an H3 header with proper styling and spacing.</p>
+
+<p class="mb-4 text-gray-700 leading-6">#### H4 Header Test</p>
+<p class="mb-4 text-gray-700 leading-6">This is an H4 header (should fall back to paragraph styling since we don't have specific H4 styles).</p>
+
+<p class="mb-4 text-gray-700 leading-6">##### H5 Header Test</p>
+<p class="mb-4 text-gray-700 leading-6">This is an H5 header (should also fall back to paragraph styling).</p>
+
+<p class="mb-4 text-gray-700 leading-6">###### H6 Header Test</p>
+<p class="mb-4 text-gray-700 leading-6">This is an H6 header (should also fall back to paragraph styling).</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Lists Testing"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Lists Testing">Lists Testing</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Unordered Lists"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Unordered Lists">Unordered Lists</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Here's a simple unordered list:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">First item in the list</li>
+<li class="mb-1 text-gray-700 leading-6">Second item with <strong class="font-semibold">bold text</strong> inside</li>
+<li class="mb-1 text-gray-700 leading-6">Third item with <em class="italic">italic text</em> inside</li>
+<li class="mb-1 text-gray-700 leading-6">Fourth item with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">inline code</code> inside</li>
+<li class="mb-1 text-gray-700 leading-6">Fifth item with a <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link to example</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6">Another unordered list with different markers:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Alternative bullet style</li>
+<li class="mb-1 text-gray-700 leading-6">Another item with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code></li>
+<li class="mb-1 text-gray-700 leading-6">Final item</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Ordered Lists"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Ordered Lists">Ordered Lists</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Here's a numbered list:</p>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">First numbered item</li>
+<li class="mb-1 text-gray-700 leading-6">Second item with <strong class="font-semibold">bold content</strong></li>
+<li class="mb-1 text-gray-700 leading-6">Third item with <em class="italic">italic content</em></li>
+<li class="mb-1 text-gray-700 leading-6">Fourth item with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">inline code</code></li>
+<li class="mb-1 text-gray-700 leading-6">Fifth item with a <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">Another numbered list:</p>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Start of new list</li>
+<li class="mb-1 text-gray-700 leading-6">Second item</li>
+<li class="mb-1 text-gray-700 leading-6">Third item</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Mixed Content Lists"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Mixed Content Lists">Mixed Content Lists</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Item with <strong class="font-semibold">bold</strong> and <em class="italic">italic</em> text</li>
+<li class="mb-1 text-gray-700 leading-6">Item with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">inline code</code> and <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">links</a></li>
+<li class="mb-1 text-gray-700 leading-6">Item with multiple elements: <strong class="font-semibold">bold</strong>, <em class="italic">italic</em>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code>, and <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Code Blocks"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Code Blocks">Code Blocks</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="JavaScript Code Block"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#JavaScript Code Block">JavaScript Code Block</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">example.js</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// JavaScript code example
+const greeting = "Hello, World!";
+const user = {
+  name: "John Doe",
+  age: 30,
+  isActive: true
+};
+
+function sayHello(name) {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(sayHello(user.name));`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// JavaScript code example</span>
+<span class="hljs-keyword">const</span> greeting = <span class="hljs-string">&quot;Hello, World!&quot;</span>;
+<span class="hljs-keyword">const</span> user = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;John Doe&quot;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">30</span>,
+  <span class="hljs-attr">isActive</span>: <span class="hljs-literal">true</span>
+};
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">sayHello</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, <span class="hljs-subst">${name}</span>!`</span>;
+}
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">sayHello</span>(user.<span class="hljs-property">name</span>));</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="HTML Code Block"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#HTML Code Block">HTML Code Block</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">index.html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Page</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome</h1>
+        <p>This is a test page.</p>
+    </div>
+</body>
+</html>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Example Page<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Welcome<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This is a test page.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="CSS Code Block"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#CSS Code Block">CSS Code Block</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">styles.css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: #666;
+    line-height: 1.6;
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-selector-class">.container</span> {
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">1200px</span>;
+    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+}
+
+<span class="hljs-selector-tag">h1</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#333</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
+    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">1rem</span>;
+}
+
+<span class="hljs-selector-tag">p</span> {
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#666</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.6</span>;
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Bash Code Block"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Bash Code Block">Bash Code Block</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">install.sh</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`#!/bin/bash
+echo "Installing dependencies..."
+npm install
+echo "Building project..."
+npm run build
+echo "Done!"`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-meta">#!/bin/bash</span>
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Installing dependencies...&quot;</span>
+npm install
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Building project...&quot;</span>
+npm run build
+<span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Done!&quot;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Plain Text Code Block"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Plain Text Code Block">Plain Text Code Block</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">README.txt</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`This is a plain text file
+with multiple lines
+and no syntax highlighting`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs">This is a plain text file
+with multiple lines
+and no syntax highlighting</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Inline Elements"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Inline Elements">Inline Elements</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Inline Code"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Inline Code">Inline Code</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Here's some <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">inline code</code> in a paragraph. You can also have <strong class="font-semibold">bold text</strong> with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code> and <em class="italic">italic text</em> all mixed together.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Links"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Links">Links</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Here are various types of links:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">External link</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="./other-page.html" class="text-primary-600 hover:text-primary-800 underline font-medium">Internal link</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">Link with bold text</a> that has <strong class="font-semibold">bold</strong> content</li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">Link with code</a> that has <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code> content</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Text Formatting"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Text Formatting">Text Formatting</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Bold text</strong> for emphasis</li>
+<li class="mb-1 text-gray-700 leading-6"><em class="italic">Italic text</em> for subtle emphasis</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold"><em class="italic">Bold and italic</strong></em> combined</li>
+<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">Inline code</code> for technical terms</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Bold with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code></strong> mixed together</li>
+<li class="mb-1 text-gray-700 leading-6"><em class="italic">Italic with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code></em> mixed together</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Callouts and Alerts"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Callouts and Alerts">Callouts and Alerts</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Info Callout"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Info Callout">Info Callout</a></h3>
+<div class="mb-3 p-3 border-l-3 border-blue-400 bg-blue-50"><div class="font-medium text-blue-900 mb-1 text-sm">Info</div><div class="text-blue-800 text-sm">This is an informational callout with a title and description.</div></div>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Simple Callout"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Simple Callout">Simple Callout</a></h3>
+<div class="mb-3 p-3 border-l-3 border-gray-300 bg-gray-50"><div class="text-gray-700 text-sm">This is a simple callout without a title, just providing additional information.</div></div>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Warning Callout"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Warning Callout">Warning Callout</a></h3>
+<div class="mb-3 p-3 border-l-3 border-blue-400 bg-blue-50"><div class="font-medium text-blue-900 mb-1 text-sm">Warning</div><div class="text-blue-800 text-sm">This is a warning callout to highlight important information.</div></div>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Success Callout"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Success Callout">Success Callout</a></h3>
+<div class="mb-3 p-3 border-l-3 border-blue-400 bg-blue-50"><div class="font-medium text-blue-900 mb-1 text-sm">Success</div><div class="text-blue-800 text-sm">This is a success callout to indicate successful completion.</div></div>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Complex Mixed Content"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Complex Mixed Content">Complex Mixed Content</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Paragraphs with Various Elements"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Paragraphs with Various Elements">Paragraphs with Various Elements</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This paragraph contains <strong class="font-semibold">bold text</strong>, <em class="italic">italic text</em>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">inline code</code>, and a <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link to example</a>. It should all be styled correctly.</p>
+
+<p class="mb-4 text-gray-700 leading-6">Another paragraph with multiple <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code snippets</code> and <strong class="font-semibold">bold emphasis</strong> throughout the content. This tests how the parser handles mixed content.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Lists with Complex Content"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Lists with Complex Content">Lists with Complex Content</a></h3>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Bold item</strong> with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code> and <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link</a></li>
+<li class="mb-1 text-gray-700 leading-6"><em class="italic">Italic item</em> with <strong class="font-semibold">bold</strong> and <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code> mixed</li>
+<li class="mb-1 text-gray-700 leading-6">Item with multiple <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code snippets</code> and <strong class="font-semibold">bold text</strong></li>
+<li class="mb-1 text-gray-700 leading-6">Final item with all formatting: <strong class="font-semibold">bold</strong>, <em class="italic">italic</em>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">code</code>, and <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">link</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Code Blocks with Comments"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Code Blocks with Comments">Code Blocks with Comments</a></h3>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">complex-example.js</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// This is a complex JavaScript example
+const config = {
+  apiUrl: "https://api.example.com",
+  timeout: 5000,
+  retries: 3
+};
+
+/**
+ * Complex function with multiple parameters
+ * @param {string} name - User name
+ * @param {number} age - User age
+ * @param {boolean} isActive - Active status
+ */
+function createUser(name, age, isActive) {
+  if (!name || age < 0) {
+    throw new Error("Invalid parameters");
+  }
+  
+  return {
+    id: Math.random().toString(36).substr(2, 9),
+    name: name,
+    age: age,
+    isActive: isActive,
+    createdAt: new Date()
+  };
+}
+
+// Usage example
+const user = createUser("John Doe", 30, true);
+console.log("Created user:", user);`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// This is a complex JavaScript example</span>
+<span class="hljs-keyword">const</span> config = {
+  <span class="hljs-attr">apiUrl</span>: <span class="hljs-string">&quot;https://api.example.com&quot;</span>,
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">5000</span>,
+  <span class="hljs-attr">retries</span>: <span class="hljs-number">3</span>
+};
+
+<span class="hljs-comment">/**
+ * Complex function with multiple parameters
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - User name
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">age</span> - User age
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">boolean</span>} <span class="hljs-variable">isActive</span> - Active status
+ */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">createUser</span>(<span class="hljs-params">name, age, isActive</span>) {
+  <span class="hljs-keyword">if</span> (!name || age &lt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&quot;Invalid parameters&quot;</span>);
+  }
+  
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">id</span>: <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>().<span class="hljs-title function_">toString</span>(<span class="hljs-number">36</span>).<span class="hljs-title function_">substr</span>(<span class="hljs-number">2</span>, <span class="hljs-number">9</span>),
+    <span class="hljs-attr">name</span>: name,
+    <span class="hljs-attr">age</span>: age,
+    <span class="hljs-attr">isActive</span>: isActive,
+    <span class="hljs-attr">createdAt</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()
+  };
+}
+
+<span class="hljs-comment">// Usage example</span>
+<span class="hljs-keyword">const</span> user = <span class="hljs-title function_">createUser</span>(<span class="hljs-string">&quot;John Doe&quot;</span>, <span class="hljs-number">30</span>, <span class="hljs-literal">true</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Created user:&quot;</span>, user);</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Edge Cases"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Edge Cases">Edge Cases</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Empty Lines and Spacing"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Empty Lines and Spacing">Empty Lines and Spacing</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This paragraph has multiple empty lines below it:</p>
+
+
+
+<p class="mb-4 text-gray-700 leading-6">The empty lines should be handled correctly.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Special Characters"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Special Characters">Special Characters</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Item with special characters: !@#$%^&*()</li>
+<li class="mb-1 text-gray-700 leading-6">Item with quotes: "double quotes" and 'single quotes'</li>
+<li class="mb-1 text-gray-700 leading-6">Item with brackets: [brackets] and {braces}</li>
+<li class="mb-1 text-gray-700 leading-6">Item with symbols: < > & | \ / ~ <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150"></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Long Content"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Long Content">Long Content</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This is a very long paragraph that contains a lot of text to test how the documentation system handles lengthy content. It should wrap properly and maintain good readability with appropriate line spacing and typography. The content includes various formatting elements like <strong class="font-semibold">bold text</strong>, <em class="italic">italic text</em>, </code>inline code`, and <a href="https://example.com" class="text-primary-600 hover:text-primary-800 underline font-medium">links</a> to ensure they work correctly within longer paragraphs.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Table of Contents Test"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Table of Contents Test">Table of Contents Test</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">This section should appear in the table of contents on the right side of the page.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Nested Section"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Nested Section">Nested Section</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This is a nested section that should appear as a child in the table of contents.</p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Deeply Nested Section</p>
+<p class="mb-4 text-gray-700 leading-6">This is a deeply nested section for testing the table of contents hierarchy.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Another Nested Section"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Another Nested Section">Another Nested Section</a></h3>
+<p class="mb-4 text-gray-700 leading-6">This is another nested section at the same level.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Final Test Section"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Final Test Section">Final Test Section</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">This is the final section to test the complete document generation and ensure all elements are working correctly together.</p>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+    <!-- Desktop Table of Contents -->
+    <div class="hidden xl:block sticky top-20 overflow-y-auto">
+      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Markup Test Guide">Markup Test Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Headers and Typography">Headers and Typography</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#H3 Header Test">H3 Header Test</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Lists Testing">Lists Testing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Unordered Lists">Unordered Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Ordered Lists">Ordered Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Mixed Content Lists">Mixed Content Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Code Blocks">Code Blocks</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#JavaScript Code Block">JavaScript Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#HTML Code Block">HTML Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#CSS Code Block">CSS Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Bash Code Block">Bash Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Plain Text Code Block">Plain Text Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Inline Elements">Inline Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Inline Code">Inline Code</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Links">Links</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Text Formatting">Text Formatting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Callouts and Alerts">Callouts and Alerts</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Info Callout">Info Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Simple Callout">Simple Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Warning Callout">Warning Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Success Callout">Success Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Complex Mixed Content">Complex Mixed Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Paragraphs with Various Elements">Paragraphs with Various Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Lists with Complex Content">Lists with Complex Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Code Blocks with Comments">Code Blocks with Comments</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Edge Cases">Edge Cases</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Empty Lines and Spacing">Empty Lines and Spacing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Special Characters">Special Characters</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Long Content">Long Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Table of Contents Test">Table of Contents Test</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Nested Section">Nested Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Another Nested Section">Another Nested Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Final Test Section">Final Test Section</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Table of Contents -->
+    <div class="xl:hidden mb-8">
+        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
+        <div class="flex flex-col gap-3">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Markup Test Guide">Markup Test Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Headers and Typography">Headers and Typography</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#H3 Header Test">H3 Header Test</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Lists Testing">Lists Testing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Unordered Lists">Unordered Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Ordered Lists">Ordered Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Mixed Content Lists">Mixed Content Lists</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Code Blocks">Code Blocks</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#JavaScript Code Block">JavaScript Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#HTML Code Block">HTML Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#CSS Code Block">CSS Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Bash Code Block">Bash Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Plain Text Code Block">Plain Text Code Block</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Inline Elements">Inline Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Inline Code">Inline Code</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Links">Links</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Text Formatting">Text Formatting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Callouts and Alerts">Callouts and Alerts</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Info Callout">Info Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Simple Callout">Simple Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Warning Callout">Warning Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Success Callout">Success Callout</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Complex Mixed Content">Complex Mixed Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Paragraphs with Various Elements">Paragraphs with Various Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Lists with Complex Content">Lists with Complex Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Code Blocks with Comments">Code Blocks with Comments</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Edge Cases">Edge Cases</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Empty Lines and Spacing">Empty Lines and Spacing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Special Characters">Special Characters</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Long Content">Long Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Table of Contents Test">Table of Contents Test</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Nested Section">Nested Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Another Nested Section">Another Nested Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Final Test Section">Final Test Section</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

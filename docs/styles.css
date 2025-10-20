@@ -1,0 +1,96 @@
+/* ByDefault Documentation - Pure Tailwind CSS */
+/* Minimal custom styles for specific functionality only */
+
+/* Root and Body Setup */
+.root {
+    isolation: isolate;
+}
+
+body {
+    position: relative;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* Disable scrollbar for code blocks */
+.scrollbar-none {
+    scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+/* Utility classes for text balance and scroll margins */
+.text-balance {
+    text-wrap: balance;
+}
+
+.scroll-mt-18 {
+    scroll-margin-top: 4.5rem;
+}
+
+.show-side-nav\:scroll-mt-6 {
+    scroll-margin-top: 1.5rem;
+}
+
+/* Responsive Design for QuickNav */
+@media (max-width: 1024px) {
+    .quick-nav-container {
+        display: none;
+    }
+    
+    .max-w-6xl .flex {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .quick-nav-container {
+        display: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar,
+    .header,
+    .footer {
+        display: none;
+    }
+    
+    .main-content {
+        margin: 0;
+        max-width: none;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

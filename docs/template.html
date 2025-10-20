@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - ByDefault Documentation</title>
+    <meta name="description" content="{{META_DESCRIPTION}}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="{{INDEX_PATH}}" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            {{NAVIGATION}}
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                {{PAGE_CONTENT}}
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            {{QUICK_NAV}}
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

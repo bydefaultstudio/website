@@ -1,3 +1,11 @@
+---
+title: "Quick Reference Guide"
+subtitle: "Essential URLs, commands, and quick access information for the ByDefault website project"
+description: "Quick reference guide containing project URLs, deployment commands, and essential information for developers working on the ByDefault website."
+section: "overview"
+order: 4
+---
+
 # Quick Reference Guide
 
 ## Project URLs

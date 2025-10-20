@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webflow Development Guidelines - ByDefault Documentation</title>
+    <meta name="description" content="Comprehensive guidelines for Webflow development including project structure, component usage, and deployment workflows for the ByDefault website.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+                            <!-- Deployment Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
+                                <ul class="space-y-1">
+                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Features Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
+                                <ul class="space-y-1">
+                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
+                                <ul class="space-y-1">
+                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Testing Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
+                                <ul class="space-y-1">
+                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Webflow Development Guidelines">Webflow Development Guidelines</h1>
+<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
+  <p class="text-lg text-gray-600 leading-relaxed">Best practices and guidelines for working with the ByDefault website in Webflow</p>
+  <a href="webflow-guidelines.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a>
+</div>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Overview"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Overview">Overview</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">This document outlines best practices and guidelines for working with the By Default website in Webflow.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Webflow Project Structure"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Webflow Project Structure">Webflow Project Structure</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Pages"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Pages">Pages</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Maintain consistent page structure and naming conventions:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Use lowercase for page slugs</li>
+<li class="mb-1 text-gray-700 leading-6">Keep URLs clean and SEO-friendly</li>
+<li class="mb-1 text-gray-700 leading-6">Organize pages in logical folders</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Classes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Classes">Classes</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Use BEM (Block Element Modifier) naming convention where possible</li>
+<li class="mb-1 text-gray-700 leading-6">Create reusable combo classes</li>
+<li class="mb-1 text-gray-700 leading-6">Maintain a consistent naming system</li>
+<li class="mb-1 text-gray-700 leading-6">Document custom classes</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Components"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Components">Components</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Create reusable components for repeated elements</li>
+<li class="mb-1 text-gray-700 leading-6">Use Webflow's component system for:</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+<p class="mb-4 text-gray-700 leading-6">  - Navigation</p>
+<p class="mb-4 text-gray-700 leading-6">  - Footer</p>
+<p class="mb-4 text-gray-700 leading-6">  - Cards</p>
+<p class="mb-4 text-gray-700 leading-6">  - Buttons</p>
+<p class="mb-4 text-gray-700 leading-6">  - Forms</p>
+<p class="mb-4 text-gray-700 leading-6">  - CTAs</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="CMS Collections"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#CMS Collections">CMS Collections</a></h3>
+<p class="mb-4 text-gray-700 leading-6">Current/Potential collections:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Blog Posts</li>
+<li class="mb-1 text-gray-700 leading-6">Case Studies/Projects</li>
+<li class="mb-1 text-gray-700 leading-6">Services</li>
+<li class="mb-1 text-gray-700 leading-6">Team Members</li>
+<li class="mb-1 text-gray-700 leading-6">Testimonials</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Custom Code Integration"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Custom Code Integration">Custom Code Integration</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Where to Add Custom Code"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Where to Add Custom Code">Where to Add Custom Code</a></h3>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Site-wide Head Code</strong></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+<p class="mb-4 text-gray-700 leading-6">   - Analytics tracking</p>
+<p class="mb-4 text-gray-700 leading-6">   - Font loading</p>
+<p class="mb-4 text-gray-700 leading-6">   - Meta tags</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Site-wide Footer Code</strong></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+<p class="mb-4 text-gray-700 leading-6">   - Global JavaScript</p>
+<p class="mb-4 text-gray-700 leading-6">   - Third-party scripts</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Page-specific Code</strong></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+<p class="mb-4 text-gray-700 leading-6">   - Page-unique functionality</p>
+<p class="mb-4 text-gray-700 leading-6">   - Specific tracking codes</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Embed Elements</strong></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+<p class="mb-4 text-gray-700 leading-6">   - Inline code snippets</p>
+<p class="mb-4 text-gray-700 leading-6">   - Custom widgets</p>
+<p class="mb-4 text-gray-700 leading-6">   - Third-party integrations</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Custom Code Repository"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Custom Code Repository">Custom Code Repository</a></h3>
+<p class="mb-4 text-gray-700 leading-6">All custom code should be:</p>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Saved in <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">/custom-code/</code> directory</li>
+<li class="mb-1 text-gray-700 leading-6">Documented with comments</li>
+<li class="mb-1 text-gray-700 leading-6">Version controlled</li>
+<li class="mb-1 text-gray-700 leading-6">Tested before deployment</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Accessibility Checklist"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Accessibility Checklist">Accessibility Checklist</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Required for All Pages"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Required for All Pages">Required for All Pages</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">[ ] Proper heading hierarchy (H1-H6)</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Alt text for all images</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] ARIA labels for interactive elements</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Keyboard navigation support</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Focus states for interactive elements</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Sufficient color contrast (4.5:1 minimum)</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Form labels and error messages</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Skip navigation links</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Testing"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Testing">Testing</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Test with screen readers (VoiceOver, NVDA, JAWS)</li>
+<li class="mb-1 text-gray-700 leading-6">Keyboard-only navigation</li>
+<li class="mb-1 text-gray-700 leading-6">Color contrast checker</li>
+<li class="mb-1 text-gray-700 leading-6">Responsive design checker</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Responsive Design"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Responsive Design">Responsive Design</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Breakpoints"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Breakpoints">Breakpoints</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Desktop: 1920px+</li>
+<li class="mb-1 text-gray-700 leading-6">Laptop: 1440px</li>
+<li class="mb-1 text-gray-700 leading-6">Tablet: 768px - 991px</li>
+<li class="mb-1 text-gray-700 leading-6">Mobile Landscape: 480px - 767px</li>
+<li class="mb-1 text-gray-700 leading-6">Mobile Portrait: 320px - 479px</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Best Practices"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Best Practices">Best Practices</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Mobile-first approach</li>
+<li class="mb-1 text-gray-700 leading-6">Test all breakpoints</li>
+<li class="mb-1 text-gray-700 leading-6">Optimize images for different sizes</li>
+<li class="mb-1 text-gray-700 leading-6">Ensure touch targets are 44px minimum</li>
+<li class="mb-1 text-gray-700 leading-6">Stack content appropriately</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Performance Optimization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Optimization">Performance Optimization</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Images"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Images">Images</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Use WebP format where possible</li>
+<li class="mb-1 text-gray-700 leading-6">Lazy load below-the-fold images</li>
+<li class="mb-1 text-gray-700 leading-6">Provide multiple sizes for responsive images</li>
+<li class="mb-1 text-gray-700 leading-6">Compress images before upload</li>
+<li class="mb-1 text-gray-700 leading-6">Maximum file size: 200KB for photos, 100KB for graphics</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Interactions"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Interactions">Interactions</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Keep animations subtle and purposeful</li>
+<li class="mb-1 text-gray-700 leading-6">Respect prefers-reduced-motion</li>
+<li class="mb-1 text-gray-700 leading-6">Test performance on mobile devices</li>
+<li class="mb-1 text-gray-700 leading-6">Avoid excessive DOM manipulation</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Loading"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Loading">Loading</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Minimize custom code in head</li>
+<li class="mb-1 text-gray-700 leading-6">Defer non-critical scripts</li>
+<li class="mb-1 text-gray-700 leading-6">Use async loading where appropriate</li>
+<li class="mb-1 text-gray-700 leading-6">Monitor page load times</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="SEO Best Practices"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#SEO Best Practices">SEO Best Practices</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Meta Information"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Meta Information">Meta Information</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Unique title tags (50-60 characters)</li>
+<li class="mb-1 text-gray-700 leading-6">Compelling meta descriptions (150-160 characters)</li>
+<li class="mb-1 text-gray-700 leading-6">Open Graph tags for social sharing</li>
+<li class="mb-1 text-gray-700 leading-6">Twitter card meta tags</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Content"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Content">Content</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">H1 tag on every page (only one)</li>
+<li class="mb-1 text-gray-700 leading-6">Logical heading structure</li>
+<li class="mb-1 text-gray-700 leading-6">Descriptive link text</li>
+<li class="mb-1 text-gray-700 leading-6">Schema markup where applicable</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Technical"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Technical">Technical</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Clean URL structure</li>
+<li class="mb-1 text-gray-700 leading-6">XML sitemap</li>
+<li class="mb-1 text-gray-700 leading-6">Robots.txt configuration</li>
+<li class="mb-1 text-gray-700 leading-6">301 redirects for changed URLs</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Forms"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Forms">Forms</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Best Practices"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Best Practices">Best Practices</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Clear labels for all fields</li>
+<li class="mb-1 text-gray-700 leading-6">Helpful placeholder text</li>
+<li class="mb-1 text-gray-700 leading-6">Required field indicators</li>
+<li class="mb-1 text-gray-700 leading-6">Error validation messages</li>
+<li class="mb-1 text-gray-700 leading-6">Success confirmation</li>
+<li class="mb-1 text-gray-700 leading-6">Privacy policy link</li>
+<li class="mb-1 text-gray-700 leading-6">reCAPTCHA or similar spam protection</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Newsletter Forms"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Newsletter Forms">Newsletter Forms</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Double opt-in confirmation</li>
+<li class="mb-1 text-gray-700 leading-6">Clear value proposition</li>
+<li class="mb-1 text-gray-700 leading-6">Privacy compliance</li>
+<li class="mb-1 text-gray-700 leading-6">Integration with email service</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Integrations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Integrations">Integrations</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Current Integrations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Current Integrations">Current Integrations</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Newsletter/Email marketing</li>
+<li class="mb-1 text-gray-700 leading-6">Analytics</li>
+<li class="mb-1 text-gray-700 leading-6">Cookie consent management</li>
+<li class="mb-1 text-gray-700 leading-6">Social media feeds (if applicable)</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Adding New Integrations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Adding New Integrations">Adding New Integrations</a></h3>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Document integration purpose</li>
+<li class="mb-1 text-gray-700 leading-6">Test in staging environment</li>
+<li class="mb-1 text-gray-700 leading-6">Verify data privacy compliance</li>
+<li class="mb-1 text-gray-700 leading-6">Monitor performance impact</li>
+<li class="mb-1 text-gray-700 leading-6">Update documentation</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Testing Checklist"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Testing Checklist">Testing Checklist</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Before Publishing"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Before Publishing">Before Publishing</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">[ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Mobile device testing (iOS, Android)</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Accessibility audit</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Performance check (PageSpeed Insights)</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Form submissions work</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] All links functional</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Images load correctly</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Animations work smoothly</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] SEO meta tags present</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Cookie consent functions properly</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Staging Environment"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Staging Environment">Staging Environment</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Always test in staging first</li>
+<li class="mb-1 text-gray-700 leading-6">Get stakeholder approval</li>
+<li class="mb-1 text-gray-700 leading-6">Document changes</li>
+<li class="mb-1 text-gray-700 leading-6">Create backup if major changes</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Deployment Process"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Deployment Process">Deployment Process</a></h2>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Make Changes in Webflow Designer</strong></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Review in Preview Mode</strong></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Publish to Staging</strong> (bydefault.webflow.io)</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Test Thoroughly</strong></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Get Approval</strong></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Publish to Production</strong> (bydefault.studio)</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Verify Live Site</strong></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Document Changes</strong></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Maintenance"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Maintenance">Maintenance</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Regular Tasks"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Regular Tasks">Regular Tasks</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Update blog content</li>
+<li class="mb-1 text-gray-700 leading-6">Review and update case studies</li>
+<li class="mb-1 text-gray-700 leading-6">Check for broken links</li>
+<li class="mb-1 text-gray-700 leading-6">Monitor site performance</li>
+<li class="mb-1 text-gray-700 leading-6">Review accessibility</li>
+<li class="mb-1 text-gray-700 leading-6">Update plugins/integrations</li>
+<li class="mb-1 text-gray-700 leading-6">Backup Webflow project regularly</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Monthly Review"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Monthly Review">Monthly Review</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Analytics review</li>
+<li class="mb-1 text-gray-700 leading-6">SEO performance</li>
+<li class="mb-1 text-gray-700 leading-6">User feedback implementation</li>
+<li class="mb-1 text-gray-700 leading-6">Content updates</li>
+<li class="mb-1 text-gray-700 leading-6">Technical improvements</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Support & Resources"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Support & Resources">Support & Resources</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Webflow Resources"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Webflow Resources">Webflow Resources</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><a href="https://university.webflow.com/" class="text-primary-600 hover:text-primary-800 underline font-medium">Webflow University</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://forum.webflow.com/" class="text-primary-600 hover:text-primary-800 underline font-medium">Webflow Forum</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://university.webflow.com/docs" class="text-primary-600 hover:text-primary-800 underline font-medium">Webflow Documentation</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Accessibility Resources"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Accessibility Resources">Accessibility Resources</a></h3>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><a href="https://www.w3.org/WAI/WCAG21/quickref/" class="text-primary-600 hover:text-primary-800 underline font-medium">WCAG Guidelines</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://webaim.org/" class="text-primary-600 hover:text-primary-800 underline font-medium">WebAIM</a></li>
+<li class="mb-1 text-gray-700 leading-6"><a href="https://www.a11yproject.com/" class="text-primary-600 hover:text-primary-800 underline font-medium">A11y Project</a></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Contact"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Contact">Contact</a></h3>
+<p class="mb-4 text-gray-700 leading-6">For Webflow-specific questions:</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Webflow Support</li>
+<li class="mb-1 text-gray-700 leading-6">hello@bydefault.studio</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+    <!-- Desktop Table of Contents -->
+    <div class="hidden xl:block sticky top-20 overflow-y-auto">
+      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Webflow Development Guidelines">Webflow Development Guidelines</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Webflow Project Structure">Webflow Project Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Pages">Pages</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Classes">Classes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Components">Components</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#CMS Collections">CMS Collections</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Custom Code Integration">Custom Code Integration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Where to Add Custom Code">Where to Add Custom Code</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Custom Code Repository">Custom Code Repository</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Accessibility Checklist">Accessibility Checklist</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Required for All Pages">Required for All Pages</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Testing">Testing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Responsive Design">Responsive Design</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Breakpoints">Breakpoints</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Optimization">Performance Optimization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Images">Images</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Interactions">Interactions</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Loading">Loading</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#SEO Best Practices">SEO Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Meta Information">Meta Information</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Content">Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Technical">Technical</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Forms">Forms</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Newsletter Forms">Newsletter Forms</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Integrations">Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Current Integrations">Current Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Adding New Integrations">Adding New Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Testing Checklist">Testing Checklist</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Before Publishing">Before Publishing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Staging Environment">Staging Environment</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Deployment Process">Deployment Process</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Maintenance">Maintenance</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Regular Tasks">Regular Tasks</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Monthly Review">Monthly Review</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Support & Resources">Support & Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Webflow Resources">Webflow Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Accessibility Resources">Accessibility Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Contact">Contact</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Table of Contents -->
+    <div class="xl:hidden mb-8">
+        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
+        <div class="flex flex-col gap-3">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Webflow Development Guidelines">Webflow Development Guidelines</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Webflow Project Structure">Webflow Project Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Pages">Pages</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Classes">Classes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Components">Components</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#CMS Collections">CMS Collections</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Custom Code Integration">Custom Code Integration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Where to Add Custom Code">Where to Add Custom Code</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Custom Code Repository">Custom Code Repository</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Accessibility Checklist">Accessibility Checklist</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Required for All Pages">Required for All Pages</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Testing">Testing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Responsive Design">Responsive Design</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Breakpoints">Breakpoints</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Optimization">Performance Optimization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Images">Images</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Interactions">Interactions</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Loading">Loading</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#SEO Best Practices">SEO Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Meta Information">Meta Information</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Content">Content</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Technical">Technical</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Forms">Forms</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Newsletter Forms">Newsletter Forms</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Integrations">Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Current Integrations">Current Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Adding New Integrations">Adding New Integrations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Testing Checklist">Testing Checklist</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Before Publishing">Before Publishing</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Staging Environment">Staging Environment</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Deployment Process">Deployment Process</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Maintenance">Maintenance</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Regular Tasks">Regular Tasks</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Monthly Review">Monthly Review</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Support & Resources">Support & Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Webflow Resources">Webflow Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Accessibility Resources">Accessibility Resources</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Contact">Contact</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,3 +1,11 @@
+---
+title: "Case Study Content Pinning"
+subtitle: "Intelligent content pinning system for case study pages with responsive behavior"
+description: "Documentation for the case study content pinning system that provides intelligent pinning behavior for content blocks with automatic height and viewport detection."
+section: "features"
+order: 3
+---
+
 # Case Study Content Pinning
 
 ## Overview

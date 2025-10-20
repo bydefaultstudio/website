@@ -1,3 +1,11 @@
+---
+title: "Webflow Development Guidelines"
+subtitle: "Best practices and guidelines for working with the ByDefault website in Webflow"
+description: "Comprehensive guidelines for Webflow development including project structure, component usage, and deployment workflows for the ByDefault website."
+section: "deployment"
+order: 1
+---
+
 # Webflow Development Guidelines
 
 ## Overview

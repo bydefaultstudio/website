@@ -1,10 +1,12 @@
-# Code Structure & Standards
-
-> **Version:** 1.0  
-> **Author:** Erlen Masson  
-> **Purpose:** This guide defines how all front-end JavaScript should be structured, commented, and organized for clarity and maintainability.
-
 ---
+title: "Code Structure & Standards"
+subtitle: "JavaScript coding standards and organization guidelines for the ByDefault website"
+description: "Comprehensive guide defining how all front-end JavaScript should be structured, commented, and organized for clarity and maintainability."
+section: "overview"
+order: 3
+---
+
+# Code Structure & Standards
 
 ## Overview
 

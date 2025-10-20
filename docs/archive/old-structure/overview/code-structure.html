@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - ByDefault Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{CSS_PATH}}">
+    <style>
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <a href="../index.html" class="flex items-center">
+                            <img src="../assets/images/logo_bydefault_primary.svg" alt="ByDefault" class="h-8 w-auto">
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="../index.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="overview/quick-start.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Docs</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="flex min-h-screen">
+            <!-- Sidebar Navigation -->
+            <aside class="SideNavRoot w-64 bg-white border-r border-gray-200 overflow-y-auto">
+                <div class="p-4">
+                    <!-- Overview Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Overview</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="quick-start.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick start</a></li>
+                            <li class="SideNavItem"><a href="accessibility.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accessibility</a></li>
+                            <li class="SideNavItem"><a href="releases.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Releases</a></li>
+                            <li class="SideNavItem"><a href="about.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">About</a></li>
+                        </ul>
+                    </div>
+                    <!-- Handbook Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Handbook</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../handbook/styling.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Styling</a></li>
+                            <li class="SideNavItem"><a href="../handbook/animation.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Animation</a></li>
+                            <li class="SideNavItem"><a href="../handbook/composition.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Composition</a></li>
+                            <li class="SideNavItem"><a href="../handbook/customization.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Customization<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                            <li class="SideNavItem"><a href="../handbook/typescript.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">TypeScript<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Components Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Components</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../components/accordion.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accordion</a></li>
+                            <li class="SideNavItem"><a href="../components/alert-dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Alert Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/autocomplete.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Autocomplete</a></li>
+                            <li class="SideNavItem"><a href="../components/avatar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Avatar</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox Group</a></li>
+                            <li class="SideNavItem"><a href="../components/collapsible.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Collapsible</a></li>
+                            <li class="SideNavItem"><a href="../components/combobox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Combobox</a></li>
+                            <li class="SideNavItem"><a href="../components/context-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Context Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Field</a></li>
+                            <li class="SideNavItem"><a href="../components/fieldset.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Fieldset</a></li>
+                            <li class="SideNavItem"><a href="../components/form.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Form</a></li>
+                            <li class="SideNavItem"><a href="../components/input.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Input</a></li>
+                            <li class="SideNavItem"><a href="../components/menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/menubar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menubar</a></li>
+                            <li class="SideNavItem"><a href="../components/meter.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Meter</a></li>
+                            <li class="SideNavItem"><a href="../components/navigation-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Navigation Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/number-field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Number Field</a></li>
+                            <li class="SideNavItem"><a href="../components/popover.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Popover</a></li>
+                            <li class="SideNavItem"><a href="../components/preview-card.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Preview Card</a></li>
+                            <li class="SideNavItem"><a href="../components/progress.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Progress</a></li>
+                            <li class="SideNavItem"><a href="../components/radio.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Radio</a></li>
+                            <li class="SideNavItem"><a href="../components/scroll-area.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Scroll Area</a></li>
+                            <li class="SideNavItem"><a href="../components/select.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Select</a></li>
+                            <li class="SideNavItem"><a href="../components/separator.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Separator</a></li>
+                            <li class="SideNavItem"><a href="../components/slider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Slider</a></li>
+                            <li class="SideNavItem"><a href="../components/switch.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Switch</a></li>
+                            <li class="SideNavItem"><a href="../components/tabs.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tabs</a></li>
+                            <li class="SideNavItem"><a href="../components/toast.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toast</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle Group</a></li>
+                            <li class="SideNavItem"><a href="../components/toolbar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toolbar</a></li>
+                            <li class="SideNavItem"><a href="../components/tooltip.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tooltip</a></li>
+                        </ul>
+                    </div>
+                    <!-- Utilities Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Utilities</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../utilities/direction-provider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Direction Provider</a></li>
+                            <li class="SideNavItem"><a href="../utilities/use-render.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">useRender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 max-w-4xl">
+                <!-- Hero Section -->
+                <div class="mb-12">
+                    <main class="ContentLayoutMain flex-1 min-w-0" id="main-content">
+                        <div class="max-w-6xl mx-auto px-6 py-8">
+                            <div class="flex gap-8">
+                                <!-- Content Area -->
+                                <div class="flex-1 min-w-0">
+        <h1 class="mb-4 text-3xl font-bold text-balance" id="code-structure">Code Structure</h1>
+        <div class="Subtitle flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-5">
+          <p>Documentation for Code Structure</p>
+          <a href="code-structure.md" class="flex-shrink-0" aria-label="View markdown source" rel="alternate" type="text/markdown">
+            <span class="MarkdownLink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <title>Markdown</title>
+                <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+              </svg>
+              View as Markdown
+            </span>
+          </a>
+        </div>
+        
+        <div class="prose max-w-none">
+          <h1 class="mb-4 text-3xl font-bold text-balance" id="Code Structure & Standards">Code Structure & Standards</h1>
+
+<p className="mb-4">> <strong>Version:</strong> 1.0  </p>
+<p className="mb-4">> <strong>Author:</strong> Erlen Masson  </p>
+<p className="mb-4">> <strong>Purpose:</strong> This guide defines how all front-end JavaScript should be structured, commented, and organized for clarity and maintainability.</p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Overview"><a class="HeadingLink" href="#Overview">Overview</a></h2>
+
+<p className="mb-4">This structure ensures:</p>
+<p className="mb-4">- Readable, modular, and maintainable JavaScript</p>
+<p className="mb-4">- Clear comment blocks and organization</p>
+<p className="mb-4">- Self-contained code</p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Code Structure"><a class="HeadingLink" href="#Code Structure">Code Structure</a></h2>
+
+<p className="mb-4">Every script follows this skeleton:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">js</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>/**</p>
+<p className="mb-4"> * Script Purpose: [Brief description]</p>
+<p className="mb-4"> * Author: Erlen Masson</p>
+<p className="mb-4"> * Created: [Date]</p>
+<p className="mb-4"> * Version: [SemVer]</p>
+<p className="mb-4"> * Last Updated: [Date]</p>
+<p className="mb-4"> */</p>
+
+<p className="mb-4">console.log("Script v1.0 — [ModuleName] Loaded");</p>
+
+<p className="mb-4">//</p>
+<p className="mb-4">//------- Utility Functions -------//</p>
+<p className="mb-4">//</p>
+
+<p className="mb-4">// Debounce</p>
+<p className="mb-4">function debounce(func, wait) {</p>
+<p className="mb-4">  let timeout;</p>
+<p className="mb-4">  return function executedFunction(...args) {</p>
+<p className="mb-4">    clearTimeout(timeout);</p>
+<p className="mb-4">    timeout = setTimeout(() => func(...args), wait);</p>
+<p className="mb-4">  };</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">// Get element by selector</p>
+<p className="mb-4">function getElement(selector) {</p>
+<p className="mb-4">  return document.querySelector(selector);</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">//</p>
+<p className="mb-4">//------- Main Functions -------//</p>
+<p className="mb-4">//</p>
+
+<p className="mb-4">// Init slider</p>
+<p className="mb-4">function initSlider() {</p>
+<p className="mb-4">  const sliders = document.querySelectorAll(".slider");</p>
+<p className="mb-4">  // ... implementation</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">// Handle click</p>
+<p className="mb-4">function handleClick(event) {</p>
+<p className="mb-4">  // ... implementation</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">//</p>
+<p className="mb-4">//------- Initialize -------//</p>
+<p className="mb-4">//</p>
+
+<p className="mb-4">document.addEventListener("DOMContentLoaded", () => {</p>
+<p className="mb-4">  initSlider();</p>
+<p className="mb-4">//  handleClick();</p>
+<p className="mb-4">});</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Naming Conventions"><a class="HeadingLink" href="#Naming Conventions">Naming Conventions</a></h2>
+
+<p className="mb-4">| Type | Example | Rule |</p>
+<p className="mb-4">|------|----------|------|</p>
+<p className="mb-4">| Functions | <code className="Code">initSlider()</code>, <code className="Code">handleClick()</code> | Use <strong>lower camelCase</strong>, short & descriptive |</p>
+<p className="mb-4">| Variables | <code className="Code">mainElement</code>, <code className="Code">scrollPos</code> | Contextual and readable |</p>
+<p className="mb-4">| File Names | <code className="Code">slider.js</code>, <code className="Code">utils.js</code> | Use lowercase kebab-case |</p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Section Dividers"><a class="HeadingLink" href="#Section Dividers">Section Dividers</a></h2>
+
+<p className="mb-4">Use <strong>clear headers</strong> only when grouping similar functions:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">js</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>//</p>
+<p className="mb-4">//------- Section Name -------//</p>
+<p className="mb-4">//</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<p className="mb-4">For standalone functions, simple comments are fine:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">js</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Function name</p>
+<p className="mb-4">function doSomething() {</p>
+<p className="mb-4">  // ... implementation</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<p className="mb-4">Each function should include:</p>
+<p className="mb-4">- A brief comment with the function name above it</p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Initialization Pattern"><a class="HeadingLink" href="#Initialization Pattern">Initialization Pattern</a></h2>
+
+<p className="mb-4">Every module:</p>
+<p className="mb-4">1. Defines <strong>helpers</strong> first</p>
+<p className="mb-4">2. Defines <strong>main function(s)</strong> grouped by section</p>
+<p className="mb-4">3. Calls everything within a single <code className="Code">DOMContentLoaded</code> listener <strong>at the end of the script</strong></p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Common Function Types"><a class="HeadingLink" href="#Common Function Types">Common Function Types</a></h2>
+
+<p className="mb-4">| Function Type | Description | Example |</p>
+<p className="mb-4">|----------------|--------------|----------|</p>
+<p className="mb-4">| <strong>Utility</strong> | Helpers like debouncing or element selection | <code className="Code">debounce()</code>, <code className="Code">getElement()</code> |</p>
+<p className="mb-4">| <strong>Setup</strong> | Registers plugins or event listeners | <code className="Code">registerEvents()</code> |</p>
+<p className="mb-4">| <strong>Component</strong> | Controls one UI element | <code className="Code">initSlider()</code> |</p>
+<p className="mb-4">| <strong>Global Init</strong> | Calls all modules | Inside <code className="Code">DOMContentLoaded</code> |</p>
+
+<p className="mb-4">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Console Logging"><a class="HeadingLink" href="#Console Logging">Console Logging</a></h2>
+
+<p className="mb-4"><strong>Each script should include ONE <code className="Code">console.log()</code> at the top</strong> to confirm the script has loaded:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">js</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>console.log("Script v1.0 — [ModuleName] Loaded");</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<p className="mb-4"><strong>That's it.</strong> Don't add excessive console logs throughout your code.</p>
+
+<p className="mb-4">Only add additional console logs when:</p>
+<p className="mb-4">- Debugging a specific issue</p>
+<p className="mb-4">- Monitoring critical functionality</p>
+<p className="mb-4">- Required for custom functionality (e.g., error tracking)</p>
+
+<p className="mb-4">Keep your console clean and purposeful.</p>
+
+
+        </div>
+      </div>
+                                <!-- Table of Contents -->
+                                {{QUICK_NAV}}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

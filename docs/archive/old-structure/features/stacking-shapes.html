@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - ByDefault Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{CSS_PATH}}">
+    <style>
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <a href="../index.html" class="flex items-center">
+                            <img src="../assets/images/logo_bydefault_primary.svg" alt="ByDefault" class="h-8 w-auto">
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="../index.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="overview/quick-start.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Docs</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="flex min-h-screen">
+            <!-- Sidebar Navigation -->
+            <aside class="SideNavRoot w-64 bg-white border-r border-gray-200 overflow-y-auto">
+                <div class="p-4">
+                    <!-- Overview Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Overview</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="quick-start.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick start</a></li>
+                            <li class="SideNavItem"><a href="accessibility.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accessibility</a></li>
+                            <li class="SideNavItem"><a href="releases.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Releases</a></li>
+                            <li class="SideNavItem"><a href="about.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">About</a></li>
+                        </ul>
+                    </div>
+                    <!-- Handbook Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Handbook</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../handbook/styling.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Styling</a></li>
+                            <li class="SideNavItem"><a href="../handbook/animation.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Animation</a></li>
+                            <li class="SideNavItem"><a href="../handbook/composition.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Composition</a></li>
+                            <li class="SideNavItem"><a href="../handbook/customization.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Customization<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                            <li class="SideNavItem"><a href="../handbook/typescript.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">TypeScript<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Components Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Components</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../components/accordion.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accordion</a></li>
+                            <li class="SideNavItem"><a href="../components/alert-dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Alert Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/autocomplete.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Autocomplete</a></li>
+                            <li class="SideNavItem"><a href="../components/avatar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Avatar</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox Group</a></li>
+                            <li class="SideNavItem"><a href="../components/collapsible.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Collapsible</a></li>
+                            <li class="SideNavItem"><a href="../components/combobox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Combobox</a></li>
+                            <li class="SideNavItem"><a href="../components/context-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Context Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Field</a></li>
+                            <li class="SideNavItem"><a href="../components/fieldset.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Fieldset</a></li>
+                            <li class="SideNavItem"><a href="../components/form.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Form</a></li>
+                            <li class="SideNavItem"><a href="../components/input.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Input</a></li>
+                            <li class="SideNavItem"><a href="../components/menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/menubar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menubar</a></li>
+                            <li class="SideNavItem"><a href="../components/meter.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Meter</a></li>
+                            <li class="SideNavItem"><a href="../components/navigation-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Navigation Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/number-field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Number Field</a></li>
+                            <li class="SideNavItem"><a href="../components/popover.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Popover</a></li>
+                            <li class="SideNavItem"><a href="../components/preview-card.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Preview Card</a></li>
+                            <li class="SideNavItem"><a href="../components/progress.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Progress</a></li>
+                            <li class="SideNavItem"><a href="../components/radio.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Radio</a></li>
+                            <li class="SideNavItem"><a href="../components/scroll-area.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Scroll Area</a></li>
+                            <li class="SideNavItem"><a href="../components/select.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Select</a></li>
+                            <li class="SideNavItem"><a href="../components/separator.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Separator</a></li>
+                            <li class="SideNavItem"><a href="../components/slider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Slider</a></li>
+                            <li class="SideNavItem"><a href="../components/switch.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Switch</a></li>
+                            <li class="SideNavItem"><a href="../components/tabs.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tabs</a></li>
+                            <li class="SideNavItem"><a href="../components/toast.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toast</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle Group</a></li>
+                            <li class="SideNavItem"><a href="../components/toolbar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toolbar</a></li>
+                            <li class="SideNavItem"><a href="../components/tooltip.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tooltip</a></li>
+                        </ul>
+                    </div>
+                    <!-- Utilities Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Utilities</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../utilities/direction-provider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Direction Provider</a></li>
+                            <li class="SideNavItem"><a href="../utilities/use-render.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">useRender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 max-w-4xl">
+                <!-- Hero Section -->
+                <div class="mb-12">
+                    <main class="ContentLayoutMain flex-1 min-w-0" id="main-content">
+                        <div class="max-w-6xl mx-auto px-6 py-8">
+                            <div class="flex gap-8">
+                                <!-- Content Area -->
+                                <div class="flex-1 min-w-0">
+        <h1 class="mb-4 text-3xl font-bold text-balance" id="stacking-shapes-guide">Stacking Shapes</h1>
+        <div class="Subtitle flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-5">
+          <p>Documentation for Stacking Shapes</p>
+          <a href="stacking-shapes-guide.md" class="flex-shrink-0" aria-label="View markdown source" rel="alternate" type="text/markdown">
+            <span class="MarkdownLink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <title>Markdown</title>
+                <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+              </svg>
+              View as Markdown
+            </span>
+          </a>
+        </div>
+        
+        <div class="prose max-w-none">
+          <h1 class="mb-4 text-3xl font-bold text-balance" id="Stacking Shapes Guide">Stacking Shapes Guide</h1>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Overview"><a class="HeadingLink" href="#Overview">Overview</a></h2>
+
+<p className="mb-4">The Stacking Shapes component is an interactive physics-driven experience built with Matter.js that features draggable brand shapes, a logo sprite, sound effects, and a scoring system. It creates an engaging, playful experience perfect for 404 pages or other interactive sections of the By Default website.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Features"><a class="HeadingLink" href="#Features">Features</a></h2>
+
+<p className="mb-4">- <strong>Interactive Physics</strong>: Draggable shapes with realistic physics simulation</p>
+<p className="mb-4">- <strong>Logo Integration</strong>: SVG logo as a physics body with custom rendering</p>
+<p className="mb-4">- <strong>Sound System</strong>: Collision-based audio feedback with user controls</p>
+<p className="mb-4">- <strong>Scoring System</strong>: Progress tracking with win condition at 100%</p>
+<p className="mb-4">- <strong>Responsive Design</strong>: Scales appropriately across different screen sizes</p>
+<p className="mb-4">- <strong>Accessibility</strong>: Keyboard navigation and screen reader support</p>
+<p className="mb-4">- <strong>Performance Optimized</strong>: Pauses when tab is hidden, cleans up on unload</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="File Structure"><a class="HeadingLink" href="#File Structure">File Structure</a></h2>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">text</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>stacking-shapes/</p>
+<p className="mb-4">├── stacking-shapes.css    - Styling for canvas, modal, and UI elements</p>
+<p className="mb-4">├── stacking-shapes.js     - Main physics engine implementation</p>
+<p className="mb-4">├── stacking-shapes-1.js   - Backup version 1</p>
+<p className="mb-4">└── stacking-shapes-2.js   - Backup version 2</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Technical Stack"><a class="HeadingLink" href="#Technical Stack">Technical Stack</a></h2>
+
+<p className="mb-4">- <strong>Matter.js 0.20.x</strong> - 2D physics engine</p>
+<p className="mb-4">- <strong>pathseg polyfill</strong> - SVG path compatibility</p>
+<p className="mb-4">- <strong>Web Audio API</strong> - Sound generation</p>
+<p className="mb-4">- <strong>Canvas 2D</strong> - Rendering</p>
+<p className="mb-4">- <strong>LocalStorage</strong> - Sound preference persistence</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="HTML Structure"><a class="HeadingLink" href="#HTML Structure">HTML Structure</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Required Elements"><a class="HeadingLink" href="#Required Elements">Required Elements</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- Main container --></p>
+<div id="stacking-shapes-canvas"></div>
+
+<p className="mb-4"><!-- Score HUD --></p>
+<div class="stacking-shapes-score-bar">
+<p className="mb-4">  <span id="stacking-shapes-score-fill" style="width:0%"></span></p>
+<p className="mb-4"></div></p>
+<div id="stacking-shapes-score-number">0%</div>
+<p className="mb-4"><button id="stacking-shapes-score-reset">Reset</button></p>
+
+<p className="mb-4"><!-- Sound Controls --></p>
+<p className="mb-4"><input type="checkbox" id="stacking-shapes-sound-toggle" /></p>
+<p className="mb-4"><span class="stacking-shapes-voice-control">Sound : On</span></p>
+
+<p className="mb-4"><!-- Modal --></p>
+<div id="stacking-shapes-media-modal" class="stacking-shapes-modal" aria-hidden="true">
+<p className="mb-4">  <div class="stacking-shapes-modal__dialog"></p>
+<p className="mb-4">    <button id="stacking-shapes-modal-close">Close</button></p>
+<p className="mb-4">    <div id="stacking-shapes-modal-body"></div></p>
+<p className="mb-4">  </div></p>
+<p className="mb-4"></div></p>
+
+<p className="mb-4"><!-- SVG Paths (hidden) --></p>
+<p className="mb-4"><svg width="0" height="0" style="position:absolute;left:-9999px;"></p>
+<p className="mb-4">  <path id="shape1" d="..." /></p>
+<p className="mb-4">  <path id="shape2" d="..." /></p>
+<p className="mb-4">  <path id="shape3" d="..." /></p>
+<p className="mb-4">  <path id="shape4" d="..." /></p>
+<p className="mb-4">  <path id="logo-shape" d="..." /></p>
+<p className="mb-4"></svg></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Shape Configuration"><a class="HeadingLink" href="#Shape Configuration">Shape Configuration</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Adding New Shapes"><a class="HeadingLink" href="#Adding New Shapes">Adding New Shapes</a></h3>
+
+<p className="mb-4">1. <strong>Add SVG Path</strong>: Create a new <code className="Code"><path></code> element in the hidden SVG</p>
+<p className="mb-4">2. <strong>Update JavaScript</strong>: Add shape to the <code className="Code">shapes</code> array in <code className="Code">initHeroPhysics()</code></p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// In initStackingShapes() function</p>
+<p className="mb-4">window.heroPhysics.shapes = [</p>
+<p className="mb-4">  bodyFromPath("shape1", innerWidth * 0.25, innerHeight * 0.25, "#094C45", "one", "#news"),</p>
+<p className="mb-4">  bodyFromPath("shape2", innerWidth * 0.5, innerHeight * 0.3, "#F7A3BC", "two", "#founders"),</p>
+<p className="mb-4">  bodyFromPath("shape3", innerWidth * 0.75, innerHeight * 0.3, "#FFB533", "three", "#work"),</p>
+<p className="mb-4">  bodyFromPath("shape4", innerWidth * 0.15, innerHeight * 0.15, "#88D3CD", "four", "#about"),</p>
+<p className="mb-4">  // Add your new shape here</p>
+<p className="mb-4">  bodyFromPath("shape5", innerWidth * 0.6, innerHeight * 0.4, "#FF6B6B", "five", "#contact"),</p>
+<p className="mb-4">];</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Shape Properties"><a class="HeadingLink" href="#Shape Properties">Shape Properties</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>bodyFromPath(id, x, y, fill, label, link)</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<p className="mb-4">- <strong>id</strong>: SVG path element ID</p>
+<p className="mb-4">- <strong>x, y</strong>: Initial position coordinates</p>
+<p className="mb-4">- <strong>fill</strong>: Hex color code (e.g., "#094C45")</p>
+<p className="mb-4">- <strong>label</strong>: Text displayed on the shape</p>
+<p className="mb-4">- <strong>link</strong>: Optional URL for click actions</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Physics Properties"><a class="HeadingLink" href="#Physics Properties">Physics Properties</a></h3>
+
+<p className="mb-4">Shapes can be customized with different physics properties:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>{</p>
+<p className="mb-4">  restitution: 0.6,        // Bounciness (0-1)</p>
+<p className="mb-4">  frictionAir: 0.02,       // Air resistance</p>
+<p className="mb-4">  render: { </p>
+<p className="mb-4">    fillStyle: "#094C45",  // Color</p>
+<p className="mb-4">    strokeStyle: "transparent"</p>
+<p className="mb-4">  }</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Logo Customization"><a class="HeadingLink" href="#Logo Customization">Logo Customization</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Changing the Logo"><a class="HeadingLink" href="#Changing the Logo">Changing the Logo</a></h3>
+
+<p className="mb-4">1. <strong>Update SVG Path</strong>: Modify the <code className="Code">#logo-shape</code> path element</p>
+<p className="mb-4">2. <strong>Update Image Source</strong>: Change the logo image URL in <code className="Code">addLogoSprite()</code></p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// In addLogoSprite() function</p>
+<p className="mb-4">logoImage.src = "path/to/your/logo.svg";</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Logo Positioning"><a class="HeadingLink" href="#Logo Positioning">Logo Positioning</a></h3>
+
+<p className="mb-4">Adjust logo offset and scaling:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Logo image offset adjustments</p>
+<p className="mb-4">const offsetX = -3;  // Move left/right</p>
+<p className="mb-4">const offsetY = -24; // Move up/down</p>
+
+<p className="mb-4">// Original body dimensions (adjust if needed)</p>
+<p className="mb-4">const originalBodyWidth = 370;  // Half of viewBox width</p>
+<p className="mb-4">const originalBodyHeight = 176; // Half of viewBox height</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Logo Physics"><a class="HeadingLink" href="#Logo Physics">Logo Physics</a></h3>
+
+<p className="mb-4">The logo uses the same physics properties as other shapes but with special rendering:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>const logo = Matter.Bodies.fromVertices(</p>
+<p className="mb-4">  x, y, logoVertices,</p>
+<p className="mb-4">  {</p>
+<p className="mb-4">    restitution: 0.6,</p>
+<p className="mb-4">    frictionAir: 0.02,</p>
+<p className="mb-4">    render: { </p>
+<p className="mb-4">      fillStyle: "transparent",</p>
+<p className="mb-4">      strokeStyle: "transparent"</p>
+<p className="mb-4">    },</p>
+<p className="mb-4">    label: "logo"</p>
+<p className="mb-4">  },</p>
+<p className="mb-4">  true // Enable poly-decomp for concave shapes</p>
+<p className="mb-4">);</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Sound System"><a class="HeadingLink" href="#Sound System">Sound System</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Sound Configuration"><a class="HeadingLink" href="#Sound Configuration">Sound Configuration</a></h3>
+
+<p className="mb-4">Sounds are generated using Web Audio API with configurable parameters:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// In stackingShapesPlayPop() function</p>
+<p className="mb-4">const speed = Math.min(Math.max(impact, 0), 10);</p>
+<p className="mb-4">const peak = 0.01 + 0.02 * (speed / 10);  // Volume</p>
+<p className="mb-4">const pitch = 100 + 10 * speed;           // Frequency</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Sound Triggers"><a class="HeadingLink" href="#Sound Triggers">Sound Triggers</a></h3>
+
+<p className="mb-4">- <strong>Collision Speed</strong>: Minimum 2.0 units for sound</p>
+<p className="mb-4">- <strong>Cooldown</strong>: 300ms between sounds per body</p>
+<p className="mb-4">- <strong>User Interaction</strong>: First gesture enables audio context</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Sound Controls"><a class="HeadingLink" href="#Sound Controls">Sound Controls</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- Toggle switch --></p>
+<p className="mb-4"><input type="checkbox" id="hero-sound-toggle" /></p>
+
+<p className="mb-4"><!-- Voice control for accessibility --></p>
+<p className="mb-4"><span class="hero-voice-control" role="button" tabindex="0"></p>
+<p className="mb-4">  Sound : On</p>
+<p className="mb-4"></span></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Customizing Sound"><a class="HeadingLink" href="#Customizing Sound">Customizing Sound</a></h3>
+
+<p className="mb-4">To modify sound characteristics:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// In stackingShapesPlayPop() function</p>
+<p className="mb-4">osc.type = "triangle";  // Wave type: sine, square, triangle, sawtooth</p>
+<p className="mb-4">gain.gain.exponentialRampToValueAtTime(peak, t + 0.01);  // Attack</p>
+<p className="mb-4">gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16); // Decay</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Scoring System"><a class="HeadingLink" href="#Scoring System">Scoring System</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="How Scoring Works"><a class="HeadingLink" href="#How Scoring Works">How Scoring Works</a></h3>
+
+<p className="mb-4">- <strong>Collision-based</strong>: Only shape-to-shape collisions score</p>
+<p className="mb-4">- <strong>Speed threshold</strong>: Minimum 2.2 units relative velocity</p>
+<p className="mb-4">- <strong>Cooldown</strong>: 600ms per collision pair</p>
+<p className="mb-4">- <strong>Interaction window</strong>: 4 seconds after user interaction</p>
+<p className="mb-4">- <strong>Win condition</strong>: 100% score triggers victory modal</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Score Configuration"><a class="HeadingLink" href="#Score Configuration">Score Configuration</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// In initScoreSystem() function</p>
+<p className="mb-4">const MIN_SPEED_FOR_SCORE = 2.2;    // Minimum collision speed</p>
+<p className="mb-4">const SCORE_COOLDOWN_MS = 600;      // Time between scores</p>
+<p className="mb-4">const inc = Math.min(2, 0.2 + speed * 0.2); // Score increment</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Score Display"><a class="HeadingLink" href="#Score Display">Score Display</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><div class="hero-score-bar"></p>
+<p className="mb-4">  <span id="hero-score-fill" style="width:0%"></span></p>
+<p className="mb-4"></div></p>
+<div id="hero-score-number">0%</div>
+<p className="mb-4"><button id="hero-score-reset">Reset</button></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Responsive Design"><a class="HeadingLink" href="#Responsive Design">Responsive Design</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Scaling System"><a class="HeadingLink" href="#Scaling System">Scaling System</a></h3>
+
+<p className="mb-4">The hero uses a responsive scaling system based on a 1280×800 base:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>const BASE_W = 1280, BASE_H = 800;</p>
+
+<p className="mb-4">function getResponsiveScale() {</p>
+<p className="mb-4">  const s = Math.min(innerWidth / BASE_W, innerHeight / BASE_H);</p>
+<p className="mb-4">  return Math.max(0.45, Math.min(1.2, s)); // Min 45%, Max 120%</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Responsive Behavior"><a class="HeadingLink" href="#Responsive Behavior">Responsive Behavior</a></h3>
+
+<p className="mb-4">- <strong>Shapes scale uniformly</strong> with screen size</p>
+<p className="mb-4">- <strong>Walls rebuild</strong> on resize</p>
+<p className="mb-4">- <strong>Shapes reposition</strong> within safe margins</p>
+<p className="mb-4">- <strong>Logo scales</strong> proportionally</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Mobile Considerations"><a class="HeadingLink" href="#Mobile Considerations">Mobile Considerations</a></h3>
+
+<p className="mb-4">- <strong>Touch support</strong>: Drag shapes with touch</p>
+<p className="mb-4">- <strong>Scroll prevention</strong>: <code className="Code">touch-action: pan-y</code> allows vertical scroll</p>
+<p className="mb-4">- <strong>Performance</strong>: Pauses when tab hidden</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Styling and Theming"><a class="HeadingLink" href="#Styling and Theming">Styling and Theming</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="CSS Custom Properties"><a class="HeadingLink" href="#CSS Custom Properties">CSS Custom Properties</a></h3>
+
+<p className="mb-4">The hero uses CSS custom properties for theming:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">css</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>:root {</p>
+<p className="mb-4">  --_semantic---background--background-primary: #f5f6f8;</p>
+<p className="mb-4">  --_semantic---background--background-secondary: #ffffff;</p>
+<p className="mb-4">  --_semantic---text--text-primary: #000000;</p>
+<p className="mb-4">  --_semantic---border--border-faded: #e0e0e0;</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Canvas Styling"><a class="HeadingLink" href="#Canvas Styling">Canvas Styling</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">css</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>#stacking-shapes-canvas {</p>
+<p className="mb-4">  width: 100%;</p>
+<p className="mb-4">  height: 100vh;</p>
+<p className="mb-4">  overflow: hidden;</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">#stacking-shapes-canvas canvas {</p>
+<p className="mb-4">  display: block;</p>
+<p className="mb-4">  border: none;</p>
+<p className="mb-4">  outline: none;</p>
+<p className="mb-4">  touch-action: pan-y;</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Modal Styling"><a class="HeadingLink" href="#Modal Styling">Modal Styling</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">css</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>.stacking-shapes-modal {</p>
+<p className="mb-4">  position: fixed;</p>
+<p className="mb-4">  top: 0;</p>
+<p className="mb-4">  left: 0;</p>
+<p className="mb-4">  width: 100%;</p>
+<p className="mb-4">  height: 100%;</p>
+<p className="mb-4">  background: rgba(0, 0, 0, 0.8);</p>
+<p className="mb-4">  z-index: 1000;</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">body.stacking-shapes-modal-open {</p>
+<p className="mb-4">  overflow: hidden;</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Performance Optimization"><a class="HeadingLink" href="#Performance Optimization">Performance Optimization</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Lifecycle Management"><a class="HeadingLink" href="#Lifecycle Management">Lifecycle Management</a></h3>
+
+<p className="mb-4">- <strong>Initialization</strong>: Only runs once, guards against double-init</p>
+<p className="mb-4">- <strong>Pause/Resume</strong>: Stops when tab hidden, resumes when visible</p>
+<p className="mb-4">- <strong>Cleanup</strong>: Properly destroys engine on page unload</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Memory Management"><a class="HeadingLink" href="#Memory Management">Memory Management</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Cleanup function</p>
+<p className="mb-4">function cleanupStackingShapes() {</p>
+<p className="mb-4">  if (window.stackingShapes.engine) {</p>
+<p className="mb-4">    Matter.Runner.stop(window.stackingShapes.runner);</p>
+<p className="mb-4">    Matter.Render.stop(window.stackingShapes.render);</p>
+<p className="mb-4">    Matter.Engine.clear(window.stackingShapes.engine);</p>
+<p className="mb-4">    // Reset all references</p>
+<p className="mb-4">  }</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Performance Settings"><a class="HeadingLink" href="#Performance Settings">Performance Settings</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Fixed timestep for consistent physics</p>
+<p className="mb-4">window.stackingShapes.runner = Runner.create({ </p>
+<p className="mb-4">  isFixed: true, </p>
+<p className="mb-4">  delta: 1000/60  // 60 FPS</p>
+<p className="mb-4">});</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Accessibility Features"><a class="HeadingLink" href="#Accessibility Features">Accessibility Features</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Keyboard Navigation"><a class="HeadingLink" href="#Keyboard Navigation">Keyboard Navigation</a></h3>
+
+<p className="mb-4">- <strong>Voice control</strong>: Space/Enter to toggle sound</p>
+<p className="mb-4">- <strong>Modal escape</strong>: Escape key closes modals</p>
+<p className="mb-4">- <strong>Focus management</strong>: Proper focus handling</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Screen Reader Support"><a class="HeadingLink" href="#Screen Reader Support">Screen Reader Support</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- Score announcements --></p>
+<div class="stacking-shapes-score-bar" aria-live="polite">
+<p className="mb-4">  <span id="stacking-shapes-score-fill"></span></p>
+<p className="mb-4"></div></p>
+
+<p className="mb-4"><!-- Modal accessibility --></p>
+<div id="stacking-shapes-media-modal" aria-hidden="true">
+<p className="mb-4">  <button id="stacking-shapes-modal-close" aria-label="Close">Close</button></p>
+<p className="mb-4"></div></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="ARIA Attributes"><a class="HeadingLink" href="#ARIA Attributes">ARIA Attributes</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- Voice control button --></p>
+<p className="mb-4"><span class="stacking-shapes-voice-control" </p>
+<p className="mb-4">      role="button" </p>
+<p className="mb-4">      tabindex="0" </p>
+<p className="mb-4">      aria-pressed="true"></p>
+<p className="mb-4">  Sound : On</p>
+<p className="mb-4"></span></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Troubleshooting"><a class="HeadingLink" href="#Troubleshooting">Troubleshooting</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Common Issues"><a class="HeadingLink" href="#Common Issues">Common Issues</a></h3>
+
+<p className="mb-4"><strong>Shapes not appearing:</strong></p>
+<p className="mb-4">- Check SVG paths exist with correct IDs</p>
+<p className="mb-4">- Verify Matter.js library loaded</p>
+<p className="mb-4">- Check browser console for errors</p>
+
+<p className="mb-4"><strong>Sound not working:</strong></p>
+<p className="mb-4">- Ensure user has interacted with page</p>
+<p className="mb-4">- Check sound toggle state</p>
+<p className="mb-4">- Verify Web Audio API support</p>
+
+<p className="mb-4"><strong>Performance issues:</strong></p>
+<p className="mb-4">- Check if tab is hidden (physics pause)</p>
+<p className="mb-4">- Monitor memory usage</p>
+<p className="mb-4">- Verify cleanup on navigation</p>
+
+<p className="mb-4"><strong>Responsive problems:</strong></p>
+<p className="mb-4">- Check viewport meta tag</p>
+<p className="mb-4">- Verify canvas resize handling</p>
+<p className="mb-4">- Test on different screen sizes</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Debug Mode"><a class="HeadingLink" href="#Debug Mode">Debug Mode</a></h3>
+
+<p className="mb-4">Enable debug logging:</p>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Add to initStackingShapes()</p>
+<p className="mb-4">console.log('Stacking Shapes Debug Mode');</p>
+<p className="mb-4">console.log('Shapes:', window.stackingShapes.shapes);</p>
+<p className="mb-4">console.log('Engine:', window.stackingShapes.engine);</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Customization Examples"><a class="HeadingLink" href="#Customization Examples">Customization Examples</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Adding a New Shape Type"><a class="HeadingLink" href="#Adding a New Shape Type">Adding a New Shape Type</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Create custom shape with special properties</p>
+<p className="mb-4">function createCustomShape(id, x, y, color, label) {</p>
+<p className="mb-4">  const path = document.getElementById(id);</p>
+<p className="mb-4">  const verts = Matter.Svg.pathToVertices(path, 25);</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  return Matter.Bodies.fromVertices(x, y, verts, {</p>
+<p className="mb-4">    restitution: 0.8,        // More bouncy</p>
+<p className="mb-4">    frictionAir: 0.01,       // Less air resistance</p>
+<p className="mb-4">    density: 0.001,          // Lighter</p>
+<p className="mb-4">    render: { </p>
+<p className="mb-4">      fillStyle: color,</p>
+<p className="mb-4">      strokeStyle: "#000",</p>
+<p className="mb-4">      lineWidth: 2</p>
+<p className="mb-4">    },</p>
+<p className="mb-4">    label: label</p>
+<p className="mb-4">  }, true);</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Custom Sound Effects"><a class="HeadingLink" href="#Custom Sound Effects">Custom Sound Effects</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Add custom sound function</p>
+<p className="mb-4">function playCustomSound(type) {</p>
+<p className="mb-4">  if (!window.heroPhysics.soundEnabled || !window.heroPhysics.audioCtx) return;</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  const t = window.heroPhysics.audioCtx.currentTime;</p>
+<p className="mb-4">  const osc = window.heroPhysics.audioCtx.createOscillator();</p>
+<p className="mb-4">  const gain = window.heroPhysics.audioCtx.createGain();</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  // Custom sound parameters</p>
+<p className="mb-4">  const sounds = {</p>
+<p className="mb-4">    'pop': { freq: 200, duration: 0.1 },</p>
+<p className="mb-4">    'ding': { freq: 400, duration: 0.2 },</p>
+<p className="mb-4">    'whoosh': { freq: 100, duration: 0.3 }</p>
+<p className="mb-4">  };</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  const sound = sounds[type] || sounds['pop'];</p>
+<p className="mb-4">  osc.frequency.setValueAtTime(sound.freq, t);</p>
+<p className="mb-4">  gain.gain.setValueAtTime(0.1, t);</p>
+<p className="mb-4">  gain.gain.exponentialRampToValueAtTime(0.001, t + sound.duration);</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  osc.connect(gain).connect(window.heroPhysics.audioCtx.destination);</p>
+<p className="mb-4">  osc.start(t);</p>
+<p className="mb-4">  osc.stop(t + sound.duration);</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Custom Scoring Rules"><a class="HeadingLink" href="#Custom Scoring Rules">Custom Scoring Rules</a></h3>
+
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Modify scoring system</p>
+<p className="mb-4">function customScoreCalculation(bodyA, bodyB, speed) {</p>
+<p className="mb-4">  // Different scoring based on shape types</p>
+<p className="mb-4">  const scoreMultiplier = {</p>
+<p className="mb-4">    'logo': 2.0,    // Logo collisions worth double</p>
+<p className="mb-4">    'shape1': 1.5,  // Shape1 worth 1.5x</p>
+<p className="mb-4">    'shape2': 1.0,  // Shape2 normal</p>
+<p className="mb-4">    'shape3': 0.5   // Shape3 worth half</p>
+<p className="mb-4">  };</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  const multiplier = (scoreMultiplier[bodyA.label] || 1) * </p>
+<p className="mb-4">                    (scoreMultiplier[bodyB.label] || 1);</p>
+<p className="mb-4">  </p>
+<p className="mb-4">  return Math.min(5, speed * 0.3 * multiplier);</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Integration with Webflow"><a class="HeadingLink" href="#Integration with Webflow">Integration with Webflow</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow-Specific Considerations"><a class="HeadingLink" href="#Webflow-Specific Considerations">Webflow-Specific Considerations</a></h3>
+
+<p className="mb-4">- <strong>Modal content</strong>: Webflow handles modal content management</p>
+<p className="mb-4">- <strong>Responsive breakpoints</strong>: Align with Webflow's responsive system</p>
+<p className="mb-4">- <strong>Asset management</strong>: Use Webflow's asset URLs for images</p>
+<p className="mb-4">- <strong>Custom code</strong>: Place in Webflow's custom code sections</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Deployment Checklist"><a class="HeadingLink" href="#Deployment Checklist">Deployment Checklist</a></h3>
+
+<p className="mb-4">- [ ] Matter.js and pathseg libraries loaded</p>
+<p className="mb-4">- [ ] All required HTML elements present</p>
+<p className="mb-4">- [ ] SVG paths properly defined</p>
+<p className="mb-4">- [ ] CSS custom properties set</p>
+<p className="mb-4">- [ ] Sound toggle functional</p>
+<p className="mb-4">- [ ] Modal system working</p>
+<p className="mb-4">- [ ] Responsive scaling tested</p>
+<p className="mb-4">- [ ] Accessibility features verified</p>
+
+<p className="mb-4">---</p>
+
+<p className="mb-4">*This documentation covers the complete hero section implementation. For technical details, refer to the source code in the <code className="Code">hero/</code> directory.*</p>
+
+        </div>
+      </div>
+                                <!-- Table of Contents -->
+                                {{QUICK_NAV}}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

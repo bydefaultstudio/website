@@ -1,0 +1,25 @@
+{
+  "name": "bydefault-docs",
+  "version": "1.0.0",
+  "description": "ByDefault website documentation system",
+  "main": "generate-docs.js",
+  "scripts": {
+    "generate": "node generate-docs.js",
+    "serve": "python3 -m http.server 8080",
+    "docs": "npm run generate",
+    "docs:serve": "npm run generate && npm run serve",
+    "watch": "node watch-docs.js",
+    "watch:dev": "npm run generate && npm run serve & npm run watch"
+  },
+  "keywords": [
+    "documentation",
+    "markdown",
+    "static-site",
+    "bydefault"
+  ],
+  "author": "ByDefault Team",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "highlight.js": "^11.11.1"
+  }
+}

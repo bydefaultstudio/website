@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{PAGE_TITLE}} - ByDefault Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{CSS_PATH}}">
+    <style>
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <a href="../index.html" class="flex items-center">
+                            <img src="../assets/images/logo_bydefault_primary.svg" alt="ByDefault" class="h-8 w-auto">
+                        </a>
+                    </div>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="../index.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="overview/quick-start.html" class="text-gray-900 hover:text-blue-600 px-3 py-2 text-sm font-medium">Docs</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="flex min-h-screen">
+            <!-- Sidebar Navigation -->
+            <aside class="SideNavRoot w-64 bg-white border-r border-gray-200 overflow-y-auto">
+                <div class="p-4">
+                    <!-- Overview Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Overview</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="quick-start.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick start</a></li>
+                            <li class="SideNavItem"><a href="accessibility.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accessibility</a></li>
+                            <li class="SideNavItem"><a href="releases.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Releases</a></li>
+                            <li class="SideNavItem"><a href="about.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">About</a></li>
+                        </ul>
+                    </div>
+                    <!-- Handbook Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Handbook</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../handbook/styling.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Styling</a></li>
+                            <li class="SideNavItem"><a href="../handbook/animation.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Animation</a></li>
+                            <li class="SideNavItem"><a href="../handbook/composition.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Composition</a></li>
+                            <li class="SideNavItem"><a href="../handbook/customization.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Customization<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                            <li class="SideNavItem"><a href="../handbook/typescript.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">TypeScript<span class="SideNavBadge ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">New</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- Components Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Components</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../components/accordion.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Accordion</a></li>
+                            <li class="SideNavItem"><a href="../components/alert-dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Alert Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/autocomplete.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Autocomplete</a></li>
+                            <li class="SideNavItem"><a href="../components/avatar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Avatar</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox</a></li>
+                            <li class="SideNavItem"><a href="../components/checkbox-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Checkbox Group</a></li>
+                            <li class="SideNavItem"><a href="../components/collapsible.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Collapsible</a></li>
+                            <li class="SideNavItem"><a href="../components/combobox.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Combobox</a></li>
+                            <li class="SideNavItem"><a href="../components/context-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Context Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/dialog.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Dialog</a></li>
+                            <li class="SideNavItem"><a href="../components/field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Field</a></li>
+                            <li class="SideNavItem"><a href="../components/fieldset.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Fieldset</a></li>
+                            <li class="SideNavItem"><a href="../components/form.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Form</a></li>
+                            <li class="SideNavItem"><a href="../components/input.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Input</a></li>
+                            <li class="SideNavItem"><a href="../components/menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/menubar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Menubar</a></li>
+                            <li class="SideNavItem"><a href="../components/meter.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Meter</a></li>
+                            <li class="SideNavItem"><a href="../components/navigation-menu.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Navigation Menu</a></li>
+                            <li class="SideNavItem"><a href="../components/number-field.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Number Field</a></li>
+                            <li class="SideNavItem"><a href="../components/popover.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Popover</a></li>
+                            <li class="SideNavItem"><a href="../components/preview-card.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Preview Card</a></li>
+                            <li class="SideNavItem"><a href="../components/progress.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Progress</a></li>
+                            <li class="SideNavItem"><a href="../components/radio.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Radio</a></li>
+                            <li class="SideNavItem"><a href="../components/scroll-area.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Scroll Area</a></li>
+                            <li class="SideNavItem"><a href="../components/select.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Select</a></li>
+                            <li class="SideNavItem"><a href="../components/separator.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Separator</a></li>
+                            <li class="SideNavItem"><a href="../components/slider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Slider</a></li>
+                            <li class="SideNavItem"><a href="../components/switch.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Switch</a></li>
+                            <li class="SideNavItem"><a href="../components/tabs.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tabs</a></li>
+                            <li class="SideNavItem"><a href="../components/toast.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toast</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle</a></li>
+                            <li class="SideNavItem"><a href="../components/toggle-group.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toggle Group</a></li>
+                            <li class="SideNavItem"><a href="../components/toolbar.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Toolbar</a></li>
+                            <li class="SideNavItem"><a href="../components/tooltip.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Tooltip</a></li>
+                        </ul>
+                    </div>
+                    <!-- Utilities Section -->
+                    <div class="SideNavSection mb-6">
+                        <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Utilities</div>
+                        <ul class="SideNavList space-y-1">
+                            <li class="SideNavItem"><a href="../utilities/direction-provider.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Direction Provider</a></li>
+                            <li class="SideNavItem"><a href="../utilities/use-render.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">useRender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 max-w-4xl">
+                <!-- Hero Section -->
+                <div class="mb-12">
+                    <main class="ContentLayoutMain flex-1 min-w-0" id="main-content">
+                        <div class="max-w-6xl mx-auto px-6 py-8">
+                            <div class="flex gap-8">
+                                <!-- Content Area -->
+                                <div class="flex-1 min-w-0">
+        <h1 class="mb-4 text-3xl font-bold text-balance" id="hero-section-guide">Hero Section</h1>
+        <div class="Subtitle flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-5">
+          <p>Documentation for Hero Section</p>
+          <a href="hero-section-guide.md" class="flex-shrink-0" aria-label="View markdown source" rel="alternate" type="text/markdown">
+            <span class="MarkdownLink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <title>Markdown</title>
+                <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+              </svg>
+              View as Markdown
+            </span>
+          </a>
+        </div>
+        
+        <div class="prose max-w-none">
+          <h1 class="mb-4 text-3xl font-bold text-balance" id="Hero Section Guide">Hero Section Guide</h1>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Overview"><a class="HeadingLink" href="#Overview">Overview</a></h2>
+<p className="mb-4">The hero section is an interactive portfolio showcase that spawns key visuals when users click or tap. It's designed to create an engaging, gallery-like experience that showcases work through animated visual elements.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="File Structure"><a class="HeadingLink" href="#File Structure">File Structure</a></h2>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">text</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>hero/</p>
+<p className="mb-4">├── hero.js              # Main JavaScript functionality</p>
+<p className="mb-4">├── hero.css             # Styling and responsive design</p>
+<p className="mb-4">├── hero-test.html       # Development test file</p>
+<p className="mb-4">├── hero-backup.js       # Backup version</p>
+<p className="mb-4">└── README.md            # This documentation</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Key Features"><a class="HeadingLink" href="#Key Features">Key Features</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Interactive Visual Spawning"><a class="HeadingLink" href="#Interactive Visual Spawning">Interactive Visual Spawning</a></h3>
+<p className="mb-4">- <strong>Click/Tap to Spawn</strong>: Users can click anywhere in the hero section to spawn key visuals</p>
+<p className="mb-4">- <strong>Consecutive Selection</strong>: Visuals are selected in order from the collection</p>
+<p className="mb-4">- <strong>Responsive Sizing</strong>: Different display widths based on aspect ratio and screen size</p>
+<p className="mb-4">- <strong>Smooth Animations</strong>: GSAP-powered enter, dwell, and exit animations</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Multi-Asset Support"><a class="HeadingLink" href="#Multi-Asset Support">Multi-Asset Support</a></h3>
+<p className="mb-4">- <strong>Images</strong>: PNG, JPG, WebP, AVIF formats</p>
+<p className="mb-4">- <strong>Videos</strong>: MP4 with poster images and autoplay</p>
+<p className="mb-4">- <strong>GIFs</strong>: Treated as images for optimal performance</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Responsive Design"><a class="HeadingLink" href="#Responsive Design">Responsive Design</a></h3>
+<p className="mb-4">- <strong>Mobile Detection</strong>: Automatically adjusts settings for mobile vs desktop</p>
+<p className="mb-4">- <strong>Aspect Ratio Handling</strong>: Proper container sizing with CSS <code className="Code">aspect-ratio</code></p>
+<p className="mb-4">- <strong>Object Fit</strong>: Images and videos use <code className="Code">object-fit: cover</code> for proper cropping</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="HTML Structure"><a class="HeadingLink" href="#HTML Structure">HTML Structure</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Basic Hero Container"><a class="HeadingLink" href="#Basic Hero Container">Basic Hero Container</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><section id="key-visual-container"></p>
+<p className="mb-4">  <div class="hero-content"></p>
+<p className="mb-4">    <h1 class="hero-title">Click Anywhere</h1></p>
+<p className="mb-4">  </div></p>
+<p className="mb-4"></section></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow CMS Integration"><a class="HeadingLink" href="#Webflow CMS Integration">Webflow CMS Integration</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- Hidden JSON feed for CMS data --></p>
+<div id="kv-json-feed" style="display: none;">
+<p className="mb-4">  <script type="application/json" class="kv-json"></p>
+<p className="mb-4">    {</p>
+<p className="mb-4">      "type": "image",</p>
+<p className="mb-4">      "src": "https://example.com/image.jpg",</p>
+<p className="mb-4">      "poster": "https://example.com/poster.jpg",</p>
+<p className="mb-4">      "alt": "Image description",</p>
+<p className="mb-4">      "ratio": "16:9",</p>
+<p className="mb-4">      "weight": 1,</p>
+<p className="mb-4">      "drop": "season1",</p>
+<p className="mb-4">      "order": 1</p>
+<p className="mb-4">    }</p>
+<p className="mb-4">  </script></p>
+<p className="mb-4"></div></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="JavaScript API"><a class="HeadingLink" href="#JavaScript API">JavaScript API</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Initialization"><a class="HeadingLink" href="#Initialization">Initialization</a></h3>
+<p className="mb-4">The hero section automatically initializes when the DOM is ready:</p>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// The KeyVisualCollection class initializes automatically</p>
+<p className="mb-4">// No manual initialization needed</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Configuration"><a class="HeadingLink" href="#Configuration">Configuration</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Responsive display widths (automatically calculated)</p>
+<p className="mb-4">const widths = {</p>
+<p className="mb-4">  '16:9': '45vw',  // Landscape</p>
+<p className="mb-4">  '4:5': '30vw',   // Portrait</p>
+<p className="mb-4">  '1:1': '35vw',   // Square</p>
+<p className="mb-4">  '2:1': '90vw',   // Ultra-wide landscape</p>
+<p className="mb-4">  '9:16': '30vw'   // Ultra-tall portrait</p>
+<p className="mb-4">};</p>
+
+<p className="mb-4">// Mobile widths (larger for better mobile experience)</p>
+<p className="mb-4">const mobileWidths = {</p>
+<p className="mb-4">  '16:9': '70vw',</p>
+<p className="mb-4">  '4:5': '50vw',</p>
+<p className="mb-4">  '1:1': '55vw',</p>
+<p className="mb-4">  '2:1': '90vw',</p>
+<p className="mb-4">  '9:16': '45vw'</p>
+<p className="mb-4">};</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Animation Configuration"><a class="HeadingLink" href="#Animation Configuration">Animation Configuration</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Desktop animation settings</p>
+<p className="mb-4">const desktopConfig = {</p>
+<p className="mb-4">  enterDuration: 0.8,</p>
+<p className="mb-4">  dwellDuration: 3000,</p>
+<p className="mb-4">  exitDuration: 1.2,</p>
+<p className="mb-4">  driftDistance: [10, 10],</p>
+<p className="mb-4">  driftXMultiplier: 0.1,</p>
+<p className="mb-4">  scaleRange: [0.8, 1.2],</p>
+<p className="mb-4">  rotationRange: [-15, 15]</p>
+<p className="mb-4">};</p>
+
+<p className="mb-4">// Mobile animation settings (optimized for touch)</p>
+<p className="mb-4">const mobileConfig = {</p>
+<p className="mb-4">  enterDuration: 0.6,</p>
+<p className="mb-4">  dwellDuration: 3000,</p>
+<p className="mb-4">  exitDuration: 1.0,</p>
+<p className="mb-4">  driftDistance: [20, 30],</p>
+<p className="mb-4">  driftXMultiplier: 0.2,</p>
+<p className="mb-4">  scaleRange: [0.7, 1.1],</p>
+<p className="mb-4">  rotationRange: [-10, 10]</p>
+<p className="mb-4">};</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="CSS Classes"><a class="HeadingLink" href="#CSS Classes">CSS Classes</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Container"><a class="HeadingLink" href="#Container">Container</a></h3>
+<p className="mb-4">- <code className="Code">#key-visual-container</code> - Main hero container (full viewport height)</p>
+<p className="mb-4">- <code className="Code">#key-visual-overlay</code> - Fixed overlay for spawned visuals</p>
+<p className="mb-4">- <code className="Code">.hero-content</code> - Content wrapper with centering</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Visual Elements"><a class="HeadingLink" href="#Visual Elements">Visual Elements</a></h3>
+<p className="mb-4">- <code className="Code">.key-visual</code> - Individual spawned visual container</p>
+<p className="mb-4">- <code className="Code">.key-visual img</code> - Image elements with <code className="Code">object-fit: cover</code></p>
+<p className="mb-4">- <code className="Code">.key-visual video</code> - Video elements with <code className="Code">object-fit: cover</code></p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Content"><a class="HeadingLink" href="#Content">Content</a></h3>
+<p className="mb-4">- <code className="Code">.hero-title</code> - Main headline (responsive typography)</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Aspect Ratio System"><a class="HeadingLink" href="#Aspect Ratio System">Aspect Ratio System</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Supported Ratios"><a class="HeadingLink" href="#Supported Ratios">Supported Ratios</a></h3>
+<p className="mb-4">- <strong>16:9</strong> - Landscape (45vw desktop, 70vw mobile)</p>
+<p className="mb-4">- <strong>4:5</strong> - Portrait (30vw desktop, 50vw mobile)</p>
+<p className="mb-4">- <strong>1:1</strong> - Square (35vw desktop, 55vw mobile)</p>
+<p className="mb-4">- <strong>2:1</strong> - Ultra-wide landscape (90vw desktop, 90vw mobile)</p>
+<p className="mb-4">- <strong>9:16</strong> - Ultra-tall portrait (30vw desktop, 45vw mobile)</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="CSS Implementation"><a class="HeadingLink" href="#CSS Implementation">CSS Implementation</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">css</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>.key-visual {</p>
+<p className="mb-4">  aspect-ratio: var(--aspect-ratio, 1);</p>
+<p className="mb-4">}</p>
+
+<p className="mb-4">.key-visual img,</p>
+<p className="mb-4">.key-visual video {</p>
+<p className="mb-4">  width: 100%;</p>
+<p className="mb-4">  height: 100%;</p>
+<p className="mb-4">  object-fit: cover;</p>
+<p className="mb-4">  display: block;</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="JavaScript Implementation"><a class="HeadingLink" href="#JavaScript Implementation">JavaScript Implementation</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">javascript</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>// Set aspect ratio for proper container sizing</p>
+<p className="mb-4">const aspectRatio = visual.ratio.replace(':', ' / ');</p>
+<p className="mb-4">keyVisual.style.setProperty('--aspect-ratio', aspectRatio);</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow CMS Integration"><a class="HeadingLink" href="#Webflow CMS Integration">Webflow CMS Integration</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Data Structure"><a class="HeadingLink" href="#Data Structure">Data Structure</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">json</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span>{</p>
+<p className="mb-4">  "type": "image|video|gif",</p>
+<p className="mb-4">  "src": "https://example.com/asset.jpg",</p>
+<p className="mb-4">  "poster": "https://example.com/poster.jpg",</p>
+<p className="mb-4">  "alt": "Alt text for accessibility",</p>
+<p className="mb-4">  "ratio": "16:9|4:5|1:1|2:1|9:16",</p>
+<p className="mb-4">  "weight": 1,</p>
+<p className="mb-4">  "drop": "season1",</p>
+<p className="mb-4">  "order": 1</p>
+<p className="mb-4">}</span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Field Mapping"><a class="HeadingLink" href="#Field Mapping">Field Mapping</a></h3>
+<p className="mb-4">- <code className="Code">type</code> → Asset type (image, video, gif)</p>
+<p className="mb-4">- <code className="Code">src</code> → Asset URL</p>
+<p className="mb-4">- <code className="Code">poster</code> → Video poster image URL</p>
+<p className="mb-4">- <code className="Code">alt</code> → Alt text for accessibility</p>
+<p className="mb-4">- <code className="Code">ratio</code> → Aspect ratio for container sizing</p>
+<p className="mb-4">- <code className="Code">weight</code> → Selection weight (currently unused)</p>
+<p className="mb-4">- <code className="Code">drop</code> → Season/category label</p>
+<p className="mb-4">- <code className="Code">order</code> → Display order (ascending)</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Fallback Collection"><a class="HeadingLink" href="#Fallback Collection">Fallback Collection</a></h3>
+<p className="mb-4">If no CMS data is found, the system uses a default collection with placeholder images.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Performance Optimizations"><a class="HeadingLink" href="#Performance Optimizations">Performance Optimizations</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Asset Loading"><a class="HeadingLink" href="#Asset Loading">Asset Loading</a></h3>
+<p className="mb-4">- <strong>Preloading</strong>: First asset is preloaded for better performance</p>
+<p className="mb-4">- <strong>Lazy Loading</strong>: Videos use <code className="Code">preload="metadata"</code> to reduce initial load</p>
+<p className="mb-4">- <strong>Format Optimization</strong>: Supports modern formats (WebP, AVIF)</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Animation Performance"><a class="HeadingLink" href="#Animation Performance">Animation Performance</a></h3>
+<p className="mb-4">- <strong>Hardware Acceleration</strong>: <code className="Code">transform: translateZ(0)</code> and <code className="Code">backface-visibility: hidden</code></p>
+<p className="mb-4">- <strong>GSAP Optimization</strong>: Uses <code className="Code">will-change</code> and optimized transforms</p>
+<p className="mb-4">- <strong>Reduced Motion</strong>: Respects <code className="Code">prefers-reduced-motion</code> setting</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Memory Management"><a class="HeadingLink" href="#Memory Management">Memory Management</a></h3>
+<p className="mb-4">- <strong>Instance Limiting</strong>: Maximum 20 active visuals at once</p>
+<p className="mb-4">- <strong>Automatic Cleanup</strong>: Visuals are removed after exit animation</p>
+<p className="mb-4">- <strong>DOM Cleanup</strong>: CMS JSON feed is removed after parsing</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Mobile Support"><a class="HeadingLink" href="#Mobile Support">Mobile Support</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Touch Events"><a class="HeadingLink" href="#Touch Events">Touch Events</a></h3>
+<p className="mb-4">- <strong>Tap Detection</strong>: Distinguishes between taps and scrolls</p>
+<p className="mb-4">- <strong>Scroll Preservation</strong>: Allows normal scrolling while maintaining tap functionality</p>
+<p className="mb-4">- <strong>Passive Listeners</strong>: All touch events use <code className="Code">passive: true</code> for better performance</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Responsive Adjustments"><a class="HeadingLink" href="#Responsive Adjustments">Responsive Adjustments</a></h3>
+<p className="mb-4">- <strong>Larger Visuals</strong>: Mobile gets larger display widths for better visibility</p>
+<p className="mb-4">- <strong>Simplified Animations</strong>: Reduced complexity for mobile devices</p>
+<p className="mb-4">- <strong>Touch-Friendly</strong>: Optimized for finger interaction</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Browser Support"><a class="HeadingLink" href="#Browser Support">Browser Support</a></h2>
+<p className="mb-4">- <strong>Modern Browsers</strong>: Chrome, Firefox, Safari, Edge</p>
+<p className="mb-4">- <strong>Mobile Browsers</strong>: iOS Safari, Chrome Mobile</p>
+<p className="mb-4">- <strong>CSS Features</strong>: <code className="Code">aspect-ratio</code>, <code className="Code">object-fit</code>, CSS custom properties</p>
+<p className="mb-4">- <strong>JavaScript</strong>: ES6+ features, GSAP animations</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Integration"><a class="HeadingLink" href="#Integration">Integration</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Webflow Setup"><a class="HeadingLink" href="#Webflow Setup">Webflow Setup</a></h3>
+<p className="mb-4">1. Add the hero container element with ID <code className="Code">key-visual-container</code></p>
+<p className="mb-4">2. Include the CSS file in your project</p>
+<p className="mb-4">3. Include the JavaScript file in your project</p>
+<p className="mb-4">4. Add GSAP library (if not already included)</p>
+<p className="mb-4">5. The hero will automatically initialize</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="CDN Integration"><a class="HeadingLink" href="#CDN Integration">CDN Integration</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- CSS --></p>
+<p className="mb-4"><link href="http://127.0.0.1:5500/hero/hero.css" rel="stylesheet"></p>
+
+<p className="mb-4"><!-- JavaScript --></p>
+<p className="mb-4"><script src="http://127.0.0.1:5500/hero/hero.js"></script></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Production CDN"><a class="HeadingLink" href="#Production CDN">Production CDN</a></h3>
+
+<p className="mb-4">        <div role="figure" aria-labelledby="code-block" class="CodeBlockRoot"></p>
+<p className="mb-4">          <div className="CodeBlockPanel"></p>
+<p className="mb-4">            <div className="CodeBlockPanelTitle">html</div></p>
+<p className="mb-4">            <button className="GhostButton ml-auto" aria-label="Copy code"></p>
+<p className="mb-4">              Copy</p>
+<p className="mb-4">              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"></p>
+<p className="mb-4">                <path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></p>
+<p className="mb-4">              </svg></p>
+<p className="mb-4">            </button></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">          <div className="CodeBlockPreContainer"></p>
+<p className="mb-4">            <pre className="CodeBlockPre"></p>
+<p className="mb-4">              <code className="Code"></p>
+<p className="mb-4">                <span><!-- CSS --></p>
+<p className="mb-4"><link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.7.1/hero/hero.css" rel="stylesheet"></p>
+
+<p className="mb-4"><!-- JavaScript --></p>
+<p className="mb-4"><script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.7.1/hero/hero.js"></script></span></p>
+<p className="mb-4">              </code></p>
+<p className="mb-4">            </pre></p>
+<p className="mb-4">          </div></p>
+<p className="mb-4">        </div></p>
+<p className="mb-4">      </p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Troubleshooting"><a class="HeadingLink" href="#Troubleshooting">Troubleshooting</a></h2>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Common Issues"><a class="HeadingLink" href="#Common Issues">Common Issues</a></h3>
+<p className="mb-4">1. <strong>Visuals not spawning</strong>: Check console for initialization errors</p>
+<p className="mb-4">2. <strong>Wrong aspect ratios</strong>: Verify CSS custom properties are being set</p>
+<p className="mb-4">3. <strong>Mobile not working</strong>: Check touch event handling and mobile detection</p>
+<p className="mb-4">4. <strong>CMS data not loading</strong>: Verify JSON structure and container ID</p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Debug Mode"><a class="HeadingLink" href="#Debug Mode">Debug Mode</a></h3>
+<p className="mb-4">Enable console logging by adding <code className="Code">console.log("Script - Key Visuals v2");</code> to see:</p>
+<p className="mb-4">- Responsive width calculations</p>
+<p className="mb-4">- Visual creation with ratios and widths</p>
+<p className="mb-4">- Mobile detection status</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Version History"><a class="HeadingLink" href="#Version History">Version History</a></h2>
+<p className="mb-4">- <strong>v2.0.0</strong>: Added aspect ratio system, mobile scroll fix, CMS integration</p>
+<p className="mb-4">- <strong>v1.7.1</strong>: Mobile touch handling improvements</p>
+<p className="mb-4">- <strong>v1.7.0</strong>: Initial responsive design implementation</p>
+        </div>
+      </div>
+                                <!-- Table of Contents -->
+                                {{QUICK_NAV}}
+                            </div>
+                        </div>
+                    </main>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BD Animations Guide - ByDefault Documentation</title>
+    <meta name="description" content="Comprehensive guide to using the ByDefault animations library built with GSAP and ScrollTrigger for creating engaging, performant animations across the website.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+                            <!-- Deployment Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
+                                <ul class="space-y-1">
+                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Features Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
+                                <ul class="space-y-1">
+                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
+                                <ul class="space-y-1">
+                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Testing Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
+                                <ul class="space-y-1">
+                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="BD Animations Guide">BD Animations Guide</h1>
+<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
+  <p class="text-lg text-gray-600 leading-relaxed">ByDefault Studio Animation System v4.0 with GSAP and ScrollTrigger</p>
+  <a href="bd-animations-guide.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a>
+</div>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Version 4.0</strong> - ByDefault Studio Animation System</p>
+
+<p class="mb-4 text-gray-700 leading-6">A comprehensive guide to using the ByDefault animations library built with GSAP and ScrollTrigger.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🚀 Quick Start"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🚀 Quick Start">🚀 Quick Start</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Basic Usage"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Basic Usage">Basic Usage</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Add the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-animate</code> attribute to any element you want to animate:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Simple fade in animation (default) -->
+<h1 data-bd-animate>Welcome to ByDefault</h1>
+
+<!-- Slide up animation -->
+<p data-bd-animate="slide-up">This text slides up from below</p>
+
+<!-- Scale in animation -->
+<div data-bd-animate="scale-in">This element scales in</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Simple fade in animation (default) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>&gt;</span>Welcome to ByDefault<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Slide up animation --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span>&gt;</span>This text slides up from below<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Scale in animation --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;scale-in&quot;</span>&gt;</span>This element scales in<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Legacy Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Legacy Support">Legacy Support</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The system also supports legacy <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate</code> attributes:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Legacy syntax (automatically converted to data-bd-animate="fade") -->
+<h2 data-text-animate="element">Legacy Animation</h2>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Legacy syntax (automatically converted to data-bd-animate=&quot;fade&quot;) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;element&quot;</span>&gt;</span>Legacy Animation<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="📋 Available Animations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#📋 Available Animations">📋 Available Animations</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="All Animations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#All Animations">All Animations</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">| Animation | Attribute Value | Description |</p>
+<p class="mb-4 text-gray-700 leading-6">|-----------|----------------|-------------|</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Fade</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">fade</code> or empty | Default fade in animation |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Slide</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slide</code> | Fade + slide up from below |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Slide Up</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slide-up</code> | Slide up from below |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Slide Down</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slide-down</code> | Slide down from above |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Slide Left</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slide-left</code> | Slide in from left |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Slide Right</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slide-right</code> | Slide in from right |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Scale In</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">scale-in</code> | Scale from 80% to 100% |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Rotate In</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">rotate-in</code> | Rotate in from -15° to 0° |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Expand Spacing</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">expand-spacing</code> | Expand letter spacing |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Skew</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">skew</code> | Skew animation |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Flip</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">flip</code> | 3D flip effect |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Fade In/Out</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">fade-in-out</code> | Smooth fade transition |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Blur In</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">blur-in</code> | Blur to clear effect |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Bounce In</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">bounce-in</code> | Bouncy entrance |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Shake</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">shake</code> | Shake effect |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Flash</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">flash</code> | Continuous flashing |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Neon</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">neon</code> | Neon glow effect |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Tilt</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">tilt</code> | 3D perspective tilt |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">In View</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">in-view</code> | Animate when element enters viewport |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Delay</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-delay</code> | Animation delay in seconds (e.g., "0.5") |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Scrub</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-scrub</code> | Scroll-tied animation speed ("true" or "0.1-5.0") |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">From Y</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-y</code> | Starting Y position offset (e.g., "50", "-30") |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">From X</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-x</code> | Starting X position offset (e.g., "100", "-50") |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">From Scale</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-scale</code> | Starting scale size (e.g., "0.8", "1.2") |</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Text-Specific Animations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Text-Specific Animations">Text-Specific Animations</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">| Animation | Attribute Value | Description |</p>
+<p class="mb-4 text-gray-700 leading-6">|-----------|----------------|-------------|</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Characters</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="chars"</code> | Animate each character |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Words</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="words"</code> | Animate each word |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Lines</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="lines"</code> | Animate each line |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Rich Text</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="rich-text"</code> | Animate rich text elements |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">List Items</strong> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="list"</code> | Animate list items |</p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="⚙️ Configuration Options"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#⚙️ Configuration Options">⚙️ Configuration Options</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Scroll Behavior"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Scroll Behavior">Scroll Behavior</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">#### Scrub Animation</p>
+<p class="mb-4 text-gray-700 leading-6">Make animations tied to scroll position:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Smooth scroll-tied animation -->
+<div data-bd-animate="slide-up" data-bd-scrub="true">
+  Scrolls smoothly with page
+</div>
+
+<!-- Custom scrub speed (0.1 = slow, 2 = fast) -->
+<div data-bd-animate="slide-up" data-bd-scrub="0.5">
+  Medium speed scroll animation
+</div>
+
+<!-- No scrub (default) - fires once when element enters viewport -->
+<div data-bd-animate="slide-up">
+  Fires once when visible
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Smooth scroll-tied animation --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+  Scrolls smoothly with page
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Custom scrub speed (0.1 = slow, 2 = fast) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;0.5&quot;</span>&gt;</span>
+  Medium speed scroll animation
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- No scrub (default) - fires once when element enters viewport --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span>&gt;</span>
+  Fires once when visible
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Delay</p>
+<p class="mb-4 text-gray-700 leading-6">Add delays to animations:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Delay animation by 0.5 seconds -->
+<h1 data-bd-animate="fade" data-bd-delay="0.5">Delayed Animation</h1>
+
+<!-- Delay by 1.2 seconds -->
+<p data-bd-animate="slide-up" data-bd-delay="1.2">Longer Delay</p>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Delay animation by 0.5 seconds --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;fade&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span>&gt;</span>Delayed Animation<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Delay by 1.2 seconds --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;1.2&quot;</span>&gt;</span>Longer Delay<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Viewport Positioning"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Viewport Positioning">Viewport Positioning</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">#### Custom Starting Position</p>
+<p class="mb-4 text-gray-700 leading-6">For <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">in-view</code> animations, customize the starting position using multiple positioning attributes:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Start from 50px below -->
+<div data-bd-animate="in-view" data-bd-from-y="50">
+  Starts 50px below current position
+</div>
+
+<!-- Start from left and scaled down -->
+<div data-bd-animate="in-view" data-bd-from-x="-100" data-bd-from-scale="0.8">
+  Starts from left, scaled down
+</div>
+
+<!-- Complex starting position -->
+<div data-bd-animate="in-view" data-bd-from-y="80" data-bd-from-x="30" data-bd-from-scale="0.6">
+  Starts 80px below, 30px right, at 60% scale
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Start from 50px below --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;50&quot;</span>&gt;</span>
+  Starts 50px below current position
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Start from left and scaled down --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-x</span>=<span class="hljs-string">&quot;-100&quot;</span> <span class="hljs-attr">data-bd-from-scale</span>=<span class="hljs-string">&quot;0.8&quot;</span>&gt;</span>
+  Starts from left, scaled down
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Complex starting position --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;80&quot;</span> <span class="hljs-attr">data-bd-from-x</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">data-bd-from-scale</span>=<span class="hljs-string">&quot;0.6&quot;</span>&gt;</span>
+  Starts 80px below, 30px right, at 60% scale
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Available Position Attributes</p>
+
+<p class="mb-4 text-gray-700 leading-6">| Attribute | Description | Example Values |</p>
+<p class="mb-4 text-gray-700 leading-6">|-----------|-------------|----------------|</p>
+<p class="mb-4 text-gray-700 leading-6">| <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-y</code> | Vertical offset from current position | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"50"</code> (down), <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"-30"</code> (up) |</p>
+<p class="mb-4 text-gray-700 leading-6">| <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-x</code> | Horizontal offset from current position | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"100"</code> (right), <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"-50"</code> (left) |</p>
+<p class="mb-4 text-gray-700 leading-6">| <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-scale</code> | Starting scale (1.0 = normal size) | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"0.8"</code> (80%), <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">"1.2"</code> (120%) |</p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Note</strong>: These attributes only work with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-animate="in-view"</code> animations.</p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🔗 Attribute Combinations & Compatibility"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🔗 Attribute Combinations & Compatibility">🔗 Attribute Combinations & Compatibility</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="What Works Together"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#What Works Together">What Works Together</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">#### ✅ Compatible Combinations</p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">All Animations Support:</strong></p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Delay + Scrub (any animation type) -->
+<div data-bd-animate="slide-up" data-bd-delay="0.5" data-bd-scrub="1">
+  Delayed scroll animation
+</div>
+
+<!-- Delay + Any animation type -->
+<h1 data-bd-animate="scale-in" data-bd-delay="0.3">Delayed scale animation</h1>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Delay + Scrub (any animation type) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>
+  Delayed scroll animation
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Delay + Any animation type --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;scale-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.3&quot;</span>&gt;</span>Delayed scale animation<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">In-View Animations Support:</strong></p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Position + Delay (in-view only) -->
+<div data-bd-animate="in-view" data-bd-from-y="50" data-bd-delay="0.8">
+  Starts below, with delay
+</div>
+
+<!-- Multiple position attributes (in-view only) -->
+<div data-bd-animate="in-view" data-bd-from-y="30" data-bd-from-x="-20" data-bd-from-scale="0.9">
+  Complex starting position
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Position + Delay (in-view only) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.8&quot;</span>&gt;</span>
+  Starts below, with delay
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Multiple position attributes (in-view only) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">data-bd-from-x</span>=<span class="hljs-string">&quot;-20&quot;</span> <span class="hljs-attr">data-bd-from-scale</span>=<span class="hljs-string">&quot;0.9&quot;</span>&gt;</span>
+  Complex starting position
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Text Animations Support:</strong></p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Text animation + Delay + Scrub -->
+<h1 data-text-animate="chars" data-bd-delay="0.5" data-bd-scrub="2">
+  Delayed character animation with scroll
+</h1>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Text animation + Delay + Scrub --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;chars&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>
+  Delayed character animation with scroll
+<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### ❌ Incompatible Combinations</p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Position Attributes Only Work With In-View:</strong></p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- ❌ This won't work - position attributes ignored -->
+<div data-bd-animate="slide-up" data-bd-from-y="50">
+  Position attributes ignored for slide-up
+</div>
+
+<!-- ✅ This works - use in-view instead -->
+<div data-bd-animate="in-view" data-bd-from-y="50">
+  Position attributes work with in-view
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- ❌ This won&#x27;t work - position attributes ignored --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;50&quot;</span>&gt;</span>
+  Position attributes ignored for slide-up
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- ✅ This works - use in-view instead --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;50&quot;</span>&gt;</span>
+  Position attributes work with in-view
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Complete Compatibility Matrix"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Complete Compatibility Matrix">Complete Compatibility Matrix</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">| Animation Type | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-delay</code> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-scrub</code> | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-from-*</code> |</p>
+<p class="mb-4 text-gray-700 leading-6">|----------------|-----------------|-----------------|------------------|</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Core animations</strong> (fade, slide, etc.) | ✅ | ✅ | ❌ |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Advanced animations</strong> (scale-in, rotate-in, etc.) | ✅ | ✅ | ❌ |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Text animations</strong> (chars, words, lines) | ✅ | ✅ | ❌ |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">In-view animations</strong> | ✅ | ❌* | ✅ |</p>
+<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Special effects</strong> (flash, neon, shake) | ✅ | ✅ | ❌ |</p>
+
+<p class="mb-4 text-gray-700 leading-6">*In-view animations don't use scrub because they trigger based on viewport entry, not scroll position.</p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Practical Examples"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Practical Examples">Practical Examples</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">#### Hero Section with Multiple Elements</p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<section class="hero">
+  <!-- Main title with delay -->
+  <h1 data-bd-animate="slide-up" data-bd-delay="0.3">Welcome</h1>
+  
+  <!-- Subtitle with character animation and delay -->
+  <p data-text-animate="chars" data-bd-delay="0.8">Animated Characters</p>
+  
+  <!-- Button with bounce and longer delay -->
+  <button data-bd-animate="bounce-in" data-bd-delay="1.2">Get Started</button>
+</section>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Main title with delay --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.3&quot;</span>&gt;</span>Welcome<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Subtitle with character animation and delay --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;chars&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.8&quot;</span>&gt;</span>Animated Characters<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Button with bounce and longer delay --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;bounce-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;1.2&quot;</span>&gt;</span>Get Started<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Scroll-Tied Content Section</p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<section>
+  <!-- Image that scales with scroll -->
+  <img data-bd-animate="scale-in" data-bd-scrub="1" src="image.jpg" alt="Hero">
+  
+  <!-- Text that fades with scroll -->
+  <p data-bd-animate="fade" data-bd-scrub="1.5">Scroll-tied content</p>
+  
+  <!-- Words that animate with scroll -->
+  <h2 data-text-animate="words" data-bd-scrub="2">Scroll Animation</h2>
+</section>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Image that scales with scroll --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;scale-in&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;image.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Hero&quot;</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Text that fades with scroll --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;fade&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1.5&quot;</span>&gt;</span>Scroll-tied content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Words that animate with scroll --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;words&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;2&quot;</span>&gt;</span>Scroll Animation<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Viewport Entry Animations</p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<section>
+  <!-- Card that enters from below with delay -->
+  <div class="card" data-bd-animate="in-view" data-bd-from-y="100" data-bd-delay="0.5">
+    <h3>Card Title</h3>
+    <p>Card content</p>
+  </div>
+  
+  <!-- Another card entering from left -->
+  <div class="card" data-bd-animate="in-view" data-bd-from-x="-150" data-bd-delay="0.8">
+    <h3>Another Card</h3>
+    <p>More content</p>
+  </div>
+</section>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Card that enters from below with delay --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-y</span>=<span class="hljs-string">&quot;100&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Card Title<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Card content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  
+  <span class="hljs-comment">&lt;!-- Another card entering from left --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;card&quot;</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;in-view&quot;</span> <span class="hljs-attr">data-bd-from-x</span>=<span class="hljs-string">&quot;-150&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Another Card<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>More content<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Mixed Animation Types</p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<div class="content-grid">
+  <!-- Each element has different animation + timing -->
+  <div data-bd-animate="slide-up" data-bd-delay="0.1">Item 1</div>
+  <div data-bd-animate="scale-in" data-bd-delay="0.3">Item 2</div>
+  <div data-text-animate="words" data-bd-delay="0.5">Item 3</div>
+  <div data-bd-animate="rotate-in" data-bd-delay="0.7">Item 4</div>
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content-grid&quot;</span>&gt;</span>
+  <span class="hljs-comment">&lt;!-- Each element has different animation + timing --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.1&quot;</span>&gt;</span>Item 1<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;scale-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.3&quot;</span>&gt;</span>Item 2<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;words&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span>&gt;</span>Item 3<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;rotate-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.7&quot;</span>&gt;</span>Item 4<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Best Practices"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Best Practices">Best Practices</a></h3>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Use delays sparingly</strong> - Too many delayed animations can feel sluggish</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Combine scrub with caution</strong> - Multiple scrub animations can impact performance</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">In-view for precise control</strong> - Use when you need custom starting positions</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Test on mobile</strong> - Some combinations may behave differently on smaller screens</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Consider reduced motion</strong> - All animations respect user accessibility preferences</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="📱 Responsive Behavior"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#📱 Responsive Behavior">📱 Responsive Behavior</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Automatic Responsiveness"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Automatic Responsiveness">Automatic Responsiveness</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The animation system automatically adjusts trigger points based on screen size:</p>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Desktop</strong>: Triggers at <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">top 85%</code> → <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">bottom 75%</code></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Mobile</strong>: Triggers at <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">top 100%</code> → <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">top 60%</code></li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Reduced Motion Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Reduced Motion Support">Reduced Motion Support</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The system respects user preferences for reduced motion:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`/* Automatically applied when user has prefers-reduced-motion: reduce */
+/* Elements simply appear without animation */`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">/* Automatically applied when user has prefers-reduced-motion: reduce */</span>
+<span class="hljs-comment">/* Elements simply appear without animation */</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🎯 Advanced Examples"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🎯 Advanced Examples">🎯 Advanced Examples</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Character Animation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Character Animation">Character Animation</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Animate each character with stagger -->
+<h1 data-text-animate="chars">Animated Characters</h1>
+
+<!-- With custom scrub -->
+<h1 data-text-animate="chars" data-bd-scrub="1">Smooth Character Animation</h1>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Animate each character with stagger --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;chars&quot;</span>&gt;</span>Animated Characters<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- With custom scrub --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;chars&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>Smooth Character Animation<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Word Animation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Word Animation">Word Animation</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Animate each word -->
+<h2 data-text-animate="words">Each Word Animates</h2>
+
+<!-- With delay -->
+<h2 data-text-animate="words" data-bd-delay="0.3">Delayed Word Animation</h2>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Animate each word --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;words&quot;</span>&gt;</span>Each Word Animates<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- With delay --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;words&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.3&quot;</span>&gt;</span>Delayed Word Animation<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Rich Text Animation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Rich Text Animation">Rich Text Animation</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Animate all rich text elements -->
+<div data-text-animate="rich-text">
+  <h1>This heading animates</h1>
+  <p>This paragraph animates</p>
+  <ul>
+    <li>Each list item animates</li>
+    <li>With staggered timing</li>
+  </ul>
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Animate all rich text elements --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;rich-text&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>This heading animates<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>This paragraph animates<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Each list item animates<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>With staggered timing<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Complex Animation Combinations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Complex Animation Combinations">Complex Animation Combinations</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Multiple animations on different elements -->
+<section>
+  <h1 data-bd-animate="slide-up" data-bd-delay="0.2">Main Title</h1>
+  <p data-text-animate="words" data-bd-delay="0.5">Animated paragraph</p>
+  <div data-bd-animate="scale-in" data-bd-delay="0.8">
+    <img src="image.jpg" alt="Scaled image">
+  </div>
+</section>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Multiple animations on different elements --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.2&quot;</span>&gt;</span>Main Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;words&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.5&quot;</span>&gt;</span>Animated paragraph<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;scale-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;0.8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;image.jpg&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;Scaled image&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Scroll-Tied Hero Section"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Scroll-Tied Hero Section">Scroll-Tied Hero Section</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Hero section with scroll-tied animations -->
+<section class="hero">
+  <h1 data-bd-animate="slide-up" data-bd-scrub="1">Hero Title</h1>
+  <p data-text-animate="chars" data-bd-scrub="1.5">Hero subtitle</p>
+  <button data-bd-animate="bounce-in" data-bd-delay="1">Call to Action</button>
+</section>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Hero section with scroll-tied animations --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;slide-up&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>Hero Title<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">data-text-animate</span>=<span class="hljs-string">&quot;chars&quot;</span> <span class="hljs-attr">data-bd-scrub</span>=<span class="hljs-string">&quot;1.5&quot;</span>&gt;</span>Hero subtitle<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">data-bd-animate</span>=<span class="hljs-string">&quot;bounce-in&quot;</span> <span class="hljs-attr">data-bd-delay</span>=<span class="hljs-string">&quot;1&quot;</span>&gt;</span>Call to Action<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🔧 Technical Details"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🔧 Technical Details">🔧 Technical Details</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Dependencies"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Dependencies">Dependencies</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">GSAP</strong>: Core animation library</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">ScrollTrigger</strong>: Scroll-based animation triggers</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">SplitText</strong>: Text splitting for character/word animations</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Performance"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance">Performance</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Debounced Resize</strong>: 150ms debounce for resize events</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Smart Rebuilding</strong>: Only rebuilds SplitText on resize</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Memory Management</strong>: Automatically reverts SplitText instances</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Reduced Motion</strong>: Respects accessibility preferences</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Browser Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Browser Support">Browser Support</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Modern browsers with ES6+ support</li>
+<li class="mb-1 text-gray-700 leading-6">Automatic fallback for reduced motion preferences</li>
+<li class="mb-1 text-gray-700 leading-6">Optimized for mobile performance</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🐛 Troubleshooting"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🐛 Troubleshooting">🐛 Troubleshooting</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Common Issues"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Common Issues">Common Issues</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">#### Animation Not Working</p>
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Check that GSAP and ScrollTrigger are loaded</li>
+<li class="mb-1 text-gray-700 leading-6">Verify the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-animate</code> attribute is correct</li>
+<li class="mb-1 text-gray-700 leading-6">Ensure the element is in the DOM when animations initialize</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Duplicate Animations</p>
+<p class="mb-4 text-gray-700 leading-6">The system prevents duplicate bindings with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-bound</code> attributes.</p>
+
+<p class="mb-4 text-gray-700 leading-6">#### Performance Issues</p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Use <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-scrub</code> sparingly for complex animations</li>
+<li class="mb-1 text-gray-700 leading-6">Avoid too many SplitText animations on one page</li>
+<li class="mb-1 text-gray-700 leading-6">Test on mobile devices for performance</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Debug Mode"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Debug Mode">Debug Mode</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Check browser console for animation initialization messages:</p>
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">text</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`ByDefault Animations v4.0 - Canonical data-bd-* namespace
+Fonts loaded successfully`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs">ByDefault Animations v4.0 - Canonical data-bd-* namespace
+Fonts loaded successfully</code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="📚 Migration Guide"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#📚 Migration Guide">📚 Migration Guide</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="From Legacy System"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#From Legacy System">From Legacy System</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">If you're upgrading from an older version:</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Replace</strong> <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="element"</code> with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-animate="fade"</code></li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Keep</strong> existing <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate</code> values for text animations</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Add</strong> <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-scrub</code> for scroll-tied animations</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Update</strong> any custom CSS that conflicts with new animations</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Breaking Changes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Breaking Changes">Breaking Changes</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-text-animate="element"</code> now requires <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">data-bd-animate="fade"</code></li>
+<li class="mb-1 text-gray-700 leading-6">Some animation timing has been optimized</li>
+<li class="mb-1 text-gray-700 leading-6">ScrollTrigger refresh behavior improved</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="🎨 Customization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#🎨 Customization">🎨 Customization</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Extending Animations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Extending Animations">Extending Animations</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">To add custom animations, extend the animation functions:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Add to bd-animations.js
+function customAnimation() {
+  gsap.utils.toArray("[data-bd-animate='custom']").forEach((element) => {
+    if (element.dataset.bdBound) return;
+    
+    gsap.set(element, { opacity: 0, customProperty: 0 });
+    
+    gsap.to(element, {
+      opacity: 1,
+      customProperty: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: element,
+        start: "top 85%",
+        end: "bottom 75%"
+      }
+    });
+    
+    element.dataset.bdBound = "1";
+  });
+}
+
+// Add to textAnimations() function
+customAnimation();`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Add to bd-animations.js</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">customAnimation</span>(<span class="hljs-params"></span>) {
+  gsap.<span class="hljs-property">utils</span>.<span class="hljs-title function_">toArray</span>(<span class="hljs-string">&quot;[data-bd-animate=&#x27;custom&#x27;]&quot;</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">element</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (element.<span class="hljs-property">dataset</span>.<span class="hljs-property">bdBound</span>) <span class="hljs-keyword">return</span>;
+    
+    gsap.<span class="hljs-title function_">set</span>(element, { <span class="hljs-attr">opacity</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">customProperty</span>: <span class="hljs-number">0</span> });
+    
+    gsap.<span class="hljs-title function_">to</span>(element, {
+      <span class="hljs-attr">opacity</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">customProperty</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">ease</span>: <span class="hljs-string">&quot;power2.out&quot;</span>,
+      <span class="hljs-attr">scrollTrigger</span>: {
+        <span class="hljs-attr">trigger</span>: element,
+        <span class="hljs-attr">start</span>: <span class="hljs-string">&quot;top 85%&quot;</span>,
+        <span class="hljs-attr">end</span>: <span class="hljs-string">&quot;bottom 75%&quot;</span>
+      }
+    });
+    
+    element.<span class="hljs-property">dataset</span>.<span class="hljs-property">bdBound</span> = <span class="hljs-string">&quot;1&quot;</span>;
+  });
+}
+
+<span class="hljs-comment">// Add to textAnimations() function</span>
+<span class="hljs-title function_">customAnimation</span>();</code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="📞 Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#📞 Support">📞 Support</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">For questions or issues:</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Check this documentation first</li>
+<li class="mb-1 text-gray-700 leading-6">Review browser console for errors</li>
+<li class="mb-1 text-gray-700 leading-6">Test with reduced motion disabled</li>
+<li class="mb-1 text-gray-700 leading-6">Verify GSAP dependencies are loaded</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">ByDefault Studio</strong> - Creating beautiful, accessible animations for modern web experiences.</p>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+    <!-- Desktop Table of Contents -->
+    <div class="hidden xl:block sticky top-20 overflow-y-auto">
+      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#BD Animations Guide">BD Animations Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🚀 Quick Start">🚀 Quick Start</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Basic Usage">Basic Usage</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Legacy Support">Legacy Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#📋 Available Animations">📋 Available Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#All Animations">All Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Text-Specific Animations">Text-Specific Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#⚙️ Configuration Options">⚙️ Configuration Options</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Scroll Behavior">Scroll Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Viewport Positioning">Viewport Positioning</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🔗 Attribute Combinations & Compatibility">🔗 Attribute Combinations & Compatibility</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#What Works Together">What Works Together</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Complete Compatibility Matrix">Complete Compatibility Matrix</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Practical Examples">Practical Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#📱 Responsive Behavior">📱 Responsive Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Automatic Responsiveness">Automatic Responsiveness</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Reduced Motion Support">Reduced Motion Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🎯 Advanced Examples">🎯 Advanced Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Character Animation">Character Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Word Animation">Word Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Rich Text Animation">Rich Text Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Complex Animation Combinations">Complex Animation Combinations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Scroll-Tied Hero Section">Scroll-Tied Hero Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🔧 Technical Details">🔧 Technical Details</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Dependencies">Dependencies</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance">Performance</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🐛 Troubleshooting">🐛 Troubleshooting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Common Issues">Common Issues</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Debug Mode">Debug Mode</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#📚 Migration Guide">📚 Migration Guide</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#From Legacy System">From Legacy System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Breaking Changes">Breaking Changes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#🎨 Customization">🎨 Customization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Extending Animations">Extending Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#📞 Support">📞 Support</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Table of Contents -->
+    <div class="xl:hidden mb-8">
+        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
+        <div class="flex flex-col gap-3">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#BD Animations Guide">BD Animations Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🚀 Quick Start">🚀 Quick Start</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Basic Usage">Basic Usage</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Legacy Support">Legacy Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#📋 Available Animations">📋 Available Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#All Animations">All Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Text-Specific Animations">Text-Specific Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#⚙️ Configuration Options">⚙️ Configuration Options</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Scroll Behavior">Scroll Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Viewport Positioning">Viewport Positioning</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🔗 Attribute Combinations & Compatibility">🔗 Attribute Combinations & Compatibility</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#What Works Together">What Works Together</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Complete Compatibility Matrix">Complete Compatibility Matrix</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Practical Examples">Practical Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#📱 Responsive Behavior">📱 Responsive Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Automatic Responsiveness">Automatic Responsiveness</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Reduced Motion Support">Reduced Motion Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🎯 Advanced Examples">🎯 Advanced Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Character Animation">Character Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Word Animation">Word Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Rich Text Animation">Rich Text Animation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Complex Animation Combinations">Complex Animation Combinations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Scroll-Tied Hero Section">Scroll-Tied Hero Section</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🔧 Technical Details">🔧 Technical Details</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Dependencies">Dependencies</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance">Performance</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🐛 Troubleshooting">🐛 Troubleshooting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Common Issues">Common Issues</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Debug Mode">Debug Mode</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#📚 Migration Guide">📚 Migration Guide</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#From Legacy System">From Legacy System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Breaking Changes">Breaking Changes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#🎨 Customization">🎨 Customization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Extending Animations">Extending Animations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#📞 Support">📞 Support</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

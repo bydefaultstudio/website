@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Cursor System - ByDefault Documentation</title>
+    <meta name="description" content="Documentation for the custom cursor system including desktop detection, fallbacks, and interaction states.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+                            <!-- Deployment Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
+                                <ul class="space-y-1">
+                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Features Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
+                                <ul class="space-y-1">
+                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
+                                <ul class="space-y-1">
+                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Testing Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
+                                <ul class="space-y-1">
+                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Custom Cursor System">Custom Cursor System</h1>
+<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
+  <p class="text-lg text-gray-600 leading-relaxed">Advanced cursor interactions for desktop users with progressive enhancement</p>
+  <a href="custom-cursor-guide.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a>
+</div>
+
+<p class="mb-4 text-gray-700 leading-6">The ByDefault website features a sophisticated custom cursor system that enhances user interaction on desktop devices.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Overview"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Overview">Overview</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">The custom cursor system provides:</p>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Desktop-only activation</strong> - Only activates on screens 991px and wider</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Progressive enhancement</strong> - Gracefully falls back to default cursor</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Smooth animations</strong> - Fluid transitions between cursor states</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Performance optimized</strong> - Minimal impact on page load times</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Implementation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Implementation">Implementation</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">The cursor system is implemented using JavaScript and CSS:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">cursor.js</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Desktop detection
+const isDesktop = window.innerWidth >= 991;
+
+if (isDesktop) {
+  // Initialize custom cursor
+  initCustomCursor();
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Desktop detection</span>
+<span class="hljs-keyword">const</span> isDesktop = <span class="hljs-variable language_">window</span>.<span class="hljs-property">innerWidth</span> &gt;= <span class="hljs-number">991</span>;
+
+<span class="hljs-keyword">if</span> (isDesktop) {
+  <span class="hljs-comment">// Initialize custom cursor</span>
+  <span class="hljs-title function_">initCustomCursor</span>();
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">cursor.css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease-out;
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-selector-class">.custom-cursor</span> {
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">pointer-events</span>: none;
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">9999</span>;
+  <span class="hljs-attribute">transition</span>: transform <span class="hljs-number">0.1s</span> ease-out;
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Features"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Features">Features</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Cursor States"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Cursor States">Cursor States</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The cursor system includes several interactive states:</p>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Default</strong> - Standard cursor appearance</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Hover</strong> - Expanded cursor on interactive elements</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Click</strong> - Compressed cursor during click events</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Loading</strong> - Spinning animation for async operations</li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Interactive Elements"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Interactive Elements">Interactive Elements</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The cursor responds to various element types:</p>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Links</strong> - Slight expansion on hover</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Buttons</strong> - Color change and size increase</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Images</strong> - Zoom indicator overlay</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Forms</strong> - Focus state indication</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<div class="mb-3 p-3 border-l-3 border-gray-300 bg-gray-50"><div class="text-gray-700 text-sm"><strong class="font-semibold">Note:</strong> The cursor system respects user preferences and will disable if the user has reduced motion enabled in their system settings.</div></div>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Browser Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Browser Support">Browser Support</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">The custom cursor system works in all modern browsers:</p>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Chrome 60+</li>
+<li class="mb-1 text-gray-700 leading-6">Firefox 55+</li>
+<li class="mb-1 text-gray-700 leading-6">Safari 12+</li>
+<li class="mb-1 text-gray-700 leading-6">Edge 79+</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Performance Considerations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Considerations">Performance Considerations</a></h2>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Hardware acceleration</strong> - Uses <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">transform</code> for smooth animations</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Event delegation</strong> - Efficient event handling</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Memory management</strong> - Proper cleanup on page unload</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Throttling</strong> - Mouse move events are throttled for performance</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+    <!-- Desktop Table of Contents -->
+    <div class="hidden xl:block sticky top-20 overflow-y-auto">
+      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Custom Cursor System">Custom Cursor System</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Implementation">Implementation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Features">Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Cursor States">Cursor States</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Interactive Elements">Interactive Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Considerations">Performance Considerations</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Table of Contents -->
+    <div class="xl:hidden mb-8">
+        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
+        <div class="flex flex-col gap-3">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Custom Cursor System">Custom Cursor System</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Implementation">Implementation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Features">Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Cursor States">Cursor States</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Interactive Elements">Interactive Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Considerations">Performance Considerations</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

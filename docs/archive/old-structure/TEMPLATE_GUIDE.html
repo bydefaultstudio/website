@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMPLATE_GUIDE - ByDefault Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+        
+        .nav-item:hover {
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .nav-item.active {
+            background: #e3f2fd;
+            color: #1976d2;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    <div class="root">
+        <!-- Header -->
+        <header class="border-b border-gray-200 bg-white top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center">
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-blue-600">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 h-screen bg-white border-r border-gray-200 sticky top-0 overflow-hidden">
+                <nav aria-label="Main navigation" class="SideNavRoot h-full flex flex-col">
+                    <div class="flex-1 overflow-y-auto">
+                        <div class="p-4">
+                            
+                            <!-- Features Section -->
+                            <div class="SideNavSection mb-6">
+                                <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Features</div>
+                                <ul class="SideNavList space-y-1">
+                                    <li class="SideNavItem"><a href="audio-system-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Audio System</a></li>
+                                    <li class="SideNavItem"><a href="custom-cursor-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Custom Cursor System</a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="SideNavSection mb-6">
+                                <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Overview</div>
+                                <ul class="SideNavList space-y-1">
+                                    <li class="SideNavItem"><a href="README.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Documentation System</a></li>
+                                    <li class="SideNavItem"><a href="project-info.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Project Information</a></li>
+                                    <li class="SideNavItem"><a href="quick-start.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick Start</a></li>
+                                </ul>
+                            </div>
+                            <!-- Uncategorized Section -->
+                            <div class="SideNavSection mb-6">
+                                <div class="SideNavHeading text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Uncategorized</div>
+                                <ul class="SideNavList space-y-1">
+                                    <li class="SideNavItem"><a href="bd-animations-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Bd Animations Guide</a></li>
+                                    <li class="SideNavItem"><a href="case-study-pinning.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Case Study Pinning</a></li>
+                                    <li class="SideNavItem"><a href="code-structure.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Code Structure</a></li>
+                                    <li class="SideNavItem"><a href="hero-section-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Hero Section Guide</a></li>
+                                    <li class="SideNavItem"><a href="quick-reference.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Quick Reference</a></li>
+                                    <li class="SideNavItem"><a href="stacking-shapes-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Stacking Shapes Guide</a></li>
+                                    <li class="SideNavItem"><a href="switch-mode-guide.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Switch Mode Guide</a></li>
+                                    <li class="SideNavItem"><a href="TEMPLATE_GUIDE.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">TEMPLATE_GUIDE</a></li>
+                                    <li class="SideNavItem"><a href="webflow-guidelines.html" class="SideNavLink nav-item block px-3 py-2 text-sm text-gray-700 hover:text-gray-900 rounded-md">Webflow Guidelines</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="ContentLayoutMain flex-1 min-w-0" id="main-content">
+                <div class="max-w-6xl mx-auto px-6 py-8">
+                    <div class="flex gap-8">
+                        <!-- Content Area -->
+                        <div class="flex-1 min-w-0">
+                            <h1 class="mb-4 text-3xl font-bold text-balance" id="Documentation Template System">Documentation Template System</h1>
+
+<p class="mb-4 text-gray-700 leading-relaxed">This guide explains how to efficiently create new documentation pages using the template system.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Quick Start"><a class="HeadingLink" href="#Quick Start">Quick Start</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">To create a new documentation page, use the <code class="Code" data-inline="">generate-page.js</code> script:</p>
+
+
+<div role="figure" aria-labelledby="_yfq3fzhpp_" class="CodeBlockRoot" data-rehype-pretty-code-figure="">
+<p class="mb-4 text-gray-700 leading-relaxed">  <div class="CodeBlockPanel" data-rehype-pretty-code-title="" data-language="bash" data-theme="base-ui"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <div class="CodeBlockPanelTitle">Terminal</div></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <button data-layout="text" type="button" class="GhostButton ml-auto" aria-label="Copy code">Copy<span class="flex size-[14px] items-center justify-center"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></svg></span></button></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  </div></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  <div role="presentation" tabindex="-1" class="CodeBlockPreContainer"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <pre data-language="bash" data-theme="base-ui" class="CodeBlockPre ScrollAreaViewport base-ui-disable-scrollbar"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">      <code class="Code" data-language="bash" data-theme="base-ui">node generate-page.js <section> <page-name> [title]</code></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    </pre></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  </div></p>
+<p class="mb-4 text-gray-700 leading-relaxed"></div></p>
+
+<h3 class="mt-8 mb-1.5 scroll-mt-18 text-lg font-medium text-balance show-side-nav:scroll-mt-6" id="Examples"><a class="HeadingLink" href="#Examples">Examples</a></h3>
+
+
+<div role="figure" aria-labelledby="_hszyzz7m4_" class="CodeBlockRoot" data-rehype-pretty-code-figure="">
+<p class="mb-4 text-gray-700 leading-relaxed">  <div class="CodeBlockPanel" data-rehype-pretty-code-title="" data-language="bash" data-theme="base-ui"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <div class="CodeBlockPanelTitle">Terminal</div></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <button data-layout="text" type="button" class="GhostButton ml-auto" aria-label="Copy code">Copy<span class="flex size-[14px] items-center justify-center"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentcolor" xmlns="http://www.w3.org/2000/svg"><path d="M1.5 1C0.675781 1 0 1.67578 0 2.5V10.5C0 11.3242 0.675781 12 1.5 12H3V12.5C3 13.3242 3.67578 14 4.5 14H12.5C13.3242 14 14 13.3242 14 12.5V4.5C14 3.67578 13.3242 3 12.5 3H11V2.5C11 1.67578 10.3242 1 9.5 1H1.5ZM1.5 2H9.5C9.78125 2 10 2.21875 10 2.5V10.5C10 10.7812 9.78125 11 9.5 11H1.5C1.21875 11 1 10.7812 1 10.5V2.5C1 2.21875 1.21875 2 1.5 2ZM11 4H12.5C12.7812 4 13 4.21875 13 4.5V12.5C13 12.7812 12.7812 13 12.5 13H4.5C4.21875 13 4 12.7812 4 12.5V12H9.5C10.3242 12 11 11.3242 11 10.5V4Z" transform="translate(0 -1)"></path></svg></span></button></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  </div></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  <div role="presentation" tabindex="-1" class="CodeBlockPreContainer"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    <pre data-language="bash" data-theme="base-ui" class="CodeBlockPre ScrollAreaViewport base-ui-disable-scrollbar"></p>
+<p class="mb-4 text-gray-700 leading-relaxed">      <code class="Code" data-language="bash" data-theme="base-ui"><h1 class="mb-4 text-3xl font-bold text-balance" id="Create an overview page">Create an overview page</h1></p>
+<p class="mb-4 text-gray-700 leading-relaxed">node generate-page.js overview accessibility "Accessibility Guide"</p>
+
+<h1 class="mb-4 text-3xl font-bold text-balance" id="Create a component page  ">Create a component page  </h1>
+<p class="mb-4 text-gray-700 leading-relaxed">node generate-page.js components accordion "Accordion Component"</p>
+
+<h1 class="mb-4 text-3xl font-bold text-balance" id="Create a handbook page">Create a handbook page</h1>
+<p class="mb-4 text-gray-700 leading-relaxed">node generate-page.js handbook animation "Animation Guide"</p>
+
+<h1 class="mb-4 text-3xl font-bold text-balance" id="Create a utility page">Create a utility page</h1>
+<p class="mb-4 text-gray-700 leading-relaxed">node generate-page.js utilities direction-provider "Direction Provider"</code></p>
+<p class="mb-4 text-gray-700 leading-relaxed">    </pre></p>
+<p class="mb-4 text-gray-700 leading-relaxed">  </div></p>
+<p class="mb-4 text-gray-700 leading-relaxed"></div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="File Structure"><a class="HeadingLink" href="#File Structure">File Structure</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">The script will automatically:</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Create the appropriate section directory if it doesn't exist</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Generate the HTML file with proper navigation and styling</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Set up the correct CSS path based on the section</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Include a basic page structure with placeholder content</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Generated Files"><a class="HeadingLink" href="#Generated Files">Generated Files</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">For each page, the script creates:</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- <code class="Code" data-inline="">{section}/{page-name}.html</code> - The main documentation page</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Includes proper navigation, header, and sidebar</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Sets up the sticky QuickNav table of contents</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Uses the latest CSS version</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Template Features"><a class="HeadingLink" href="#Template Features">Template Features</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">The template includes:</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Fixed Header</strong> - Sticky navigation header</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Sidebar Navigation</strong> - Complete navigation with all sections</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Sticky QuickNav</strong> - Table of contents that sticks while scrolling</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Responsive Design</strong> - Works on all screen sizes</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Base UI Styling</strong> - Matches the Base UI documentation design</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Markdown Link</strong> - "View as Markdown" button</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- ✅ <strong class="font-semibold">Proper CSS Linking</strong> - Automatically sets correct CSS path</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Manual Updates"><a class="HeadingLink" href="#Manual Updates">Manual Updates</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">If you need to update the template (header, navigation, etc.), edit <code class="Code" data-inline="">template.html</code> and then regenerate any existing pages, or update them manually.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="CSS Updates"><a class="HeadingLink" href="#CSS Updates">CSS Updates</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">To update the CSS version across all pages:</p>
+<ol class="mb-4 list-decimal list-inside space-y-1"><li class="mb-1">Update the version number in <code class="Code" data-inline="">generate-page.js</code> (line with <code class="Code" data-inline="">cssPath</code>)</li>
+<li class="mb-1">Regenerate pages or manually update the version number in existing files</li></ol>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Customization"><a class="HeadingLink" href="#Customization">Customization</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">After generating a page, you can:</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Edit the content in the <code class="Code" data-inline="">{{PAGE_CONTENT}}</code> section</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Modify the QuickNav structure in the <code class="Code" data-inline=""><nav aria-label="On this page" class="QuickNavRoot"><div class="QuickNavInner"><header class="QuickNavTitle">On this page</header><ul class="QuickNavList"><li class="QuickNavItem"><a class="QuickNavLink" href="#">(Top)</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Quick Start">Quick Start</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Examples">Examples</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#File Structure">File Structure</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Generated Files">Generated Files</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Template Features">Template Features</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Manual Updates">Manual Updates</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#CSS Updates">CSS Updates</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Customization">Customization</a></li><li class="QuickNavItem"><a class="QuickNavLink" href="#Sections">Sections</a></li></ul></div></nav></code> section</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- Add custom styling or scripts as needed</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-18 text-xl font-medium text-balance show-side-nav:scroll-mt-6" id="Sections"><a class="HeadingLink" href="#Sections">Sections</a></h2>
+
+<p class="mb-4 text-gray-700 leading-relaxed">Available sections:</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- <code class="Code" data-inline="">overview</code> - Overview pages (quick-start, accessibility, etc.)</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- <code class="Code" data-inline="">handbook</code> - Handbook pages (styling, animation, etc.)</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- <code class="Code" data-inline="">components</code> - Component documentation</p>
+<p class="mb-4 text-gray-700 leading-relaxed">- <code class="Code" data-inline="">utilities</code> - Utility documentation</p>
+
+<p class="mb-4 text-gray-700 leading-relaxed">Each section maintains its own directory structure and proper relative paths.</p>
+                        </div>
+                        <!-- Table of Contents -->
+                        {{QUICK_NAV}}
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

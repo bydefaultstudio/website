@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacking Shapes Guide - ByDefault Documentation</title>
+    <meta name="description" content="Complete guide to the Stacking Shapes component featuring interactive physics simulation, draggable shapes, logo integration, and sound effects for engaging user interactions.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
+                            <span class="text-white font-bold text-sm">BD</span>
+                        </div>
+                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+                            <!-- Deployment Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
+                                <ul class="space-y-1">
+                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Features Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
+                                <ul class="space-y-1">
+                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Overview Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
+                                <ul class="space-y-1">
+                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+                                </ul>
+                            </div>
+                            <!-- Testing Section -->
+                            <div class="mb-8">
+                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
+                                <ul class="space-y-1">
+                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Stacking Shapes Guide">Stacking Shapes Guide</h1>
+<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
+  <p class="text-lg text-gray-600 leading-relaxed">Interactive physics-driven experience with draggable brand shapes and Matter.js</p>
+  <a href="stacking-shapes-guide.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a>
+</div>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Overview"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Overview">Overview</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">The Stacking Shapes component is an interactive physics-driven experience built with Matter.js that features draggable brand shapes, a logo sprite, sound effects, and a scoring system. It creates an engaging, playful experience perfect for 404 pages or other interactive sections of the By Default website.</p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Features"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Features">Features</a></h2>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Interactive Physics</strong>: Draggable shapes with realistic physics simulation</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Logo Integration</strong>: SVG logo as a physics body with custom rendering</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Sound System</strong>: Collision-based audio feedback with user controls</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Scoring System</strong>: Progress tracking with win condition at 100%</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Responsive Design</strong>: Scales appropriately across different screen sizes</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Accessibility</strong>: Keyboard navigation and screen reader support</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Performance Optimized</strong>: Pauses when tab is hidden, cleans up on unload</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="File Structure"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#File Structure">File Structure</a></h2>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">text</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`stacking-shapes/
+├── stacking-shapes.css    - Styling for canvas, modal, and UI elements
+├── stacking-shapes.js     - Main physics engine implementation
+├── stacking-shapes-1.js   - Backup version 1
+└── stacking-shapes-2.js   - Backup version 2`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs">stacking-shapes/
+├── stacking-shapes.css    - Styling for canvas, modal, and UI elements
+├── stacking-shapes.js     - Main physics engine implementation
+├── stacking-shapes-1.js   - Backup version 1
+└── stacking-shapes-2.js   - Backup version 2</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Technical Stack"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Technical Stack">Technical Stack</a></h2>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Matter.js 0.20.x</strong> - 2D physics engine</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">pathseg polyfill</strong> - SVG path compatibility</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Web Audio API</strong> - Sound generation</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Canvas 2D</strong> - Rendering</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">LocalStorage</strong> - Sound preference persistence</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="HTML Structure"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#HTML Structure">HTML Structure</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Required Elements"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Required Elements">Required Elements</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Main container -->
+<div id="stacking-shapes-canvas"></div>
+
+<!-- Score HUD -->
+<div class="stacking-shapes-score-bar">
+  <span id="stacking-shapes-score-fill" style="width:0%"></span>
+</div>
+<div id="stacking-shapes-score-number">0%</div>
+<button id="stacking-shapes-score-reset">Reset</button>
+
+<!-- Sound Controls -->
+<input type="checkbox" id="stacking-shapes-sound-toggle" />
+<span class="stacking-shapes-voice-control">Sound : On</span>
+
+<!-- Modal -->
+<div id="stacking-shapes-media-modal" class="stacking-shapes-modal" aria-hidden="true">
+  <div class="stacking-shapes-modal__dialog">
+    <button id="stacking-shapes-modal-close">Close</button>
+    <div id="stacking-shapes-modal-body"></div>
+  </div>
+</div>
+
+<!-- SVG Paths (hidden) -->
+<svg width="0" height="0" style="position:absolute;left:-9999px;">
+  <path id="shape1" d="..." />
+  <path id="shape2" d="..." />
+  <path id="shape3" d="..." />
+  <path id="shape4" d="..." />
+  <path id="logo-shape" d="..." />
+</svg>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Main container --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-canvas&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Score HUD --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-score-bar&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-score-fill&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width:0%&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-score-number&quot;</span>&gt;</span>0%<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-score-reset&quot;</span>&gt;</span>Reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Sound Controls --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-sound-toggle&quot;</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-voice-control&quot;</span>&gt;</span>Sound : On<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Modal --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-media-modal&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-modal&quot;</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-modal__dialog&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-modal-close&quot;</span>&gt;</span>Close<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-modal-body&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- SVG Paths (hidden) --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;position:absolute;left:-9999px;&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;shape1&quot;</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;shape2&quot;</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;shape3&quot;</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;shape4&quot;</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">path</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;logo-shape&quot;</span> <span class="hljs-attr">d</span>=<span class="hljs-string">&quot;...&quot;</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Shape Configuration"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Shape Configuration">Shape Configuration</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Adding New Shapes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Adding New Shapes">Adding New Shapes</a></h3>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Add SVG Path</strong>: Create a new <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150"><path></code> element in the hidden SVG</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Update JavaScript</strong>: Add shape to the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">shapes</code> array in <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">initHeroPhysics()</code></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// In initStackingShapes() function
+window.heroPhysics.shapes = [
+  bodyFromPath("shape1", innerWidth * 0.25, innerHeight * 0.25, "#094C45", "one", "#news"),
+  bodyFromPath("shape2", innerWidth * 0.5, innerHeight * 0.3, "#F7A3BC", "two", "#founders"),
+  bodyFromPath("shape3", innerWidth * 0.75, innerHeight * 0.3, "#FFB533", "three", "#work"),
+  bodyFromPath("shape4", innerWidth * 0.15, innerHeight * 0.15, "#88D3CD", "four", "#about"),
+  // Add your new shape here
+  bodyFromPath("shape5", innerWidth * 0.6, innerHeight * 0.4, "#FF6B6B", "five", "#contact"),
+];`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// In initStackingShapes() function</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">shapes</span> = [
+  <span class="hljs-title function_">bodyFromPath</span>(<span class="hljs-string">&quot;shape1&quot;</span>, innerWidth * <span class="hljs-number">0.25</span>, innerHeight * <span class="hljs-number">0.25</span>, <span class="hljs-string">&quot;#094C45&quot;</span>, <span class="hljs-string">&quot;one&quot;</span>, <span class="hljs-string">&quot;#news&quot;</span>),
+  <span class="hljs-title function_">bodyFromPath</span>(<span class="hljs-string">&quot;shape2&quot;</span>, innerWidth * <span class="hljs-number">0.5</span>, innerHeight * <span class="hljs-number">0.3</span>, <span class="hljs-string">&quot;#F7A3BC&quot;</span>, <span class="hljs-string">&quot;two&quot;</span>, <span class="hljs-string">&quot;#founders&quot;</span>),
+  <span class="hljs-title function_">bodyFromPath</span>(<span class="hljs-string">&quot;shape3&quot;</span>, innerWidth * <span class="hljs-number">0.75</span>, innerHeight * <span class="hljs-number">0.3</span>, <span class="hljs-string">&quot;#FFB533&quot;</span>, <span class="hljs-string">&quot;three&quot;</span>, <span class="hljs-string">&quot;#work&quot;</span>),
+  <span class="hljs-title function_">bodyFromPath</span>(<span class="hljs-string">&quot;shape4&quot;</span>, innerWidth * <span class="hljs-number">0.15</span>, innerHeight * <span class="hljs-number">0.15</span>, <span class="hljs-string">&quot;#88D3CD&quot;</span>, <span class="hljs-string">&quot;four&quot;</span>, <span class="hljs-string">&quot;#about&quot;</span>),
+  <span class="hljs-comment">// Add your new shape here</span>
+  <span class="hljs-title function_">bodyFromPath</span>(<span class="hljs-string">&quot;shape5&quot;</span>, innerWidth * <span class="hljs-number">0.6</span>, innerHeight * <span class="hljs-number">0.4</span>, <span class="hljs-string">&quot;#FF6B6B&quot;</span>, <span class="hljs-string">&quot;five&quot;</span>, <span class="hljs-string">&quot;#contact&quot;</span>),
+];</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Shape Properties"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Shape Properties">Shape Properties</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`bodyFromPath(id, x, y, fill, label, link)`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-title function_">bodyFromPath</span>(id, x, y, fill, label, link)</code>
+    </pre>
+  </div>
+</div></p>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">id</strong>: SVG path element ID</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">x, y</strong>: Initial position coordinates</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">fill</strong>: Hex color code (e.g., "#094C45")</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">label</strong>: Text displayed on the shape</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">link</strong>: Optional URL for click actions</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Physics Properties"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Physics Properties">Physics Properties</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Shapes can be customized with different physics properties:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`{
+  restitution: 0.6,        // Bounciness (0-1)
+  frictionAir: 0.02,       // Air resistance
+  render: { 
+    fillStyle: "#094C45",  // Color
+    strokeStyle: "transparent"
+  }
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs">{
+  <span class="hljs-attr">restitution</span>: <span class="hljs-number">0.6</span>,        <span class="hljs-comment">// Bounciness (0-1)</span>
+  <span class="hljs-attr">frictionAir</span>: <span class="hljs-number">0.02</span>,       <span class="hljs-comment">// Air resistance</span>
+  <span class="hljs-attr">render</span>: { 
+    <span class="hljs-attr">fillStyle</span>: <span class="hljs-string">&quot;#094C45&quot;</span>,  <span class="hljs-comment">// Color</span>
+    <span class="hljs-attr">strokeStyle</span>: <span class="hljs-string">&quot;transparent&quot;</span>
+  }
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Logo Customization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Logo Customization">Logo Customization</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Changing the Logo"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Changing the Logo">Changing the Logo</a></h3>
+
+<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Update SVG Path</strong>: Modify the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">#logo-shape</code> path element</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Update Image Source</strong>: Change the logo image URL in <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">addLogoSprite()</code></li>
+<p class="mb-4 text-gray-700 leading-6"></ol></p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// In addLogoSprite() function
+logoImage.src = "path/to/your/logo.svg";`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// In addLogoSprite() function</span>
+logoImage.<span class="hljs-property">src</span> = <span class="hljs-string">&quot;path/to/your/logo.svg&quot;</span>;</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Logo Positioning"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Logo Positioning">Logo Positioning</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Adjust logo offset and scaling:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Logo image offset adjustments
+const offsetX = -3;  // Move left/right
+const offsetY = -24; // Move up/down
+
+// Original body dimensions (adjust if needed)
+const originalBodyWidth = 370;  // Half of viewBox width
+const originalBodyHeight = 176; // Half of viewBox height`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Logo image offset adjustments</span>
+<span class="hljs-keyword">const</span> offsetX = -<span class="hljs-number">3</span>;  <span class="hljs-comment">// Move left/right</span>
+<span class="hljs-keyword">const</span> offsetY = -<span class="hljs-number">24</span>; <span class="hljs-comment">// Move up/down</span>
+
+<span class="hljs-comment">// Original body dimensions (adjust if needed)</span>
+<span class="hljs-keyword">const</span> originalBodyWidth = <span class="hljs-number">370</span>;  <span class="hljs-comment">// Half of viewBox width</span>
+<span class="hljs-keyword">const</span> originalBodyHeight = <span class="hljs-number">176</span>; <span class="hljs-comment">// Half of viewBox height</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Logo Physics"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Logo Physics">Logo Physics</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The logo uses the same physics properties as other shapes but with special rendering:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`const logo = Matter.Bodies.fromVertices(
+  x, y, logoVertices,
+  {
+    restitution: 0.6,
+    frictionAir: 0.02,
+    render: { 
+      fillStyle: "transparent",
+      strokeStyle: "transparent"
+    },
+    label: "logo"
+  },
+  true // Enable poly-decomp for concave shapes
+);`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-keyword">const</span> logo = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Bodies</span>.<span class="hljs-title function_">fromVertices</span>(
+  x, y, logoVertices,
+  {
+    <span class="hljs-attr">restitution</span>: <span class="hljs-number">0.6</span>,
+    <span class="hljs-attr">frictionAir</span>: <span class="hljs-number">0.02</span>,
+    <span class="hljs-attr">render</span>: { 
+      <span class="hljs-attr">fillStyle</span>: <span class="hljs-string">&quot;transparent&quot;</span>,
+      <span class="hljs-attr">strokeStyle</span>: <span class="hljs-string">&quot;transparent&quot;</span>
+    },
+    <span class="hljs-attr">label</span>: <span class="hljs-string">&quot;logo&quot;</span>
+  },
+  <span class="hljs-literal">true</span> <span class="hljs-comment">// Enable poly-decomp for concave shapes</span>
+);</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Sound System"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Sound System">Sound System</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Sound Configuration"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Sound Configuration">Sound Configuration</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Sounds are generated using Web Audio API with configurable parameters:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// In stackingShapesPlayPop() function
+const speed = Math.min(Math.max(impact, 0), 10);
+const peak = 0.01 + 0.02 * (speed / 10);  // Volume
+const pitch = 100 + 10 * speed;           // Frequency`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// In stackingShapesPlayPop() function</span>
+<span class="hljs-keyword">const</span> speed = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(impact, <span class="hljs-number">0</span>), <span class="hljs-number">10</span>);
+<span class="hljs-keyword">const</span> peak = <span class="hljs-number">0.01</span> + <span class="hljs-number">0.02</span> * (speed / <span class="hljs-number">10</span>);  <span class="hljs-comment">// Volume</span>
+<span class="hljs-keyword">const</span> pitch = <span class="hljs-number">100</span> + <span class="hljs-number">10</span> * speed;           <span class="hljs-comment">// Frequency</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Sound Triggers"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Sound Triggers">Sound Triggers</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Collision Speed</strong>: Minimum 2.0 units for sound</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Cooldown</strong>: 300ms between sounds per body</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">User Interaction</strong>: First gesture enables audio context</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Sound Controls"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Sound Controls">Sound Controls</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Toggle switch -->
+<input type="checkbox" id="hero-sound-toggle" />
+
+<!-- Voice control for accessibility -->
+<span class="hero-voice-control" role="button" tabindex="0">
+  Sound : On
+</span>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Toggle switch --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;checkbox&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;hero-sound-toggle&quot;</span> /&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Voice control for accessibility --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero-voice-control&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">tabindex</span>=<span class="hljs-string">&quot;0&quot;</span>&gt;</span>
+  Sound : On
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Customizing Sound"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Customizing Sound">Customizing Sound</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">To modify sound characteristics:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// In stackingShapesPlayPop() function
+osc.type = "triangle";  // Wave type: sine, square, triangle, sawtooth
+gain.gain.exponentialRampToValueAtTime(peak, t + 0.01);  // Attack
+gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.16); // Decay`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// In stackingShapesPlayPop() function</span>
+osc.<span class="hljs-property">type</span> = <span class="hljs-string">&quot;triangle&quot;</span>;  <span class="hljs-comment">// Wave type: sine, square, triangle, sawtooth</span>
+gain.<span class="hljs-property">gain</span>.<span class="hljs-title function_">exponentialRampToValueAtTime</span>(peak, t + <span class="hljs-number">0.01</span>);  <span class="hljs-comment">// Attack</span>
+gain.<span class="hljs-property">gain</span>.<span class="hljs-title function_">exponentialRampToValueAtTime</span>(<span class="hljs-number">0.0001</span>, t + <span class="hljs-number">0.16</span>); <span class="hljs-comment">// Decay</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Scoring System"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Scoring System">Scoring System</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="How Scoring Works"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#How Scoring Works">How Scoring Works</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Collision-based</strong>: Only shape-to-shape collisions score</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Speed threshold</strong>: Minimum 2.2 units relative velocity</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Cooldown</strong>: 600ms per collision pair</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Interaction window</strong>: 4 seconds after user interaction</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Win condition</strong>: 100% score triggers victory modal</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Score Configuration"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Score Configuration">Score Configuration</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// In initScoreSystem() function
+const MIN_SPEED_FOR_SCORE = 2.2;    // Minimum collision speed
+const SCORE_COOLDOWN_MS = 600;      // Time between scores
+const inc = Math.min(2, 0.2 + speed * 0.2); // Score increment`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// In initScoreSystem() function</span>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">MIN_SPEED_FOR_SCORE</span> = <span class="hljs-number">2.2</span>;    <span class="hljs-comment">// Minimum collision speed</span>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">SCORE_COOLDOWN_MS</span> = <span class="hljs-number">600</span>;      <span class="hljs-comment">// Time between scores</span>
+<span class="hljs-keyword">const</span> inc = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-number">2</span>, <span class="hljs-number">0.2</span> + speed * <span class="hljs-number">0.2</span>); <span class="hljs-comment">// Score increment</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Score Display"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Score Display">Score Display</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<div class="hero-score-bar">
+  <span id="hero-score-fill" style="width:0%"></span>
+</div>
+<div id="hero-score-number">0%</div>
+<button id="hero-score-reset">Reset</button>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;hero-score-bar&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;hero-score-fill&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;width:0%&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;hero-score-number&quot;</span>&gt;</span>0%<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;hero-score-reset&quot;</span>&gt;</span>Reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Responsive Design"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Responsive Design">Responsive Design</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Scaling System"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Scaling System">Scaling System</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The hero uses a responsive scaling system based on a 1280×800 base:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`const BASE_W = 1280, BASE_H = 800;
+
+function getResponsiveScale() {
+  const s = Math.min(innerWidth / BASE_W, innerHeight / BASE_H);
+  return Math.max(0.45, Math.min(1.2, s)); // Min 45%, Max 120%
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">BASE_W</span> = <span class="hljs-number">1280</span>, <span class="hljs-variable constant_">BASE_H</span> = <span class="hljs-number">800</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getResponsiveScale</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> s = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(innerWidth / <span class="hljs-variable constant_">BASE_W</span>, innerHeight / <span class="hljs-variable constant_">BASE_H</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(<span class="hljs-number">0.45</span>, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-number">1.2</span>, s)); <span class="hljs-comment">// Min 45%, Max 120%</span>
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Responsive Behavior"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Responsive Behavior">Responsive Behavior</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Shapes scale uniformly</strong> with screen size</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Walls rebuild</strong> on resize</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Shapes reposition</strong> within safe margins</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Logo scales</strong> proportionally</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Mobile Considerations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Mobile Considerations">Mobile Considerations</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Touch support</strong>: Drag shapes with touch</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Scroll prevention</strong>: <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">touch-action: pan-y</code> allows vertical scroll</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Performance</strong>: Pauses when tab hidden</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Styling and Theming"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Styling and Theming">Styling and Theming</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="CSS Custom Properties"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#CSS Custom Properties">CSS Custom Properties</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">The hero uses CSS custom properties for theming:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`:root {
+  --_semantic---background--background-primary: #f5f6f8;
+  --_semantic---background--background-secondary: #ffffff;
+  --_semantic---text--text-primary: #000000;
+  --_semantic---border--border-faded: #e0e0e0;
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-attr">--_semantic---background--background-primary</span>: <span class="hljs-number">#f5f6f8</span>;
+  <span class="hljs-attr">--_semantic---background--background-secondary</span>: <span class="hljs-number">#ffffff</span>;
+  <span class="hljs-attr">--_semantic---text--text-primary</span>: <span class="hljs-number">#000000</span>;
+  <span class="hljs-attr">--_semantic---border--border-faded</span>: <span class="hljs-number">#e0e0e0</span>;
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Canvas Styling"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Canvas Styling">Canvas Styling</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`#stacking-shapes-canvas {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#stacking-shapes-canvas canvas {
+  display: block;
+  border: none;
+  outline: none;
+  touch-action: pan-y;
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-selector-id">#stacking-shapes-canvas</span> {
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
+  <span class="hljs-attribute">overflow</span>: hidden;
+}
+
+<span class="hljs-selector-id">#stacking-shapes-canvas</span> <span class="hljs-selector-tag">canvas</span> {
+  <span class="hljs-attribute">display</span>: block;
+  <span class="hljs-attribute">border</span>: none;
+  <span class="hljs-attribute">outline</span>: none;
+  <span class="hljs-attribute">touch-action</span>: pan-y;
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Modal Styling"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Modal Styling">Modal Styling</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">css</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`.stacking-shapes-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
+
+body.stacking-shapes-modal-open {
+  overflow: hidden;
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-selector-class">.stacking-shapes-modal</span> {
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">background</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.8</span>);
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1000</span>;
+}
+
+<span class="hljs-selector-tag">body</span><span class="hljs-selector-class">.stacking-shapes-modal-open</span> {
+  <span class="hljs-attribute">overflow</span>: hidden;
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Performance Optimization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Optimization">Performance Optimization</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Lifecycle Management"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Lifecycle Management">Lifecycle Management</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Initialization</strong>: Only runs once, guards against double-init</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Pause/Resume</strong>: Stops when tab hidden, resumes when visible</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Cleanup</strong>: Properly destroys engine on page unload</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Memory Management"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Memory Management">Memory Management</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Cleanup function
+function cleanupStackingShapes() {
+  if (window.stackingShapes.engine) {
+    Matter.Runner.stop(window.stackingShapes.runner);
+    Matter.Render.stop(window.stackingShapes.render);
+    Matter.Engine.clear(window.stackingShapes.engine);
+    // Reset all references
+  }
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Cleanup function</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">cleanupStackingShapes</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">engine</span>) {
+    <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Runner</span>.<span class="hljs-title function_">stop</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">runner</span>);
+    <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Render</span>.<span class="hljs-title function_">stop</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">render</span>);
+    <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Engine</span>.<span class="hljs-title function_">clear</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">engine</span>);
+    <span class="hljs-comment">// Reset all references</span>
+  }
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Performance Settings"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Settings">Performance Settings</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Fixed timestep for consistent physics
+window.stackingShapes.runner = Runner.create({ 
+  isFixed: true, 
+  delta: 1000/60  // 60 FPS
+});`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Fixed timestep for consistent physics</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">runner</span> = <span class="hljs-title class_">Runner</span>.<span class="hljs-title function_">create</span>({ 
+  <span class="hljs-attr">isFixed</span>: <span class="hljs-literal">true</span>, 
+  <span class="hljs-attr">delta</span>: <span class="hljs-number">1000</span>/<span class="hljs-number">60</span>  <span class="hljs-comment">// 60 FPS</span>
+});</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Accessibility Features"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Accessibility Features">Accessibility Features</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Keyboard Navigation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Keyboard Navigation">Keyboard Navigation</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Voice control</strong>: Space/Enter to toggle sound</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Modal escape</strong>: Escape key closes modals</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Focus management</strong>: Proper focus handling</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Screen Reader Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Screen Reader Support">Screen Reader Support</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Score announcements -->
+<div class="stacking-shapes-score-bar" aria-live="polite">
+  <span id="stacking-shapes-score-fill"></span>
+</div>
+
+<!-- Modal accessibility -->
+<div id="stacking-shapes-media-modal" aria-hidden="true">
+  <button id="stacking-shapes-modal-close" aria-label="Close">Close</button>
+</div>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Score announcements --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-score-bar&quot;</span> <span class="hljs-attr">aria-live</span>=<span class="hljs-string">&quot;polite&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-score-fill&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Modal accessibility --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-media-modal&quot;</span> <span class="hljs-attr">aria-hidden</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;stacking-shapes-modal-close&quot;</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">&quot;Close&quot;</span>&gt;</span>Close<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="ARIA Attributes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#ARIA Attributes">ARIA Attributes</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<!-- Voice control button -->
+<span class="stacking-shapes-voice-control" 
+      role="button" 
+      tabindex="0" 
+      aria-pressed="true">
+  Sound : On
+</span>`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">&lt;!-- Voice control button --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;stacking-shapes-voice-control&quot;</span> 
+      <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;button&quot;</span> 
+      <span class="hljs-attr">tabindex</span>=<span class="hljs-string">&quot;0&quot;</span> 
+      <span class="hljs-attr">aria-pressed</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span>
+  Sound : On
+<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Troubleshooting"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Troubleshooting">Troubleshooting</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Common Issues"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Common Issues">Common Issues</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Shapes not appearing:</strong></p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Check SVG paths exist with correct IDs</li>
+<li class="mb-1 text-gray-700 leading-6">Verify Matter.js library loaded</li>
+<li class="mb-1 text-gray-700 leading-6">Check browser console for errors</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Sound not working:</strong></p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Ensure user has interacted with page</li>
+<li class="mb-1 text-gray-700 leading-6">Check sound toggle state</li>
+<li class="mb-1 text-gray-700 leading-6">Verify Web Audio API support</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Performance issues:</strong></p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Check if tab is hidden (physics pause)</li>
+<li class="mb-1 text-gray-700 leading-6">Monitor memory usage</li>
+<li class="mb-1 text-gray-700 leading-6">Verify cleanup on navigation</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Responsive problems:</strong></p>
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">Check viewport meta tag</li>
+<li class="mb-1 text-gray-700 leading-6">Verify canvas resize handling</li>
+<li class="mb-1 text-gray-700 leading-6">Test on different screen sizes</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Debug Mode"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Debug Mode">Debug Mode</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">Enable debug logging:</p>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Add to initStackingShapes()
+console.log('Stacking Shapes Debug Mode');
+console.log('Shapes:', window.stackingShapes.shapes);
+console.log('Engine:', window.stackingShapes.engine);`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Add to initStackingShapes()</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Stacking Shapes Debug Mode&#x27;</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Shapes:&#x27;</span>, <span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">shapes</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Engine:&#x27;</span>, <span class="hljs-variable language_">window</span>.<span class="hljs-property">stackingShapes</span>.<span class="hljs-property">engine</span>);</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Customization Examples"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Customization Examples">Customization Examples</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Adding a New Shape Type"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Adding a New Shape Type">Adding a New Shape Type</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Create custom shape with special properties
+function createCustomShape(id, x, y, color, label) {
+  const path = document.getElementById(id);
+  const verts = Matter.Svg.pathToVertices(path, 25);
+  
+  return Matter.Bodies.fromVertices(x, y, verts, {
+    restitution: 0.8,        // More bouncy
+    frictionAir: 0.01,       // Less air resistance
+    density: 0.001,          // Lighter
+    render: { 
+      fillStyle: color,
+      strokeStyle: "#000",
+      lineWidth: 2
+    },
+    label: label
+  }, true);
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Create custom shape with special properties</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">createCustomShape</span>(<span class="hljs-params">id, x, y, color, label</span>) {
+  <span class="hljs-keyword">const</span> path = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(id);
+  <span class="hljs-keyword">const</span> verts = <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Svg</span>.<span class="hljs-title function_">pathToVertices</span>(path, <span class="hljs-number">25</span>);
+  
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Matter</span>.<span class="hljs-property">Bodies</span>.<span class="hljs-title function_">fromVertices</span>(x, y, verts, {
+    <span class="hljs-attr">restitution</span>: <span class="hljs-number">0.8</span>,        <span class="hljs-comment">// More bouncy</span>
+    <span class="hljs-attr">frictionAir</span>: <span class="hljs-number">0.01</span>,       <span class="hljs-comment">// Less air resistance</span>
+    <span class="hljs-attr">density</span>: <span class="hljs-number">0.001</span>,          <span class="hljs-comment">// Lighter</span>
+    <span class="hljs-attr">render</span>: { 
+      <span class="hljs-attr">fillStyle</span>: color,
+      <span class="hljs-attr">strokeStyle</span>: <span class="hljs-string">&quot;#000&quot;</span>,
+      <span class="hljs-attr">lineWidth</span>: <span class="hljs-number">2</span>
+    },
+    <span class="hljs-attr">label</span>: label
+  }, <span class="hljs-literal">true</span>);
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Custom Sound Effects"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Custom Sound Effects">Custom Sound Effects</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Add custom sound function
+function playCustomSound(type) {
+  if (!window.heroPhysics.soundEnabled || !window.heroPhysics.audioCtx) return;
+  
+  const t = window.heroPhysics.audioCtx.currentTime;
+  const osc = window.heroPhysics.audioCtx.createOscillator();
+  const gain = window.heroPhysics.audioCtx.createGain();
+  
+  // Custom sound parameters
+  const sounds = {
+    'pop': { freq: 200, duration: 0.1 },
+    'ding': { freq: 400, duration: 0.2 },
+    'whoosh': { freq: 100, duration: 0.3 }
+  };
+  
+  const sound = sounds[type] || sounds['pop'];
+  osc.frequency.setValueAtTime(sound.freq, t);
+  gain.gain.setValueAtTime(0.1, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + sound.duration);
+  
+  osc.connect(gain).connect(window.heroPhysics.audioCtx.destination);
+  osc.start(t);
+  osc.stop(t + sound.duration);
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Add custom sound function</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">playCustomSound</span>(<span class="hljs-params">type</span>) {
+  <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">soundEnabled</span> || !<span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">audioCtx</span>) <span class="hljs-keyword">return</span>;
+  
+  <span class="hljs-keyword">const</span> t = <span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">audioCtx</span>.<span class="hljs-property">currentTime</span>;
+  <span class="hljs-keyword">const</span> osc = <span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">audioCtx</span>.<span class="hljs-title function_">createOscillator</span>();
+  <span class="hljs-keyword">const</span> gain = <span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">audioCtx</span>.<span class="hljs-title function_">createGain</span>();
+  
+  <span class="hljs-comment">// Custom sound parameters</span>
+  <span class="hljs-keyword">const</span> sounds = {
+    <span class="hljs-string">&#x27;pop&#x27;</span>: { <span class="hljs-attr">freq</span>: <span class="hljs-number">200</span>, <span class="hljs-attr">duration</span>: <span class="hljs-number">0.1</span> },
+    <span class="hljs-string">&#x27;ding&#x27;</span>: { <span class="hljs-attr">freq</span>: <span class="hljs-number">400</span>, <span class="hljs-attr">duration</span>: <span class="hljs-number">0.2</span> },
+    <span class="hljs-string">&#x27;whoosh&#x27;</span>: { <span class="hljs-attr">freq</span>: <span class="hljs-number">100</span>, <span class="hljs-attr">duration</span>: <span class="hljs-number">0.3</span> }
+  };
+  
+  <span class="hljs-keyword">const</span> sound = sounds[type] || sounds[<span class="hljs-string">&#x27;pop&#x27;</span>];
+  osc.<span class="hljs-property">frequency</span>.<span class="hljs-title function_">setValueAtTime</span>(sound.<span class="hljs-property">freq</span>, t);
+  gain.<span class="hljs-property">gain</span>.<span class="hljs-title function_">setValueAtTime</span>(<span class="hljs-number">0.1</span>, t);
+  gain.<span class="hljs-property">gain</span>.<span class="hljs-title function_">exponentialRampToValueAtTime</span>(<span class="hljs-number">0.001</span>, t + sound.<span class="hljs-property">duration</span>);
+  
+  osc.<span class="hljs-title function_">connect</span>(gain).<span class="hljs-title function_">connect</span>(<span class="hljs-variable language_">window</span>.<span class="hljs-property">heroPhysics</span>.<span class="hljs-property">audioCtx</span>.<span class="hljs-property">destination</span>);
+  osc.<span class="hljs-title function_">start</span>(t);
+  osc.<span class="hljs-title function_">stop</span>(t + sound.<span class="hljs-property">duration</span>);
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Custom Scoring Rules"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Custom Scoring Rules">Custom Scoring Rules</a></h3>
+
+<p class="mb-4 text-gray-700 leading-6">
+<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
+    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
+    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Modify scoring system
+function customScoreCalculation(bodyA, bodyB, speed) {
+  // Different scoring based on shape types
+  const scoreMultiplier = {
+    'logo': 2.0,    // Logo collisions worth double
+    'shape1': 1.5,  // Shape1 worth 1.5x
+    'shape2': 1.0,  // Shape2 normal
+    'shape3': 0.5   // Shape3 worth half
+  };
+  
+  const multiplier = (scoreMultiplier[bodyA.label] || 1) * 
+                    (scoreMultiplier[bodyB.label] || 1);
+  
+  return Math.min(5, speed * 0.3 * multiplier);
+}`)">
+      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+      </svg>
+      Copy
+    </button>
+  </div>
+  <div class="relative overflow-auto bg-gray-50">
+    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
+      <code class="hljs"><span class="hljs-comment">// Modify scoring system</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">customScoreCalculation</span>(<span class="hljs-params">bodyA, bodyB, speed</span>) {
+  <span class="hljs-comment">// Different scoring based on shape types</span>
+  <span class="hljs-keyword">const</span> scoreMultiplier = {
+    <span class="hljs-string">&#x27;logo&#x27;</span>: <span class="hljs-number">2.0</span>,    <span class="hljs-comment">// Logo collisions worth double</span>
+    <span class="hljs-string">&#x27;shape1&#x27;</span>: <span class="hljs-number">1.5</span>,  <span class="hljs-comment">// Shape1 worth 1.5x</span>
+    <span class="hljs-string">&#x27;shape2&#x27;</span>: <span class="hljs-number">1.0</span>,  <span class="hljs-comment">// Shape2 normal</span>
+    <span class="hljs-string">&#x27;shape3&#x27;</span>: <span class="hljs-number">0.5</span>   <span class="hljs-comment">// Shape3 worth half</span>
+  };
+  
+  <span class="hljs-keyword">const</span> multiplier = (scoreMultiplier[bodyA.<span class="hljs-property">label</span>] || <span class="hljs-number">1</span>) * 
+                    (scoreMultiplier[bodyB.<span class="hljs-property">label</span>] || <span class="hljs-number">1</span>);
+  
+  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-number">5</span>, speed * <span class="hljs-number">0.3</span> * multiplier);
+}</code>
+    </pre>
+  </div>
+</div></p>
+
+<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Integration with Webflow"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Integration with Webflow">Integration with Webflow</a></h2>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Webflow-Specific Considerations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Webflow-Specific Considerations">Webflow-Specific Considerations</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Modal content</strong>: Webflow handles modal content management</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Responsive breakpoints</strong>: Align with Webflow's responsive system</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Asset management</strong>: Use Webflow's asset URLs for images</li>
+<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Custom code</strong>: Place in Webflow's custom code sections</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Deployment Checklist"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Deployment Checklist">Deployment Checklist</a></h3>
+
+<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
+<li class="mb-1 text-gray-700 leading-6">[ ] Matter.js and pathseg libraries loaded</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] All required HTML elements present</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] SVG paths properly defined</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] CSS custom properties set</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Sound toggle functional</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Modal system working</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Responsive scaling tested</li>
+<li class="mb-1 text-gray-700 leading-6">[ ] Accessibility features verified</li>
+<p class="mb-4 text-gray-700 leading-6"></ul></p>
+
+<p class="mb-4 text-gray-700 leading-6">---</p>
+
+<p class="mb-4 text-gray-700 leading-6"><em class="italic">This documentation covers the complete hero section implementation. For technical details, refer to the source code in the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">hero/</code> directory.</em></p>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+    <!-- Desktop Table of Contents -->
+    <div class="hidden xl:block sticky top-20 overflow-y-auto">
+      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
+        <div class="flex flex-col gap-4">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-col gap-2">
+            <li>
+              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Stacking Shapes Guide">Stacking Shapes Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Features">Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#File Structure">File Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Technical Stack">Technical Stack</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#HTML Structure">HTML Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Required Elements">Required Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Shape Configuration">Shape Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Adding New Shapes">Adding New Shapes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Shape Properties">Shape Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Physics Properties">Physics Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Logo Customization">Logo Customization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Changing the Logo">Changing the Logo</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Logo Positioning">Logo Positioning</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Logo Physics">Logo Physics</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Sound System">Sound System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Sound Configuration">Sound Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Sound Triggers">Sound Triggers</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Sound Controls">Sound Controls</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Customizing Sound">Customizing Sound</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Scoring System">Scoring System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#How Scoring Works">How Scoring Works</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Score Configuration">Score Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Score Display">Score Display</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Responsive Design">Responsive Design</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Scaling System">Scaling System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Responsive Behavior">Responsive Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Mobile Considerations">Mobile Considerations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Styling and Theming">Styling and Theming</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#CSS Custom Properties">CSS Custom Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Canvas Styling">Canvas Styling</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Modal Styling">Modal Styling</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Optimization">Performance Optimization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Lifecycle Management">Lifecycle Management</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Memory Management">Memory Management</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Settings">Performance Settings</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Accessibility Features">Accessibility Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Keyboard Navigation">Keyboard Navigation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Screen Reader Support">Screen Reader Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#ARIA Attributes">ARIA Attributes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Common Issues">Common Issues</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Debug Mode">Debug Mode</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Customization Examples">Customization Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Adding a New Shape Type">Adding a New Shape Type</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Custom Sound Effects">Custom Sound Effects</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Custom Scoring Rules">Custom Scoring Rules</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Integration with Webflow">Integration with Webflow</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Webflow-Specific Considerations">Webflow-Specific Considerations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Deployment Checklist">Deployment Checklist</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Table of Contents -->
+    <div class="xl:hidden mb-8">
+        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
+        <div class="flex flex-col gap-3">
+          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
+          <ul class="flex flex-wrap gap-2">
+            <li>
+              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
+            </li>
+            
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Stacking Shapes Guide">Stacking Shapes Guide</a>
+        
+      <ul class="flex flex-col gap-1 ml-4 mt-2">
+        
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Overview">Overview</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Features">Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#File Structure">File Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Technical Stack">Technical Stack</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#HTML Structure">HTML Structure</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Required Elements">Required Elements</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Shape Configuration">Shape Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Adding New Shapes">Adding New Shapes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Shape Properties">Shape Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Physics Properties">Physics Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Logo Customization">Logo Customization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Changing the Logo">Changing the Logo</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Logo Positioning">Logo Positioning</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Logo Physics">Logo Physics</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Sound System">Sound System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Sound Configuration">Sound Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Sound Triggers">Sound Triggers</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Sound Controls">Sound Controls</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Customizing Sound">Customizing Sound</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Scoring System">Scoring System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#How Scoring Works">How Scoring Works</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Score Configuration">Score Configuration</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Score Display">Score Display</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Responsive Design">Responsive Design</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Scaling System">Scaling System</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Responsive Behavior">Responsive Behavior</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Mobile Considerations">Mobile Considerations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Styling and Theming">Styling and Theming</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#CSS Custom Properties">CSS Custom Properties</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Canvas Styling">Canvas Styling</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Modal Styling">Modal Styling</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Optimization">Performance Optimization</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Lifecycle Management">Lifecycle Management</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Memory Management">Memory Management</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Settings">Performance Settings</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Accessibility Features">Accessibility Features</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Keyboard Navigation">Keyboard Navigation</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Screen Reader Support">Screen Reader Support</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#ARIA Attributes">ARIA Attributes</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Common Issues">Common Issues</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Debug Mode">Debug Mode</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Customization Examples">Customization Examples</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Adding a New Shape Type">Adding a New Shape Type</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Custom Sound Effects">Custom Sound Effects</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Custom Scoring Rules">Custom Scoring Rules</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Integration with Webflow">Integration with Webflow</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Webflow-Specific Considerations">Webflow-Specific Considerations</a>
+      </li>
+      <li class="flex flex-col items-start gap-1">
+        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Deployment Checklist">Deployment Checklist</a>
+      </li>
+      </ul>
+      </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

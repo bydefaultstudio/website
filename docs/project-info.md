@@ -1,160 +1,130 @@
-# By Default Website - Project Information
+---
+title: "Project Information"
+subtitle: "Overview of the ByDefault website project structure and architecture"
+description: "Comprehensive information about the ByDefault website project including structure, technologies, and development guidelines."
+section: "overview"
+order: 2
+---
 
-## Project Details
+# Project Information
 
-**Project Name:** By Default Website  
-**Platform:** Webflow  
-**Staging URL:** https://bydefault.webflow.io/  
-**Production URL:** https://bydefault.studio  
-**Last Updated:** October 10, 2025
+The ByDefault website is a modern, interactive web experience built with cutting-edge technologies and best practices.
 
-## About the Studio
+## Project Structure
 
-By Default is a first of its kind neurodiverse-led interactive brand experiences and innovation studio designing with inclusion, accessibility, and culture as our default starting point.
+The project is organized into several key directories:
 
-### Mission
-We build experiences that don't just reflect culture, they spark it.
+```
+/
+├── assets/           # Static assets (images, audio, videos)
+├── css/             # Stylesheets and design system
+├── js/              # JavaScript modules and functionality
+├── hero/            # Hero section components
+├── stacking-shapes/ # Interactive shape animations
+├── webflow/         # Webflow deployment and integration
+└── docs/            # Documentation system
+```
 
-## Key Features
+## Technologies
 
-### Current Features
-- Interactive homepage with engaging hero section
-- Featured projects showcase
-- Case studies section
-- Brand partners/friends section
-- Services overview
-- Latest news/blog section
-- Newsletter signup
-- Contact forms
-- Custom cursor integration
-- Cookie consent management
-- Privacy preferences
-- Accessibility features
-- Responsive design
+### Frontend Stack
 
-### Navigation Structure
-- Home
-- Work (Projects & Case Studies)
-- About
-- Services
-- Custom Cursor
-- Blog/News
-- Contact
-- Playground
-- Formats
-- Courses
+* **HTML5** - Semantic markup and accessibility
+* **CSS3** - Modern styling with custom properties
+* **JavaScript (ES6+)** - Modern JavaScript features
+* **Tailwind CSS** - Utility-first CSS framework
 
-## Content Sections
+### Interactive Features
 
-### Homepage
-1. **Hero Section**
-   - Main headline: "We build experiences that don't just reflect culture, they spark it."
-   - Subtitle about neurodiverse-led studio
-   - Call-to-action: "Book a call"
+* **Custom Cursor System** - Advanced cursor interactions
+* **Audio System** - Sound feedback and notifications
+* **Animation Engine** - Smooth micro-interactions
+* **Responsive Design** - Mobile-first approach
 
-2. **Featured Projects**
-   - Project cards with tags
-   - "See all work" CTA
+### Development Tools
 
-3. **Brand Friends**
-   - Logo showcase
-   - Partner brands display
+* **Node.js** - Development environment
+* **npm** - Package management
+* **Git** - Version control
+* **Webflow** - Design and deployment platform
 
-4. **Services Section**
-   - Service offerings overview
-   - "View all" CTA
+## Architecture
 
-5. **Latest News**
-   - Blog post cards
-   - Category tags
-   - Reading time estimates
-   - "View all" CTA
+### Component-Based Design
 
-6. **Newsletter Section**
-   - Email signup form
-   - Value proposition
+The project follows a modular architecture:
 
-### Footer
-- Navigation links
-- Social media (TikTok, Instagram, LinkedIn, YouTube)
-- Contact email: hello@bydefault.studio
-- Legal links (Terms, Privacy, Cookies, Accessibility)
-- Copyright notice
+* **Reusable Components** - Consistent UI elements
+* **Separation of Concerns** - Clear separation between logic and presentation
+* **Progressive Enhancement** - Core functionality works without JavaScript
 
-## Blog Categories
-- News
-- Branding
-- Strategy
-- Insight
-- AI
+### Performance Optimization
 
-## Sample Blog Posts
-- The Evolution of Design Software: A Historical Perspective
-- The Impact of Color in Design
-- Designing for Accessibility: Best Practices
-- The Role of AI in Modern Design
-- Graphic Design Trends
-- The Future of Web Design
-- Branding in the Digital Age
-- Sustainable Design Practices
-- User Experience in Digital Products
-- Embracing Digital Transformation in Design
+* **Lazy Loading** - Images and components load on demand
+* **Code Splitting** - JavaScript modules loaded as needed
+* **Caching Strategy** - Efficient resource caching
+* **Compression** - Optimized asset delivery
 
-## Branding Elements
+## Development Guidelines
 
-### Color Scheme
-- Primary colors based on culture-driven design
-- High contrast for accessibility
-- Consistent color system across all pages
+### Code Standards
 
-### Typography
-- Modern, readable font choices
-- Clear hierarchy
-- Accessibility-focused
+* **ESLint** - JavaScript linting and formatting
+* **Prettier** - Code formatting consistency
+* **BEM Methodology** - CSS naming conventions
+* **Accessibility** - WCAG 2.1 AA compliance
 
-### Visual Style
-- Bold, contemporary design
-- Interactive elements
-- Motion and animation
-- Image-driven storytelling
+### Browser Support
 
-## Technical Considerations
+* **Chrome** 60+
+* **Firefox** 55+
+* **Safari** 12+
+* **Edge** 79+
 
-### Accessibility
-- WCAG 2.1 AA compliance
-- Keyboard navigation support
-- Screen reader compatibility
-- Color contrast requirements
-- Alternative text for images
-- Semantic HTML structure
+### Performance Targets
 
-### Performance
-- Optimized images
-- Lazy loading
-- Fast page load times
-- Mobile-first approach
+* **Lighthouse Score** - 90+ across all metrics
+* **First Contentful Paint** - < 1.5s
+* **Largest Contentful Paint** - < 2.5s
+* **Cumulative Layout Shift** - < 0.1
 
-### SEO
-- Meta descriptions
-- Title tags
-- Structured data
-- Sitemap
-- Clean URL structure
+## Deployment
 
-## Contact Information
+### Webflow Integration
 
-**Email:** hello@bydefault.studio
+The project integrates with Webflow for:
 
-**Social Media:**
-- TikTok
-- Instagram
-- LinkedIn
-- YouTube
+* **Design Management** - Visual design updates
+* **Content Management** - Easy content updates
+* **Hosting** - Reliable hosting infrastructure
+* **CDN** - Global content delivery
 
-## Notes
-- Website features a modal form for report access
-- Cookie consent banner with customizable preferences
-- "Black Shift Report" mentioned in cookie preferences
-- Custom cursor feature as a service offering
-- Strong focus on cultural relevance and inclusivity
+### Build Process
 
+1. **Development** - Local development with hot reload
+2. **Testing** - Automated testing and quality checks
+3. **Build** - Production build optimization
+4. **Deploy** - Automated deployment to Webflow
+
+> **Note:** The project uses a hybrid approach combining custom development with Webflow's design capabilities for maximum flexibility and maintainability.
+
+## Contributing
+
+### Development Setup
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
+4. Make changes and test locally
+5. Submit pull request for review
+
+### Documentation
+
+* **Code Documentation** - Inline comments and JSDoc
+* **API Documentation** - Comprehensive API reference
+* **Style Guide** - Design system documentation
+* **Contributing Guide** - Development guidelines
+
+## License
+
+This project is proprietary software developed for ByDefault. All rights reserved.
