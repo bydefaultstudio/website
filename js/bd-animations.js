@@ -6,7 +6,7 @@
  * Last Updated: 2nd July 2025
  */
 
-console.log("ByDefault Animations v4.0 - Canonical data-bd-* namespace");
+console.log("Script Animations");
 
 // ------- Configurable Parameters ------- //
 function getFadeStart() {
@@ -116,15 +116,26 @@ function getDelayValue(element, defaultDelay = 0) {
   return delayValue;
 }
 
-// Check if element is in viewport
+// Check if element is in viewport (2% threshold)
 function isInViewport(element) {
   const rect = element.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  
+  // Calculate how much of the element is visible
+  const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
+  const visibleWidth = Math.min(rect.right, viewportWidth) - Math.max(rect.left, 0);
+  
+  // Only consider positive values (element is actually in viewport)
+  if (visibleHeight <= 0 || visibleWidth <= 0) return false;
+  
+  // Calculate visible area percentage
+  const elementArea = rect.height * rect.width;
+  const visibleArea = visibleHeight * visibleWidth;
+  const visiblePercentage = (visibleArea / elementArea) * 100;
+  
+  // Trigger when 2% or more is visible
+  return visiblePercentage >= 2;
 }
 
 // Base ByDefault animations (fade/slide only)
@@ -237,14 +248,11 @@ function baseTextAnimations() {
 }
 
 
-// Fade in elements that are already in viewport
+// Fade in elements that are already in viewport, fallback to default animation if not in view
 function fadeInViewport() {
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   gsap.utils.toArray("[data-bd-animate='in-view'], [data-text-animate='in-view']").forEach((el) => {
-    // Only animate if visible in viewport
-    if (!isInViewport(el)) return;
-
     // Skip reanimation if already revealed once
     if (el.dataset.bdRevealed === "true") return;
     el.dataset.bdRevealed = "true";
@@ -255,24 +263,31 @@ function fadeInViewport() {
       return;
     }
 
-    const delay = getDelayValue(el, 0);
-    const fromY = parseFloat(el.getAttribute("data-bd-from-y") || "0") || 0;
-    const fromX = parseFloat(el.getAttribute("data-bd-from-x") || "0") || 0;
-    const fromScale = parseFloat(el.getAttribute("data-bd-from-scale") || "1") || 1;
+    // If element is in viewport, use immediate animation
+    if (isInViewport(el)) {
+      const delay = getDelayValue(el, 0);
+      const fromY = parseFloat(el.getAttribute("data-bd-from-y") || "0") || 0;
+      const fromX = parseFloat(el.getAttribute("data-bd-from-x") || "0") || 0;
+      const fromScale = parseFloat(el.getAttribute("data-bd-from-scale") || "1") || 1;
 
-    gsap.fromTo(
-      el,
-      { autoAlpha: 0, y: fromY, x: fromX, scale: fromScale, force3D: true },
-      {
-        autoAlpha: 1,
-        y: 0,
-        x: 0,
-        scale: 1,
-        duration: 0.8,
-        delay,
-        ease: "power2.out"
-      }
-    );
+      gsap.fromTo(
+        el,
+        { autoAlpha: 0, y: fromY, x: fromX, scale: fromScale, force3D: true },
+        {
+          autoAlpha: 1,
+          y: 0,
+          x: 0,
+          scale: 1,
+          duration: 0.8,
+          delay,
+          ease: "power2.out"
+        }
+      );
+    } else {
+      // Fallback: Convert to regular fade animation by changing the attribute
+      // This will be picked up by the existing baseTextAnimations system
+      el.setAttribute("data-bd-animate", "fade");
+    }
   });
 }
 

@@ -6,7 +6,7 @@
  * Purpose: Handles all case study template functionality
  */
 
-console.log("Case Study Template Scripts v1");
+console.log("Script Case Study");
 
 // ------- Case Study Content Toggle ------- //
 function toggleCaseStudyContent() {

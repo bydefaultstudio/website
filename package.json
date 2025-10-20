@@ -7,7 +7,11 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "python3 -m http.server 8000",
+    "docs:serve": "cd docs && python3 -m http.server 8080",
+    "docs:build": "echo \"Documentation is static HTML - no build step required\"",
+    "docs:open": "open docs/index.html"
   },
   "repository": {
     "type": "git",
@@ -22,7 +26,10 @@
   },
   "homepage": "https://github.com/bydefaultstudio/website#readme",
   "dependencies": {
+    "@base-ui-components/react": "^1.0.0-beta.4",
+    "@tailwindcss/vite": "^4.1.14",
     "dotenv": "^17.2.3",
+    "tailwindcss": "^4.1.14",
     "webflow-api": "^3.2.0"
   }
 }
