@@ -137,7 +137,6 @@ class KeyVisualCollection {
         '2:1': '60vw',   // Ultra-wide landscape - extra large width
         '9:16': '25vw'   // Ultra-tall portrait - smaller width
       };
-      console.log('🖥️ Desktop responsive widths:', widths);
       return widths;
     }
   }
@@ -385,7 +384,6 @@ class KeyVisualCollection {
     
     // Get display width based on ratio
     const displayWidth = this.ratioDisplayWidths[visual.ratio] || '40vw';
-    console.log(`📐 Creating visual with ratio ${visual.ratio}, displayWidth: ${displayWidth}`);
     const rotation = random(this.config.rotationRange[0], this.config.rotationRange[1]);
     
     // Create media element based on type
