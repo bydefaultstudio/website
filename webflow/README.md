@@ -193,7 +193,7 @@ Shows:
 
 ### Mode Switching
 - **Local Mode**: Uses `http://127.0.0.1:5500/` for development
-- **Production Mode**: Uses `https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.8/`
+- **Production Mode**: Uses `https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/`
 - Automatic URL replacement across all files
 
 ## Notes
