@@ -3,66 +3,340 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>By Default - Local Development</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      padding: 40px;
-      background: #fff;
-      color: #000;
-    }
-    h2 {
-      font-size: 18px;
-      margin: 30px 0 10px 0;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #eee;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    li a {
-      color: #0066cc;
-      text-decoration: none;
-      display: block;
-      padding: 5px 0;
-    }
-    li a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <title>ByDefault Studio - Code Documentation</title>
+  
+  <!-- GitHub Primer CSS -->
+  <link rel="stylesheet" href="css/primer.css">
 </head>
-<body>
-  
-  <h2>CSS Files</h2>
-  <ul>
-    <li><a href="/css/cursor.css" target="_blank">cursor.css</a></li>
-  </ul>
-  
-  <h2>JavaScript Files</h2>
-  <ul>
-    <li><a href="/js/script.js" target="_blank">script.js</a></li>
-    <li><a href="/js/text-animation.js" target="_blank">text-animation.js</a></li>
-    <li><a href="/js/cursor.js" target="_blank">cursor.js</a></li>
-    <li><a href="/js/table-of-contents.js" target="_blank">table-of-contents.js</a></li>
-    <li><a href="/js/case-study.js" target="_blank">case-study.js</a></li>
-    <li><a href="/js/test.js" target="_blank">test.js</a></li>
-  </ul>
-  
-  <h2>Test Pages</h2>
-  <ul>
-    <li><a href="/cursor-test.html" target="_blank">cursor-test.html</a></li>
-    <li><a href="/case-study-test.html" target="_blank">case-study-test.html</a></li>
-  </ul>
-  
-  <h2>Documentation</h2>
-  <ul>
-    <li><a href="/docs/code-structure.md" target="_blank">code-structure.md</a></li>
-    <li><a href="/docs/project-info.md" target="_blank">project-info.md</a></li>
-    <li><a href="/docs/quick-reference.md" target="_blank">quick-reference.md</a></li>
-    <li><a href="/docs/webflow-guidelines.md" target="_blank">webflow-guidelines.md</a></li>
-  </ul>
+<body class="color-bg-default">
+  <!-- Hero Section -->
+  <div class="border-bottom">
+    <div class="container-xl px-3 py-6 py-md-8">
+      <div class="text-center">
+        <h1 class="h00-mktg mb-3">ByDefault Studio</h1>
+        <p class="f2 color-fg-muted mb-4">Interactive Web Development & Design System</p>
+        <p class="f4 color-fg-muted mb-6">A comprehensive codebase featuring interactive components, animations, and development tools for modern web experiences.</p>
+        
+        <!-- CTA Buttons -->
+        <div class="d-flex flex-wrap gap-3 justify-center">
+          <a href="hero/hero-test.html" class="btn btn-primary btn-large">
+            <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            View Hero Demo
+          </a>
+          <a href="docs-viewer.html" class="btn btn-outline btn-large">
+            <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM6.5 3.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25zM6.5 8.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 11.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25z"/>
+            </svg>
+            Browse Documentation
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Main Content -->
+  <div class="container-xl px-3 py-6">
+    <!-- Bento Grid Layout -->
+    <div class="mb-6">
+      <h2 class="h1 text-center mb-6">Key Features</h2>
+      
+      <!-- Bento Grid Container -->
+      <div class="d-flex flex-column flex-md-row gap-4">
+        <!-- Hero Section - Large Featured Card -->
+        <div class="col-12 col-md-8">
+          <div class="Box h-100 color-bg-subtle">
+            <div class="Box-body p-6">
+              <div class="d-flex flex-column flex-md-row align-items-start gap-4">
+                <div class="flex-shrink-0">
+                  <div class="color-bg-accent-muted rounded-3 p-4">
+                    <svg class="octicon color-fg-accent" width="32" height="32" viewBox="0 0 16 16" fill="currentColor">
+                      <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="flex-grow-1">
+                  <h3 class="h2 mb-3">Hero Section</h3>
+                  <p class="f4 color-fg-muted mb-4">Interactive key visual collection with GSAP animations, responsive design, and Webflow CMS integration for dynamic content management.</p>
+                  <div class="d-flex flex-wrap gap-3">
+                    <a href="hero/hero-test.html" class="btn btn-primary">
+                      <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                      </svg>
+                      View Demo
+                    </a>
+                    <a href="docs/hero-section-guide.md" class="btn btn-outline">
+                      <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM6.5 3.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25zM6.5 8.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 11.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25z"/>
+                      </svg>
+                      Read Guide
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Case Study System - Medium Card -->
+        <div class="col-12 col-md-4">
+          <div class="Box h-100 color-bg-subtle">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-column align-items-center text-center">
+                <div class="color-bg-accent-muted rounded-3 p-3 mb-3">
+                  <svg class="octicon color-fg-accent" width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <h3 class="h4 mb-3">Case Study System</h3>
+                <p class="color-fg-muted mb-4">Dynamic content management system for showcasing portfolio projects with interactive pinning and filtering.</p>
+                <div class="d-flex flex-column gap-2 w-100">
+                  <a href="case-study-test.html" class="btn btn-outline btn-sm">View Demo</a>
+                  <a href="docs/case-study-pinning.md" class="btn btn-outline btn-sm">Read Guide</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Component Cards Grid -->
+    <div class="mb-6">
+      <h2 class="h2 mb-4">Component Library</h2>
+      <div class="d-flex flex-wrap gap-4">
+        <!-- Custom Cursor Card -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="Box h-100">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-items-start mb-3">
+                <div class="color-bg-accent-muted rounded-2 p-3 mr-3 flex-shrink-0">
+                  <svg class="octicon color-fg-accent" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h4 mb-2">Custom Cursor</h3>
+                  <p class="color-fg-muted mb-3">Enhanced user experience with custom cursor interactions and smooth animations.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="cursor-test.html" class="btn btn-sm btn-outline">Demo</a>
+                    <a href="docs/custom-cursor-guide.md" class="btn btn-sm btn-outline">Guide</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio System Card -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="Box h-100">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-items-start mb-3">
+                <div class="color-bg-accent-muted rounded-2 p-3 mr-3 flex-shrink-0">
+                  <svg class="octicon color-fg-accent" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h4 mb-2">Audio System</h3>
+                  <p class="color-fg-muted mb-3">Sound effects and audio feedback for user interactions and animations.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="docs/audio-system-guide.md" class="btn btn-sm btn-outline">Guide</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BD Animations Card -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="Box h-100">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-items-start mb-3">
+                <div class="color-bg-accent-muted rounded-2 p-3 mr-3 flex-shrink-0">
+                  <svg class="octicon color-fg-accent" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h4 mb-2">BD Animations</h3>
+                  <p class="color-fg-muted mb-3">Custom animation library with GSAP-powered transitions and effects.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="docs/bd-animations-guide.md" class="btn btn-sm btn-outline">Guide</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Webflow Integration Card -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="Box h-100">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-items-start mb-3">
+                <div class="color-bg-accent-muted rounded-2 p-3 mr-3 flex-shrink-0">
+                  <svg class="octicon color-fg-accent" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h4 mb-2">Webflow Integration</h3>
+                  <p class="color-fg-muted mb-3">Seamless CMS integration with Webflow for dynamic content management.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="docs/webflow-guidelines.md" class="btn btn-sm btn-outline">Guide</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stacking Shapes Card -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="Box h-100">
+            <div class="Box-body p-4">
+              <div class="d-flex flex-items-start mb-3">
+                <div class="color-bg-accent-muted rounded-2 p-3 mr-3 flex-shrink-0">
+                  <svg class="octicon color-fg-accent" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="h4 mb-2">Stacking Shapes</h3>
+                  <p class="color-fg-muted mb-3">Dynamic stacking shape animations and interactive layouts.</p>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="docs/stacking-shapes-guide.md" class="btn btn-sm btn-outline">Guide</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Documentation Section -->
+    <div class="border-top pt-6">
+      <div class="d-flex flex-column flex-md-row gap-6">
+        <!-- Quick Links -->
+        <div class="col-12 col-md-4">
+          <h3 class="h3 mb-4">Quick Links</h3>
+          <div class="Box">
+            <div class="Box-body">
+              <nav class="menu">
+                <a class="menu-item" href="docs-viewer.html">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM6.5 3.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25zM6.5 8.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 11.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25z"/>
+                  </svg>
+                  Documentation Viewer
+                </a>
+                <a class="menu-item" href="docs/switch-mode-guide.md">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                  Switch Mode Guide
+                </a>
+                <a class="menu-item" href="README.md">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M0 1.75C0 .784.784 0 1.75 0h12.5C15.216 0 16 .784 16 1.75v12.5A1.75 1.75 0 0114.25 16H1.75A1.75 1.75 0 010 14.25V1.75zm1.75-.25a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V1.75a.25.25 0 00-.25-.25H1.75zM6.5 3.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 6a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25zM6.5 8.75a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H7.25a.75.75 0 01-.75-.75zM7.25 11.5a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H7.25z"/>
+                  </svg>
+                  README
+                </a>
+                <a class="menu-item" href="QUICKSTART.md">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                  Quick Start
+                </a>
+                <a class="menu-item" href="SETUP.md">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                  Setup Guide
+                </a>
+                <a class="menu-item" href="CONTRIBUTING.md">
+                  <svg class="octicon mr-2" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 0a8 8 0 100 16A8 8 0 008 0zM1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z"/>
+                  </svg>
+                  Contributing
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Info -->
+        <div class="col-12 col-md-8">
+          <h3 class="h3 mb-4">Project Overview</h3>
+          <div class="Box">
+            <div class="Box-body">
+              <div class="markdown-body">
+                <p>This repository contains the complete codebase for ByDefault Studio's website, featuring interactive components, animations, and development tools built with modern web technologies.</p>
+                
+                <h4>Technology Stack</h4>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                  <span class="Label Label--outline">HTML5</span>
+                  <span class="Label Label--outline">CSS3</span>
+                  <span class="Label Label--outline">JavaScript ES6+</span>
+                  <span class="Label Label--outline">GSAP</span>
+                  <span class="Label Label--outline">Webflow CMS</span>
+                  <span class="Label Label--outline">Primer CSS</span>
+                </div>
+
+                <h4>File Structure</h4>
+                <div class="Box color-bg-muted">
+                  <div class="Box-body">
+                    <div class="d-flex flex-column gap-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">assets/</span>
+                        <span class="color-fg-muted">Images, audio, and video assets</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">css/</span>
+                        <span class="color-fg-muted">Stylesheets and design system</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">js/</span>
+                        <span class="color-fg-muted">JavaScript modules and utilities</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">hero/</span>
+                        <span class="color-fg-muted">Hero section components</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">webflow/</span>
+                        <span class="color-fg-muted">Webflow integration files</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="text-mono color-fg-muted">📁</span>
+                        <span class="text-mono">docs/</span>
+                        <span class="color-fg-muted">Documentation and guides</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="border-top color-bg-muted">
+    <div class="container-xl px-3 py-4 text-center">
+      <p class="color-fg-muted text-small mb-0">ByDefault Studio - Interactive Web Development</p>
+    </div>
+  </div>
 </body>
 </html>
-

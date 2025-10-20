@@ -31,116 +31,89 @@ if [[ "$MODE" != "local" && "$MODE" != "prod" ]]; then
 fi
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-HEADER_FILE="$SCRIPT_DIR/header.html"
-FOOTER_FILE="$SCRIPT_DIR/footer.html"
+
+# Define all Webflow files
+FILES=(
+  "global-header.html"
+  "global-footer.html"
+  "home-header.html"
+  "home-footer.html"
+  "blog-footer.html"
+  "case-studies-footer.html"
+)
+
+# Get current version from any file (they should all be the same)
+CURRENT_VERSION=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' "$SCRIPT_DIR/global-header.html" | head -1)
+if [ -z "$CURRENT_VERSION" ]; then
+  CURRENT_VERSION="v1.7.1"
+  echo "⚠️  Could not detect current version, using default: $CURRENT_VERSION"
+fi
+
+echo "📋 Current version: $CURRENT_VERSION"
+
+# Function to switch a file between local and production
+switch_file() {
+  local file="$1"
+  local mode="$2"
+  
+  if [ ! -f "$file" ]; then
+    echo "⚠️  File not found: $file"
+    return
+  fi
+  
+  echo "🔄 Processing: $(basename "$file")"
+  
+  if [ "$mode" == "local" ]; then
+    # Switch to local development URLs
+    sed -i '' "s|https://cdn.jsdelivr.net/gh/bydefaultstudio/website@[^/]*/|http://127.0.0.1:5500/|g" "$file"
+    
+  elif [ "$mode" == "prod" ]; then
+    # Switch to production CDN URLs
+    sed -i '' "s|http://127.0.0.1:5500/|https://cdn.jsdelivr.net/gh/bydefaultstudio/website@$CURRENT_VERSION/|g" "$file"
+    
+    # Ensure we're using the correct version
+    sed -i '' "s|https://cdn.jsdelivr.net/gh/bydefaultstudio/website@[^/]*/|https://cdn.jsdelivr.net/gh/bydefaultstudio/website@$CURRENT_VERSION/|g" "$file"
+  fi
+}
 
 if [ "$MODE" == "local" ]; then
   echo "🛠️  Switching to LOCAL development mode..."
+  echo "📁 Processing $(echo ${FILES[@]} | wc -w) files..."
   
-  # Clean up any existing comment wrappers first, then apply correct ones
+  for file in "${FILES[@]}"; do
+    switch_file "$SCRIPT_DIR/$file" "local"
+  done
   
-  # Header: CSS - Remove all comment variations first
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*[^>]*>\([[:space:]]*-->\)*[[:space:]]*-->|<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/css/cursor.css" rel="stylesheet">|g' "$HEADER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet">\([[:space:]]*-->\)*[[:space:]]*-->|<link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet">|g' "$HEADER_FILE"
-  
-  # Now apply the correct commenting
-  sed -i '' 's|<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/css/cursor.css" rel="stylesheet">|<!-- <link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/css/cursor.css" rel="stylesheet"> -->|g' "$HEADER_FILE"
-  
-  # Footer: JS files - Clean and apply
-  # script.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/script.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/script.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/script.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/script.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/script.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/script.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # case-study.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/case-study.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/case-study.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/case-study.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/case-study.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/case-study.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/case-study.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # bd-animations.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/bd-animations.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/bd-animations.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/bd-animations.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/bd-animations.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/bd-animations.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/bd-animations.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # cursor.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/cursor.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/cursor.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/cursor.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/cursor.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/cursor.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/cursor.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # table-of-contents.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/table-of-contents.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/table-of-contents.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/table-of-contents.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/table-of-contents.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/table-of-contents.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/table-of-contents.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # hero.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/hero/hero.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/hero/hero.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/hero/hero.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/hero/hero.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/hero/hero.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/hero/hero.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # audio.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/audio.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/audio.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/audio.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/audio.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/audio.js"></script>|<!-- <script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/audio.js"></script> -->|g' "$FOOTER_FILE"
-  
+  echo ""
   echo "✅ Switched to LOCAL mode (127.0.0.1:5500)"
   echo "💡 Make sure Live Server is running on port 5500!"
+  echo ""
+  echo "📁 Updated files:"
+  for file in "${FILES[@]}"; do
+    if [ -f "$SCRIPT_DIR/$file" ]; then
+      echo "   - $file"
+    fi
+  done
   
 elif [ "$MODE" == "prod" ]; then
   echo "🚀 Switching to PRODUCTION mode..."
+  echo "📁 Processing $(echo ${FILES[@]} | wc -w) files..."
   
-  # Clean up any existing comment wrappers first, then apply correct ones
+  for file in "${FILES[@]}"; do
+    switch_file "$SCRIPT_DIR/$file" "prod"
+  done
   
-  # Header: CSS - Remove all comment variations first
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*[^>]*>\([[:space:]]*-->\)*[[:space:]]*-->|<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/css/cursor.css" rel="stylesheet">|g' "$HEADER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet">\([[:space:]]*-->\)*[[:space:]]*-->|<link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet">|g' "$HEADER_FILE"
-  
-  # Now apply the correct commenting
-  sed -i '' 's|<link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet">|<!-- <link href="http://127.0.0.1:5500/css/cursor.css" rel="stylesheet"> -->|g' "$HEADER_FILE"
-  
-  # Footer: JS files - Clean and apply
-  # script.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/script.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/script.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/script.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/script.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/script.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/script.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # case-study.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/case-study.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/case-study.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/case-study.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/case-study.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/case-study.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/case-study.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # bd-animations.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/bd-animations.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/bd-animations.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/bd-animations.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/bd-animations.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/bd-animations.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/bd-animations.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # cursor.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/cursor.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/cursor.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/cursor.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/cursor.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/cursor.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/cursor.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # table-of-contents.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/table-of-contents.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/table-of-contents.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/table-of-contents.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/table-of-contents.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/table-of-contents.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/table-of-contents.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # hero.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/hero/hero.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/hero/hero.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/hero/hero.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/hero/hero.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/hero/hero.js"></script>|<!-- <script src="http://127.0.0.1:5500/hero/hero.js"></script> -->|g' "$FOOTER_FILE"
-  
-  # audio.js
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v[0-9.]*/js/audio.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.5/js/audio.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<!--[[:space:]]*\(<!--[[:space:]]*\)*<script src="http://127.0.0.1:5500/js/audio.js"></script>\([[:space:]]*-->\)*[[:space:]]*-->|<script src="http://127.0.0.1:5500/js/audio.js"></script>|g' "$FOOTER_FILE"
-  sed -i '' 's|<script src="http://127.0.0.1:5500/js/audio.js"></script>|<!-- <script src="http://127.0.0.1:5500/js/audio.js"></script> -->|g' "$FOOTER_FILE"
-  
-  echo "✅ Switched to PRODUCTION mode (CDN)"
+  echo ""
+  echo "✅ Switched to PRODUCTION mode (CDN v$CURRENT_VERSION)"
   echo "💡 Files are ready to copy to Webflow!"
+  echo ""
+  echo "📁 Updated files:"
+  for file in "${FILES[@]}"; do
+    if [ -f "$SCRIPT_DIR/$file" ]; then
+      echo "   - $file"
+    fi
+  done
 fi
-
-echo ""
-echo "📁 Updated files:"
-echo "   - header.html"
-echo "   - footer.html"
 
 # Deploy to Webflow if requested
 if [ "$DEPLOY" = true ]; then
@@ -157,4 +130,16 @@ if [ "$DEPLOY" = true ]; then
   echo ""
   echo "⚠️  Or run the manual deployment:"
   echo "   node manual-deploy.js"
+fi
+
+echo ""
+echo "🎯 Next steps:"
+if [ "$MODE" == "local" ]; then
+  echo "   1. Start Live Server on port 5500"
+  echo "   2. Test your changes locally"
+  echo "   3. Run './switch-mode.sh prod' when ready for production"
+else
+  echo "   1. Copy updated files to Webflow"
+  echo "   2. Test in Webflow Designer"
+  echo "   3. Publish when ready"
 fi

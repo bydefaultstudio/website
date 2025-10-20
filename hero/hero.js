@@ -2,11 +2,12 @@
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
  * Created: 2024-12-19
- * Version: 1.0.0
+ * Version: 2.0.0
  * Last Updated: 2024-12-19
  */
 
-console.log("Script — Key Visuals");
+console.log("Script - Key Visuals v2");
+
 
 //
 //------- Utility Functions -------//
@@ -60,7 +61,6 @@ class KeyVisualCollection {
     this.setupResponsiveListener();
     this.isInitialized = true;
     
-    console.log("Key Visual Collection initialized");
   }
 
   // Create the overlay for key visuals within the hero section
@@ -85,7 +85,6 @@ class KeyVisualCollection {
   // Check if device is mobile
   isMobile() {
     const isMobile = window.innerWidth <= 768;
-    console.log(`📱 Mobile detection: ${isMobile} (width: ${window.innerWidth}px)`);
     return isMobile;
   }
 
@@ -127,17 +126,19 @@ class KeyVisualCollection {
         '4:5': '50vw',   // Portrait - medium width
         '1:1': '55vw',   // Square - medium width
         '2:1': '60vw',   // Ultra-wide landscape - larger
-        '9:16': '45vw'   // Ultra-tall portrait - smaller
+        '9:16': '25vw'   // Ultra-tall portrait - smaller
       };
     } else {
       // Desktop: original widths
-      return {
+      const widths = {
         '16:9': '45vw',  // Landscape - larger width
         '4:5': '30vw',   // Portrait - smaller width
         '1:1': '35vw',   // Square - medium width
         '2:1': '60vw',   // Ultra-wide landscape - extra large width
-        '9:16': '20vw'   // Ultra-tall portrait - smaller width
+        '9:16': '25vw'   // Ultra-tall portrait - smaller width
       };
+      console.log('🖥️ Desktop responsive widths:', widths);
+      return widths;
     }
   }
 
@@ -151,14 +152,12 @@ class KeyVisualCollection {
     
     if (cmsData && cmsData.length > 0) {
       this.collection = cmsData;
-      console.log(`📊 Loaded ${cmsData.length} key visuals from Webflow CMS`);
       
       // Pre-warm the first asset for better performance
       this.preWarmFirstAsset();
     } else {
       // Fallback to default collection if no CMS data
       this.collection = this.getDefaultCollection();
-      console.log('📊 Using default key visual collection');
     }
   }
 
@@ -167,19 +166,16 @@ class KeyVisualCollection {
     const feedContainer = document.querySelector('#kv-json-feed');
     
     if (!feedContainer) {
-      console.log('📊 No Webflow CMS feed found (#kv-json-feed), using defaults');
       return null;
     }
 
     const jsonBlocks = feedContainer.querySelectorAll('.kv-json');
-    console.log(`📦 Found ${jsonBlocks.length} JSON blocks`);
 
     const parsedItems = [];
 
     jsonBlocks.forEach((block, index) => {
       try {
         const jsonText = block.textContent.trim();
-        console.log(`📄 JSON block ${index}:`, jsonText);
         
         const item = JSON.parse(jsonText);
         
@@ -248,7 +244,6 @@ class KeyVisualCollection {
       document.head.appendChild(preloadLink);
     }
     
-    console.log('🔥 Pre-warmed first asset:', firstVisual.src);
   }
 
   // Default fallback collection
@@ -305,7 +300,6 @@ class KeyVisualCollection {
     
     // Mouse events
     this.container.addEventListener('click', (e) => {
-      console.log('🖱️ Click event detected');
       debouncedSpawn(e);
     });
     
@@ -315,7 +309,6 @@ class KeyVisualCollection {
     let touchMoved = false;
     
     this.container.addEventListener('touchstart', (e) => {
-      console.log('👆 Touch start detected');
       touchStartTime = Date.now();
       touchStartY = e.touches[0].clientY;
       touchMoved = false;
@@ -329,18 +322,12 @@ class KeyVisualCollection {
     
     this.container.addEventListener('touchend', (e) => {
       const touchDuration = Date.now() - touchStartTime;
-      console.log(`👆 Touch end - duration: ${touchDuration}ms, moved: ${touchMoved}`);
-      
       // Only spawn if it was a quick tap (not a scroll)
       if (touchDuration < 300 && !touchMoved) {
-        console.log('✅ Quick tap detected, spawning key visual');
         debouncedSpawn(e.changedTouches[0]);
-      } else {
-        console.log('📱 Scroll gesture detected, not spawning');
       }
     }, { passive: true });
     
-    console.log('🎧 Event listeners setup complete');
   }
 
   // Setup responsive listener for screen size changes
@@ -352,30 +339,23 @@ class KeyVisualCollection {
         // Update responsive settings when screen size changes
         this.config = this.getResponsiveConfig();
         this.ratioDisplayWidths = this.getResponsiveDisplayWidths();
-        console.log('📱 Responsive settings updated for', this.isMobile() ? 'mobile' : 'desktop');
       }, 150); // Debounce resize events
     });
   }
 
   // Spawn a key visual at the click position
   spawnKeyVisual(event) {
-    console.log('🎯 spawnKeyVisual called');
-    console.log('📊 Initialized:', this.isInitialized);
-    console.log('📊 Active visuals:', this.activeKeyVisuals.length, '/', this.maxKeyVisuals);
     
     if (!this.isInitialized) {
-      console.log('❌ Not initialized, skipping');
       return;
     }
     
     if (this.activeKeyVisuals.length >= this.maxKeyVisuals) {
-      console.log('❌ Max visuals reached, skipping');
       return;
     }
     
     const now = Date.now();
     if (now - this.lastSpawnTime < this.spawnCooldown) {
-      console.log('❌ Cooldown active, skipping');
       return;
     }
     this.lastSpawnTime = now;
@@ -384,20 +364,15 @@ class KeyVisualCollection {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     
-    console.log(`📍 Position: x=${x}, y=${y}`);
-    console.log(`📐 Container: width=${rect.width}, height=${rect.height}`);
 
     // Don't spawn too close to edges
     if (x < 50 || x > rect.width - 50 || y < 50 || y > rect.height - 50) {
-      console.log('❌ Too close to edges, skipping');
       return;
     }
 
-    console.log('✅ Creating key visual...');
     const keyVisual = this.createKeyVisual(x, y);
     this.animateKeyVisual(keyVisual);
     this.activeKeyVisuals.push(keyVisual);
-    console.log('🎨 Key visual created and added to active list');
   }
 
   // Create a key visual element
@@ -410,6 +385,7 @@ class KeyVisualCollection {
     
     // Get display width based on ratio
     const displayWidth = this.ratioDisplayWidths[visual.ratio] || '40vw';
+    console.log(`📐 Creating visual with ratio ${visual.ratio}, displayWidth: ${displayWidth}`);
     const rotation = random(this.config.rotationRange[0], this.config.rotationRange[1]);
     
     // Create media element based on type
@@ -434,7 +410,7 @@ class KeyVisualCollection {
       
       // Load and play video when it becomes visible
       mediaElement.load();
-      mediaElement.play().catch(e => console.log('Video autoplay prevented:', e));
+      mediaElement.play().catch(e => {});
       
     } else if (visual.type === 'gif') {
       // GIF: treat as image for optimal performance
@@ -468,6 +444,10 @@ class KeyVisualCollection {
     keyVisual.setAttribute('data-ratio', visual.ratio || 'unknown');
     keyVisual.setAttribute('data-display-width', displayWidth);
     keyVisual.setAttribute('data-source-url', visual.src || '');
+    
+    // Set aspect ratio for proper container sizing
+    const aspectRatio = visual.ratio.replace(':', ' / ');
+    keyVisual.style.setProperty('--aspect-ratio', aspectRatio);
 
     // Set GSAP transform origin to center
     gsap.set(keyVisual, {

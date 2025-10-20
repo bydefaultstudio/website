@@ -3,11 +3,11 @@
  * Script Purpose: Lightweight Audio System for ByDefault Studio
  * Author: Erlen Masson
  * Created: July 2024
- * Version: 1.5.0
- * Last Updated: January 2025
+ * Version: 1.5.1
+ * Last Updated: October 20, 2025
  */
 
-console.log("Script v1.5.0 — AudioSystem Loaded");
+console.log("[Testing] Script - Audio v1.5.1 (2025-10-20)");
 
 //
 //------- Audio System Class -------//
@@ -27,7 +27,7 @@ class AudioSystem {
     
     this.defaultSounds = {
       click: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/click.mp3',
-      hover: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/hover-3.mp3',
+      hover: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/hover.mp3',
       success: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/success.mp3',
       error: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/error.mp3',
       bump: 'https://cdn.jsdelivr.net/gh/bydefaultstudio/website@main/assets/audio/bump.mp3'
@@ -35,8 +35,8 @@ class AudioSystem {
     
     // Individual volume settings for each sound (0.0 to 1.0)
     this.soundVolumes = {
-      click: 0.05,  
-      hover: 0.03,    
+      click: 0.3,  
+      hover: 0.3,    
       success: 0.2,  
       error: 0.2,    
       bump: 0.2      
@@ -54,7 +54,6 @@ class AudioSystem {
     this.loadSettings();
     this.setupEventListeners();
     this.updateToggleButton();
-    console.log('🎵 Audio System initialized');
   }
   
   //
@@ -91,6 +90,9 @@ class AudioSystem {
   setupEventListeners() {
     // Click events - enable audio on any click
     document.addEventListener('click', (e) => {
+      // Ensure target is an element node
+      if (!e.target || e.target.nodeType !== Node.ELEMENT_NODE) return;
+      
       // Handle sound toggle button (check target and closest parent)
       const toggleBtn = e.target.closest('#bd-sound');
       if (toggleBtn) {
@@ -99,12 +101,13 @@ class AudioSystem {
         return;
       }
       
-      // Enable audio on first click anywhere
-      if (!this.settings.enabled) {
+      // Enable audio on first click anywhere (only if no settings saved yet)
+      const hasAudioSettings = localStorage.getItem('bd-audio-settings') !== null;
+      if (!hasAudioSettings && !this.settings.enabled) {
         this.settings.enabled = true;
         this.saveSettings();
         this.updateToggleButton();
-        console.log('🎵 Audio enabled on first click');
+        console.log(' Audio - Enabled on first visit click');
       }
       
       // Find the closest element with data-bd-audio attribute
@@ -119,6 +122,9 @@ class AudioSystem {
     
     // Hover events (mouseenter)
     document.addEventListener('mouseenter', (e) => {
+      // Ensure target is an element node
+      if (!e.target || e.target.nodeType !== Node.ELEMENT_NODE) return;
+      
       // Find the closest element with data-bd-audio attribute
       const audioElement = e.target.closest('[data-bd-audio]');
       if (!audioElement) return;
@@ -214,18 +220,23 @@ class AudioSystem {
 
   // Toggle audio on/off
   toggleSound() {
-    console.log('🎵 Sound toggle button clicked');
+    console.log('Sound button clicked');
     
     this.settings.enabled = !this.settings.enabled;
     this.saveSettings();
     this.updateToggleButton();
+    
+    // Dispatch event for other components to listen to
+    document.dispatchEvent(new CustomEvent('audioSystemChanged', {
+      detail: { enabled: this.settings.enabled }
+    }));
     
     // Play feedback sound if audio is being enabled
     if (this.settings.enabled && this.shouldPlayAudio()) {
       this.playSound('click');
     }
     
-    console.log(`🎵 Audio ${this.settings.enabled ? 'enabled' : 'disabled'}`);
+    console.log(`Audio - ${this.settings.enabled ? 'enabled' : 'disabled'}`);
   }
   
   // Update the visual state of the toggle button with GSAP animations
@@ -315,6 +326,11 @@ class AudioSystem {
     this.settings.enabled = enabled;
     this.saveSettings();
     this.updateToggleButton();
+    
+    // Dispatch event for other components to listen to
+    document.dispatchEvent(new CustomEvent('audioSystemChanged', {
+      detail: { enabled: this.settings.enabled }
+    }));
   }
   
   // Get current settings
