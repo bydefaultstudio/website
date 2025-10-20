@@ -2,10 +2,10 @@
  * Script Purpose: By Default Custom Scripts
  * Author: Erlen Masson
  * Created: 29th June 2025
- * Last Updated: 4th July 2025
+ * Last Updated: October 20, 2025
  */
 
-console.log("Script - All");
+console.log("[Testing] Script - All (2025-10-20)");
 
 // Check if the device is a touch device
 function isTouchDevice() {
