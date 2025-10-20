@@ -3,11 +3,11 @@
  * Script Purpose: Lightweight Audio System for ByDefault Studio
  * Author: Erlen Masson
  * Created: July 2024
- * Version: 1.5.1
+ * Version: 1.5.2
  * Last Updated: October 20, 2025
  */
 
-console.log("[Testing] Script - Audio v1.5.1 (2025-10-20)");
+console.log("[Testing] Script - Audio v1.5.2 (2025-10-20)");
 
 //
 //------- Audio System Class -------//
@@ -111,6 +111,8 @@ class AudioSystem {
       }
       
       // Find the closest element with data-bd-audio attribute
+      // Ensure target is an element node
+      if (!e.target || e.target.nodeType !== Node.ELEMENT_NODE) return;
       const audioElement = e.target.closest('[data-bd-audio]');
       if (audioElement) {
         const audioAttr = audioElement.getAttribute('data-bd-audio');
