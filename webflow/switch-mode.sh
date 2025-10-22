@@ -45,7 +45,7 @@ FILES=(
 # Get current version from any file (they should all be the same)
 CURRENT_VERSION=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' "$SCRIPT_DIR/global-header.html" | head -1)
 if [ -z "$CURRENT_VERSION" ]; then
-  CURRENT_VERSION="v1.7.1"
+  CURRENT_VERSION="v1.8.1"
   echo "⚠️  Could not detect current version, using default: $CURRENT_VERSION"
 fi
 
