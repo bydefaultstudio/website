@@ -1,12 +1,12 @@
 /**
  * Script Purpose: Desktop custom cursor with GSAP follow + conflict-free nested data-cursor handling
  * Author: Erlen Masson
- * Version: 2.0.1
+ * Version: 1.8.2
  * Started: [Start Date]
- * Last Updated: 2025-10-20
+ * Last Updated: October 22, 2025
  */
 
-console.log("[Testing] Script - Cursor v2.0.1 (2025-10-20)");
+console.log("Script - Cursor v1.8.2");
 
 document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".cursor-default");

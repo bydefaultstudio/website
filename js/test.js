@@ -2,11 +2,11 @@
  * Script Purpose: Test script to verify local development setup
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 1.0.1
- * Last Updated: 2025-10-20
+ * Version: 1.8.2
+ * Last Updated: October 22, 2025
  */
 
-console.log("[Testing] Test Script v1.0.1 — Test Module Loaded (2025-10-20)");
+console.log("Test Script v1.8.2 — Test Module Loaded");
 
 //
 //------- Utility Functions -------//
