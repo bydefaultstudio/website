@@ -6,7 +6,7 @@
  * Last Updated: 2024-12-19
  */
 
-console.log("Script - Local Key Visuals v3");
+console.log("Script - Key Visuals v3");
 
 
 //

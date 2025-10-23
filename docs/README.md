@@ -60,11 +60,11 @@ order: 1                      # Optional - Controls page order within section (d
 
 Pages are automatically organized by section in the navigation:
 
-* **Overview** - General project information and getting started guides
-* **Features** - Interactive features and components
-* **Case Studies** - Real-world examples and use cases
-* **Deployment** - Deployment guides and workflows
-* **Custom Sections** - Add any section name you want
+- **Overview** - General project information and getting started guides
+- **Features** - Interactive features and components
+- **Case Studies** - Real-world examples and use cases
+- **Deployment** - Deployment guides and workflows
+- **Custom Sections** - Add any section name you want
 
 ## Page Ordering
 
@@ -122,9 +122,9 @@ console.log('Hello, world!');
 ### Lists
 
 ```markdown
-* **Bold item** - Description
-* *Italic item* - Another description
-* Regular item
+- **Bold item** - Description
+- *Italic item* - Another description
+- Regular item
 ```
 
 ### Links
@@ -156,7 +156,7 @@ Navigation is automatically generated based on:
 
 ## Commands
 
-```bash
+```bash title="Terminal"
 # Generate HTML from markdown files (most common)
 npm run docs
 
@@ -192,11 +192,11 @@ npm run watch:dev
 
 The system uses Base UI styling for:
 
-* **Headers** - Proper hierarchy with scroll anchors
-* **Code blocks** - Syntax highlighting and copy buttons
-* **Callouts** - Colored info boxes and notes
-* **Navigation** - Sticky sidebar with smooth scrolling
-* **Table of contents** - Auto-generated from headings
+- **Headers** - Proper hierarchy with scroll anchors
+- **Code blocks** - Syntax highlighting and copy buttons
+- **Callouts** - Colored info boxes and notes
+- **Navigation** - Sticky sidebar with smooth scrolling
+- **Table of contents** - Auto-generated from headings
 
 ## Adding New Content
 
@@ -224,12 +224,12 @@ Update `template.html` to modify the overall page structure.
 
 ## Best Practices
 
-* **Use descriptive titles** - Clear, concise page titles
-* **Add subtitles** - Help users understand what each page covers
-* **Organize by sections** - Group related content together
-* **Use callouts** - Highlight important information
-* **Include code examples** - Show practical implementations
-* **Keep content focused** - One main topic per page
+- **Use descriptive titles** - Clear, concise page titles
+- **Add subtitles** - Help users understand what each page covers
+- **Organize by sections** - Group related content together
+- **Use callouts** - Highlight important information
+- **Include code examples** - Show practical implementations
+- **Keep content focused** - One main topic per page
 
 ## Troubleshooting
 

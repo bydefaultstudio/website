@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Optimizer Guide - ByDefault Documentation</title>
+    <meta name="description" content="Learn how to use the SVG optimizer to automatically process SVG code for web use">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Override github-markdown-css for our layout */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Custom code block styling */
+        .markdown-body pre {
+            background-color: #00000008 !important;
+        }
+        
+        .markdown-body pre code {
+            background-color: transparent !important;
+        }
+        
+        /* Ensure proper spacing for our layout */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body h1:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h5:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        /* Ensure proper list styling */
+        .markdown-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .markdown-body ul ul {
+            list-style-type: circle;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+        
+        .markdown-body ul ul ul {
+            list-style-type: square;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                            <img src="logo_bydefault_primary.svg" alt="ByDefault Logo" class="h-8 w-auto">
+                            <span class="text-xl font-semibold text-gray-900">Documentation</span>
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 overflow-hidden flex flex-col shrink-0">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">deployment</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+      
+        <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">features</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+      
+        <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+      
+        <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+      
+        <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+      
+        <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+      
+        <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+      
+        <li><a href="svg-optimizer-guide.html" class="group block px-4 py-3 text-sm bg-primary-50 text-primary-700 border-primary-200 shadow-sm font-medium transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">SVG Optimizer Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">overview</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+      
+        <li><a href="markdown-style-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markdown Style Guide</span></a></li>
+      
+        <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+      
+        <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+      
+        <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+      
+        <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">testing</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <article class="markdown-body">
+                                    <div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8"><p class="text-lg text-gray-600 leading-relaxed">Automated SVG optimization for logos and icons</p><a href="svg-optimizer-guide.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a></div><h1 id="svg-optimizer-guide">SVG Optimizer Guide</h1>
+<p>The SVG Optimizer is a powerful tool that automatically processes SVG code to make it web-ready for logos and icons. It handles common optimizations like setting <code>fill=&quot;currentColor&quot;</code>, removing unnecessary attributes, and making SVGs responsive.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Automatic fill conversion</strong>: Sets all <code>&lt;path&gt;</code> elements to use <code>fill=&quot;currentColor&quot;</code></li>
+<li><strong>Attribute cleanup</strong>: Removes <code>xmlns</code> attributes from root <code>&lt;svg&gt;</code> tags</li>
+<li><strong>Responsive sizing</strong>: Supports <code>SIZE=100%</code> flag for responsive SVGs</li>
+<li><strong>Batch processing</strong>: Handles multiple SVGs in one file</li>
+<li><strong>Manual control</strong>: Process SVGs when you&#39;re ready, not automatically</li>
+<li><strong>Template reset</strong>: Clean up and return to template state</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<ol>
+<li><p><strong>Start the watcher:</strong></p>
+<pre><code class="language-bash">cd svg
+./start-watcher.sh
+</code></pre>
+</li>
+<li><p><strong>Paste your SVG code</strong> in the markdown file code blocks</p>
+</li>
+<li><p><strong>Process the SVGs:</strong></p>
+<pre><code class="language-bash">process
+</code></pre>
+</li>
+<li><p><strong>Reset when needed:</strong></p>
+<pre><code class="language-bash">reset
+</code></pre>
+</li>
+</ol>
+<h2 id="file-structure">File Structure</h2>
+<pre><code>svg/
+├── svg-optimizer.md    # Main markdown file for SVG input
+├── svg-processor.js    # Node.js processor script
+└── start-watcher.sh    # Convenience script to start watcher
+</code></pre>
+<h2 id="usage-instructions">Usage Instructions</h2>
+<h3 id="basic-workflow">Basic Workflow</h3>
+<ol>
+<li><strong>Paste SVG code</strong> in the ````svg<code>code blocks in</code>svg-optimizer.md`</li>
+<li><strong>Add flags if needed</strong> (like <code>SIZE=100%</code> for responsive sizing)</li>
+<li><strong>Type <code>process</code></strong> in the terminal to convert the SVGs</li>
+<li><strong>Copy the optimized code</strong> from the markdown file</li>
+</ol>
+<h3 id="terminal-commands">Terminal Commands</h3>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>process</code></td>
+<td>Convert all SVGs in the markdown file</td>
+</tr>
+<tr>
+<td><code>reset</code></td>
+<td>Clean up and return to template state</td>
+</tr>
+<tr>
+<td><code>quit</code></td>
+<td>Stop the watcher</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>Stop the watcher</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>Show available commands</td>
+</tr>
+</tbody></table>
+<h3 id="svg-processing-rules">SVG Processing Rules</h3>
+<p>The optimizer applies these transformations:</p>
+<ol>
+<li><p><strong>Fill conversion</strong>: All <code>&lt;path&gt;</code> elements get <code>fill=&quot;currentColor&quot;</code></p>
+<ul>
+<li>Replaces existing fill attributes (hex, rgb, named colors, urls)</li>
+<li>Handles both <code>fill=&quot;color&quot;</code> and <code>style=&quot;fill: color&quot;</code> formats</li>
+<li>Preserves other style properties</li>
+</ul>
+</li>
+<li><p><strong>Attribute cleanup</strong>: Removes <code>xmlns</code> attributes from root <code>&lt;svg&gt;</code> tag</p>
+<ul>
+<li>Removes <code>xmlns=&quot;http://www.w3.org/2000/svg&quot;</code></li>
+<li>Removes <code>xmlns:xlink</code> if present</li>
+<li>Preserves <code>viewBox</code> and all other attributes</li>
+</ul>
+</li>
+<li><p><strong>Responsive sizing</strong>: When <code>SIZE=100%</code> flag is present</p>
+<ul>
+<li>Sets <code>width=&quot;100%&quot;</code> and <code>height=&quot;100%&quot;</code></li>
+<li>Replaces existing width/height values</li>
+<li>Preserves <code>viewBox</code> for proper scaling</li>
+</ul>
+</li>
+<li><p><strong>Format preservation</strong>: Keeps original structure</p>
+<ul>
+<li>Maintains element order and IDs</li>
+<li>Preserves classes and ARIA attributes</li>
+<li>Keeps all geometry attributes (d, x, y, etc.)</li>
+<li>No minification or reformatting</li>
+</ul>
+</li>
+</ol>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-svg-processing">Basic SVG Processing</h3>
+<p><strong>Input:</strong></p>
+<pre><code class="language-svg">&lt;svg width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot; fill=&quot;#FFD700&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-svg">&lt;svg width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot;&gt;
+  &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot; fill=&quot;currentColor&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+<h3 id="responsive-svg-processing">Responsive SVG Processing</h3>
+<p><strong>Input:</strong></p>
+<pre><code class="language-svg">SIZE=100%
+&lt;svg width=&quot;24&quot; height=&quot;24&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+  &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot; fill=&quot;#FFD700&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-svg">&lt;svg viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;
+  &lt;path d=&quot;M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z&quot; fill=&quot;currentColor&quot;/&gt;
+&lt;/svg&gt;
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="for-logos-and-icons">For Logos and Icons</h3>
+<ul>
+<li><strong>Use <code>currentColor</code></strong>: Makes SVGs inherit text color from parent</li>
+<li><strong>Include <code>viewBox</code></strong>: Ensures proper scaling</li>
+<li><strong>Use responsive sizing</strong>: Add <code>SIZE=100%</code> for flexible layouts</li>
+<li><strong>Test in context</strong>: Verify the SVG works in your design system</li>
+</ul>
+<h3 id="file-organization">File Organization</h3>
+<ul>
+<li><strong>One SVG per code block</strong>: Easier to manage and process</li>
+<li><strong>Use descriptive comments</strong>: Add context for each SVG</li>
+<li><strong>Reset regularly</strong>: Use <code>reset</code> command to clean up between projects</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ul>
+<li><strong>SVG not processing</strong>: Check that code is in ````svg` code blocks</li>
+<li><strong>Fill not changing</strong>: Ensure paths have proper <code>&lt;path&gt;</code> tags</li>
+<li><strong>Responsive not working</strong>: Verify <code>SIZE=100%</code> flag is on line before SVG</li>
+<li><strong>Multiple SVGs</strong>: Each should be in its own code block</li>
+</ul>
+<h3 id="debug-mode">Debug Mode</h3>
+<p>The processor provides console output showing:</p>
+<ul>
+<li>Number of SVG code blocks found</li>
+<li>Processing status for each block</li>
+<li>Success/failure messages</li>
+</ul>
+<h2 id="integration">Integration</h2>
+<h3 id="with-webflow">With Webflow</h3>
+<ul>
+<li>Copy optimized SVG code directly into Webflow</li>
+<li>Use as inline SVG for better performance</li>
+<li>Apply CSS classes for styling</li>
+</ul>
+<h3 id="with-htmlcss">With HTML/CSS</h3>
+<ul>
+<li>Use <code>currentColor</code> for theme-aware icons</li>
+<li>Apply responsive sizing with CSS</li>
+<li>Combine with CSS custom properties for theming</li>
+</ul>
+<h2 id="advanced-usage">Advanced Usage</h2>
+<h3 id="batch-processing">Batch Processing</h3>
+<p>Process multiple SVGs at once:</p>
+<ol>
+<li>Paste each SVG in separate code blocks</li>
+<li>Add flags as needed for each</li>
+<li>Run <code>process</code> command once</li>
+<li>All SVGs get optimized simultaneously</li>
+</ol>
+<h3 id="template-customization">Template Customization</h3>
+<p>Modify <code>svg-processor.js</code> to add custom processing rules:</p>
+<ul>
+<li>Add new attribute transformations</li>
+<li>Implement custom fill logic</li>
+<li>Add new flags and commands</li>
+</ul>
+<h2 id="api-reference">API Reference</h2>
+<h3 id="processing-function">Processing Function</h3>
+<pre><code class="language-javascript">function processSVG(svgCode) {
+  // Handles SIZE=100% flag
+  // Removes xmlns attributes
+  // Converts path fills to currentColor
+  // Returns optimized SVG code
+}
+</code></pre>
+<h3 id="reset-function">Reset Function</h3>
+<pre><code class="language-javascript">function resetMarkdownFile() {
+  // Restores template content
+  // Clears all SVG code
+  // Returns to initial state
+}
+</code></pre>
+<h2 id="support">Support</h2>
+<p>For issues or feature requests:</p>
+<ol>
+<li>Check the troubleshooting section</li>
+<li>Review console output for errors</li>
+<li>Verify SVG syntax is valid</li>
+<li>Test with simple SVG first</li>
+</ol>
+<hr>
+<p><em>This tool is designed specifically for the ByDefault website project and optimizes SVGs for use as logos and icons in web applications.</em></p>
+
+                                </article>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+      <div class="sticky top-8">
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">On this page</h3>
+          <div class="space-y-1"><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-0" href="#svg-optimizer-guide">SVG Optimizer Guide</a>
+    </li><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#features">Features</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#quick-start">Quick Start</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#file-structure">File Structure</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#usage-instructions">Usage Instructions</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#examples">Examples</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#best-practices">Best Practices</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#troubleshooting">Troubleshooting</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#integration">Integration</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#advanced-usage">Advanced Usage</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#api-reference">API Reference</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#support">Support</a>
+    </li></ul></ul></div>
+        </div>
+      </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

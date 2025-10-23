@@ -21,8 +21,8 @@ Welcome to the ByDefault Studio website codebase documentation. This repository 
 - **`js/test.js`** - Testing utilities
 
 ### Hero Physics Engine
-- **`hero/hero.js`** - Interactive Matter.js physics engine for hero section
-- **`hero/hero.css`** - Hero section styles
+- **`js/hero.js`** - Interactive Matter.js physics engine for hero section
+- **`css/hero.css`** - Hero section styles
 - **`hero/hero-1.js`** - Backup version
 - **`hero/hero-2.js`** - Second backup version
 

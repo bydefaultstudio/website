@@ -11,6 +11,7 @@ order: 3
 ## Overview
 
 This structure ensures:
+
 - Readable, modular, and maintainable JavaScript
 - Clear comment blocks and organization
 - Self-contained code
@@ -107,6 +108,7 @@ function doSomething() {
 ```
 
 Each function should include:
+
 - A brief comment with the function name above it
 
 ---
@@ -114,6 +116,7 @@ Each function should include:
 ## Initialization Pattern
 
 Every module:
+
 1. Defines **helpers** first
 2. Defines **main function(s)** grouped by section
 3. Calls everything within a single `DOMContentLoaded` listener **at the end of the script**
@@ -142,6 +145,7 @@ console.log("Script v1.0 — [ModuleName] Loaded");
 **That's it.** Don't add excessive console logs throughout your code.
 
 Only add additional console logs when:
+
 - Debugging a specific issue
 - Monitoring critical functionality
 - Required for custom functionality (e.g., error tracking)

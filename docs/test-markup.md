@@ -228,7 +228,7 @@ The empty lines should be handled correctly.
 - Item with special characters: !@#$%^&*()
 - Item with quotes: "double quotes" and 'single quotes'
 - Item with brackets: [brackets] and {braces}
-- Item with symbols: < > & | \ / ~ `
+- Item with symbols: < > & | \ / ~ \`
 
 ### Long Content
 This is a very long paragraph that contains a lot of text to test how the documentation system handles lengthy content. It should wrap properly and maintain good readability with appropriate line spacing and typography. The content includes various formatting elements like **bold text**, *italic text*, `inline code`, and [links](https://example.com) to ensure they work correctly within longer paragraphs.

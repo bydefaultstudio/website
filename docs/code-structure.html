@@ -86,11 +86,98 @@
         .scrollbar-none::-webkit-scrollbar {
             display: none;
         }
+        
+        /* Override github-markdown-css for our layout */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Custom code block styling */
+        .markdown-body pre {
+            background-color: #00000008 !important;
+        }
+        
+        .markdown-body pre code {
+            background-color: transparent !important;
+        }
+        
+        /* Ensure proper spacing for our layout */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body h1:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h5:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        /* Ensure proper list styling */
+        .markdown-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .markdown-body ul ul {
+            list-style-type: circle;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+        
+        .markdown-body ul ul ul {
+            list-style-type: square;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
 </head>
 <body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
     <div class="root">
@@ -99,10 +186,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">BD</span>
-                        </div>
-                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                            <img src="logo_bydefault_primary.svg" alt="ByDefault Logo" class="h-8 w-auto">
+                            <span class="text-xl font-semibold text-gray-900">Documentation</span>
+                        </a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
@@ -118,44 +205,66 @@
                     <div class="flex-1 overflow-y-auto sidebar-scroll">
                         <div class="p-4 lg:p-6">
                             
-                            <!-- Deployment Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
-                                <ul class="space-y-1">
-                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
-                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Features Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
-                                <ul class="space-y-1">
-                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
-                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
-                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
-                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
-                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
-                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Overview Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
-                                <ul class="space-y-1">
-                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
-                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
-                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
-                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
-                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Testing Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
-                                <ul class="space-y-1">
-                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
-                                </ul>
-                            </div>
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">deployment</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+      
+        <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">features</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+      
+        <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+      
+        <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+      
+        <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+      
+        <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+      
+        <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+      
+        <li><a href="svg-optimizer-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">SVG Optimizer Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">overview</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+      
+        <li><a href="markdown-style-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markdown Style Guide</span></a></li>
+      
+        <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+      
+        <li><a href="code-structure.html" class="group block px-4 py-3 text-sm bg-primary-50 text-primary-700 border-primary-200 shadow-sm font-medium transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+      
+        <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+      
+        <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">testing</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
                         </div>
                     </div>
                 </nav>
@@ -170,38 +279,25 @@
                         <!-- Content Area - Responsive width -->
                         <div class="xl:col-span-8 xl:h-full min-w-0">
                             <div class="max-w-4xl">
-                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Code Structure & Standards">Code Structure & Standards</h1>
-<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
-  <p class="text-lg text-gray-600 leading-relaxed">JavaScript coding standards and organization guidelines for the ByDefault website</p>
-  <a href="code-structure.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+                                <article class="markdown-body">
+                                    <div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8"><p class="text-lg text-gray-600 leading-relaxed">JavaScript coding standards and organization guidelines for the ByDefault website</p><a href="code-structure.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <title>Markdown</title>
       <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
     </svg>
     View as Markdown
-  </a>
-</div>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Overview"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Overview">Overview</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">This structure ensures:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Readable, modular, and maintainable JavaScript</li>
-<li class="mb-1 text-gray-700 leading-6">Clear comment blocks and organization</li>
-<li class="mb-1 text-gray-700 leading-6">Self-contained code</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Code Structure"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Code Structure">Code Structure</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Every script follows this skeleton:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">js</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`/**
+  </a></div><h1 id="code-structure-amp-standards">Code Structure &amp; Standards</h1>
+<h2 id="overview">Overview</h2>
+<p>This structure ensures:</p>
+<ul>
+<li>Readable, modular, and maintainable JavaScript</li>
+<li>Clear comment blocks and organization</li>
+<li>Self-contained code</li>
+</ul>
+<hr>
+<h2 id="code-structure">Code Structure</h2>
+<p>Every script follows this skeleton:</p>
+<pre><code class="language-js">/**
  * Script Purpose: [Brief description]
  * Author: Erlen Masson
  * Created: [Date]
@@ -209,7 +305,7 @@
  * Last Updated: [Date]
  */
 
-console.log("Script v1.0 — [ModuleName] Loaded");
+console.log(&quot;Script v1.0 — [ModuleName] Loaded&quot;);
 
 //
 //------- Utility Functions -------//
@@ -220,7 +316,7 @@ function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() =&gt; func(...args), wait);
   };
 }
 
@@ -235,7 +331,7 @@ function getElement(selector) {
 
 // Init slider
 function initSlider() {
-  const sliders = document.querySelectorAll(".slider");
+  const sliders = document.querySelectorAll(&quot;.slider&quot;);
   // ... implementation
 }
 
@@ -248,288 +344,136 @@ function handleClick(event) {
 //------- Initialize -------//
 //
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
   initSlider();
 //  handleClick();
-});`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">/**
- * Script Purpose: [Brief description]
- * Author: Erlen Masson
- * Created: [Date]
- * Version: [SemVer]
- * Last Updated: [Date]
- */</span>
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Script v1.0 — [ModuleName] Loaded&quot;</span>);
-
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//------- Utility Functions -------//</span>
-<span class="hljs-comment">//</span>
-
-<span class="hljs-comment">// Debounce</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">debounce</span>(<span class="hljs-params">func, wait</span>) {
-  <span class="hljs-keyword">let</span> timeout;
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">executedFunction</span>(<span class="hljs-params">...args</span>) {
-    <span class="hljs-built_in">clearTimeout</span>(timeout);
-    timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">func</span>(...args), wait);
-  };
-}
-
-<span class="hljs-comment">// Get element by selector</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">getElement</span>(<span class="hljs-params">selector</span>) {
-  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(selector);
-}
-
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//------- Main Functions -------//</span>
-<span class="hljs-comment">//</span>
-
-<span class="hljs-comment">// Init slider</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">initSlider</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-keyword">const</span> sliders = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelectorAll</span>(<span class="hljs-string">&quot;.slider&quot;</span>);
-  <span class="hljs-comment">// ... implementation</span>
-}
-
-<span class="hljs-comment">// Handle click</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">handleClick</span>(<span class="hljs-params">event</span>) {
-  <span class="hljs-comment">// ... implementation</span>
-}
-
-<span class="hljs-comment">//</span>
-<span class="hljs-comment">//------- Initialize -------//</span>
-<span class="hljs-comment">//</span>
-
-<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;DOMContentLoaded&quot;</span>, <span class="hljs-function">() =&gt;</span> {
-  <span class="hljs-title function_">initSlider</span>();
-<span class="hljs-comment">//  handleClick();</span>
-});</code>
-    </pre>
-  </div>
-</div></p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Naming Conventions"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Naming Conventions">Naming Conventions</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">| Type | Example | Rule |</p>
-<p class="mb-4 text-gray-700 leading-6">|------|----------|------|</p>
-<p class="mb-4 text-gray-700 leading-6">| Functions | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">initSlider()</code>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">handleClick()</code> | Use <strong class="font-semibold">lower camelCase</strong>, short & descriptive |</p>
-<p class="mb-4 text-gray-700 leading-6">| Variables | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">mainElement</code>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">scrollPos</code> | Contextual and readable |</p>
-<p class="mb-4 text-gray-700 leading-6">| File Names | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">slider.js</code>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">utils.js</code> | Use lowercase kebab-case |</p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Section Dividers"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Section Dividers">Section Dividers</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Use <strong class="font-semibold">clear headers</strong> only when grouping similar functions:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">js</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`//
+});
+</code></pre>
+<hr>
+<h2 id="naming-conventions">Naming Conventions</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Example</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Functions</td>
+<td><code>initSlider()</code>, <code>handleClick()</code></td>
+<td>Use <strong>lower camelCase</strong>, short &amp; descriptive</td>
+</tr>
+<tr>
+<td>Variables</td>
+<td><code>mainElement</code>, <code>scrollPos</code></td>
+<td>Contextual and readable</td>
+</tr>
+<tr>
+<td>File Names</td>
+<td><code>slider.js</code>, <code>utils.js</code></td>
+<td>Use lowercase kebab-case</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="section-dividers">Section Dividers</h2>
+<p>Use <strong>clear headers</strong> only when grouping similar functions:</p>
+<pre><code class="language-js">//
 //------- Section Name -------//
-//`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">//</span>
-<span class="hljs-comment">//------- Section Name -------//</span>
-<span class="hljs-comment">//</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<p class="mb-4 text-gray-700 leading-6">For standalone functions, simple comments are fine:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">js</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Function name
+//
+</code></pre>
+<p>For standalone functions, simple comments are fine:</p>
+<pre><code class="language-js">// Function name
 function doSomething() {
   // ... implementation
-}`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">// Function name</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">doSomething</span>(<span class="hljs-params"></span>) {
-  <span class="hljs-comment">// ... implementation</span>
-}</code>
-    </pre>
-  </div>
-</div></p>
+}
+</code></pre>
+<p>Each function should include:</p>
+<ul>
+<li>A brief comment with the function name above it</li>
+</ul>
+<hr>
+<h2 id="initialization-pattern">Initialization Pattern</h2>
+<p>Every module:</p>
+<ol>
+<li>Defines <strong>helpers</strong> first</li>
+<li>Defines <strong>main function(s)</strong> grouped by section</li>
+<li>Calls everything within a single <code>DOMContentLoaded</code> listener <strong>at the end of the script</strong></li>
+</ol>
+<hr>
+<h2 id="common-function-types">Common Function Types</h2>
+<table>
+<thead>
+<tr>
+<th>Function Type</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Utility</strong></td>
+<td>Helpers like debouncing or element selection</td>
+<td><code>debounce()</code>, <code>getElement()</code></td>
+</tr>
+<tr>
+<td><strong>Setup</strong></td>
+<td>Registers plugins or event listeners</td>
+<td><code>registerEvents()</code></td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td>Controls one UI element</td>
+<td><code>initSlider()</code></td>
+</tr>
+<tr>
+<td><strong>Global Init</strong></td>
+<td>Calls all modules</td>
+<td>Inside <code>DOMContentLoaded</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="console-logging">Console Logging</h2>
+<p><strong>Each script should include ONE <code>console.log()</code> at the top</strong> to confirm the script has loaded:</p>
+<pre><code class="language-js">console.log(&quot;Script v1.0 — [ModuleName] Loaded&quot;);
+</code></pre>
+<p><strong>That&#39;s it.</strong> Don&#39;t add excessive console logs throughout your code.</p>
+<p>Only add additional console logs when:</p>
+<ul>
+<li>Debugging a specific issue</li>
+<li>Monitoring critical functionality</li>
+<li>Required for custom functionality (e.g., error tracking)</li>
+</ul>
+<p>Keep your console clean and purposeful.</p>
 
-<p class="mb-4 text-gray-700 leading-6">Each function should include:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">A brief comment with the function name above it</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Initialization Pattern"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Initialization Pattern">Initialization Pattern</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Every module:</p>
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Defines <strong class="font-semibold">helpers</strong> first</li>
-<li class="mb-1 text-gray-700 leading-6">Defines <strong class="font-semibold">main function(s)</strong> grouped by section</li>
-<li class="mb-1 text-gray-700 leading-6">Calls everything within a single <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">DOMContentLoaded</code> listener <strong class="font-semibold">at the end of the script</strong></li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Common Function Types"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Common Function Types">Common Function Types</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">| Function Type | Description | Example |</p>
-<p class="mb-4 text-gray-700 leading-6">|----------------|--------------|----------|</p>
-<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Utility</strong> | Helpers like debouncing or element selection | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">debounce()</code>, <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">getElement()</code> |</p>
-<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Setup</strong> | Registers plugins or event listeners | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">registerEvents()</code> |</p>
-<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Component</strong> | Controls one UI element | <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">initSlider()</code> |</p>
-<p class="mb-4 text-gray-700 leading-6">| <strong class="font-semibold">Global Init</strong> | Calls all modules | Inside <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">DOMContentLoaded</code> |</p>
-
-<p class="mb-4 text-gray-700 leading-6">---</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Console Logging"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Console Logging">Console Logging</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Each script should include ONE <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">console.log()</code> at the top</strong> to confirm the script has loaded:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">js</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`console.log("Script v1.0 — [ModuleName] Loaded");`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Script v1.0 — [ModuleName] Loaded&quot;</span>);</code>
-    </pre>
-  </div>
-</div></p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">That's it.</strong> Don't add excessive console logs throughout your code.</p>
-
-<p class="mb-4 text-gray-700 leading-6">Only add additional console logs when:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Debugging a specific issue</li>
-<li class="mb-1 text-gray-700 leading-6">Monitoring critical functionality</li>
-<li class="mb-1 text-gray-700 leading-6">Required for custom functionality (e.g., error tracking)</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<p class="mb-4 text-gray-700 leading-6">Keep your console clean and purposeful.</p>
+                                </article>
                             </div>
                         </div>
                         <!-- Table of Contents - Responsive positioning -->
                         <div class="xl:col-span-4 xl:h-full">
                             
-    <!-- Desktop Table of Contents -->
-    <div class="hidden xl:block sticky top-20 overflow-y-auto">
-      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
-        <div class="flex flex-col gap-4">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-col gap-2">
-            <li>
-              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Code Structure & Standards">Code Structure & Standards</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Overview">Overview</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Code Structure">Code Structure</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Naming Conventions">Naming Conventions</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Section Dividers">Section Dividers</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Initialization Pattern">Initialization Pattern</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Common Function Types">Common Function Types</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Console Logging">Console Logging</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
+      <div class="sticky top-8">
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">On this page</h3>
+          <div class="space-y-1"><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-0" href="#code-structure-amp-standards">Code Structure &amp; Standards</a>
+    </li><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#overview">Overview</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#code-structure">Code Structure</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#naming-conventions">Naming Conventions</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#section-dividers">Section Dividers</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#initialization-pattern">Initialization Pattern</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#common-function-types">Common Function Types</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#console-logging">Console Logging</a>
+    </li></ul></ul></div>
         </div>
       </div>
-    </div>
     
-    <!-- Mobile Table of Contents -->
-    <div class="xl:hidden mb-8">
-        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
-        <div class="flex flex-col gap-3">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-wrap gap-2">
-            <li>
-              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Code Structure & Standards">Code Structure & Standards</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Overview">Overview</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Code Structure">Code Structure</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Naming Conventions">Naming Conventions</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Section Dividers">Section Dividers</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Initialization Pattern">Initialization Pattern</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Common Function Types">Common Function Types</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Console Logging">Console Logging</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
-        </div>
-      </div>
-    </div>
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ order: 6
 
 A comprehensive guide to using the ByDefault animations library built with GSAP and ScrollTrigger.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Basic Usage
 
@@ -40,7 +40,7 @@ The system also supports legacy `data-text-animate` attributes:
 
 ---
 
-## 📋 Available Animations
+## Available Animations
 
 ### All Animations
 
@@ -83,7 +83,7 @@ The system also supports legacy `data-text-animate` attributes:
 
 ---
 
-## ⚙️ Configuration Options
+## Configuration Options
 
 ### Scroll Behavior
 

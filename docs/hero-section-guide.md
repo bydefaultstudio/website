@@ -246,19 +246,19 @@ If no CMS data is found, the system uses a default collection with placeholder i
 ### CDN Integration
 ```html
 <!-- CSS -->
-<link href="http://127.0.0.1:5500/hero/hero.css" rel="stylesheet">
+<link href="http://127.0.0.1:5500/css/hero.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="http://127.0.0.1:5500/hero/hero.js"></script>
+<script src="http://127.0.0.1:5500/js/hero.js"></script>
 ```
 
 ### Production CDN
 ```html
 <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.7.1/hero/hero.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.8.4/css/hero.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.7.1/hero/hero.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.8.4/js/hero.js"></script>
 ```
 
 ## Troubleshooting

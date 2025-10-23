@@ -86,11 +86,98 @@
         .scrollbar-none::-webkit-scrollbar {
             display: none;
         }
+        
+        /* Override github-markdown-css for our layout */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Custom code block styling */
+        .markdown-body pre {
+            background-color: #00000008 !important;
+        }
+        
+        .markdown-body pre code {
+            background-color: transparent !important;
+        }
+        
+        /* Ensure proper spacing for our layout */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body h1:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h5:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        /* Ensure proper list styling */
+        .markdown-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .markdown-body ul ul {
+            list-style-type: circle;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+        
+        .markdown-body ul ul ul {
+            list-style-type: square;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
 </head>
 <body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
     <div class="root">
@@ -99,10 +186,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">BD</span>
-                        </div>
-                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                            <img src="logo_bydefault_primary.svg" alt="ByDefault Logo" class="h-8 w-auto">
+                            <span class="text-xl font-semibold text-gray-900">Documentation</span>
+                        </a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
@@ -118,44 +205,66 @@
                     <div class="flex-1 overflow-y-auto sidebar-scroll">
                         <div class="p-4 lg:p-6">
                             
-                            <!-- Deployment Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
-                                <ul class="space-y-1">
-                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
-                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Features Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
-                                <ul class="space-y-1">
-                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
-                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
-                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
-                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
-                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
-                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Overview Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
-                                <ul class="space-y-1">
-                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
-                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
-                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
-                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
-                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Testing Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
-                                <ul class="space-y-1">
-                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
-                                </ul>
-                            </div>
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">deployment</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+      
+        <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">features</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+      
+        <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+      
+        <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm bg-primary-50 text-primary-700 border-primary-200 shadow-sm font-medium transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+      
+        <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+      
+        <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+      
+        <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+      
+        <li><a href="svg-optimizer-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">SVG Optimizer Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">overview</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+      
+        <li><a href="markdown-style-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markdown Style Guide</span></a></li>
+      
+        <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+      
+        <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+      
+        <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+      
+        <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">testing</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
                         </div>
                     </div>
                 </nav>
@@ -170,559 +279,218 @@
                         <!-- Content Area - Responsive width -->
                         <div class="xl:col-span-8 xl:h-full min-w-0">
                             <div class="max-w-4xl">
-                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Case Study Content Pinning">Case Study Content Pinning</h1>
-<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
-  <p class="text-lg text-gray-600 leading-relaxed">Intelligent content pinning system for case study pages with responsive behavior</p>
-  <a href="case-study-pinning.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+                                <article class="markdown-body">
+                                    <div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8"><p class="text-lg text-gray-600 leading-relaxed">Intelligent content pinning system for case study pages with responsive behavior</p><a href="case-study-pinning.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <title>Markdown</title>
       <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
     </svg>
     View as Markdown
-  </a>
-</div>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Overview"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Overview">Overview</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">The case study content pinning system provides intelligent pinning behavior for <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.case-study_content-block</code> elements within <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.case-study-content</code> containers. The system automatically detects content height and viewport dimensions to apply appropriate pinning logic.</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Key Features"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Key Features">Key Features</a></h2>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Desktop Only</strong>: Only activates on devices with <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">min-width: 992px</code></li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Touch Device Detection</strong>: Automatically skips on touch devices for better performance</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Adaptive Pinning</strong>: Automatically chooses between Short Mode and Long Mode based on content height</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Fixed Header Support</strong>: Respects fixed header offsets to prevent content overlap</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Dynamic Re-measurement</strong>: Automatically adjusts on resize and content changes</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">ScrollSmoother Integration</strong>: Works seamlessly with existing ScrollSmoother setup</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="HTML Structure"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#HTML Structure">HTML Structure</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">html</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`<div class="case-study-content">
-  <div class="case-study_content-block">
-    <!-- Your case study content here -->
-  </div>
-</div>`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;case-study-content&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;case-study_content-block&quot;</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- Your case study content here --&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Pinning Modes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Pinning Modes">Pinning Modes</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Short Mode (CBH ≤ VH)"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Short Mode (CBH ≤ VH)">Short Mode (CBH ≤ VH)</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">When</strong>: Content block height is less than or equal to viewport height</p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Behavior</strong>:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Content block pins from the top of the viewport (accounting for fixed header)</li>
-<li class="mb-1 text-gray-700 leading-6">Remains fully visible while the page scrolls</li>
-<li class="mb-1 text-gray-700 leading-6">Unpins when the container section ends</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Use Case</strong>: Short case study summaries, key metrics, or brief content blocks</p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Long Mode (CBH > VH)"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Long Mode (CBH > VH)">Long Mode (CBH > VH)</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">When</strong>: Content block height is greater than viewport height</p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Behavior</strong>:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Content block pins to the viewport</li>
-<li class="mb-1 text-gray-700 leading-6">Page scroll drives internal content scrolling</li>
-<li class="mb-1 text-gray-700 leading-6">User can read through the entire content block while it appears fixed</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Use Case</strong>: Long-form case studies, detailed analysis, or extensive content</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Configuration"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Configuration">Configuration</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Fixed Header Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Fixed Header Support">Fixed Header Support</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">The system automatically detects fixed headers using these selectors:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">header[data-fixed]</code></li>
-<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.header-fixed</code></li>
-<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.fixed-header</code></li>
-<li class="mb-1 text-gray-700 leading-6"><code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">[data-header="fixed"]</code></li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Device Detection"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Device Detection">Device Detection</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Desktop Breakpoint</strong>: <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">min-width: 992px</code></p>
-
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Touch Device Detection</strong>:</p>
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`"ontouchstart" in window ||
-navigator.maxTouchPoints > 0 ||
-navigator.msMaxTouchPoints > 0`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-string">&quot;ontouchstart&quot;</span> <span class="hljs-keyword">in</span> <span class="hljs-variable language_">window</span> ||
-navigator.<span class="hljs-property">maxTouchPoints</span> &gt; <span class="hljs-number">0</span> ||
-navigator.<span class="hljs-property">msMaxTouchPoints</span> &gt; <span class="hljs-number">0</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="API"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#API">API</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Global Instance"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Global Instance">Global Instance</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Access the global instance
+  </a></div><h1 id="case-study-content-pinning">Case Study Content Pinning</h1>
+<h2 id="overview">Overview</h2>
+<p>The case study content pinning system provides intelligent pinning behavior for <code>.case-study_content-block</code> elements within <code>.case-study-content</code> containers. The system automatically detects content height and viewport dimensions to apply appropriate pinning logic.</p>
+<h2 id="key-features">Key Features</h2>
+<ul>
+<li><strong>Desktop Only</strong>: Only activates on devices with <code>min-width: 992px</code></li>
+<li><strong>Touch Device Detection</strong>: Automatically skips on touch devices for better performance</li>
+<li><strong>Adaptive Pinning</strong>: Automatically chooses between Short Mode and Long Mode based on content height</li>
+<li><strong>Fixed Header Support</strong>: Respects fixed header offsets to prevent content overlap</li>
+<li><strong>Dynamic Re-measurement</strong>: Automatically adjusts on resize and content changes</li>
+<li><strong>ScrollSmoother Integration</strong>: Works seamlessly with existing ScrollSmoother setup</li>
+</ul>
+<h2 id="html-structure">HTML Structure</h2>
+<pre><code class="language-html">&lt;div class=&quot;case-study-content&quot;&gt;
+  &lt;div class=&quot;case-study_content-block&quot;&gt;
+    &lt;!-- Your case study content here --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="pinning-modes">Pinning Modes</h2>
+<h3 id="short-mode-cbh-vh">Short Mode (CBH ≤ VH)</h3>
+<p><strong>When</strong>: Content block height is less than or equal to viewport height</p>
+<p><strong>Behavior</strong>:</p>
+<ul>
+<li>Content block pins from the top of the viewport (accounting for fixed header)</li>
+<li>Remains fully visible while the page scrolls</li>
+<li>Unpins when the container section ends</li>
+</ul>
+<p><strong>Use Case</strong>: Short case study summaries, key metrics, or brief content blocks</p>
+<h3 id="long-mode-cbh-gt-vh">Long Mode (CBH &gt; VH)</h3>
+<p><strong>When</strong>: Content block height is greater than viewport height</p>
+<p><strong>Behavior</strong>:</p>
+<ul>
+<li>Content block pins to the viewport</li>
+<li>Page scroll drives internal content scrolling</li>
+<li>User can read through the entire content block while it appears fixed</li>
+</ul>
+<p><strong>Use Case</strong>: Long-form case studies, detailed analysis, or extensive content</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="fixed-header-support">Fixed Header Support</h3>
+<p>The system automatically detects fixed headers using these selectors:</p>
+<ul>
+<li><code>header[data-fixed]</code></li>
+<li><code>.header-fixed</code></li>
+<li><code>.fixed-header</code></li>
+<li><code>[data-header=&quot;fixed&quot;]</code></li>
+</ul>
+<h3 id="device-detection">Device Detection</h3>
+<p><strong>Desktop Breakpoint</strong>: <code>min-width: 992px</code></p>
+<p><strong>Touch Device Detection</strong>:</p>
+<pre><code class="language-javascript">&quot;ontouchstart&quot; in window ||
+navigator.maxTouchPoints &gt; 0 ||
+navigator.msMaxTouchPoints &gt; 0
+</code></pre>
+<h2 id="api">API</h2>
+<h3 id="global-instance">Global Instance</h3>
+<pre><code class="language-javascript">// Access the global instance
 window.caseStudyPinning
 
 // Refresh pinning manually
 caseStudyPinning.refresh()
 
 // Destroy the pinning system
-caseStudyPinning.destroy()`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">// Access the global instance</span>
-<span class="hljs-variable language_">window</span>.<span class="hljs-property">caseStudyPinning</span>
-
-<span class="hljs-comment">// Refresh pinning manually</span>
-caseStudyPinning.<span class="hljs-title function_">refresh</span>()
-
-<span class="hljs-comment">// Destroy the pinning system</span>
-caseStudyPinning.<span class="hljs-title function_">destroy</span>()</code>
-    </pre>
-  </div>
-</div></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Class Usage"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Class Usage">Class Usage</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Create new instance
+caseStudyPinning.destroy()
+</code></pre>
+<h3 id="class-usage">Class Usage</h3>
+<pre><code class="language-javascript">// Create new instance
 const pinning = new CaseStudyPinning()
 
 // Refresh measurements
 pinning.refresh()
 
 // Cleanup
-pinning.destroy()`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">// Create new instance</span>
-<span class="hljs-keyword">const</span> pinning = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CaseStudyPinning</span>()
-
-<span class="hljs-comment">// Refresh measurements</span>
-pinning.<span class="hljs-title function_">refresh</span>()
-
-<span class="hljs-comment">// Cleanup</span>
-pinning.<span class="hljs-title function_">destroy</span>()</code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Integration with Existing Systems"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Integration with Existing Systems">Integration with Existing Systems</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="ScrollSmoother"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#ScrollSmoother">ScrollSmoother</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">The pinning system automatically integrates with ScrollSmoother:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Refreshes ScrollSmoother effects after measurements</li>
-<li class="mb-1 text-gray-700 leading-6">Uses the same scroll context as ScrollSmoother</li>
-<li class="mb-1 text-gray-700 leading-6">Maintains smooth scrolling performance</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Case Study Toggle"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Case Study Toggle">Case Study Toggle</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">When the case study content is toggled open/closed, the pinning system automatically refreshes to account for the new content dimensions.</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Performance Considerations"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Considerations">Performance Considerations</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Resize Handling"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Resize Handling">Resize Handling</a></h3>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Debounced</strong>: Re-measurement is debounced to 200ms to prevent excessive calculations</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">ResizeObserver</strong>: Uses ResizeObserver for efficient change detection</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">RequestAnimationFrame</strong>: Measurements are scheduled for optimal timing</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Memory Management"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Memory Management">Memory Management</a></h3>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Cleanup</strong>: Properly destroys ScrollTriggers and observers</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Event Listeners</strong>: Removes event listeners on destroy</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Timeout Clearing</strong>: Clears all timeouts to prevent memory leaks</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Debugging"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Debugging">Debugging</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Console Logging"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Console Logging">Console Logging</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">The system provides detailed console logging for debugging:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">javascript</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`// Device capabilities
-console.log('Device capabilities:', {
+pinning.destroy()
+</code></pre>
+<h2 id="integration-with-existing-systems">Integration with Existing Systems</h2>
+<h3 id="scrollsmoother">ScrollSmoother</h3>
+<p>The pinning system automatically integrates with ScrollSmoother:</p>
+<ul>
+<li>Refreshes ScrollSmoother effects after measurements</li>
+<li>Uses the same scroll context as ScrollSmoother</li>
+<li>Maintains smooth scrolling performance</li>
+</ul>
+<h3 id="case-study-toggle">Case Study Toggle</h3>
+<p>When the case study content is toggled open/closed, the pinning system automatically refreshes to account for the new content dimensions.</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<h3 id="resize-handling">Resize Handling</h3>
+<ul>
+<li><strong>Debounced</strong>: Re-measurement is debounced to 200ms to prevent excessive calculations</li>
+<li><strong>ResizeObserver</strong>: Uses ResizeObserver for efficient change detection</li>
+<li><strong>RequestAnimationFrame</strong>: Measurements are scheduled for optimal timing</li>
+</ul>
+<h3 id="memory-management">Memory Management</h3>
+<ul>
+<li><strong>Cleanup</strong>: Properly destroys ScrollTriggers and observers</li>
+<li><strong>Event Listeners</strong>: Removes event listeners on destroy</li>
+<li><strong>Timeout Clearing</strong>: Clears all timeouts to prevent memory leaks</li>
+</ul>
+<h2 id="debugging">Debugging</h2>
+<h3 id="console-logging">Console Logging</h3>
+<p>The system provides detailed console logging for debugging:</p>
+<pre><code class="language-javascript">// Device capabilities
+console.log(&#39;Device capabilities:&#39;, {
   isDesktop: true,
   isTouchDevice: false
 })
 
 // Measurement data
-console.log('Measurement for block 0:', {
+console.log(&#39;Measurement for block 0:&#39;, {
   VH: 1080,        // Viewport height
   CBH: 600,        // Content block height
   CTH: 1200,       // Container height
   H: 80,           // Fixed header offset
-  mode: 'Short'    // Pinning mode
+  mode: &#39;Short&#39;    // Pinning mode
 })
 
 // Pinning configuration
-console.log('Short mode pinning for block 0:', {
-  pinStart: '80px',
-  pinEnd: '+=600px',
+console.log(&#39;Short mode pinning for block 0:&#39;, {
+  pinStart: &#39;80px&#39;,
+  pinEnd: &#39;+=600px&#39;,
   scrollDistance: 600
-})`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment">// Device capabilities</span>
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Device capabilities:&#x27;</span>, {
-  <span class="hljs-attr">isDesktop</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">isTouchDevice</span>: <span class="hljs-literal">false</span>
 })
+</code></pre>
+<h3 id="test-page">Test Page</h3>
+<p>Use <code>/case-study-test.html</code> to test the functionality:</p>
+<ul>
+<li>Contains both short and long content blocks</li>
+<li>Shows debug information in the bottom-left corner</li>
+<li>Demonstrates fixed header offset handling</li>
+<li>Includes toggle button functionality</li>
+</ul>
+<h2 id="browser-support">Browser Support</h2>
+<ul>
+<li><strong>Modern Browsers</strong>: Full support in all modern browsers</li>
+<li><strong>ResizeObserver</strong>: Uses ResizeObserver API (polyfill available if needed)</li>
+<li><strong>GSAP</strong>: Requires GSAP 3.12+ with ScrollTrigger and ScrollSmoother plugins</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="pinning-not-working">Pinning Not Working</h3>
+<ol>
+<li><strong>Check Device</strong>: Ensure you&#39;re on desktop (992px+) and not a touch device</li>
+<li><strong>Verify HTML Structure</strong>: Ensure <code>.case-study_content-block</code> is inside <code>.case-study-content</code></li>
+<li><strong>Console Errors</strong>: Check browser console for measurement errors</li>
+<li><strong>ScrollTrigger</strong>: Ensure ScrollTrigger is properly loaded</li>
+</ol>
+<h3 id="performance-issues">Performance Issues</h3>
+<ol>
+<li><strong>Too Many Blocks</strong>: Consider limiting the number of pinned blocks</li>
+<li><strong>Resize Frequency</strong>: Adjust debounce timeout if needed</li>
+<li><strong>Complex Content</strong>: Avoid complex animations within pinned content</li>
+</ol>
+<h3 id="content-not-pinning-correctly">Content Not Pinning Correctly</h3>
+<ol>
+<li><strong>Container Height</strong>: Ensure container has sufficient height for pinning</li>
+<li><strong>Fixed Header</strong>: Verify fixed header detection is working</li>
+<li><strong>Measurement Timing</strong>: Content may need time to load before measurement</li>
+</ol>
+<h2 id="future-enhancements">Future Enhancements</h2>
+<ul>
+<li><strong>Custom Breakpoints</strong>: Allow custom desktop breakpoint configuration</li>
+<li><strong>Manual Mode Selection</strong>: Override automatic mode detection</li>
+<li><strong>Animation Options</strong>: Customize pin/unpin animations</li>
+<li><strong>Performance Metrics</strong>: Add performance monitoring</li>
+<li><strong>Accessibility</strong>: Enhanced keyboard navigation support</li>
+</ul>
 
-<span class="hljs-comment">// Measurement data</span>
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Measurement for block 0:&#x27;</span>, {
-  <span class="hljs-attr">VH</span>: <span class="hljs-number">1080</span>,        <span class="hljs-comment">// Viewport height</span>
-  <span class="hljs-attr">CBH</span>: <span class="hljs-number">600</span>,        <span class="hljs-comment">// Content block height</span>
-  <span class="hljs-attr">CTH</span>: <span class="hljs-number">1200</span>,       <span class="hljs-comment">// Container height</span>
-  <span class="hljs-attr">H</span>: <span class="hljs-number">80</span>,           <span class="hljs-comment">// Fixed header offset</span>
-  <span class="hljs-attr">mode</span>: <span class="hljs-string">&#x27;Short&#x27;</span>    <span class="hljs-comment">// Pinning mode</span>
-})
-
-<span class="hljs-comment">// Pinning configuration</span>
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Short mode pinning for block 0:&#x27;</span>, {
-  <span class="hljs-attr">pinStart</span>: <span class="hljs-string">&#x27;80px&#x27;</span>,
-  <span class="hljs-attr">pinEnd</span>: <span class="hljs-string">&#x27;+=600px&#x27;</span>,
-  <span class="hljs-attr">scrollDistance</span>: <span class="hljs-number">600</span>
-})</code>
-    </pre>
-  </div>
-</div></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Test Page"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Test Page">Test Page</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">Use <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">/case-study-test.html</code> to test the functionality:</p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Contains both short and long content blocks</li>
-<li class="mb-1 text-gray-700 leading-6">Shows debug information in the bottom-left corner</li>
-<li class="mb-1 text-gray-700 leading-6">Demonstrates fixed header offset handling</li>
-<li class="mb-1 text-gray-700 leading-6">Includes toggle button functionality</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Browser Support"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Browser Support">Browser Support</a></h2>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Modern Browsers</strong>: Full support in all modern browsers</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">ResizeObserver</strong>: Uses ResizeObserver API (polyfill available if needed)</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">GSAP</strong>: Requires GSAP 3.12+ with ScrollTrigger and ScrollSmoother plugins</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Troubleshooting"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Troubleshooting">Troubleshooting</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Pinning Not Working"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Pinning Not Working">Pinning Not Working</a></h3>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Check Device</strong>: Ensure you're on desktop (992px+) and not a touch device</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Verify HTML Structure</strong>: Ensure <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.case-study_content-block</code> is inside <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.case-study-content</code></li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Console Errors</strong>: Check browser console for measurement errors</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">ScrollTrigger</strong>: Ensure ScrollTrigger is properly loaded</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Performance Issues"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Performance Issues">Performance Issues</a></h3>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Too Many Blocks</strong>: Consider limiting the number of pinned blocks</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Resize Frequency</strong>: Adjust debounce timeout if needed</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Complex Content</strong>: Avoid complex animations within pinned content</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Content Not Pinning Correctly"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Content Not Pinning Correctly">Content Not Pinning Correctly</a></h3>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Container Height</strong>: Ensure container has sufficient height for pinning</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Fixed Header</strong>: Verify fixed header detection is working</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Measurement Timing</strong>: Content may need time to load before measurement</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Future Enhancements"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Future Enhancements">Future Enhancements</a></h2>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Custom Breakpoints</strong>: Allow custom desktop breakpoint configuration</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Manual Mode Selection</strong>: Override automatic mode detection</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Animation Options</strong>: Customize pin/unpin animations</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Performance Metrics</strong>: Add performance monitoring</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Accessibility</strong>: Enhanced keyboard navigation support</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
+                                </article>
                             </div>
                         </div>
                         <!-- Table of Contents - Responsive positioning -->
                         <div class="xl:col-span-4 xl:h-full">
                             
-    <!-- Desktop Table of Contents -->
-    <div class="hidden xl:block sticky top-20 overflow-y-auto">
-      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
-        <div class="flex flex-col gap-4">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-col gap-2">
-            <li>
-              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Case Study Content Pinning">Case Study Content Pinning</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Overview">Overview</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Key Features">Key Features</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#HTML Structure">HTML Structure</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Pinning Modes">Pinning Modes</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Short Mode (CBH ≤ VH)">Short Mode (CBH ≤ VH)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Long Mode (CBH > VH)">Long Mode (CBH > VH)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Configuration">Configuration</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Fixed Header Support">Fixed Header Support</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Device Detection">Device Detection</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#API">API</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Global Instance">Global Instance</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Class Usage">Class Usage</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Integration with Existing Systems">Integration with Existing Systems</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#ScrollSmoother">ScrollSmoother</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Case Study Toggle">Case Study Toggle</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Considerations">Performance Considerations</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Resize Handling">Resize Handling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Memory Management">Memory Management</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Debugging">Debugging</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Console Logging">Console Logging</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Test Page">Test Page</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Pinning Not Working">Pinning Not Working</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Performance Issues">Performance Issues</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Content Not Pinning Correctly">Content Not Pinning Correctly</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Future Enhancements">Future Enhancements</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
+      <div class="sticky top-8">
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">On this page</h3>
+          <div class="space-y-1"><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-0" href="#case-study-content-pinning">Case Study Content Pinning</a>
+    </li><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#overview">Overview</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#key-features">Key Features</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#html-structure">HTML Structure</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#pinning-modes">Pinning Modes</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#configuration">Configuration</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#api">API</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#integration-with-existing-systems">Integration with Existing Systems</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#performance-considerations">Performance Considerations</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#debugging">Debugging</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#browser-support">Browser Support</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#troubleshooting">Troubleshooting</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#future-enhancements">Future Enhancements</a>
+    </li></ul></ul></div>
         </div>
       </div>
-    </div>
     
-    <!-- Mobile Table of Contents -->
-    <div class="xl:hidden mb-8">
-        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
-        <div class="flex flex-col gap-3">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-wrap gap-2">
-            <li>
-              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Case Study Content Pinning">Case Study Content Pinning</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Overview">Overview</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Key Features">Key Features</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#HTML Structure">HTML Structure</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Pinning Modes">Pinning Modes</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Short Mode (CBH ≤ VH)">Short Mode (CBH ≤ VH)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Long Mode (CBH > VH)">Long Mode (CBH > VH)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Configuration">Configuration</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Fixed Header Support">Fixed Header Support</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Device Detection">Device Detection</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#API">API</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Global Instance">Global Instance</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Class Usage">Class Usage</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Integration with Existing Systems">Integration with Existing Systems</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#ScrollSmoother">ScrollSmoother</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Case Study Toggle">Case Study Toggle</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Considerations">Performance Considerations</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Resize Handling">Resize Handling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Memory Management">Memory Management</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Debugging">Debugging</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Console Logging">Console Logging</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Test Page">Test Page</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Browser Support">Browser Support</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Pinning Not Working">Pinning Not Working</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Performance Issues">Performance Issues</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Content Not Pinning Correctly">Content Not Pinning Correctly</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Future Enhancements">Future Enhancements</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
-        </div>
-      </div>
-    </div>
                         </div>
                     </div>
                 </div>

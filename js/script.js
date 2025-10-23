@@ -225,7 +225,7 @@ function testimonialSlider() {
       easing: "ease-out",
       omitEnd: true,
       autoplay: true,
-      interval: 6000, // 8 seconds between slides
+      interval: 9000, // 8 seconds between slides
       pauseOnHover: false,
       disableOnInteraction: false,
     speed: 1500, // Slower transition speed

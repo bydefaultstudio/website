@@ -20,6 +20,8 @@
   "author": "ByDefault Team",
   "license": "UNLICENSED",
   "dependencies": {
-    "highlight.js": "^11.11.1"
+    "github-markdown-css": "^5.8.1",
+    "highlight.js": "^11.11.1",
+    "marked": "^16.4.1"
   }
 }

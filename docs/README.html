@@ -86,11 +86,98 @@
         .scrollbar-none::-webkit-scrollbar {
             display: none;
         }
+        
+        /* Override github-markdown-css for our layout */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Custom code block styling */
+        .markdown-body pre {
+            background-color: #00000008 !important;
+        }
+        
+        .markdown-body pre code {
+            background-color: transparent !important;
+        }
+        
+        /* Ensure proper spacing for our layout */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body h1:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h5:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        /* Ensure proper list styling */
+        .markdown-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .markdown-body ul ul {
+            list-style-type: circle;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+        
+        .markdown-body ul ul ul {
+            list-style-type: square;
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
 </head>
 <body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
     <div class="root">
@@ -99,10 +186,10 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-16">
                     <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center">
-                            <span class="text-white font-bold text-sm">BD</span>
-                        </div>
-                        <a href="./" class="text-xl font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-200">ByDefault Documentation</a>
+                        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                            <img src="logo_bydefault_primary.svg" alt="ByDefault Logo" class="h-8 w-auto">
+                            <span class="text-xl font-semibold text-gray-900">Documentation</span>
+                        </a>
                     </div>
                     <div class="flex items-center space-x-4">
                         <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
@@ -118,44 +205,66 @@
                     <div class="flex-1 overflow-y-auto sidebar-scroll">
                         <div class="p-4 lg:p-6">
                             
-                            <!-- Deployment Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Deployment</div>
-                                <ul class="space-y-1">
-                                    <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
-                                    <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Features Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Features</div>
-                                <ul class="space-y-1">
-                                    <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
-                                    <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
-                                    <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
-                                    <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
-                                    <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
-                                    <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Overview Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Overview</div>
-                                <ul class="space-y-1">
-                                    <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
-                                    <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
-                                    <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
-                                    <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
-                                    <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
-                                </ul>
-                            </div>
-                            <!-- Testing Section -->
-                            <div class="mb-8">
-                                <div class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 px-3">Testing</div>
-                                <ul class="space-y-1">
-                                    <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 transition-all duration-200 border border-transparent hover:border-primary-200/50 hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
-                                </ul>
-                            </div>
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">deployment</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="webflow-guidelines.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Development Guidelines</span></a></li>
+      
+        <li><a href="switch-mode-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Webflow Switch-Mode Quick Reference</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">features</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-cursor-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor System</span></a></li>
+      
+        <li><a href="audio-system-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio System</span></a></li>
+      
+        <li><a href="case-study-pinning.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study Content Pinning</span></a></li>
+      
+        <li><a href="hero-section-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero Section Guide</span></a></li>
+      
+        <li><a href="stacking-shapes-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes Guide</span></a></li>
+      
+        <li><a href="bd-animations-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">BD Animations Guide</span></a></li>
+      
+        <li><a href="svg-optimizer-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">SVG Optimizer Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">overview</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="quick-start.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Start</span></a></li>
+      
+        <li><a href="markdown-style-guide.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markdown Style Guide</span></a></li>
+      
+        <li><a href="project-info.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Project Information</span></a></li>
+      
+        <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure & Standards</span></a></li>
+      
+        <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference Guide</span></a></li>
+      
+        <li><a href="README.html" class="group block px-4 py-3 text-sm bg-primary-50 text-primary-700 border-primary-200 shadow-sm font-medium transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation System</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">testing</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="test-markup.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markup Test Guide</span></a></li>
+      
+        </ul>
+      </div>
+    
                         </div>
                     </div>
                 </nav>
@@ -170,422 +279,128 @@
                         <!-- Content Area - Responsive width -->
                         <div class="xl:col-span-8 xl:h-full min-w-0">
                             <div class="max-w-4xl">
-                                <h1 class="mb-4 text-3xl font-bold text-gray-900" id="Documentation System">Documentation System</h1>
-<div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8">
-  <p class="text-lg text-gray-600 leading-relaxed">Frontmatter-driven documentation generator with Base UI styling</p>
-  <a href="README.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+                                <article class="markdown-body">
+                                    <div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8"><p class="text-lg text-gray-600 leading-relaxed">Frontmatter-driven documentation generator with Base UI styling</p><a href="README.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <title>Markdown</title>
       <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
     </svg>
     View as Markdown
-  </a>
-</div>
+  </a></div><h1 id="documentation-system">Documentation System</h1>
+<p>The ByDefault documentation system is a powerful, frontmatter-driven static site generator that creates beautiful documentation pages with Base UI styling.</p>
+<h2 id="quick-start">Quick Start</h2>
+<ol>
+<li><p><strong>Create a new documentation page:</strong></p>
+<pre><code class="language-bash"># Create a new .md file in the docs/ folder
+touch my-new-guide.md
+</code></pre>
+</li>
+<li><p><strong>Add frontmatter to your file:</strong></p>
+<pre><code class="language-yaml">---
+title: &quot;My New Guide&quot;
+subtitle: &quot;A comprehensive guide to something important&quot;
+description: &quot;SEO description for search engines&quot;
+section: &quot;features&quot;
+---
 
-<p class="mb-4 text-gray-700 leading-6">The ByDefault documentation system is a powerful, frontmatter-driven static site generator that creates beautiful documentation pages with Base UI styling.</p>
+# My New Guide
 
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Quick Start"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Quick Start">Quick Start</a></h2>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Create a new documentation page:</strong></li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-<p class="mb-4 text-gray-700 leading-6">   
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">Terminal</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`# Create a new .md file in the docs/ folder
-   touch my-new-guide.md`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment"># Create a new .md file in the docs/ folder</span>
-   <span class="hljs-built_in">touch</span> my-new-guide.md</code>
-    </pre>
-  </div>
-</div></p>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Add frontmatter to your file:</strong></li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-<p class="mb-4 text-gray-700 leading-6">   
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`---
-   title: "My New Guide"
-   subtitle: "A comprehensive guide to something important"
-   description: "SEO description for search engines"
-   section: "features"
-   ---
-   
-   # My New Guide
-   
-   Your content goes here...`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-meta">---</span>
-   <span class="hljs-attr">title:</span> <span class="hljs-string">&quot;My New Guide&quot;</span>
-   <span class="hljs-attr">subtitle:</span> <span class="hljs-string">&quot;A comprehensive guide to something important&quot;</span>
-   <span class="hljs-attr">description:</span> <span class="hljs-string">&quot;SEO description for search engines&quot;</span>
-   <span class="hljs-attr">section:</span> <span class="hljs-string">&quot;features&quot;</span>
-   <span class="hljs-string">---</span>
-   
-   <span class="hljs-comment"># My New Guide</span>
-   
-   <span class="hljs-string">Your</span> <span class="hljs-string">content</span> <span class="hljs-string">goes</span> <span class="hljs-string">here...</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Generate HTML pages:</strong></li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-<p class="mb-4 text-gray-700 leading-6">   
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">Terminal</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`npm run docs`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs">npm run docs</code>
-    </pre>
-  </div>
-</div></p>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">View your documentation:</strong></li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-<p class="mb-4 text-gray-700 leading-6">   
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">Terminal</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`# Server should already be running on http://localhost:8080
-   # If not, run: npm run serve`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment"># Server should already be running on http://localhost:8080</span>
-   <span class="hljs-comment"># If not, run: npm run serve</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Frontmatter Schema"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Frontmatter Schema">Frontmatter Schema</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Every documentation page should start with frontmatter:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`---
-title: "Page Title"           # Required - Used for H1 and navigation
-subtitle: "Page subtitle"     # Optional - Shows under H1 with "View as Markdown" button
-description: "Meta description" # Optional - Used for SEO meta description
-section: "category-name"      # Optional - Groups pages in navigation (defaults to "uncategorized")
+Your content goes here...
+</code></pre>
+</li>
+<li><p><strong>Generate HTML pages:</strong></p>
+<pre><code class="language-bash">npm run docs
+</code></pre>
+</li>
+<li><p><strong>View your documentation:</strong></p>
+<pre><code class="language-bash"># Server should already be running on http://localhost:8080
+# If not, run: npm run serve
+</code></pre>
+</li>
+</ol>
+<h2 id="frontmatter-schema">Frontmatter Schema</h2>
+<p>Every documentation page should start with frontmatter:</p>
+<pre><code class="language-yaml">---
+title: &quot;Page Title&quot;           # Required - Used for H1 and navigation
+subtitle: &quot;Page subtitle&quot;     # Optional - Shows under H1 with &quot;View as Markdown&quot; button
+description: &quot;Meta description&quot; # Optional - Used for SEO meta description
+section: &quot;category-name&quot;      # Optional - Groups pages in navigation (defaults to &quot;uncategorized&quot;)
 order: 1                      # Optional - Controls page order within section (defaults to alphabetical)
----`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-meta">---</span>
-<span class="hljs-attr">title:</span> <span class="hljs-string">&quot;Page Title&quot;</span>           <span class="hljs-comment"># Required - Used for H1 and navigation</span>
-<span class="hljs-attr">subtitle:</span> <span class="hljs-string">&quot;Page subtitle&quot;</span>     <span class="hljs-comment"># Optional - Shows under H1 with &quot;View as Markdown&quot; button</span>
-<span class="hljs-attr">description:</span> <span class="hljs-string">&quot;Meta description&quot;</span> <span class="hljs-comment"># Optional - Used for SEO meta description</span>
-<span class="hljs-attr">section:</span> <span class="hljs-string">&quot;category-name&quot;</span>      <span class="hljs-comment"># Optional - Groups pages in navigation (defaults to &quot;uncategorized&quot;)</span>
-<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>                      <span class="hljs-comment"># Optional - Controls page order within section (defaults to alphabetical)</span>
-<span class="hljs-meta">---</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Sections"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Sections">Sections</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Pages are automatically organized by section in the navigation:</p>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Overview</strong> - General project information and getting started guides</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Features</strong> - Interactive features and components</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Case Studies</strong> - Real-world examples and use cases</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Deployment</strong> - Deployment guides and workflows</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Custom Sections</strong> - Add any section name you want</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Page Ordering"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Page Ordering">Page Ordering</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Control the order of pages within each section using the <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">order</code> field:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`---
-title: "Quick Start"
-section: "overview"
+---
+</code></pre>
+<h2 id="sections">Sections</h2>
+<p>Pages are automatically organized by section in the navigation:</p>
+<ul>
+<li><strong>Overview</strong> - General project information and getting started guides</li>
+<li><strong>Features</strong> - Interactive features and components</li>
+<li><strong>Case Studies</strong> - Real-world examples and use cases</li>
+<li><strong>Deployment</strong> - Deployment guides and workflows</li>
+<li><strong>Custom Sections</strong> - Add any section name you want</li>
+</ul>
+<h2 id="page-ordering">Page Ordering</h2>
+<p>Control the order of pages within each section using the <code>order</code> field:</p>
+<pre><code class="language-yaml">---
+title: &quot;Quick Start&quot;
+section: &quot;overview&quot;
 order: 1          # This page will appear first in the overview section
----`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-meta">---</span>
-<span class="hljs-attr">title:</span> <span class="hljs-string">&quot;Quick Start&quot;</span>
-<span class="hljs-attr">section:</span> <span class="hljs-string">&quot;overview&quot;</span>
-<span class="hljs-attr">order:</span> <span class="hljs-number">1</span>          <span class="hljs-comment"># This page will appear first in the overview section</span>
-<span class="hljs-meta">---</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`---
-title: "Advanced Guide"
-section: "overview"
+---
+</code></pre>
+<pre><code class="language-yaml">---
+title: &quot;Advanced Guide&quot;
+section: &quot;overview&quot;
 order: 2          # This page will appear second in the overview section
----`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-meta">---</span>
-<span class="hljs-attr">title:</span> <span class="hljs-string">&quot;Advanced Guide&quot;</span>
-<span class="hljs-attr">section:</span> <span class="hljs-string">&quot;overview&quot;</span>
-<span class="hljs-attr">order:</span> <span class="hljs-number">2</span>          <span class="hljs-comment"># This page will appear second in the overview section</span>
-<span class="hljs-meta">---</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`---
-title: "Reference"
-section: "overview"
+---
+</code></pre>
+<pre><code class="language-yaml">---
+title: &quot;Reference&quot;
+section: &quot;overview&quot;
 # No order specified - will be sorted alphabetically after ordered pages
----`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-meta">---</span>
-<span class="hljs-attr">title:</span> <span class="hljs-string">&quot;Reference&quot;</span>
-<span class="hljs-attr">section:</span> <span class="hljs-string">&quot;overview&quot;</span>
-<span class="hljs-comment"># No order specified - will be sorted alphabetically after ordered pages</span>
-<span class="hljs-meta">---</span></code>
-    </pre>
-  </div>
-</div></p>
+---
+</code></pre>
+<p><strong>Ordering Rules:</strong></p>
+<ul>
+<li>Lower numbers appear first (1, 2, 3...)</li>
+<li>Pages without <code>order</code> default to 999 and are sorted alphabetically</li>
+<li>If two pages have the same order, they&#39;re sorted alphabetically</li>
+</ul>
+<h2 id="markdown-features">Markdown Features</h2>
+<p>The system supports enhanced markdown with Base UI styling:</p>
+<h3 id="code-blocks">Code Blocks</h3>
+<pre><code class="language-markdown">```javascript title=&quot;example.js&quot;
+console.log(&#39;Hello, world!&#39;);
+```
+</code></pre>
+<h3 id="callouts">Callouts</h3>
+<pre><code class="language-markdown">&gt; **Note:** This is an important note with a title.
 
-<p class="mb-4 text-gray-700 leading-6"><strong class="font-semibold">Ordering Rules:</strong></p>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Lower numbers appear first (1, 2, 3...)</li>
-<li class="mb-1 text-gray-700 leading-6">Pages without <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">order</code> default to 999 and are sorted alphabetically</li>
-<li class="mb-1 text-gray-700 leading-6">If two pages have the same order, they're sorted alphabetically</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Markdown Features"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Markdown Features">Markdown Features</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">The system supports enhanced markdown with Base UI styling:</p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Code Blocks"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Code Blocks">Code Blocks</a></h3>
-
-<code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">markdown</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(``)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"></code>
-    </pre>
-  </div>
-</div>javascript title="example.js"
-<p class="mb-4 text-gray-700 leading-6">console.log('Hello, world!');</p>
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">text</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(``)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"></code>
-    </pre>
-  </div>
-</div></code></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Callouts"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Callouts">Callouts</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">markdown</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`> **Note:** This is an important note with a title.
-
-> This is a simple callout without a title.`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-quote">&gt; <span class="hljs-strong">**Note:**</span> This is an important note with a title.</span>
-
-<span class="hljs-quote">&gt; This is a simple callout without a title.</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Lists"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Lists">Lists</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">markdown</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`* **Bold item** - Description
-* *Italic item* - Another description
-* Regular item`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-bullet">*</span> <span class="hljs-strong">**Bold item**</span> - Description
-<span class="hljs-bullet">*</span> <span class="hljs-emphasis">*Italic item*</span> - Another description
-<span class="hljs-bullet">*</span> Regular item</code>
-    </pre>
-  </div>
-</div></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Links"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Links">Links</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">markdown</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`[Link text](https://example.com)`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs">[<span class="hljs-string">Link text</span>](<span class="hljs-link">https://example.com</span>)</code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="File Organization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#File Organization">File Organization</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">All markdown files go in the root <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">docs/</code> folder:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">text</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`docs/
+&gt; This is a simple callout without a title.
+</code></pre>
+<h3 id="lists">Lists</h3>
+<pre><code class="language-markdown">- **Bold item** - Description
+- *Italic item* - Another description
+- Regular item
+</code></pre>
+<h3 id="links">Links</h3>
+<pre><code class="language-markdown">[Link text](https://example.com)
+</code></pre>
+<h2 id="file-organization">File Organization</h2>
+<p>All markdown files go in the root <code>docs/</code> folder:</p>
+<pre><code>docs/
 ├── quick-start.md
 ├── custom-cursor-guide.md
 ├── audio-system-guide.md
 ├── project-info.md
-└── ... (all other .md files)`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs">docs/
-├── quick-start.md
-├── custom-cursor-guide.md
-├── audio-system-guide.md
-├── project-info.md
-└── ... (all other .md files)</code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Navigation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Navigation">Navigation</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">Navigation is automatically generated based on:</p>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Sections</strong> - Grouped alphabetically</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Pages within sections</strong> - Sorted alphabetically by title</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Dynamic updates</strong> - Navigation updates when you add/remove files</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Commands"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Commands">Commands</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">Terminal</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`# Generate HTML from markdown files (most common)
+└── ... (all other .md files)
+</code></pre>
+<h2 id="navigation">Navigation</h2>
+<p>Navigation is automatically generated based on:</p>
+<ol>
+<li><strong>Sections</strong> - Grouped alphabetically</li>
+<li><strong>Pages within sections</strong> - Sorted alphabetically by title</li>
+<li><strong>Dynamic updates</strong> - Navigation updates when you add/remove files</li>
+</ol>
+<h2 id="commands">Commands</h2>
+<pre><code class="language-bash"># Generate HTML from markdown files (most common)
 npm run docs
 
 # Generate HTML only
@@ -601,341 +416,117 @@ npm run docs:serve
 npm run watch
 
 # Watch + serve (full development mode)
-npm run watch:dev`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-comment"># Generate HTML from markdown files (most common)</span>
-npm run docs
+npm run watch:dev
+</code></pre>
+<h2 id="development-workflow">Development Workflow</h2>
+<h3 id="option-1-manual-generation">Option 1: Manual Generation</h3>
+<ol>
+<li>Edit your <code>.md</code> files</li>
+<li>Run <code>npm run docs</code> to generate HTML from markdown</li>
+<li>Refresh browser to see changes (server stays running)</li>
+</ol>
+<h3 id="option-2-auto-watch-recommended">Option 2: Auto-Watch (Recommended)</h3>
+<ol>
+<li>Run <code>npm run watch:dev</code> to start both server and file watcher</li>
+<li>Edit your <code>.md</code> files - HTML regenerates automatically</li>
+<li>Refresh browser to see changes</li>
+</ol>
+<h2 id="styling">Styling</h2>
+<p>The system uses Base UI styling for:</p>
+<ul>
+<li><strong>Headers</strong> - Proper hierarchy with scroll anchors</li>
+<li><strong>Code blocks</strong> - Syntax highlighting and copy buttons</li>
+<li><strong>Callouts</strong> - Colored info boxes and notes</li>
+<li><strong>Navigation</strong> - Sticky sidebar with smooth scrolling</li>
+<li><strong>Table of contents</strong> - Auto-generated from headings</li>
+</ul>
+<h2 id="adding-new-content">Adding New Content</h2>
+<ol>
+<li><strong>Create your markdown file</strong> with proper frontmatter</li>
+<li><strong>Run <code>npm run generate</code></strong> to create HTML</li>
+<li><strong>Your page appears automatically</strong> in the navigation</li>
+</ol>
+<h2 id="customization">Customization</h2>
+<h3 id="adding-new-sections">Adding New Sections</h3>
+<p>Simply use any section name in your frontmatter:</p>
+<pre><code class="language-yaml">section: &quot;my-new-section&quot;
+</code></pre>
+<h3 id="custom-styling">Custom Styling</h3>
+<p>Modify <code>styles.css</code> to customize the appearance of your documentation.</p>
+<h3 id="template-changes">Template Changes</h3>
+<p>Update <code>template.html</code> to modify the overall page structure.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Use descriptive titles</strong> - Clear, concise page titles</li>
+<li><strong>Add subtitles</strong> - Help users understand what each page covers</li>
+<li><strong>Organize by sections</strong> - Group related content together</li>
+<li><strong>Use callouts</strong> - Highlight important information</li>
+<li><strong>Include code examples</strong> - Show practical implementations</li>
+<li><strong>Keep content focused</strong> - One main topic per page</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="pages-not-appearing-in-navigation">Pages not appearing in navigation</h3>
+<ul>
+<li>Check that your frontmatter is properly formatted</li>
+<li>Ensure the file is saved as <code>.md</code></li>
+<li>Run <code>npm run generate</code> to regenerate</li>
+</ul>
+<h3 id="styling-issues">Styling issues</h3>
+<ul>
+<li>Check that <code>styles.css</code> is linked correctly</li>
+<li>Verify Tailwind CSS is loading</li>
+<li>Clear browser cache</li>
+</ul>
+<h3 id="generation-errors">Generation errors</h3>
+<ul>
+<li>Check markdown syntax</li>
+<li>Verify frontmatter format</li>
+<li>Look for special characters in filenames</li>
+</ul>
 
-<span class="hljs-comment"># Generate HTML only</span>
-npm run generate
-
-<span class="hljs-comment"># Start server only (if not already running)</span>
-npm run serve
-
-<span class="hljs-comment"># Generate and start server (one-time setup)</span>
-npm run docs:serve
-
-<span class="hljs-comment"># Watch for file changes and auto-regenerate</span>
-npm run watch
-
-<span class="hljs-comment"># Watch + serve (full development mode)</span>
-npm run watch:dev</code>
-    </pre>
-  </div>
-</div></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Development Workflow"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Development Workflow">Development Workflow</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Option 1: Manual Generation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Option 1: Manual Generation">Option 1: Manual Generation</a></h3>
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Edit your <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.md</code> files</li>
-<li class="mb-1 text-gray-700 leading-6">Run <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">npm run docs</code> to generate HTML from markdown</li>
-<li class="mb-1 text-gray-700 leading-6">Refresh browser to see changes (server stays running)</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Option 2: Auto-Watch (Recommended)"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Option 2: Auto-Watch (Recommended)">Option 2: Auto-Watch (Recommended)</a></h3>
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Run <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">npm run watch:dev</code> to start both server and file watcher</li>
-<li class="mb-1 text-gray-700 leading-6">Edit your <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.md</code> files - HTML regenerates automatically</li>
-<li class="mb-1 text-gray-700 leading-6">Refresh browser to see changes</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Styling"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Styling">Styling</a></h2>
-
-<p class="mb-4 text-gray-700 leading-6">The system uses Base UI styling for:</p>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Headers</strong> - Proper hierarchy with scroll anchors</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Code blocks</strong> - Syntax highlighting and copy buttons</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Callouts</strong> - Colored info boxes and notes</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Navigation</strong> - Sticky sidebar with smooth scrolling</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Table of contents</strong> - Auto-generated from headings</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Adding New Content"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Adding New Content">Adding New Content</a></h2>
-
-<ol class="mb-4 list-decimal list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Create your markdown file</strong> with proper frontmatter</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Run <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">npm run generate</code></strong> to create HTML</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Your page appears automatically</strong> in the navigation</li>
-<p class="mb-4 text-gray-700 leading-6"></ol></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Customization"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Customization">Customization</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Adding New Sections"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Adding New Sections">Adding New Sections</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">Simply use any section name in your frontmatter:</p>
-
-<p class="mb-4 text-gray-700 leading-6">
-<div class="my-6 bg-gray-50 border border-gray-200 overflow-hidden">
-  <div class="flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200">
-    <span class="text-xs font-medium text-gray-600 uppercase tracking-wide">yaml</span>
-    <button type="button" class="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200" aria-label="Copy code" onclick="navigator.clipboard.writeText(`section: "my-new-section"`)">
-      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-      </svg>
-      Copy
-    </button>
-  </div>
-  <div class="relative overflow-auto bg-gray-50">
-    <pre class="p-3 m-0 text-sm leading-snug font-mono text-gray-800 scrollbar-none">
-      <code class="hljs"><span class="hljs-attr">section:</span> <span class="hljs-string">&quot;my-new-section&quot;</span></code>
-    </pre>
-  </div>
-</div></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Custom Styling"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Custom Styling">Custom Styling</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">Modify <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">styles.css</code> to customize the appearance of your documentation.</p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Template Changes"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Template Changes">Template Changes</a></h3>
-
-<p class="mb-4 text-gray-700 leading-6">Update <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">template.html</code> to modify the overall page structure.</p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Best Practices"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Best Practices">Best Practices</a></h2>
-
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Use descriptive titles</strong> - Clear, concise page titles</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Add subtitles</strong> - Help users understand what each page covers</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Organize by sections</strong> - Group related content together</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Use callouts</strong> - Highlight important information</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Include code examples</strong> - Show practical implementations</li>
-<li class="mb-1 text-gray-700 leading-6"><strong class="font-semibold">Keep content focused</strong> - One main topic per page</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h2 class="mt-10 mb-4 scroll-mt-20 text-xl font-semibold text-gray-900 border-b border-gray-200 pb-2" id="Troubleshooting"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Troubleshooting">Troubleshooting</a></h2>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Pages not appearing in navigation"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Pages not appearing in navigation">Pages not appearing in navigation</a></h3>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Check that your frontmatter is properly formatted</li>
-<li class="mb-1 text-gray-700 leading-6">Ensure the file is saved as <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">.md</code></li>
-<li class="mb-1 text-gray-700 leading-6">Run <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">npm run generate</code> to regenerate</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Styling issues"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Styling issues">Styling issues</a></h3>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Check that <code class="bg-gray-100 px-2.5 py-1 text-sm font-mono text-gray-800 border border-gray-200/60 shadow-sm hover:bg-gray-200/80 transition-colors duration-150">styles.css</code> is linked correctly</li>
-<li class="mb-1 text-gray-700 leading-6">Verify Tailwind CSS is loading</li>
-<li class="mb-1 text-gray-700 leading-6">Clear browser cache</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
-
-<h3 class="mt-8 mb-3 scroll-mt-20 text-lg font-semibold text-gray-900" id="Generation errors"><a class="HeadingLink text-gray-900 hover:text-primary-600 transition-colors duration-200" href="#Generation errors">Generation errors</a></h3>
-<ul class="mb-4 list-disc list-inside space-y-1 pl-4">
-<li class="mb-1 text-gray-700 leading-6">Check markdown syntax</li>
-<li class="mb-1 text-gray-700 leading-6">Verify frontmatter format</li>
-<li class="mb-1 text-gray-700 leading-6">Look for special characters in filenames</li>
-<p class="mb-4 text-gray-700 leading-6"></ul></p>
+                                </article>
                             </div>
                         </div>
                         <!-- Table of Contents - Responsive positioning -->
                         <div class="xl:col-span-4 xl:h-full">
                             
-    <!-- Desktop Table of Contents -->
-    <div class="hidden xl:block sticky top-20 overflow-y-auto">
-      <div class="bg-gray-50/80 backdrop-blur-sm p-6 border border-gray-200/60">
-        <div class="flex flex-col gap-4">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-col gap-2">
-            <li>
-              <a class="inline-block text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm font-medium text-gray-800 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200" href="#Documentation System">Documentation System</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Quick Start">Quick Start</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Frontmatter Schema">Frontmatter Schema</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Sections">Sections</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Page Ordering">Page Ordering</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Markdown Features">Markdown Features</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Code Blocks">Code Blocks</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Callouts">Callouts</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Lists">Lists</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Links">Links</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#File Organization">File Organization</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Navigation">Navigation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Commands">Commands</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Development Workflow">Development Workflow</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Option 1: Manual Generation">Option 1: Manual Generation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Option 2: Auto-Watch (Recommended)">Option 2: Auto-Watch (Recommended)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Styling">Styling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Adding New Content">Adding New Content</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Customization">Customization</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Adding New Sections">Adding New Sections</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Custom Styling">Custom Styling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Template Changes">Template Changes</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Pages not appearing in navigation">Pages not appearing in navigation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Styling issues">Styling issues</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#Generation errors">Generation errors</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
+      <div class="sticky top-8">
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">On this page</h3>
+          <div class="space-y-1"><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-0" href="#documentation-system">Documentation System</a>
+    </li><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#quick-start">Quick Start</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#frontmatter-schema">Frontmatter Schema</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#sections">Sections</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#page-ordering">Page Ordering</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#markdown-features">Markdown Features</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#file-organization">File Organization</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#navigation">Navigation</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#commands">Commands</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#development-workflow">Development Workflow</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#styling">Styling</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#adding-new-content">Adding New Content</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#customization">Customization</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#best-practices">Best Practices</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#troubleshooting">Troubleshooting</a>
+    </li></ul></ul></div>
         </div>
       </div>
-    </div>
     
-    <!-- Mobile Table of Contents -->
-    <div class="xl:hidden mb-8">
-        <div class="bg-gray-50/80 backdrop-blur-sm p-4 border border-gray-200/60">
-        <div class="flex flex-col gap-3">
-          <h3 class="font-mono text-sm font-semibold tracking-widest text-gray-600 uppercase">On this page</h3>
-          <ul class="flex flex-wrap gap-2">
-            <li>
-              <a class="inline-block text-xs text-gray-500 hover:text-gray-700 transition-colors duration-200 bg-white px-3 py-1.5 border border-gray-200" href="#">(Top)</a>
-            </li>
-            
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs font-medium text-gray-800 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200" href="#Documentation System">Documentation System</a>
-        
-      <ul class="flex flex-col gap-1 ml-4 mt-2">
-        
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Quick Start">Quick Start</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Frontmatter Schema">Frontmatter Schema</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Sections">Sections</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Page Ordering">Page Ordering</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Markdown Features">Markdown Features</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Code Blocks">Code Blocks</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Callouts">Callouts</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Lists">Lists</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Links">Links</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#File Organization">File Organization</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Navigation">Navigation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Commands">Commands</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Development Workflow">Development Workflow</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Option 1: Manual Generation">Option 1: Manual Generation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Option 2: Auto-Watch (Recommended)">Option 2: Auto-Watch (Recommended)</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Styling">Styling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Adding New Content">Adding New Content</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Customization">Customization</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Adding New Sections">Adding New Sections</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Custom Styling">Custom Styling</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Template Changes">Template Changes</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Best Practices">Best Practices</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Troubleshooting">Troubleshooting</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Pages not appearing in navigation">Pages not appearing in navigation</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Styling issues">Styling issues</a>
-      </li>
-      <li class="flex flex-col items-start gap-1">
-        <a class="inline-block text-xs text-gray-600 hover:text-gray-900 hover:bg-white px-3 py-1.5 transition-all duration-200 pl-4" href="#Generation errors">Generation errors</a>
-      </li>
-      </ul>
-      </li>
-          </ul>
-        </div>
-      </div>
-    </div>
                         </div>
                     </div>
                 </div>

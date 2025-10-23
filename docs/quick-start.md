@@ -24,11 +24,11 @@ npm i @base-ui-components/react
 
 The ByDefault website includes several interactive features:
 
-* **Custom Cursor System** - Advanced cursor interactions for desktop users
-* **Audio System** - Sound feedback for user interactions
-* **BD Animations** - Smooth micro-interactions and animations
-* **Hero Section** - Dynamic landing page with interactive elements
-* **Stacking Shapes** - Layered visual effects and transitions
+- **Custom Cursor System** - Advanced cursor interactions for desktop users
+- **Audio System** - Sound feedback for user interactions
+- **BD Animations** - Smooth micro-interactions and animations
+- **Hero Section** - Dynamic landing page with interactive elements
+- **Stacking Shapes** - Layered visual effects and transitions
 
 ## Set up
 
