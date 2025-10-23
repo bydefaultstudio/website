@@ -1,11 +1,11 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.8.8
+ * Version: 1.9.0
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v1.8.8");
+console.log("Script - Homepage v1.9.0");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -156,7 +156,6 @@ function logoSlider() {
   }
 }
 
-
 // ------- Testimonial Slider ------- //
 function testimonialSlider() {
   let splides = document.querySelectorAll(".testimonial-slider");
@@ -216,6 +215,43 @@ function testimonialSlider() {
     customSplide.mount({
       Intersection: window.splide.Extensions.Intersection,
     });
+  }
+}
+
+// ------- Blog Slider ------- //
+function blogPostSlider() {
+  // Check if Splide is available before initializing
+  if (typeof Splide === 'undefined') {
+    console.warn('Splide not loaded, retrying blog slider initialization...');
+    setTimeout(blogPostSlider, 100);
+    return;
+  }
+
+  let blogSliders = document.querySelectorAll(".blog-slider");
+
+  for (let splide of blogSliders) {
+    new Splide(splide, {
+      type: "slide",
+      perPage: 3, // Show 3 posts
+      perMove: 1, // Slide 3 posts at a time
+      gap: "2rem", // Adjust spacing between cards
+      arrows: false, // Hide arrows
+      pagination: false, // Hide pagination
+      rewind: true, // Loop back to start
+      speed: 800, // Slide animation speed
+      easing: "ease-out",
+
+      breakpoints: {
+        991: {
+          perPage: 2,
+          perMove: 2,
+        },
+        600: {
+          perPage: 1,
+          perMove: 1,
+        },
+      },
+    }).mount();
   }
 }
 
@@ -334,4 +370,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initTestimonialTextAnimation();
   testimonialSlider();
   logoSlider();
+  blogPostSlider();
 });

@@ -3,11 +3,11 @@
  * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.8.8
+ * Version: 1.9.0
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Holding Page v1.8.8");
+console.log("Script - Holding Page v1.9.0");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -111,7 +111,7 @@ function initStackingShapes() {
       width: innerWidth,
       height: innerHeight,
       wireframes: false,
-      background: "#f5f6f8",
+      background: "transparent",
     },
   });
   Render.run(window.stackingShapes.render);
@@ -464,9 +464,21 @@ function setupStackingShapesEventListeners() {
 
   Matter.Events.on(window.stackingShapes.mouseConstraint, "startdrag", () => {
     window.stackingShapes.isDragging = true;
+    
+    // Disable pointer events on button during drag
+    const button = document.getElementById('button-on-canvas');
+    if (button) {
+      button.style.pointerEvents = 'none';
+    }
   });
   Matter.Events.on(window.stackingShapes.mouseConstraint, "enddrag", () => {
     window.stackingShapes.isDragging = false;
+    
+    // Re-enable pointer events on button after drag
+    const button = document.getElementById('button-on-canvas');
+    if (button) {
+      button.style.pointerEvents = 'auto';
+    }
   });
 
   const passthrough = (e) => {

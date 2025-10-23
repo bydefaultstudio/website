@@ -2,11 +2,11 @@
  * Script Purpose: By Default Custom Scripts
  * Author: Erlen Masson
  * Created: 29th June 2025
- * Version: 1.8.8
+ * Version: 1.9.0
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - All v1.8.8");
+console.log("Script - All v1.9.0");
 
 // Check if the device is a touch device
 function isTouchDevice() {
@@ -142,35 +142,7 @@ function updateThemeToggleButton() {
   }
 }
 
-// ------- Blog Slider ------- //
-function blogPostSlider() {
-  let blogSliders = document.querySelectorAll(".blog-slider");
 
-  for (let splide of blogSliders) {
-    new Splide(splide, {
-      type: "slide",
-      perPage: 3, // Show 3 posts
-      perMove: 1, // Slide 3 posts at a time
-      gap: "2rem", // Adjust spacing between cards
-      arrows: false, // Hide arrows
-      pagination: false, // Hide pagination
-      rewind: true, // Loop back to start
-      speed: 800, // Slide animation speed
-      easing: "ease-out",
-
-      breakpoints: {
-        991: {
-          perPage: 2,
-          perMove: 2,
-        },
-        600: {
-          perPage: 1,
-          perMove: 1,
-        },
-      },
-    }).mount();
-  }
-}
 
 // ------- Pin Elements (Desktop Only) ------- //
 function pinElements() {
