@@ -2,12 +2,12 @@
  * Script Purpose: Interactive Stacking Shapes with Matter.js Physics Engine
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.8.6
+ * Version: 1.8.7
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Stacking Shapes v1.8.6");
-// Stacking Shapes global variables - use window object to prevent conflicts
+console.log("Script - Stacking Shapes v1.8.7");
+// Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
 window.stackingShapes.render = null;
@@ -26,11 +26,11 @@ window.stackingShapes.lastSound = new WeakMap();
 window.stackingShapes.isDragging = false;
 window.stackingShapes.currentScale = 1;
 window.stackingShapes.audioCtx = null;
-// Audio will be controlled by main audio system
-window.stackingShapes.soundEnabled = false; // Will be updated when audio system loads
+// Audio controlled by main audio system
+window.stackingShapes.soundEnabled = false;
 window.stackingShapes.isInitialized = false;
 
-// Simple sync with main audio system
+// ------- Audio System Integration ------- //
 function syncWithMainAudioSystem() {
   if (window.bdAudio && window.bdAudio.settings) {
     window.stackingShapes.soundEnabled = window.bdAudio.settings.enabled;
@@ -38,18 +38,13 @@ function syncWithMainAudioSystem() {
     window.stackingShapes.soundEnabled = false;
   }
 }
-
-// Setup audio system integration
 function setupAudioSystemListener() {
-  // Initial sync
   syncWithMainAudioSystem();
   
-  // Listen for main audio system changes
   document.addEventListener('audioSystemChanged', () => {
     syncWithMainAudioSystem();
   });
   
-  // Also listen for when main audio system loads
   const checkForMainAudio = setInterval(() => {
     if (window.bdAudio) {
       syncWithMainAudioSystem();
@@ -57,7 +52,6 @@ function setupAudioSystemListener() {
     }
   }, 100);
   
-  // Periodic sync in case main audio loads later
   setInterval(() => {
     if (window.bdAudio) {
       const mainAudioEnabled = window.bdAudio.settings.enabled;
@@ -68,7 +62,7 @@ function setupAudioSystemListener() {
   }, 1000);
 }
 
-// Stacking Shapes initialization function
+// ------- Initialization ------- //
 function initStackingShapes() {
   if (window.stackingShapes.isInitialized) {
     return;
@@ -113,14 +107,14 @@ function initStackingShapes() {
     },
   });
   Render.run(window.stackingShapes.render);
-  // FIXED-STEP RUNNER → avoids maxUpdates catch-up on resume and creates slower, more controlled physics
+  // Fixed-step runner for controlled physics
   window.stackingShapes.runner = Runner.create({ 
     isFixed: true, 
     delta: 1000/60  // 60 FPS fixed timestep
   });
   Runner.run(window.stackingShapes.runner, window.stackingShapes.engine);
 
-  // Initialize shapes - responsive positioning for mobile
+  // Initialize shapes with responsive positioning
   window.stackingShapes.shapes = [
     bodyFromPath("shape1", innerWidth * 0.25, innerHeight * 0.25, "#094C45", "one", "#news"),
     bodyFromPath("shape2", innerWidth * 0.5, innerHeight * 0.3, "#F7A3BC", "two", "#founders"),
@@ -129,23 +123,21 @@ function initStackingShapes() {
   ];
   Composite.add(window.stackingShapes.engine.world, window.stackingShapes.shapes);
 
-  // Capture initial states
   window.stackingShapes.shapes.forEach(captureInitialState);
 
-  // Create walls
   window.stackingShapes.walls = createWalls();
   Composite.add(window.stackingShapes.engine.world, window.stackingShapes.walls);
 
-  // Setup mouse interaction
+  // ------- Mouse Interaction Configuration ------- //
   window.stackingShapes.mouse = Mouse.create(window.stackingShapes.render.canvas);
   window.stackingShapes.mouseConstraint = MouseConstraint.create(
     window.stackingShapes.engine,
     {
       mouse: window.stackingShapes.mouse,
       constraint: {
-        stiffness: 0.15,
-        angularStiffness: 0.15,
-        damping: 0.7,  // Higher damping to slow down drag-drop to match initial drop
+        stiffness: 0.15,        // Mouse constraint stiffness
+        angularStiffness: 0.15, // Angular constraint stiffness
+        damping: 0.7,           // Higher damping for controlled drag-drop
         render: { visible: false },
       },
     }
@@ -153,95 +145,72 @@ function initStackingShapes() {
   Composite.add(window.stackingShapes.engine.world, window.stackingShapes.mouseConstraint);
   window.stackingShapes.render.mouse = window.stackingShapes.mouse;
 
-  // Setup event listeners
   setupStackingShapesEventListeners();
-
-  // Add logo sprite
   addLogoSprite();
-
-  // Responsive scaling
   setupResponsiveHandling();
-
-  // Score + modal + sound + labels
   initScoreSystem();
   initModalSystem();
   initSoundSystem();
   startLabelDrawing();
-  
-  // Setup audio system integration
   setupAudioSystemListener();
-  
 
-  // Mark as initialized
   window.stackingShapes.isInitialized = true;
 }
 
-// Logo as interactive shape using SVG path with poly-decomp
+// ------- Logo Sprite ------- //
 function addLogoSprite() {
-  // Enable poly-decomp for concave shape decomposition
   if (typeof decomp !== 'undefined') {
     Matter.Common.setDecomp(decomp);
   }
   
-  // Get the SVG path from the hidden SVG element
   const logoPath = document.getElementById('logo-shape');
   if (!logoPath) {
     console.error('Logo SVG path not found');
     return;
   }
   
-  // Convert SVG path to vertices using Matter.js SVG utilities
   let logoVertices;
   try {
     logoVertices = Matter.Svg.pathToVertices(logoPath, 3);
     
-    // SVG viewBox reference frame: (0 0 420 202)
-    // Center the vertices around (0,0) using viewBox center
+    // Center vertices around (0,0) using viewBox center
     const viewBoxCenterX = 420 / 2; // 210
     const viewBoxCenterY = 202 / 2; // 101
     
     logoVertices = logoVertices.map(vertex => ({
-      x: vertex.x - viewBoxCenterX, // Center around (0,0)
+      x: vertex.x - viewBoxCenterX,
       y: vertex.y - viewBoxCenterY
     }));
-    
 
   } catch (error) {
     console.error('Failed to convert SVG path to vertices:', error);
-    // Fallback to simple rectangle if SVG conversion fails
     logoVertices = [
       { x: -50, y: -25 }, { x: 50, y: -25 },
       { x: 50, y: 25 }, { x: -50, y: 25 }
     ];
   }
   
-  // Create logo body with polygon collider and poly-decomp
   const logo = Matter.Bodies.fromVertices(
     600, // x position (center of canvas)
     140, // y position (center of canvas)
     logoVertices,
     {
-      restitution: 0.6,
-      frictionAir: 0.02,
+      restitution: 0.6,        // Bounce on collision
+      frictionAir: 0.02,       // Air resistance
       render: { 
-        fillStyle: "transparent", // Dark background to see collision area
+        fillStyle: "transparent",
         strokeStyle: "transparent"
       },
       label: "logo"
     },
-    true // Enable poly-decomp decomposition for concave shapes
+    true // Enable poly-decomp decomposition
   );
   
-
-  
-  // Store logo reference for afterRender overlay
   window.stackingShapes.logoBody = logo;
   
-  // Load logo image for afterRender overlay
   const logoImage = new Image();
   logoImage.onload = function() {
     window.stackingShapes.logoImage = logoImage;
-
   };
   logoImage.src = "https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/68eec956451541e7cfc33ab9_logo_bydefault_primary.svg";
   
@@ -249,9 +218,8 @@ function addLogoSprite() {
   Matter.Composite.add(window.stackingShapes.engine.world, logo);
   captureInitialState(logo);
 }
-// End of logo sprite
 
-// Cleanup
+// ------- Cleanup ------- //
 function cleanupStackingShapes() {
   console.log("cleanupStackingShapes called");
   if (window.stackingShapes.engine) {
@@ -267,15 +235,13 @@ function cleanupStackingShapes() {
       window.stackingShapes.mouse = null;
       window.stackingShapes.mouseConstraint = null;
       window.stackingShapes.isInitialized = false;
-      // Cleanup completed
     } catch (e) {
       // Cleanup completed with errors
     }
-  } else {
   }
 }
 
-// Sound
+// ------- Sound System ------- //
 function stackingShapesEnsureAudio() {
   if (!window.stackingShapes.soundEnabled) {
     return;
@@ -311,7 +277,6 @@ function stackingShapesPlayPop(impact = 1) {
   osc.stop(t + 0.18);
 }
 function initSoundSystem() {
-  // Simple audio system - just ensure audio context is available when needed
   window.addEventListener(
     "pointerdown",
     () => {
@@ -319,11 +284,9 @@ function initSoundSystem() {
     },
     { once: true }
   );
-  
-  // Audio is now controlled entirely by main audio system
 }
 
-// Helpers
+// ------- Helper Functions ------- //
 function hexToRgb(hex) {
   const m = hex.replace("#", "");
   const n =
@@ -360,8 +323,8 @@ function bodyFromPath(pathId, x, y, fill, label, link) {
     y,
     verts,
     {
-      restitution: 0.6,
-      frictionAir: 0.02,  // Add air resistance like the logo
+      restitution: 0.6,        // Bounce on collision
+      frictionAir: 0.02,       // Air resistance
       render: { fillStyle: fill, strokeStyle: "transparent" },
       label,
       link,
@@ -391,7 +354,7 @@ function createWalls() {
   ];
 }
 
-// Mouse & collisions
+// ------- Mouse & Collisions ------- //
 function setupStackingShapesEventListeners() {
   let mouseDownPos = null;
 
@@ -409,7 +372,6 @@ function setupStackingShapesEventListeners() {
       )[0];
       if (!hit) return;
       if (window.stackingShapes.shapes.includes(hit)) markUserInteraction();
-      // Modal and link functionality removed - shapes are now purely interactive physics elements
     }
   });
 
@@ -456,13 +418,11 @@ function setupStackingShapesEventListeners() {
   setupCollisionEvents();
 }
 
-// Draw labels
+// ------- Label Drawing ------- //
 function startLabelDrawing() {
   const render = window.stackingShapes.render;
-  if (!render || window.stackingShapes._labelsHooked) return; // avoid double-binding
+  if (!render || window.stackingShapes._labelsHooked) return;
   window.stackingShapes._labelsHooked = true;
-
-  // Always draw labels AFTER Matter renders a frame
   Matter.Events.on(render, "afterRender", () => {
     const ctx = render.context;
     if (!ctx || !Array.isArray(window.stackingShapes.shapes)) return;
@@ -479,7 +439,6 @@ function startLabelDrawing() {
       ctx.translate(b.position.x, b.position.y);
       ctx.rotate(b.angle || 0);
       if (b.label) {
-        // Make logo text transparent, keep other shapes visible
         if (b.label === "logo") {
           ctx.fillStyle = "transparent";
         }
@@ -488,33 +447,25 @@ function startLabelDrawing() {
       ctx.setTransform(1, 0, 0, 1, 0, 0); // reset transform for next body
     });
 
-      // Draw logo overlay for the logo body using body's live bounds as single source of truth
+      // Draw logo overlay
       if (window.stackingShapes.logoBody && window.stackingShapes.logoImage && window.stackingShapes.logoBody.label === "logo") {
         const logo = window.stackingShapes.logoBody;
         const img = window.stackingShapes.logoImage;
         
         ctx.save();
         ctx.translate(logo.position.x, logo.position.y);
-        ctx.rotate(logo.angle); // Logo rotates with the physics body
+        ctx.rotate(logo.angle);
         
-        // Calculate the original body dimensions (before rotation affects bounds)
-        // We need to account for the current scale factor from responsive scaling
         const currentScale = window.stackingShapes.currentScale || 1;
-        
-        // Original body dimensions (before any scaling/rotation)
-        // These are the dimensions when the body was first created
         const originalBodyWidth = 370; // Half of viewBox width (420/2)
         const originalBodyHeight = 176; // Half of viewBox height (202/2)
         
-        // Apply current responsive scale to get the actual current size
         const bw = originalBodyWidth * currentScale;
         const bh = originalBodyHeight * currentScale;
         
-        // Logo image offset adjustments (doesn't affect physics body)
-        const offsetX = -3; // Move logo left (negative) or right (positive)
-        const offsetY = -24; // Move logo up (negative) or down (positive)
+        const offsetX = -3;  // Logo horizontal offset
+        const offsetY = -24; // Logo vertical offset
         
-        // Draw image centered using scaled original dimensions with offset - no rotation scaling
         ctx.drawImage(img, -bw/2 + offsetX, -bh/2 + offsetY, bw, bh);
         ctx.restore();
       }
@@ -523,7 +474,7 @@ function startLabelDrawing() {
   });
 }
 
-// Responsive
+// ------- Responsive Scaling ------- //
 const BASE_W = 1280,
   BASE_H = 800;
 function getResponsiveScale() {
@@ -544,7 +495,6 @@ function applyResponsiveScale() {
   }
 }
 function setupResponsiveHandling() {
-  // start from the current responsive scale to avoid an initial "jump"
   window.stackingShapes.currentScale = getResponsiveScale();
   addEventListener("resize", () => {
     window.stackingShapes.render.canvas.width = innerWidth;
@@ -562,7 +512,7 @@ function setupResponsiveHandling() {
 }
 
 
-// Collisions
+// ------- Collision Events ------- //
 function setupCollisionEvents() {
   const SOUND_COOLDOWN_MS = 120;
   const MIN_SPEED_FOR_SOUND = 1.2;
@@ -595,7 +545,7 @@ function setupCollisionEvents() {
   });
 }
 
-// Score
+// ------- Score System ------- //
 function initScoreSystem() {
   const scoreFill = document.getElementById("ss-score-fill");
   const scoreNum = document.getElementById("ss-score-number");
@@ -679,13 +629,13 @@ function initScoreSystem() {
   );
 }
 
-// mark recent interaction allowing a brief scoring window
+// Mark recent interaction allowing a brief scoring window
 function markUserInteraction() {
   window.stackingShapes.userHasInteracted = true;
   window.stackingShapes.interactionWindowUntil = performance.now() + 4000; // 4s window after each interaction
 }
 
-// Modal
+// ------- Modal System ------- //
 function initModalSystem() {
   const stackingShapesModal = document.getElementById("ss-modal");
   const stackingShapesCloseBtn = document.getElementById("ss-modal-close");
@@ -744,16 +694,12 @@ function initModalSystem() {
   }
 
   function openModal(media) {
-    // Simply open the modal - Webflow handles all content
     stackingShapesModal.classList.add("ss-open");
     document.body.classList.add("ss-modal-open");
-    
-    // Only restart game for HTML content (win modal)
     restartOnClose = media && media.type === "html";
   }
 
   function closeModal() {
-    // Simply close the modal - Webflow handles content cleanup
     stackingShapesModal.classList.remove("ss-open");
     document.body.classList.remove("ss-modal-open");
     
@@ -779,7 +725,7 @@ function initModalSystem() {
   window.openModal = openModal;
 }
 
-// ===== Bootstrap (no Barba, no GSAP) =====
+// ------- Bootstrap ------- //
 (function () {
   function safeInit() {
     if (
@@ -794,14 +740,11 @@ function initModalSystem() {
     }
   }
 
-  // Initialize on DOM ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", safeInit, { once: true });
   } else {
     safeInit();
   }
-
-  // Pause/resume on tab visibility change — FIXED
   document.addEventListener("visibilitychange", () => {
     const HP = window.stackingShapes;
     if (!HP || !HP.engine) return;
@@ -815,7 +758,6 @@ function initModalSystem() {
         if (HP.render) Matter.Render.run(HP.render);
         if (HP.runner && HP.engine) Matter.Runner.run(HP.runner, HP.engine);
 
-        // Wake bodies so collisions happen immediately
         if (Array.isArray(HP.shapes)) {
           HP.shapes.forEach((b) => {
             try {
@@ -824,14 +766,11 @@ function initModalSystem() {
           });
         }
 
-        // Fresh scoring window on resume
         if (typeof markUserInteraction === "function") markUserInteraction();
 
-        // Reset cooldowns so first hit/sound works right away
         if (HP.lastScoredPair instanceof Map) HP.lastScoredPair.clear();
         if (HP.lastSound instanceof WeakMap) HP.lastSound = new WeakMap();
 
-        // Resume audio context if needed
         if (HP.soundEnabled) stackingShapesEnsureAudio();
 
         HP._paused = false;
@@ -841,7 +780,6 @@ function initModalSystem() {
     }
   });
 
-  // Cleanup on page unload
   window.addEventListener("beforeunload", () => {
     try {
       cleanupStackingShapes();
@@ -852,5 +790,5 @@ function initModalSystem() {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    //
+    // Additional initialization if needed
 });

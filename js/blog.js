@@ -1,18 +1,14 @@
 /**
- * Script Purpose: Auto-generated table of contents
+ * Script Purpose: Blog page functionality and table of contents
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 1.8.6
+ * Version: 1.8.7
  * Last Updated: October 22, 2025
  */
 
-console.log("Table of Contents v1.8.6 — Loaded");
+console.log("Script - Blog v1.8.7");
 
-//
-//------- Utility Functions -------//
-//
-
-// Safe ID slug generator
+// ------- Utility Functions ------- //
 function slugifyHeading(text) {
   return (
     "toc-" +
@@ -24,11 +20,7 @@ function slugifyHeading(text) {
   );
 }
 
-//
-//------- Core Functions -------//
-//
-
-// Function 1: Add anchor IDs to content headings
+// ------- Core Functions ------- //
 function addAnchorIds(article) {
   const headings = article.querySelectorAll("h2, h3, h4");
   
@@ -40,8 +32,6 @@ function addAnchorIds(article) {
   
   console.log(`✓ Added ${headings.length} anchor IDs to headings`);
 }
-
-// Function 2: Build TOC elements from article content
 function buildTocElements(article, tocContainer) {
   const headings = article.querySelectorAll("h2, h3, h4");
   
@@ -50,7 +40,6 @@ function buildTocElements(article, tocContainer) {
     return;
   }
 
-  // Create list items
   const ul = document.createElement("ul");
   
   headings.forEach((heading) => {
@@ -63,31 +52,23 @@ function buildTocElements(article, tocContainer) {
     a.textContent = title;
     a.href = `#${anchorId}`;
     
-    // Option A: Disable ScrollSmoother Only for TOC Navigation (WORKING SOLUTION)
+    // ------- ScrollSmoother Configuration ------- //
     a.addEventListener("click", (e) => {
       e.preventDefault();
       
-      console.log("TOC Navigation: Temporarily disabling ScrollSmoother");
-      
       const smoother = ScrollSmoother ? ScrollSmoother.get() : null;
       if (smoother) {
-        // Kill ScrollSmoother temporarily
         smoother.kill();
-        
-        // Use native smooth scroll
         heading.scrollIntoView({ behavior: 'smooth' });
         
-        // Recreate ScrollSmoother after scroll completes
         setTimeout(() => {
           ScrollSmoother.create({
-            smooth: 1.5,
-            effects: true,
-            smoothTouch: 0,
+            smooth: 1.5,        // Scroll smoothness (seconds)
+            effects: true,      // Enable scroll effects
+            smoothTouch: 0,     // Disable touch smoothing
           });
-          console.log("ScrollSmoother recreated after TOC navigation");
-        }, 1500);
+        }, 1500); // Recreate delay (milliseconds)
       } else {
-        // Fallback to native scroll
         heading.scrollIntoView({ behavior: 'smooth' });
       }
     });
@@ -97,12 +78,10 @@ function buildTocElements(article, tocContainer) {
   });
   
   tocContainer.appendChild(ul);
-  console.log(`✓ Built TOC with ${headings.length} links (WORKING: Disable ScrollSmoother for TOC)`);
+  console.log(`✓ Built TOC with ${headings.length} links`);
 }
 
-//
-//------- Initialize -------//
-//
+// ------- Initialization ------- //
 
 function initTableOfContents() {
   const article = document.getElementById("single-article");
@@ -113,16 +92,11 @@ function initTableOfContents() {
     return;
   }
 
-  // Step 1: Add IDs to headings
   addAnchorIds(article);
-  
-  // Step 2: Build TOC list
   buildTocElements(article, tocContainer);
   
   console.log("✓ Table of Contents initialized");
 }
-
-// Run when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   initTableOfContents();
 });

@@ -2,23 +2,16 @@
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
  * Created: 2024-12-19
- * Version: 1.8.6
+ * Version: 1.8.7
  * Last Updated: 2024-12-19
  */
 
-console.log("Script - Key Visuals v1.8.6");
+console.log("Script - Key Visuals v1.8.7");
 
-
-//
-//------- Utility Functions -------//
-//
-
-// Random number between min and max
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-// Debounce function
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -26,10 +19,6 @@ function debounce(func, wait) {
     timeout = setTimeout(() => func(...args), wait);
   };
 }
-
-//
-//------- Key Visual Collection System -------//
-//
 
 class KeyVisualCollection {
   constructor(containerSelector = '#key-visual-container') {
@@ -43,7 +32,6 @@ class KeyVisualCollection {
     this.containerSelector = containerSelector;
     this.currentImageIndex = 0;
     
-    // Animation configs - will be set responsively
     this.config = this.getResponsiveConfig();
   }
 
@@ -88,39 +76,35 @@ class KeyVisualCollection {
     return isMobile;
   }
 
-  // Get responsive animation config based on screen size
+  // ANIMATION CONFIGURATION - Edit these values to customize animations
   getResponsiveConfig() {
     if (this.isMobile()) {
-      // Mobile: faster animations, less movement, more conservative
       return {
-        enterDuration: 0.3,        // Faster entrance on mobile
-        dwellDuration: 0,        // Shorter dwell on mobile
-        exitDuration: 0.8,         // Faster exit on mobile
-        scaleRange: [0.95, 1.05],  // Less dramatic scaling
-        rotationRange: [-3, 3],    // Less rotation on mobile
-        driftDistance: 100,         // Very short drift distance
-        driftXMultiplier: 0.05,    // Much less X movement on mobile
+        enterDuration: 0.3,        // How fast visuals appear (seconds)
+        dwellDuration: 0,          // How long visuals stay visible (seconds)
+        exitDuration: 0.8,         // How long exit animation takes (seconds)
+        scaleRange: [0.95, 1.05],  // Size variation range [min, max]
+        rotationRange: [-3, 3],    // Rotation range in degrees [min, max]
+        driftDistance: 100,        // How far visuals move when exiting (pixels)
+        driftXMultiplier: 0.05,    // Horizontal movement multiplier
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
     } else {
-      // Desktop: original settings
       return {
-        enterDuration: 0.4,
-        dwellDuration: 0,
-        exitDuration: 6.0,
-        scaleRange: [0.9, 1.1],
-        rotationRange: [-5, 5],
-        driftDistance: 100,
-        driftXMultiplier: 0.1,
+        enterDuration: 0.4,        // How fast visuals appear (seconds)
+        dwellDuration: 0,          // How long visuals stay visible (seconds)
+        exitDuration: 6.0,         // How long exit animation takes (seconds)
+        scaleRange: [0.9, 1.1],    // Size variation range [min, max]
+        rotationRange: [-5, 5],    // Rotation range in degrees [min, max]
+        driftDistance: 100,        // How far visuals move when exiting (pixels)
+        driftXMultiplier: 0.1,     // Horizontal movement multiplier
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
     }
   }
 
-  // Get responsive display widths based on screen size
   getResponsiveDisplayWidths() {
     if (this.isMobile()) {
-      // Mobile: larger widths to fill screen better
       return {
         '16:9': '70vw',  // Landscape - larger on mobile
         '4:5': '50vw',   // Portrait - medium width
@@ -129,7 +113,6 @@ class KeyVisualCollection {
         '9:16': '25vw'   // Ultra-tall portrait - smaller
       };
     } else {
-      // Desktop: original widths
       const widths = {
         '16:9': '45vw',  // Landscape - larger width
         '4:5': '30vw',   // Portrait - smaller width
@@ -500,7 +483,6 @@ class KeyVisualCollection {
       duration: this.config.enterDuration,
       ease: "power2.out",
       onComplete: () => {
-        // Dwell then exit
         setTimeout(() => {
           this.animateExit(keyVisual);
         }, this.config.dwellDuration);
@@ -524,11 +506,11 @@ class KeyVisualCollection {
       ease: "power1.out"
     });
 
-    // Start fade out with a delay (after 40% of the movement duration)
+    // Fade out timing: starts after 40% of movement, takes 60% of total duration
     gsap.to(keyVisual, {
       opacity: 0,
-      duration: this.config.exitDuration * 0.6, // Fade duration is 60% of total
-      delay: this.config.exitDuration * 0.4,    // Start fading after 40% of movement
+      duration: this.config.exitDuration * 0.6, // Fade duration
+      delay: this.config.exitDuration * 0.4,    // Fade delay
       ease: "power1.out",
       onComplete: () => {
         this.removeKeyVisual(keyVisual);
@@ -574,7 +556,6 @@ class KeyVisualCollection {
 }
 
 //
-//------- Main Functions -------//
 //
 
 // Initialize key visual collection
@@ -585,7 +566,6 @@ function initKeyVisualCollection(containerSelector = '#key-visual-container') {
 }
 
 //
-//------- Initialize -------//
 //
 
 // Auto-initialize if container exists

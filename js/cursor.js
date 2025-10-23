@@ -1,36 +1,28 @@
 /**
  * Script Purpose: Desktop custom cursor with GSAP follow + conflict-free nested data-cursor handling
  * Author: Erlen Masson
- * Version: 1.8.6
+ * Version: 1.8.7
  * Started: [Start Date]
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Cursor v1.8.6");
+console.log("Script - Cursor v1.8.7");
 
 document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".cursor-default");
   const cursorHalo = document.querySelector(".cursor-halo");
 
-  // --- SAFEGUARD ---
   if (!cursor || !cursorHalo) {
-    console.warn(
-      "Custom Cursor skipped — .cursor-default or .cursor-halo not found."
-    );
+    console.warn("Custom Cursor skipped — .cursor-default or .cursor-halo not found.");
     return;
   }
 
-  // --- PROGRESSIVE ENHANCEMENT ---
-  // Check for GSAP dependency
   if (typeof gsap === 'undefined') {
     console.warn("Custom Cursor skipped — GSAP library not found.");
     return;
   }
 
-  // Only hide default cursor when custom cursor is successfully initialized
   document.body.classList.add("custom-cursor-active");
-
-  // ------- Helpers for resolving cursor type at pointer (child wins) ------- //
   function getCursorTypeAtPoint(x, y) {
     const el = document.elementFromPoint(x, y);
     if (!el) return null;
@@ -44,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (prev) cursor.classList.remove(`cursor-${prev}`);
 
-    // Active hover/custom state
     if (type) {
       cursor.classList.add("cursor-custom", `cursor-${type}`);
     } else {
@@ -54,11 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
     setCursorType._activeType = type || null;
   }
 
-  // Position tracking
   let mouseX = 0;
   let mouseY = 0;
 
-  // GSAP follow + per-move cursor type resolve
+  // ------- Cursor Animation Configuration ------- //
+  // Edit these values to customize cursor behavior
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -66,16 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.to(cursor, {
       x: mouseX,
       y: mouseY,
-      duration: 0.25,
-      ease: "power3.out",
+      duration: 0.25,        // Cursor follow speed (seconds)
+      ease: "power3.out",    // Cursor follow easing
       overwrite: "auto",
     });
 
     gsap.to(cursorHalo, {
       x: mouseX,
       y: mouseY,
-      duration: 0.1,
-      ease: "none",
+      duration: 0.1,         // Halo follow speed (seconds) - faster than cursor
+      ease: "none",          // Halo follow easing
       overwrite: "auto",
     });
 
@@ -83,14 +74,19 @@ document.addEventListener("DOMContentLoaded", () => {
     setCursorType(type);
   });
 
-  // Press / Release
   document.addEventListener("mousedown", () => {
     cursorHalo.classList.add("cursor-pressed");
-    gsap.to(cursorHalo, { duration: 0.2, ease: "power2.out" });
+    gsap.to(cursorHalo, { 
+      duration: 0.2,         // Press animation duration (seconds)
+      ease: "power2.out"     // Press animation easing
+    });
   });
 
   document.addEventListener("mouseup", () => {
     cursorHalo.classList.remove("cursor-pressed");
-    gsap.to(cursorHalo, { duration: 0.2, ease: "power2.out" });
+    gsap.to(cursorHalo, { 
+      duration: 0.2,         // Release animation duration (seconds)
+      ease: "power2.out"     // Release animation easing
+    });
   });
 });
