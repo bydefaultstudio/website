@@ -2,11 +2,11 @@
  * Script Purpose: Auto-generated table of contents
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 1.8.2
+ * Version: 1.8.6
  * Last Updated: October 22, 2025
  */
 
-console.log("Table of Contents v1.8.2 — Loaded");
+console.log("Table of Contents v1.8.6 — Loaded");
 
 //
 //------- Utility Functions -------//

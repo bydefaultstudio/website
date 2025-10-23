@@ -2,11 +2,11 @@
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
  * Created: 2024-12-19
- * Version: 3.0.0
+ * Version: 1.8.6
  * Last Updated: 2024-12-19
  */
 
-console.log("Script - Key Visuals v3");
+console.log("Script - Key Visuals v1.8.6");
 
 
 //

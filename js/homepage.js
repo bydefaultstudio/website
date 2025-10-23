@@ -1,11 +1,11 @@
 /**
- * Case Study Thumbnail Video Hover
+ * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.8.2
- * Purpose: Video play on hover, pause and reset on mouse leave
+ * Version: 1.8.6
+ * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Case Study Thumb v1.8.2");
+console.log("Script - Homepage v1.8.6");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -127,8 +127,6 @@ function mobileVideoAutoplay() {
     observer.observe(video);
   });
 }
-
-
 
 // ------- Initialize when DOM is ready ------- //
 document.addEventListener("DOMContentLoaded", () => {
