@@ -6,7 +6,7 @@
  * Last Updated: 2024-12-19
  */
 
-console.log("Script - Key Visuals v3");
+console.log("Script - Local Key Visuals v3");
 
 
 //
@@ -94,11 +94,11 @@ class KeyVisualCollection {
       // Mobile: faster animations, less movement, more conservative
       return {
         enterDuration: 0.3,        // Faster entrance on mobile
-        dwellDuration: 3000,        // Shorter dwell on mobile
+        dwellDuration: 0,        // Shorter dwell on mobile
         exitDuration: 0.8,         // Faster exit on mobile
         scaleRange: [0.95, 1.05],  // Less dramatic scaling
         rotationRange: [-3, 3],    // Less rotation on mobile
-        driftDistance: 10,         // Very short drift distance
+        driftDistance: 100,         // Very short drift distance
         driftXMultiplier: 0.05,    // Much less X movement on mobile
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
@@ -106,11 +106,11 @@ class KeyVisualCollection {
       // Desktop: original settings
       return {
         enterDuration: 0.4,
-        dwellDuration: 3000,
-        exitDuration: 3.0,
+        dwellDuration: 0,
+        exitDuration: 6.0,
         scaleRange: [0.9, 1.1],
         rotationRange: [-5, 5],
-        driftDistance: 10,
+        driftDistance: 100,
         driftXMultiplier: 0.1,
         reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
       };
@@ -498,7 +498,7 @@ class KeyVisualCollection {
       opacity: 1,
       rotation: random(-5, 5),
       duration: this.config.enterDuration,
-      ease: "power.out",
+      ease: "power2.out",
       onComplete: () => {
         // Dwell then exit
         setTimeout(() => {
@@ -514,14 +514,22 @@ class KeyVisualCollection {
     const driftY = random(100, this.config.driftDistance * 2);
     const rotation = random(-10, 10);
 
+    // Start movement immediately
     gsap.to(keyVisual, {
       x: driftX,
       y: driftY,
       scale: 0.95,
       rotation: rotation,
-      opacity: 0,
       duration: this.config.exitDuration,
-      ease: "power4.out",
+      ease: "power1.out"
+    });
+
+    // Start fade out with a delay (after 40% of the movement duration)
+    gsap.to(keyVisual, {
+      opacity: 0,
+      duration: this.config.exitDuration * 0.6, // Fade duration is 60% of total
+      delay: this.config.exitDuration * 0.4,    // Start fading after 40% of movement
+      ease: "power1.out",
       onComplete: () => {
         this.removeKeyVisual(keyVisual);
       }
