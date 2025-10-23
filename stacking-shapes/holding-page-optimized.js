@@ -1,12 +1,13 @@
+// TEST COMMENT - This confirms file updates are working
 /**
- * Script Purpose: Interactive Stacking Shapes with Matter.js Physics Engine
+ * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.8.8
+ * Version: 1.8.7
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Stacking Shapes v1.8.8");
+console.log("Script - new Holding Page v1.8.7");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -17,11 +18,6 @@ window.stackingShapes.walls = null;
 window.stackingShapes.mouse = null;
 window.stackingShapes.mouseConstraint = null;
 window.stackingShapes.initialStates = new WeakMap();
-window.stackingShapes.score = 0;
-window.stackingShapes.won = false;
-window.stackingShapes.userHasInteracted = false;
-window.stackingShapes.interactionWindowUntil = 0;
-window.stackingShapes.lastScoredPair = new Map();
 window.stackingShapes.lastSound = new WeakMap();
 window.stackingShapes.isDragging = false;
 window.stackingShapes.currentScale = 1;
@@ -45,21 +41,33 @@ function setupAudioSystemListener() {
     syncWithMainAudioSystem();
   });
   
-  const checkForMainAudio = setInterval(() => {
+  // Optimized: Use requestAnimationFrame instead of setInterval for initial check
+  let audioCheckCount = 0;
+  const maxAudioChecks = 50; // Stop checking after 50 frames (~1 second at 60fps)
+  
+  function checkForMainAudio() {
     if (window.bdAudio) {
       syncWithMainAudioSystem();
-      clearInterval(checkForMainAudio);
+      return; // Stop checking once found
     }
-  }, 100);
+    
+    audioCheckCount++;
+    if (audioCheckCount < maxAudioChecks) {
+      requestAnimationFrame(checkForMainAudio);
+    }
+  }
   
+  requestAnimationFrame(checkForMainAudio);
+  
+  // Optimized: Reduce polling frequency and use more efficient check
   setInterval(() => {
-    if (window.bdAudio) {
+    if (window.bdAudio && window.bdAudio.settings) {
       const mainAudioEnabled = window.bdAudio.settings.enabled;
       if (window.stackingShapes.soundEnabled !== mainAudioEnabled) {
         syncWithMainAudioSystem();
       }
     }
-  }, 1000);
+  }, 2000); // Reduced from 1000ms to 2000ms
 }
 
 // ------- Initialization ------- //
@@ -114,12 +122,15 @@ function initStackingShapes() {
   });
   Runner.run(window.stackingShapes.runner, window.stackingShapes.engine);
 
-  // Initialize shapes with responsive positioning
+  // Get initial scale before creating shapes
+  const initialScale = getResponsiveScale();
+  
+  // Initialize shapes with responsive positioning and scaling
   window.stackingShapes.shapes = [
-    bodyFromPath("shape1", innerWidth * 0.25, innerHeight * 0.25, "#094C45", "one", "#news"),
-    bodyFromPath("shape2", innerWidth * 0.5, innerHeight * 0.3, "#F7A3BC", "two", "#founders"),
-    bodyFromPath("shape3", innerWidth * 0.75, innerHeight * 0.3, "#FFB533", "three", "#work"),
-    bodyFromPath("shape4", innerWidth * 0.15, innerHeight * 0.15, "#88D3CD", "four", "#about"),
+    bodyFromPath("shape1", innerWidth * 0.25, innerHeight * 0.25, "#094C45", "", "#news", initialScale),
+    bodyFromPath("shape2", innerWidth * 0.5, innerHeight * 0.3, "#F7A3BC", "", "#founders", initialScale),
+    bodyFromPath("shape3", innerWidth * 0.75, innerHeight * 0.3, "#FFB533", "", "#work", initialScale),
+    bodyFromPath("shape4", innerWidth * 0.15, innerHeight * 0.15, "#88D3CD", "", "#about", initialScale),
   ];
   Composite.add(window.stackingShapes.engine.world, window.stackingShapes.shapes);
 
@@ -148,13 +159,48 @@ function initStackingShapes() {
   setupStackingShapesEventListeners();
   addLogoSprite();
   setupResponsiveHandling();
-  initScoreSystem();
-  initModalSystem();
   initSoundSystem();
   startLabelDrawing();
   setupAudioSystemListener();
+  setupThemeObserver();
+
 
   window.stackingShapes.isInitialized = true;
+}
+
+// ------- Logo URL Helper ------- //
+function getLogoUrl() {
+  const isDarkMode = document.documentElement.classList.contains('u-theme-dark');
+  return isDarkMode 
+    ? "https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/68fa57b2adbc6aa8ed84850d_logo_bydefault_primary-centered_off-white.svg"
+    : "https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/68eec956451541e7cfc33ab9_logo_bydefault_primary.svg";
+}
+
+// ------- Logo Update Function ------- //
+function updateLogo() {
+  const newUrl = getLogoUrl();
+  if (window.stackingShapes.logoImage && window.stackingShapes.logoImage.src !== newUrl) {
+    window.stackingShapes.logoImage.src = newUrl;
+  }
+}
+
+// ------- Theme Change Observer ------- //
+function setupThemeObserver() {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        updateLogo();
+      }
+    });
+  });
+  
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+  
+  // Store observer for cleanup
+  window.stackingShapes.themeObserver = observer;
 }
 
 // ------- Logo Sprite ------- //
@@ -168,6 +214,9 @@ function addLogoSprite() {
     console.error('Logo SVG path not found');
     return;
   }
+  
+  // Get the current scale (same as other shapes)
+  const currentScale = getResponsiveScale();
   
   let logoVertices;
   try {
@@ -190,15 +239,21 @@ function addLogoSprite() {
     ];
   }
   
+  // Apply scale to logo vertices (same approach as other shapes)
+  const scaledLogoVertices = logoVertices.map(vertex => ({
+    x: vertex.x * currentScale,
+    y: vertex.y * currentScale
+  }));
+  
   const logo = Matter.Bodies.fromVertices(
-    600, // x position (center of canvas)
-    140, // y position (center of canvas)
-    logoVertices,
+    innerWidth * 0.5,   // x position (responsive - center of canvas)
+    innerHeight * 0.15, // y position (responsive - adjust this value to shift up/down)
+    scaledLogoVertices,
     {
       restitution: 0.6,        // Bounce on collision
       frictionAir: 0.02,       // Air resistance
       render: { 
-        fillStyle: "transparent",
+        fillStyle: "red",
         strokeStyle: "transparent"
       },
       label: "logo"
@@ -206,13 +261,14 @@ function addLogoSprite() {
     true // Enable poly-decomp decomposition
   );
   
+  
   window.stackingShapes.logoBody = logo;
   
   const logoImage = new Image();
   logoImage.onload = function() {
     window.stackingShapes.logoImage = logoImage;
   };
-  logoImage.src = "https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/68eec956451541e7cfc33ab9_logo_bydefault_primary.svg";
+  logoImage.src = getLogoUrl();
   
   window.stackingShapes.shapes.push(logo);
   Matter.Composite.add(window.stackingShapes.engine.world, logo);
@@ -221,7 +277,6 @@ function addLogoSprite() {
 
 // ------- Cleanup ------- //
 function cleanupStackingShapes() {
-  console.log("cleanupStackingShapes called");
   if (window.stackingShapes.engine) {
     try {
       Matter.Runner.stop(window.stackingShapes.runner);
@@ -235,6 +290,12 @@ function cleanupStackingShapes() {
       window.stackingShapes.mouse = null;
       window.stackingShapes.mouseConstraint = null;
       window.stackingShapes.isInitialized = false;
+      
+      // Cleanup theme observer
+      if (window.stackingShapes.themeObserver) {
+        window.stackingShapes.themeObserver.disconnect();
+        window.stackingShapes.themeObserver = null;
+      }
     } catch (e) {
       // Cleanup completed with errors
     }
@@ -265,9 +326,9 @@ function stackingShapesPlayPop(impact = 1) {
     osc = window.stackingShapes.audioCtx.createOscillator(),
     gain = window.stackingShapes.audioCtx.createGain();
   const speed = Math.min(Math.max(impact, 0), 10),
-    peak = 0.12 + 0.12 * (speed / 10),
-    pitch = 220 + 70 * speed;
-  osc.type = "triangle";
+    peak = 0.01 + 0.01 * (speed / 10),  // Reduced from 0.12 to 0.03
+    pitch = 150 + 30 * speed;  // Lower, softer frequency range
+  osc.type = "sine";  // Softer waveform than triangle
   osc.frequency.setValueAtTime(pitch, t);
   gain.gain.setValueAtTime(0.0001, t);
   gain.gain.exponentialRampToValueAtTime(peak, t + 0.01);
@@ -315,13 +376,32 @@ function getContrastText(color) {
   return L > 0.45 ? "#111" : "#fff";
 }
 
-function bodyFromPath(pathId, x, y, fill, label, link) {
+function bodyFromPath(pathId, x, y, fill, label, link, scale = 1) {
   const path = document.getElementById(pathId);
+  if (!path) {
+    console.error(`SVG path not found: ${pathId}`);
+    // Fallback to simple rectangle
+    return Matter.Bodies.rectangle(x, y, 100 * scale, 50 * scale, {
+      restitution: 0.6,
+      frictionAir: 0.02,
+      render: { fillStyle: fill, strokeStyle: "transparent" },
+      label,
+      link,
+    });
+  }
+  
   const verts = Matter.Svg.pathToVertices(path, 25);
+  
+  // Apply scale to vertices before creating body
+  const scaledVerts = verts.map(vertex => ({
+    x: vertex.x * scale,
+    y: vertex.y * scale
+  }));
+  
   const b = Matter.Bodies.fromVertices(
     x,
     y,
-    verts,
+    scaledVerts,
     {
       restitution: 0.6,        // Bounce on collision
       frictionAir: 0.02,       // Air resistance
@@ -332,6 +412,8 @@ function bodyFromPath(pathId, x, y, fill, label, link) {
     true
   );
   b.textColor = getContrastText(fill);
+  
+  
   return b;
 }
 
@@ -371,13 +453,11 @@ function setupStackingShapesEventListeners() {
         e.mouse.position
       )[0];
       if (!hit) return;
-      if (window.stackingShapes.shapes.includes(hit)) markUserInteraction();
     }
   });
 
   Matter.Events.on(window.stackingShapes.mouseConstraint, "startdrag", () => {
     window.stackingShapes.isDragging = true;
-    markUserInteraction();
   });
   Matter.Events.on(window.stackingShapes.mouseConstraint, "enddrag", () => {
     window.stackingShapes.isDragging = false;
@@ -456,17 +536,27 @@ function startLabelDrawing() {
         ctx.translate(logo.position.x, logo.position.y);
         ctx.rotate(logo.angle);
         
-        const currentScale = window.stackingShapes.currentScale || 1;
-        const originalBodyWidth = 370; // Half of viewBox width (420/2)
-        const originalBodyHeight = 176; // Half of viewBox height (202/2)
+        // Use exact logo dimensions from SVG analysis
+        // Original logo: 420px × 202px (aspect ratio ~2:1)
+        // Scale factor is already applied to the physics body, so we need to match it
+        const currentScale = getResponsiveScale();
         
-        const bw = originalBodyWidth * currentScale;
-        const bh = originalBodyHeight * currentScale;
+        // Calculate exact logo dimensions maintaining 2:1 aspect ratio
+        const logoWidth = 420 * currentScale;   // 420px scaled
+        const logoHeight = 202 * currentScale;  // 202px scaled
         
-        const offsetX = -3;  // Logo horizontal offset
-        const offsetY = -24; // Logo vertical offset
+        // Draw logo centered on physics body with exact dimensions
+        // Add responsive offset for positioning (adjust these values)
+        const offsetX = -4;  // Horizontal offset (positive = right, negative = left)
+        const offsetY = -25 * currentScale; // Vertical offset (positive = down, negative = up)
         
-        ctx.drawImage(img, -bw/2 + offsetX, -bh/2 + offsetY, bw, bh);
+        ctx.drawImage(
+          img, 
+          -logoWidth/2 + offsetX,    // Center horizontally + offset
+          -logoHeight/2 + offsetY,   // Center vertically + offset
+          logoWidth,                 // Exact width
+          logoHeight                 // Exact height
+        );
         ctx.restore();
       }
 
@@ -479,11 +569,13 @@ const BASE_W = 1280,
   BASE_H = 800;
 function getResponsiveScale() {
   const s = Math.min(innerWidth / BASE_W, innerHeight / BASE_H);
-  return Math.max(0.45, Math.min(1.2, s));
+  const scale = Math.max(0.45, Math.min(1.2, s));
+  return scale;
 }
 function applyResponsiveScale() {
   const s = getResponsiveScale();
   const ratio = s / window.stackingShapes.currentScale;
+  
   if (Math.abs(ratio - 1) > 0.001) {
     window.stackingShapes.shapes.forEach((b) => {
       Matter.Body.scale(b, ratio, ratio);
@@ -496,18 +588,24 @@ function applyResponsiveScale() {
 }
 function setupResponsiveHandling() {
   window.stackingShapes.currentScale = getResponsiveScale();
+  
+  // Debounced resize handler for better performance
+  let resizeTimeout;
   addEventListener("resize", () => {
-    window.stackingShapes.render.canvas.width = innerWidth;
-    window.stackingShapes.render.canvas.height = innerHeight;
-    window.stackingShapes.render.options.width = innerWidth;
-    window.stackingShapes.render.options.height = innerHeight;
-    Matter.Composite.remove(
-      window.stackingShapes.engine.world,
-      window.stackingShapes.walls
-    );
-    window.stackingShapes.walls = createWalls();
-    Matter.Composite.add(window.stackingShapes.engine.world, window.stackingShapes.walls);
-    applyResponsiveScale();
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      window.stackingShapes.render.canvas.width = innerWidth;
+      window.stackingShapes.render.canvas.height = innerHeight;
+      window.stackingShapes.render.options.width = innerWidth;
+      window.stackingShapes.render.options.height = innerHeight;
+      Matter.Composite.remove(
+        window.stackingShapes.engine.world,
+        window.stackingShapes.walls
+      );
+      window.stackingShapes.walls = createWalls();
+      Matter.Composite.add(window.stackingShapes.engine.world, window.stackingShapes.walls);
+      applyResponsiveScale();
+    }, 100); // 100ms debounce delay
   });
 }
 
@@ -545,185 +643,7 @@ function setupCollisionEvents() {
   });
 }
 
-// ------- Score System ------- //
-function initScoreSystem() {
-  const scoreFill = document.getElementById("ss-score-fill");
-  const scoreNum = document.getElementById("ss-score-number");
-  const scoreResetBtn = document.getElementById("ss-score-reset");
 
-  function setScore(val) {
-    window.stackingShapes.score = Math.max(0, Math.min(100, Math.round(val)));
-    if (scoreFill) scoreFill.style.width = window.stackingShapes.score + "%";
-    if (scoreNum) scoreNum.textContent = window.stackingShapes.score + "%";
-    if (window.stackingShapes.score >= 100 && !window.stackingShapes.won) {
-      window.stackingShapes.won = true;
-      window.openModal({
-        type: "html",
-        title: "You won!",
-        html: `<div style="padding:28px; text-align:center; color:#111; background:#fff;">
-                 <h2 style="margin:0 0 8px 0; font:600 28px/1.2 system-ui">You won! 🎉</h2>
-                 <p style="margin:0 0 16px 0;">Score reached 100%.</p>
-                 <button class="ss-modal-close" onclick="document.getElementById('ss-modal-close').click()">Close</button>
-               </div>`,
-      });
-    }
-  }
-
-  function addScore(delta) {
-    if (window.stackingShapes.won) return;
-    const now = performance.now();
-    if (
-      !window.stackingShapes.userHasInteracted ||
-      now > window.stackingShapes.interactionWindowUntil
-    )
-      return;
-    setScore(window.stackingShapes.score + delta);
-  }
-
-  if (scoreResetBtn) {
-    scoreResetBtn.addEventListener("click", () => {
-      window.stackingShapes.won = false;
-      setScore(0);
-      window.stackingShapes.lastScoredPair.clear();
-      window.stackingShapes.userHasInteracted = false;
-      window.stackingShapes.interactionWindowUntil = 0;
-    });
-  }
-
-  const MIN_SPEED_FOR_SCORE = 2.2;
-  const SCORE_COOLDOWN_MS = 600;
-  Matter.Events.on(window.stackingShapes.engine, "collisionStart", (evt) => {
-    const now = performance.now();
-    evt.pairs.forEach((pair) => {
-      const a = pair.bodyA,
-        b = pair.bodyB;
-      if (
-        !(
-          window.stackingShapes.shapes.includes(a) &&
-          window.stackingShapes.shapes.includes(b)
-        )
-      )
-        return;
-      const speed = Math.hypot(
-        a.velocity.x - b.velocity.x,
-        a.velocity.y - b.velocity.y
-      );
-      if (speed < MIN_SPEED_FOR_SCORE) return;
-      const key = a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`;
-      if (
-        now - (window.stackingShapes.lastScoredPair.get(key) || 0) <
-        SCORE_COOLDOWN_MS
-      )
-        return;
-      const inc = Math.min(2, 0.2 + speed * 0.2);
-      addScore(inc);
-      window.stackingShapes.lastScoredPair.set(key, now);
-    });
-  });
-
-  // any pointer press on the canvas counts as user intent
-  window.stackingShapes.render.canvas.addEventListener(
-    "pointerdown",
-    markUserInteraction,
-    { passive: true }
-  );
-}
-
-// Mark recent interaction allowing a brief scoring window
-function markUserInteraction() {
-  window.stackingShapes.userHasInteracted = true;
-  window.stackingShapes.interactionWindowUntil = performance.now() + 4000; // 4s window after each interaction
-}
-
-// ------- Modal System ------- //
-function initModalSystem() {
-  const stackingShapesModal = document.getElementById("ss-modal");
-  const stackingShapesCloseBtn = document.getElementById("ss-modal-close");
-  let restartOnClose = false;
-
-  function releaseMouseDrag() {
-    try {
-      if (window.stackingShapes.mouseConstraint) {
-        if (window.stackingShapes.mouseConstraint.constraint) {
-          window.stackingShapes.mouseConstraint.constraint.body = null;
-          window.stackingShapes.mouseConstraint.constraint.pointA = { x: 0, y: 0 };
-        }
-        if ("body" in window.stackingShapes.mouseConstraint)
-          window.stackingShapes.mouseConstraint.body = null;
-        if (window.stackingShapes.mouseConstraint.mouse)
-          window.stackingShapes.mouseConstraint.mouse.button = -1;
-      }
-      window.stackingShapes.isDragging = false;
-    } catch (e) {}
-  }
-
-  function restartGame() {
-    releaseMouseDrag();
-    window.stackingShapes.won = false;
-    window.stackingShapes.score = 0;
-    window.stackingShapes.lastScoredPair.clear();
-    window.stackingShapes.userHasInteracted = false;
-    window.stackingShapes.interactionWindowUntil = 0;
-
-    const scoreFill = document.getElementById("ss-score-fill");
-    const scoreNum = document.getElementById("ss-score-number");
-    if (scoreFill) scoreFill.style.width = "0%";
-    if (scoreNum) scoreNum.textContent = "0%";
-
-    for (const b of window.stackingShapes.shapes) {
-      const init = window.stackingShapes.initialStates.get(b);
-      const pos =
-        init && init.position
-          ? init.position
-          : {
-              x: Math.min(Math.max(b.position.x, 80), innerWidth - 80),
-              y: 140,
-            };
-      Matter.Body.setPosition(b, { x: pos.x, y: pos.y });
-      Matter.Body.setAngle(
-        b,
-        init && typeof init.angle === "number" ? init.angle : 0
-      );
-      Matter.Body.setVelocity(b, { x: 0, y: 0 });
-      Matter.Body.setAngularVelocity(b, 0);
-      b.force = { x: 0, y: 0 };
-      b.torque = 0;
-      if (b.isSleeping) Matter.Sleeping.set(b, false);
-    }
-    applyResponsiveScale();
-  }
-
-  function openModal(media) {
-    stackingShapesModal.classList.add("ss-open");
-    document.body.classList.add("ss-modal-open");
-    restartOnClose = media && media.type === "html";
-  }
-
-  function closeModal() {
-    stackingShapesModal.classList.remove("ss-open");
-    document.body.classList.remove("ss-modal-open");
-    
-    if (restartOnClose) {
-      releaseMouseDrag();
-      restartOnClose = false;
-      setTimeout(() => {
-        restartGame();
-      }, 0);
-    }
-  }
-
-  if (stackingShapesCloseBtn) stackingShapesCloseBtn.addEventListener("click", closeModal);
-  if (stackingShapesModal)
-    stackingShapesModal.addEventListener("click", (e) => {
-      if (e.target === stackingShapesModal) closeModal();
-    });
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && stackingShapesModal.classList.contains("ss-open"))
-      closeModal();
-  });
-
-  window.openModal = openModal;
-}
 
 // ------- Bootstrap ------- //
 (function () {
@@ -766,9 +686,6 @@ function initModalSystem() {
           });
         }
 
-        if (typeof markUserInteraction === "function") markUserInteraction();
-
-        if (HP.lastScoredPair instanceof Map) HP.lastScoredPair.clear();
         if (HP.lastSound instanceof WeakMap) HP.lastSound = new WeakMap();
 
         if (HP.soundEnabled) stackingShapesEnsureAudio();
@@ -789,6 +706,3 @@ function initModalSystem() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Additional initialization if needed
-});

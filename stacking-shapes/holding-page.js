@@ -1,12 +1,12 @@
 /**
- * Script Purpose: Interactive Stacking Shapes with Matter.js Physics Engine
+ * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.8.8
+ * Version: 1.8.7
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Stacking Shapes v1.8.8");
+console.log("Script - Holding Page v1.8.7");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -17,11 +17,6 @@ window.stackingShapes.walls = null;
 window.stackingShapes.mouse = null;
 window.stackingShapes.mouseConstraint = null;
 window.stackingShapes.initialStates = new WeakMap();
-window.stackingShapes.score = 0;
-window.stackingShapes.won = false;
-window.stackingShapes.userHasInteracted = false;
-window.stackingShapes.interactionWindowUntil = 0;
-window.stackingShapes.lastScoredPair = new Map();
 window.stackingShapes.lastSound = new WeakMap();
 window.stackingShapes.isDragging = false;
 window.stackingShapes.currentScale = 1;
@@ -148,8 +143,6 @@ function initStackingShapes() {
   setupStackingShapesEventListeners();
   addLogoSprite();
   setupResponsiveHandling();
-  initScoreSystem();
-  initModalSystem();
   initSoundSystem();
   startLabelDrawing();
   setupAudioSystemListener();
@@ -265,9 +258,9 @@ function stackingShapesPlayPop(impact = 1) {
     osc = window.stackingShapes.audioCtx.createOscillator(),
     gain = window.stackingShapes.audioCtx.createGain();
   const speed = Math.min(Math.max(impact, 0), 10),
-    peak = 0.12 + 0.12 * (speed / 10),
-    pitch = 220 + 70 * speed;
-  osc.type = "triangle";
+    peak = 0.01 + 0.01 * (speed / 10),  // Reduced from 0.12 to 0.03
+    pitch = 150 + 30 * speed;  // Lower, softer frequency range
+  osc.type = "sine";  // Softer waveform than triangle
   osc.frequency.setValueAtTime(pitch, t);
   gain.gain.setValueAtTime(0.0001, t);
   gain.gain.exponentialRampToValueAtTime(peak, t + 0.01);
@@ -371,13 +364,11 @@ function setupStackingShapesEventListeners() {
         e.mouse.position
       )[0];
       if (!hit) return;
-      if (window.stackingShapes.shapes.includes(hit)) markUserInteraction();
     }
   });
 
   Matter.Events.on(window.stackingShapes.mouseConstraint, "startdrag", () => {
     window.stackingShapes.isDragging = true;
-    markUserInteraction();
   });
   Matter.Events.on(window.stackingShapes.mouseConstraint, "enddrag", () => {
     window.stackingShapes.isDragging = false;
@@ -545,185 +536,7 @@ function setupCollisionEvents() {
   });
 }
 
-// ------- Score System ------- //
-function initScoreSystem() {
-  const scoreFill = document.getElementById("ss-score-fill");
-  const scoreNum = document.getElementById("ss-score-number");
-  const scoreResetBtn = document.getElementById("ss-score-reset");
 
-  function setScore(val) {
-    window.stackingShapes.score = Math.max(0, Math.min(100, Math.round(val)));
-    if (scoreFill) scoreFill.style.width = window.stackingShapes.score + "%";
-    if (scoreNum) scoreNum.textContent = window.stackingShapes.score + "%";
-    if (window.stackingShapes.score >= 100 && !window.stackingShapes.won) {
-      window.stackingShapes.won = true;
-      window.openModal({
-        type: "html",
-        title: "You won!",
-        html: `<div style="padding:28px; text-align:center; color:#111; background:#fff;">
-                 <h2 style="margin:0 0 8px 0; font:600 28px/1.2 system-ui">You won! 🎉</h2>
-                 <p style="margin:0 0 16px 0;">Score reached 100%.</p>
-                 <button class="ss-modal-close" onclick="document.getElementById('ss-modal-close').click()">Close</button>
-               </div>`,
-      });
-    }
-  }
-
-  function addScore(delta) {
-    if (window.stackingShapes.won) return;
-    const now = performance.now();
-    if (
-      !window.stackingShapes.userHasInteracted ||
-      now > window.stackingShapes.interactionWindowUntil
-    )
-      return;
-    setScore(window.stackingShapes.score + delta);
-  }
-
-  if (scoreResetBtn) {
-    scoreResetBtn.addEventListener("click", () => {
-      window.stackingShapes.won = false;
-      setScore(0);
-      window.stackingShapes.lastScoredPair.clear();
-      window.stackingShapes.userHasInteracted = false;
-      window.stackingShapes.interactionWindowUntil = 0;
-    });
-  }
-
-  const MIN_SPEED_FOR_SCORE = 2.2;
-  const SCORE_COOLDOWN_MS = 600;
-  Matter.Events.on(window.stackingShapes.engine, "collisionStart", (evt) => {
-    const now = performance.now();
-    evt.pairs.forEach((pair) => {
-      const a = pair.bodyA,
-        b = pair.bodyB;
-      if (
-        !(
-          window.stackingShapes.shapes.includes(a) &&
-          window.stackingShapes.shapes.includes(b)
-        )
-      )
-        return;
-      const speed = Math.hypot(
-        a.velocity.x - b.velocity.x,
-        a.velocity.y - b.velocity.y
-      );
-      if (speed < MIN_SPEED_FOR_SCORE) return;
-      const key = a.id < b.id ? `${a.id}|${b.id}` : `${b.id}|${a.id}`;
-      if (
-        now - (window.stackingShapes.lastScoredPair.get(key) || 0) <
-        SCORE_COOLDOWN_MS
-      )
-        return;
-      const inc = Math.min(2, 0.2 + speed * 0.2);
-      addScore(inc);
-      window.stackingShapes.lastScoredPair.set(key, now);
-    });
-  });
-
-  // any pointer press on the canvas counts as user intent
-  window.stackingShapes.render.canvas.addEventListener(
-    "pointerdown",
-    markUserInteraction,
-    { passive: true }
-  );
-}
-
-// Mark recent interaction allowing a brief scoring window
-function markUserInteraction() {
-  window.stackingShapes.userHasInteracted = true;
-  window.stackingShapes.interactionWindowUntil = performance.now() + 4000; // 4s window after each interaction
-}
-
-// ------- Modal System ------- //
-function initModalSystem() {
-  const stackingShapesModal = document.getElementById("ss-modal");
-  const stackingShapesCloseBtn = document.getElementById("ss-modal-close");
-  let restartOnClose = false;
-
-  function releaseMouseDrag() {
-    try {
-      if (window.stackingShapes.mouseConstraint) {
-        if (window.stackingShapes.mouseConstraint.constraint) {
-          window.stackingShapes.mouseConstraint.constraint.body = null;
-          window.stackingShapes.mouseConstraint.constraint.pointA = { x: 0, y: 0 };
-        }
-        if ("body" in window.stackingShapes.mouseConstraint)
-          window.stackingShapes.mouseConstraint.body = null;
-        if (window.stackingShapes.mouseConstraint.mouse)
-          window.stackingShapes.mouseConstraint.mouse.button = -1;
-      }
-      window.stackingShapes.isDragging = false;
-    } catch (e) {}
-  }
-
-  function restartGame() {
-    releaseMouseDrag();
-    window.stackingShapes.won = false;
-    window.stackingShapes.score = 0;
-    window.stackingShapes.lastScoredPair.clear();
-    window.stackingShapes.userHasInteracted = false;
-    window.stackingShapes.interactionWindowUntil = 0;
-
-    const scoreFill = document.getElementById("ss-score-fill");
-    const scoreNum = document.getElementById("ss-score-number");
-    if (scoreFill) scoreFill.style.width = "0%";
-    if (scoreNum) scoreNum.textContent = "0%";
-
-    for (const b of window.stackingShapes.shapes) {
-      const init = window.stackingShapes.initialStates.get(b);
-      const pos =
-        init && init.position
-          ? init.position
-          : {
-              x: Math.min(Math.max(b.position.x, 80), innerWidth - 80),
-              y: 140,
-            };
-      Matter.Body.setPosition(b, { x: pos.x, y: pos.y });
-      Matter.Body.setAngle(
-        b,
-        init && typeof init.angle === "number" ? init.angle : 0
-      );
-      Matter.Body.setVelocity(b, { x: 0, y: 0 });
-      Matter.Body.setAngularVelocity(b, 0);
-      b.force = { x: 0, y: 0 };
-      b.torque = 0;
-      if (b.isSleeping) Matter.Sleeping.set(b, false);
-    }
-    applyResponsiveScale();
-  }
-
-  function openModal(media) {
-    stackingShapesModal.classList.add("ss-open");
-    document.body.classList.add("ss-modal-open");
-    restartOnClose = media && media.type === "html";
-  }
-
-  function closeModal() {
-    stackingShapesModal.classList.remove("ss-open");
-    document.body.classList.remove("ss-modal-open");
-    
-    if (restartOnClose) {
-      releaseMouseDrag();
-      restartOnClose = false;
-      setTimeout(() => {
-        restartGame();
-      }, 0);
-    }
-  }
-
-  if (stackingShapesCloseBtn) stackingShapesCloseBtn.addEventListener("click", closeModal);
-  if (stackingShapesModal)
-    stackingShapesModal.addEventListener("click", (e) => {
-      if (e.target === stackingShapesModal) closeModal();
-    });
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && stackingShapesModal.classList.contains("ss-open"))
-      closeModal();
-  });
-
-  window.openModal = openModal;
-}
 
 // ------- Bootstrap ------- //
 (function () {
@@ -766,9 +579,6 @@ function initModalSystem() {
           });
         }
 
-        if (typeof markUserInteraction === "function") markUserInteraction();
-
-        if (HP.lastScoredPair instanceof Map) HP.lastScoredPair.clear();
         if (HP.lastSound instanceof WeakMap) HP.lastSound = new WeakMap();
 
         if (HP.soundEnabled) stackingShapesEnsureAudio();
