@@ -3,11 +3,11 @@
  * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.9.0
+ * Version: 1.9.1
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Holding Page v1.9.0");
+console.log("Script - Holding Page v1.9.1");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -163,6 +163,7 @@ function initStackingShapes() {
   startLabelDrawing();
   setupAudioSystemListener();
   setupThemeObserver();
+  setupButtonReset();
 
 
   window.stackingShapes.isInitialized = true;
@@ -208,6 +209,79 @@ function setupThemeObserver() {
   // Store observer for cleanup
   window.stackingShapes.themeObserver = observer;
 }
+
+// ------- Button Reset Function ------- //
+function setupButtonReset() {
+  // Find the email button
+  const emailButton = document.getElementById('button-on-canvas');
+  if (emailButton) {
+    emailButton.addEventListener('click', (e) => {
+      // Prevent the default email action temporarily
+      e.preventDefault();
+      
+      console.log('🔄 Email button clicked - Resetting shapes first');
+      
+      // Reset shapes immediately
+      resetShapes();
+      
+      // Wait for shapes to settle, then trigger email action
+      setTimeout(() => {
+        console.log('📧 Opening email client after reset');
+        
+        // Re-trigger the original email action
+        if (emailButton.href) {
+          window.open(emailButton.href, '_blank');
+        } else if (emailButton.onclick) {
+          emailButton.onclick();
+        }
+      }, 500); // 500ms delay to let shapes reset
+    });
+    
+    console.log('✅ Button reset listener added to #button-on-canvas');
+  } else {
+    console.warn('⚠️ Button #button-on-canvas not found - reset functionality disabled');
+  }
+}
+
+// ------- Reset Shapes Function ------- //
+function resetShapes() {
+  // Release any active mouse drag
+  if (window.stackingShapes.mouseConstraint) {
+    try {
+      if ("body" in window.stackingShapes.mouseConstraint)
+        window.stackingShapes.mouseConstraint.body = null;
+      if (window.stackingShapes.mouseConstraint.mouse)
+        window.stackingShapes.mouseConstraint.mouse.button = -1;
+    } catch (e) {}
+    window.stackingShapes.isDragging = false;
+  }
+
+  // Reset all shapes to their initial positions
+  for (const body of window.stackingShapes.engine.world.bodies) {
+    // Skip the ground and walls
+    if (body.isStatic) continue;
+    
+    // Reset position to a random safe position
+    const safeX = Math.min(Math.max(Math.random() * innerWidth, 80), innerWidth - 80);
+    const safeY = 140;
+    
+    Matter.Body.setPosition(body, { x: safeX, y: safeY });
+    Matter.Body.setAngle(body, 0);
+    Matter.Body.setVelocity(body, { x: 0, y: 0 });
+    Matter.Body.setAngularVelocity(body, 0);
+    body.force = { x: 0, y: 0 };
+    body.torque = 0;
+    
+    // Wake up the body if it's sleeping
+    if (body.isSleeping) Matter.Sleeping.set(body, false);
+  }
+  
+  // Reapply responsive scaling
+  applyResponsiveScale();
+  
+  console.log('✅ Shapes reset to initial positions');
+}
+
 
 // ------- Logo Sprite ------- //
 function addLogoSprite() {

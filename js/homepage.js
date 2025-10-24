@@ -1,11 +1,11 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.9.0
+ * Version: 1.9.1
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v1.9.0");
+console.log("Script - Homepage v1.9.1");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {

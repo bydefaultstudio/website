@@ -1,12 +1,12 @@
 /**
  * Script Purpose: ByDefault Animations
  * Author: Erlen Masson
- * Version: 1.9.0
+ * Version: 1.9.1
  * Created: 5 Feb 2025
  * Last Updated: October 22, 2025
  */
 
-console.log("Script - Animations v1.9.0");
+console.log("Script - Animations v1.9.1");
 
 // ------- Configurable Parameters ------- //
 function getFadeStart() {
