@@ -1,16 +1,16 @@
 /**
  * Script Purpose: ByDefault Animations
  * Author: Erlen Masson
- * Version: 1.9.2
+ * Version: 1.9.4
  * Created: 5 Feb 2025
- * Last Updated: October 22, 2025
+ * Last Updated: November 2, 2025
  */
 
-console.log("Script - Animations v1.9.2");
+console.log("Script - Animations v1.9.4");
 
 // ------- Configurable Parameters ------- //
 function getFadeStart() {
-  return window.innerWidth < 768 ? "top 100%" : "top 85%";
+  return window.innerWidth < 768 ? "top 100%" : "top 100%";
 }
 
 function getFadeEnd() {

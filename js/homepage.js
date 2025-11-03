@@ -1,11 +1,11 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.9.2
+ * Version: 1.9.4
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v1.9.2");
+console.log("Script - Homepage v1.9.4");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -156,6 +156,93 @@ function logoSlider() {
   }
 }
 
+// ------- Helper Function for Arrow Cursor Attributes ------- //
+function addCursorAttributesToArrows(splideElement) {
+  // Wait a bit more to ensure arrows are fully rendered
+  setTimeout(() => {
+    const prevArrow = splideElement.querySelector('.splide__arrow--prev');
+    const nextArrow = splideElement.querySelector('.splide__arrow--next');
+    
+    if (prevArrow) {
+      prevArrow.setAttribute('data-cursor', 'arrow-left');
+    }
+    
+    if (nextArrow) {
+      nextArrow.setAttribute('data-cursor', 'arrow-right');
+    }
+  }, 100); // Small delay to ensure arrows are fully mounted
+}
+
+// ------- Sticky Service Cards Animation ------- //
+function stickyCards() {
+  // Performance: Use matchMedia for responsive behavior
+  let mm = gsap.matchMedia();
+  
+  mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+    gsap.utils.toArray(".service-card-inner").forEach((card, i, cards) => {
+      const isLastCard = i === cards.length - 1;
+
+      // Skip ScrollTrigger entirely for the last card
+      if (isLastCard) return;
+
+      // Performance: Cache window.innerHeight to avoid recalculation
+      const viewportHeight = window.innerHeight;
+      const stickyStart = "top 100px";
+      
+      // Generate random Z rotation once per card (-20 to +20 degrees)
+      const randomRotationZ = (Math.random() - 0.5) * 40; // -20 to +20
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: stickyStart,
+          pin: true,
+          end: `+=${viewportHeight}`, // Performance: Use cached value
+          scrub: 1, // Performance: Use scrub: 1 instead of true for smoother animation
+          pinSpacing: false, // Performance: Prevent layout recalculations
+          onUpdate: (self) => {
+            const progress = self.progress;
+            // Performance: Batch all transforms in single gsap.to call
+            gsap.to(card, { 
+              scale: 1 - progress,
+              rotationZ: randomRotationZ * progress,
+              rotationX: 20 * progress,
+              transformOrigin: "50% center", // Performance: Set transform origin once
+              overwrite: "auto" // Performance: Prevent animation conflicts
+            });
+          },
+        },
+      });
+    });
+  });
+}
+
+function scalingCards() {
+  gsap.utils.toArray(".service-card").forEach((card, i, cards) => {
+    const isLastCard = i === cards.length - 1;
+
+    // Skip ScrollTrigger entirely for the last card
+    if (isLastCard) return;
+
+    var stickyFadeStart = window.innerWidth < 768 ? "top 100px" : "top 100px";
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: stickyFadeStart,
+        pin: true,
+        end: () => `+=${window.innerHeight * 1}`,
+        scrub: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          const scale = 1 - progress;
+          gsap.to(card, { scale: scale });
+        },
+      },
+    });
+  });
+}
+
 // ------- Testimonial Slider ------- //
 function testimonialSlider() {
   let splides = document.querySelectorAll(".testimonial-slider");
@@ -198,11 +285,22 @@ function testimonialSlider() {
     });
 
 
-    // Add text split animation for testimonial text
-    customSplide.on('moved', function(newIndex) {
-      // Get the slide that just became active
-      const activeSlide = customSplide.Components.Slides.getAt(newIndex).slide;
+    // Helper function to trigger text animation
+    const triggerTextAnimation = function(index) {
+      const activeSlide = customSplide.Components.Slides.getAt(index).slide;
       animateTestimonialText(activeSlide);
+    };
+
+    // Add text split animation for testimonial text
+    // Listen to multiple events to catch all slide changes (arrows, autoplay, manual drag)
+    customSplide.on('moved', function(newIndex) {
+      triggerTextAnimation(newIndex);
+    });
+
+    // 'visible' event fires when slide becomes visible after drag completes
+    customSplide.on('visible', function(slide) {
+      const index = customSplide.index;
+      triggerTextAnimation(index);
     });
 
     // Initial animation
@@ -210,6 +308,9 @@ function testimonialSlider() {
       // Get the initial active slide
       const initialActiveSlide = customSplide.Components.Slides.getAt(0).slide;
       animateTestimonialText(initialActiveSlide);
+      
+      // Add custom cursor attributes to arrows after Splide mounts
+      addCursorAttributesToArrows(splide);
     });
 
     customSplide.mount({
@@ -218,49 +319,9 @@ function testimonialSlider() {
   }
 }
 
-// ------- Blog Slider ------- //
-function blogPostSlider() {
-  // Check if Splide is available before initializing
-  if (typeof Splide === 'undefined') {
-    console.warn('Splide not loaded, retrying blog slider initialization...');
-    setTimeout(blogPostSlider, 100);
-    return;
-  }
-
-  let blogSliders = document.querySelectorAll(".blog-slider");
-
-  for (let splide of blogSliders) {
-    new Splide(splide, {
-      type: "slide",
-      perPage: 3, // Show 3 posts
-      perMove: 1, // Slide 3 posts at a time
-      gap: "2rem", // Adjust spacing between cards
-      arrows: false, // Hide arrows
-      pagination: false, // Hide pagination
-      rewind: true, // Loop back to start
-      speed: 800, // Slide animation speed
-      easing: "ease-out",
-
-      breakpoints: {
-        991: {
-          perPage: 2,
-          perMove: 2,
-        },
-        600: {
-          perPage: 1,
-          perMove: 1,
-        },
-      },
-    }).mount();
-  }
-}
-
 // ------- Testimonial Text Animation ------- //
 const testimonialCache = new WeakMap();
 let isTransitioning = false;
-
-
-// ------- Testimonial Text Animation ------- //
 function initTestimonialTextAnimation() {
   // Add CSS for styling - only target words, not container
   if (!document.getElementById('testimonial-css')) {
@@ -369,6 +430,8 @@ document.addEventListener("DOMContentLoaded", () => {
   mobileVideoAutoplay();
   initTestimonialTextAnimation();
   testimonialSlider();
-  logoSlider();
   blogPostSlider();
+  logoSlider();
+  stickyCards();
+  // scalingCards();
 });

@@ -2,11 +2,11 @@
  * Script Purpose: By Default Custom Scripts
  * Author: Erlen Masson
  * Created: 29th June 2025
- * Version: 1.9.2
- * Last Updated: October 22, 2025
+ * Version: 1.9.4
+ * Last Updated: November 2, 2025
  */
 
-console.log("Script - All v1.9.2");
+console.log("Script - All v1.9.4");
 
 // Check if the device is a touch device
 function isTouchDevice() {
@@ -31,7 +31,7 @@ function setupScrollSmoother() {
 }
 
 // ------- Dark Mode Toggle ------- //
-function initThemeToggle() {
+function siteTheme() {
   const root = document.documentElement; // <html>
   const storageKey = 'theme';
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -45,7 +45,7 @@ function initThemeToggle() {
   root.classList.add(`u-theme-${active}`);
 
   // Update toggle button on initialization
-  updateThemeToggleButton();
+  siteThemeToggle();
 
   // Toggle logic
   document.addEventListener('click', (e) => {
@@ -63,7 +63,7 @@ function initThemeToggle() {
     root.classList.add(`u-theme-${next}`);
     
     // Update button state
-    updateThemeToggleButton();
+    siteThemeToggle();
     
     localStorage.setItem(storageKey, next);
     console.log(`🎨 Theme switched to: ${next}`);
@@ -71,7 +71,7 @@ function initThemeToggle() {
 }
 
 // ------- Dark Mode Toggle Button ------- //
-function updateThemeToggleButton() {
+function siteThemeToggle() {
   const toggleBtn = document.getElementById('bd-theme');
   if (!toggleBtn) return;
   
@@ -142,15 +142,12 @@ function updateThemeToggleButton() {
   }
 }
 
-
-
 // ------- Pin Elements (Desktop Only) ------- //
 function pinElements() {
   const pinnedEls = document.querySelectorAll("[data-pin]");
 
   // Only apply on desktop (992px and up)
   if (!window.matchMedia("(min-width: 992px)").matches) {
-    console.log("Pinning skipped — below desktop breakpoint");
     return;
   }
 
@@ -161,34 +158,22 @@ function pinElements() {
     // The parent acts as the sticky boundary
     const trigger = el.parentElement;
 
-    // Measure heights to determine natural sticky end point
-    const parentHeight = trigger.offsetHeight;
-    const elementHeight = el.offsetHeight;
-    const scrollDistance = parentHeight - elementHeight;
+    // Dynamic getter so ScrollTrigger can recalc on refresh
+    const getScrollDistance = () => trigger.offsetHeight - el.offsetHeight;
+
+    const scrollDistance = getScrollDistance();
 
     if (scrollDistance <= 0) {
-      console.warn("Skipping pin — element taller than parent:", el);
       return;
     }
-
-    console.log(
-      "Pinning element:",
-      el,
-      "| Trigger:",
-      trigger,
-      "| Offset:",
-      pxOffset + "px",
-      "| Scroll Distance:",
-      scrollDistance + "px"
-    );
 
     ScrollTrigger.create({
       trigger: trigger,
       start: `top ${pxOffset}px`,
-      end: `+=${scrollDistance}`, // ends when element bottom meets parent bottom
+      end: () => `+=${getScrollDistance()}`,
       pin: el,
-      pinSpacing: false, // behaves like CSS sticky
-      // markers: true, // enable to debug start/end
+      pinSpacing: false,
+      invalidateOnRefresh: true,
     });
   });
 }
@@ -204,7 +189,6 @@ function refreshObserve(attribute = "data-refresh") {
   const triggerRefresh = () => {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      console.log("↻ refreshObserve triggered");
       if (smoother) smoother.effects();
       ScrollTrigger.refresh();
     }, 200);
@@ -218,13 +202,80 @@ function refreshObserve(attribute = "data-refresh") {
   });
 }
 
+// ------- Scroll to Hash Anchor ------- //
+function scrollToHash() {
+  // Check if there is a hash in the URL
+  const hash = window.location.hash;
+  if (hash) {
+    // Find the target element
+    const targetElement = document.querySelector(hash);
+    if (targetElement) {
+      const offset = 100; // 100px offset from top
+      
+      // Check if ScrollSmoother is active
+      const smoother = ScrollSmoother?.get();
+      
+      if (smoother) {
+        // Calculate target position with offset
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+        smoother.scrollTo(targetPosition, true);
+      } else {
+        // Fallback to native scroll with offset
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({
+          top: targetPosition,
+          behavior: "auto"
+        });
+      }
+    }
+  }
+}
+
+// ------- Blog Post Slider ------- //
+function blogPostSlider() {
+  // Check if Splide is available before initializing
+  if (typeof Splide === 'undefined') {
+    console.warn('Splide not loaded, retrying blog slider initialization...');
+    setTimeout(blogPostSlider, 100);
+    return;
+  }
+
+  let blogSliders = document.querySelectorAll(".blog-slider");
+
+  for (let splide of blogSliders) {
+    new Splide(splide, {
+      type: "slide",
+      perPage: 3, // Show 3 posts
+      perMove: 1, // Slide 3 posts at a time
+      gap: "2rem", // Adjust spacing between cards
+      arrows: false, // Hide arrows
+      pagination: false, // Hide pagination
+      rewind: true, // Loop back to start
+      speed: 800, // Slide animation speed
+      easing: "ease-out",
+
+      breakpoints: {
+        991: {
+          perPage: 2,
+          perMove: 2,
+        },
+        600: {
+          perPage: 1,
+          perMove: 1,
+        },
+      },
+    }).mount();
+  }
+}
 
 // Setup once the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
-  initThemeToggle();
+  siteTheme();
   setupScrollSmoother();
   pinElements();
   refreshObserve();
-  // logoSlider();
-  // blogPostSlider();
+    setTimeout(() => {
+    scrollToHash(); // Scroll to anchor if present in URL
+  }, 1000);
+
 });

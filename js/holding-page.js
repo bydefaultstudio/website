@@ -3,11 +3,11 @@
  * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.9.2
- * Last Updated: October 22, 2025
+ * Version: 1.9.4
+ * Last Updated: November 2, 2025
  */
 
-console.log("Script - Holding Page v1.9.2");
+console.log("Script - Holding Page v1.9.4");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -657,8 +657,8 @@ function startLabelDrawing() {
 }
 
 // ------- Responsive Scaling ------- //
-const BASE_W = 1280,
-  BASE_H = 800;
+const BASE_W = 1728,
+  BASE_H = 1117;
 function getResponsiveScale() {
   const s = Math.min(innerWidth / BASE_W, innerHeight / BASE_H);
   const scale = Math.max(0.45, Math.min(1.2, s));

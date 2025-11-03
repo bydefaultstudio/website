@@ -48,3 +48,44 @@ webflow/
 
 # MCP configuration (contains API tokens)
 .cursor/
+
+# Documentation (not needed for production URLs)
+docs/
+
+# Test files
+*-test.html
+*test*.html
+test-*.html
+**/test shapes/
+**/test-shapes/
+
+# Archive folders
+js/archive/
+hero/
+stacking-shapes/
+svg/js/archive/
+
+# Backup and development files
+*backup*
+*working-version*
+*optimized.js
+
+# Other files not needed for production
+README.md
+SETUP.md
+QUICKSTART.md
+INSTALL.sh
+deploy
+docs-viewer.html
+case-study-test.html
+cursor-test.html
+GITHUB_REVIEW.md
+
+# Production files (ONLY these needed for CDN URLs):
+# - js/*.js (production files only)
+# - css/*.css
+# - assets/audio/*.mp3
+
+# Exclude test and archive JS files
+js/test.js
+js/archive/

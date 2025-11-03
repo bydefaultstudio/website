@@ -1,0 +1,65 @@
+/* Theme Styles */
+/* Define theme-specific overrides here. */
+
+[data-theme="default"] { /* Light Mode */
+    --_semantic---text--text-primary: var(--_semantic---text--text-primary);
+    --_semantic---text--text-secondary: var(--_semantic---text--text-secondary);
+    --_semantic---text--text-plain: var(--_semantic---text--text-plain);
+    --_semantic---text--text-faded: var(--_semantic---text--text-faded);
+    --_semantic---text--text-callout: var(--_semantic---text--text-callout);
+    --_semantic---background--background-primary: var(--_semantic---background--background-primary);
+    --_semantic---background--background-secondary: var(--_semantic---background--background-secondary);
+    --_semantic---background--background-plain: var(--_semantic---background--background-plain);
+    --_semantic---background--background-faded: var(--_semantic---background--background-faded);
+    --_semantic---background--background-callout: var(--_semantic---background--background-callout);
+    --_semantic---button--button-primary: var(--_semantic---button--button-primary);
+    --_semantic---button--button-text: var(--_semantic---button--button-text);
+    --_semantic---button--button-faded: var(--_semantic---button--button-faded);
+    --_semantic---border--border-primary: var(--_semantic---border--border-primary);
+    --_semantic---border--border-secondary: var(--_semantic---border--border-secondary);
+    --_semantic---border--border-faded: var(--_semantic---border--border-faded);
+}
+
+
+[data-theme="callout"] { /* Light Mode */
+    --_semantic---text--text-primary: var(--brand--off-black);
+    --_semantic---background--background-primary: var(--brand--yellow);
+    --_semantic---button--button-primary: var(--brand--off-black);
+    --_semantic---button--button-text: var(--brand--off-white);
+    --_semantic---button--button-faded: var(--black--black-alpha-15);
+    --_semantic---border--border-primary: var(--brand--off-black);
+    --_semantic---border--border-faded: var(--black--black-alpha-15);
+}
+
+
+
+var(--brand--off-black)
+var(--brand--off-white)
+var(--brand--yellow)
+var(--black--black-alpha-50)
+var(--black--black-alpha-15)
+var(--black--black-alpha-10)
+var(--white--black-alpha-50)
+var(--white--black-alpha-15)
+var(--white--white-alpha-10)
+
+
+::-moz-selection {
+  color: var(--color--background);
+  background: var(--color--text);
+}
+::selection {
+  color: var(--color--background);
+  background: var(--color--text);
+}
+
+  /* Style for all Tippy tooltips */
+  .tippy-box {
+    background-color: var(--color--tooltip);
+    color: var(--color--tooltip-text); 
+  }
+
+  /* Style for the Tippy arrow */
+  .tippy-arrow {
+    color: var(--color--tooltip);
+  }

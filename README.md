@@ -13,12 +13,18 @@ Welcome to the ByDefault Studio website codebase documentation. This repository 
 - **`css/cursor.css`** - Custom cursor animations and effects
 
 ### JavaScript Modules
-- **`js/script.js`** - Main application script
-- **`js/bd-animations.js`** - Animation system (v4.0) - Complete GSAP-based animation library
-- **`js/cursor.js`** - Interactive cursor functionality
-- **`js/table-of-contents.js`** - Dynamic table of contents generator
-- **`js/case-study.js`** - Case study page functionality
-- **`js/test.js`** - Testing utilities
+- **`js/script.js`** - Main application script (v1.9.4) - Core functionality including theme toggle, scroll smoother, pin elements
+- **`js/bd-animations.js`** - Animation system (v4.0, v1.9.4) - Complete GSAP-based animation library with 26+ animation types
+- **`js/cursor.js`** - Interactive cursor functionality (v1.9.4) - Desktop custom cursor with halo effects
+- **`js/audio.js`** - Audio system (v1.9.4) - Lightweight audio system with user preferences and accessibility support
+- **`js/hero.js`** - Hero section (v1.9.4) - Key visual collection spawner with Matter.js physics
+- **`js/homepage.js`** - Homepage scripts (v1.9.4) - Video hover, logo scroll, mobile autoplay, sliders, sticky cards
+- **`js/blog-feed.js`** - Blog feed (v1.9.4) - Overlapping pinned sections for blog listing pages
+- **`js/blog-template.js`** - Blog template (v1.9.4) - Table of contents generator, TOC active state, scroll sync
+- **`js/case-study.js`** - Case study page functionality (v1.9.4)
+- **`js/stacking-shapes.js`** - Stacking shapes (v1.9.4) - Interactive Matter.js physics engine for shape interactions
+- **`js/holding-page.js`** - Holding page (v1.9.4) - Interactive stacking shapes with logo integration and audio
+- **`js/test.js`** - Testing utilities (v1.9.4)
 
 ### Hero Physics Engine
 - **`js/hero.js`** - Interactive Matter.js physics engine for hero section
