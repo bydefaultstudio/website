@@ -71,7 +71,8 @@ svg/js/archive/
 *optimized.js
 
 # Other files not needed for production
-README.md
+package.json
+update-version.sh
 SETUP.md
 QUICKSTART.md
 INSTALL.sh
