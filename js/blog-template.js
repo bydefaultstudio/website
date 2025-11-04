@@ -2,11 +2,11 @@
  * Script Purpose: Blog page functionality and table of contents
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 1.9.4
- * Last Updated: November 2, 2025
+ * Version: 1.9.5
+ * Last Updated: November 4, 2025
  */
 
-console.log("Script - Blog v1.9.4");
+console.log("Script - Blog v1.9.5");
 
 // ------- Utility Functions ------- //
 function slugifyHeading(text) {
@@ -22,7 +22,9 @@ function slugifyHeading(text) {
 
 // ------- Core Functions ------- //
 function addAnchorIds(article) {
-  const headings = article.querySelectorAll("h2, h3, h4");
+  // Table of contents selector: currently only h2
+  // To include h3 and h4, change to: "h2, h3, h4"
+  const headings = article.querySelectorAll("h2");
   
   headings.forEach((heading) => {
     const title = heading.textContent.trim();
@@ -138,7 +140,9 @@ function initTocActiveState() {
   };
 
   // Create ScrollTriggers per heading
-  const headings = Array.from(article.querySelectorAll('h2, h3, h4'))
+  // Table of contents selector: currently only h2
+  // To include h3 and h4, change to: 'h2, h3, h4'
+  const headings = Array.from(article.querySelectorAll('h2'))
     .filter((h) => h.id);
 
   headings.forEach((heading) => {

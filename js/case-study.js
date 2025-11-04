@@ -2,12 +2,12 @@
  * Case Study Template Scripts
  * Author: Erlen Masson
  * Created: 4th July 2025
- * Version: 1.9.4
- * Last Updated: November 2, 2025
+ * Version: 1.9.5
+ * Last Updated: November 4, 2025
  * Purpose: Handles all case study template functionality
  */
 
-console.log("Script Case Study v1.9.4");
+console.log("Script Case Study v1.9.5");
 
 function toggleCaseStudyContent() {
   const btnProjectInfo = document.getElementById('btn-project-info');
@@ -351,10 +351,64 @@ class PinCaseStudyContent {
 
 let pinCaseStudyContent = null;
 
+// ------- Case Study Video Viewport Handler ------- //
+function caseStudyVideo() {
+  const videos = document.querySelectorAll('video');
+  const vimeoEmbeds = document.querySelectorAll('iframe[src*="vimeo.com"]');
+  
+  if (videos.length === 0 && vimeoEmbeds.length === 0) {
+    return;
+  }
+
+  // Handle native video elements
+  videos.forEach((video) => {
+    video.muted = true;
+    video.playsInline = true;
+    video.pause();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(video);
+  });
+
+  // Handle Vimeo embeds
+  if (vimeoEmbeds.length > 0 && typeof Vimeo !== 'undefined') {
+    vimeoEmbeds.forEach((iframe) => {
+      const player = new Vimeo.Player(iframe);
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              player.play().catch(() => {});
+            } else {
+              player.pause().catch(() => {});
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(iframe);
+    });
+  }
+}
+
 // ------- Case Study Template Initialization ------- //
 function initCaseStudyTemplate() {
   toggleCaseStudyContent();
-  
+  caseStudyVideo();
   pinCaseStudyContent = new PinCaseStudyContent();
 }
 
