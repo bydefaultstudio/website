@@ -2,11 +2,11 @@
  * Script Purpose: By Default Custom Scripts
  * Author: Erlen Masson
  * Created: 29th June 2025
- * Version: 1.9.5
- * Last Updated: November 4, 2025
+ * Version: 1.9.6
+ * Last Updated: November 6, 2025
  */
 
-console.log("Script - All v1.9.5");
+console.log("Script - All v1.9.6");
 
 // Check if the device is a touch device
 function isTouchDevice() {
@@ -268,12 +268,48 @@ function blogPostSlider() {
   }
 }
 
+// ------- Escape Key to Close Form ------- //
+function escForm() {
+  document.addEventListener('keydown', (e) => {
+    // Check if Esc key is pressed
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      const closeFormButton = document.getElementById('close-form');
+      if (closeFormButton) {
+        closeFormButton.click();
+      }
+    }
+  });
+}
+
+// ------- Modal Form Focus Management ------- //
+function modalFormFocus() {
+  const openFormButton = document.getElementById('open-form');
+  const modalInputName = document.getElementById('modal-input-name');
+  
+  if (!openFormButton || !modalInputName) return;
+  
+  openFormButton.addEventListener('click', () => {
+    // Use requestAnimationFrame to wait for modal to be visible
+    requestAnimationFrame(() => {
+      // Double RAF to ensure modal is fully rendered
+      requestAnimationFrame(() => {
+        // Check if input is visible and focusable
+        if (modalInputName && !modalInputName.disabled && !modalInputName.hasAttribute('readonly')) {
+          modalInputName.focus();
+        }
+      });
+    });
+  });
+}
+
 // Setup once the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   siteTheme();
   setupScrollSmoother();
   pinElements();
   refreshObserve();
+  escForm();
+  modalFormFocus();
     setTimeout(() => {
     scrollToHash(); // Scroll to anchor if present in URL
   }, 1000);
