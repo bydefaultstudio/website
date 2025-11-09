@@ -1,12 +1,12 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.9.6
- * Last Updated: November 6, 2025
+ * Version: 1.9.7
+ * Last Updated: November 9, 2025
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v1.9.6");
+console.log("Script - Homepage v1.9.7");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -51,7 +51,7 @@ function brandLogoScroll() {
 
   window.addEventListener('scroll', function() {
     // Add scrolling class to all brand logos
-    const brandLogos = document.querySelectorAll('.work_post-wrapper .thumb-brand-logo');
+    const brandLogos = document.querySelectorAll('.work_post-link .thumb-brand-logo');
     brandLogos.forEach(brandLogo => {
       brandLogo.classList.add('scrolling');
     });
@@ -138,7 +138,7 @@ function logoSlider() {
       autoWidth: true,
       arrows: false,
       pagination: false,
-      gap: "1rem",
+      gap: "2.5rem",
       drag: false,
       autoScroll: {
         autoStart: true,
@@ -147,7 +147,7 @@ function logoSlider() {
       },
       breakpoints: {
         600: {
-          gap: "1rem",
+          gap: "1.5rem",
           autoScroll: { speed: 0.5 },
         },
       },

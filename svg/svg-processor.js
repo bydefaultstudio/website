@@ -8,13 +8,23 @@ const MARKDOWN_FILE = path.join(__dirname, 'svg-optimizer.md');
 /**
  * Process SVG code according to the specified rules
  */
-function processSVG(svgCode) {
-  // Check for SIZE=100% flag
+function processSVG(svgCode, options = {}) {
+  const {
+    hasSizeFlag: sizeFlagFromOptions = false,
+    hasLogoTickerFlag: logoTickerFlagFromOptions = false,
+  } = options;
+
+  // Check for inline flag markers inside the code block
   const sizeFlagMatch = svgCode.match(/SIZE=100%\s*\n/);
-  const hasSizeFlag = sizeFlagMatch !== null;
+  const logoTickerFlagMatch = svgCode.match(/LOGO\s*TICKER\s*\n/i);
+
+  const hasSizeFlag = sizeFlagFromOptions || sizeFlagMatch !== null;
+  const hasLogoTickerFlag = logoTickerFlagFromOptions || logoTickerFlagMatch !== null;
   
   // Remove the SIZE flag line if present
   let processedCode = svgCode.replace(/SIZE=100%\s*\n/, '');
+  // Remove the LOGO TICKER flag line if present
+  processedCode = processedCode.replace(/LOGO\s*TICKER\s*\n/gi, '');
   
   // Remove xmlns attributes from root svg tag
   processedCode = processedCode.replace(
@@ -22,23 +32,38 @@ function processSVG(svgCode) {
     '<svg$1$2>'
   );
   
-  // Add or modify width and height if SIZE=100% flag is present
-  if (hasSizeFlag) {
-    processedCode = processedCode.replace(
-      /<svg([^>]*?)>/,
-      (match, attributes) => {
-        // Remove existing width and height
-        let newAttributes = attributes
-          .replace(/\s+width="[^"]*"/g, '')
-          .replace(/\s+height="[^"]*"/g, '');
-        
-        // Add width and height 100%
-        newAttributes += ' width="100%" height="100%"';
-        
-        return `<svg${newAttributes}>`;
+  // Tidy root <svg> attributes based on flags
+  processedCode = processedCode.replace(
+    /<svg([^>]*?)>/,
+    (match, attributes) => {
+      let newAttributes = attributes;
+
+      if (hasSizeFlag || hasLogoTickerFlag) {
+        newAttributes = newAttributes
+          .replace(/\s+width="[^"]*"/gi, '')
+          .replace(/\s+height="[^"]*"/gi, '');
       }
-    );
-  }
+
+      // Apply SIZE=100% flag if requested
+      if (hasSizeFlag) {
+        newAttributes += ' width="100%" height="100%"';
+      }
+
+      // Apply Logo Ticker spec if flag present
+      if (hasLogoTickerFlag) {
+        if (/\s+preserveAspectRatio="/i.test(newAttributes)) {
+          newAttributes = newAttributes.replace(
+            /\s+preserveAspectRatio="[^"]*"/gi,
+            ' preserveAspectRatio="xMidYMid meet"'
+          );
+        } else {
+          newAttributes += ' preserveAspectRatio="xMidYMid meet"';
+        }
+      }
+
+      return `<svg${newAttributes}>`;
+    }
+  );
   
   // Process all <path> elements
   processedCode = processedCode.replace(
@@ -91,12 +116,13 @@ Paste your raw SVG code below. The system will automatically:
 - Set all \`<path>\` elements to use \`fill="currentColor"\`
 - Remove \`xmlns\` attributes from the root \`<svg>\` tag
 - Apply \`SIZE=100%\` flag if specified
+- Apply the Logo Ticker spec when the \`LOGO TICKER\` flag is present (keep \`viewBox\`, set \`preserveAspectRatio="xMidYMid meet"\`, remove any \`width\`/\`height\`)
 - Preserve all other attributes and formatting
 
 ## Instructions
 
 1. Paste your SVG code in the code blocks below
-2. Add \`SIZE=100%\` on a line before the SVG if you want responsive sizing
+2. Optionally add flag lines (e.g. \`SIZE=100%\`, \`LOGO TICKER\`) before the SVG to enable extra rules
 3. Save the file - the SVG will be automatically optimized in place
 
 ---
@@ -141,8 +167,36 @@ function processMarkdownFile() {
       if (svgCode && !svgCode.includes('<!-- Paste your')) {
         console.log(`Processing SVG code block ${processedCount + 1}...`);
         
+        // Detect flag lines just before the code block
+        const beforeBlockContent = content.slice(0, match.index);
+        const precedingLines = beforeBlockContent.split('\n');
+        let hasSizeFlagBeforeBlock = false;
+        let hasLogoTickerFlagBeforeBlock = false;
+
+        for (let i = precedingLines.length - 1; i >= 0; i--) {
+          const trimmedLine = precedingLines[i].trim();
+          if (trimmedLine === '') {
+            continue;
+          }
+
+          const upperLine = trimmedLine.toUpperCase();
+          if (upperLine === 'SIZE=100%') {
+            hasSizeFlagBeforeBlock = true;
+            continue;
+          }
+          if (upperLine === 'LOGO TICKER') {
+            hasLogoTickerFlagBeforeBlock = true;
+            continue;
+          }
+
+          break;
+        }
+
         // Process the SVG
-        const processedSVG = processSVG(svgCode);
+        const processedSVG = processSVG(svgCode, {
+          hasSizeFlag: hasSizeFlagBeforeBlock,
+          hasLogoTickerFlag: hasLogoTickerFlagBeforeBlock,
+        });
         
         // Replace the original SVG with the processed one
         updatedContent = updatedContent.replace(

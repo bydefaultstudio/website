@@ -2,104 +2,121 @@
  * Case Study Template Scripts
  * Author: Erlen Masson
  * Created: 4th July 2025
- * Version: 1.9.6
- * Last Updated: November 6, 2025
+ * Version: 1.9.7
+ * Last Updated: November 9, 2025
  * Purpose: Handles all case study template functionality
  */
 
-console.log("Script Case Study v1.9.6");
+console.log("Script Case Study v1.9.7");
+
+let caseStudyToggleHandler = null;
 
 function toggleCaseStudyContent() {
-  const btnProjectInfo = document.getElementById('btn-project-info');
+  const primaryButton = document.getElementById('btn-project-info');
+  const fixedButton = document.getElementById('btn-project-info-fixed');
+  const triggerButtons = [primaryButton, fixedButton].filter(Boolean);
   const caseStudyContent = document.querySelector('.case-study-content');
-  
-  if (btnProjectInfo && caseStudyContent) {
-    const icnInfo = btnProjectInfo.querySelector('.icn-info');
-    const icnClose = btnProjectInfo.querySelector('.icn-close');
+
+  if (!primaryButton || !caseStudyContent) {
+    return;
+  }
+
+  const buttonIconSets = triggerButtons.map((button) => {
+    const icnInfo = button.querySelector('.icn-info');
+    const icnClose = button.querySelector('.icn-close');
     const svgInfo = icnInfo?.querySelector('.svg-icon');
     const svgClose = icnClose?.querySelector('.svg-icon');
-    
-    if (icnInfo) {
-      icnInfo.style.display = '';
-      if (svgInfo) gsap.set(svgInfo, { opacity: 1 });
-    }
-    if (icnClose) {
-      icnClose.style.display = 'none';
-      if (svgClose) gsap.set(svgClose, { opacity: 0 });
-    }
-    
-    btnProjectInfo.setAttribute('data-cursor', 'info');
-    
-    btnProjectInfo.addEventListener('click', () => {
-      const isCurrentlyOpen = caseStudyContent.classList.contains('is-open');
-      
-      if (isCurrentlyOpen) {
-        caseStudyContent.classList.remove('is-open');
-        btnProjectInfo.setAttribute('data-cursor', 'info');
-        
-        if (svgClose && icnClose.style.display !== 'none') {
-          gsap.to(svgClose, {
-            opacity: 0,
-            duration: 0.2,        // Icon fade out duration (seconds)
-            ease: "power2.in",    // Icon fade out easing
-            onComplete: () => {
-              icnClose.style.display = 'none';
-              icnInfo.style.display = '';
-              gsap.fromTo(svgInfo, 
-                { opacity: 0 },
-                { opacity: 1, duration: 0.3, ease: "power2.out" }  // Icon fade in duration & easing
-              );
-            }
-          });
-        } else {
-          icnInfo.style.display = '';
-          gsap.fromTo(svgInfo, 
-            { opacity: 0 },
-            { opacity: 1, duration: 0.3, ease: "power2.out" }  // Icon fade in duration & easing
-          );
-        }
-        
-      } else {
-        caseStudyContent.classList.add('is-open');
-        btnProjectInfo.setAttribute('data-cursor', 'close');
-        
-        if (svgInfo && icnInfo.style.display !== 'none') {
-          gsap.to(svgInfo, {
-            opacity: 0,
-            duration: 0.2,        // Icon fade out duration (seconds)
-            ease: "power2.in",    // Icon fade out easing
-            onComplete: () => {
-              icnInfo.style.display = 'none';
-              icnClose.style.display = '';
-              gsap.fromTo(svgClose, 
-                { opacity: 0 },
-                { opacity: 1, duration: 0.3, ease: "power2.out" }  // Icon fade in duration & easing
-              );
-            }
-          });
-        } else {
-          icnClose.style.display = '';
-          gsap.fromTo(svgClose, 
-            { opacity: 0 },
-            { opacity: 1, duration: 0.3, ease: "power2.out" }  // Icon fade in duration & easing
-          );
-        }
+
+    return { button, icnInfo, icnClose, svgInfo, svgClose };
+  });
+
+  const setAllButtonCursors = (state) => {
+    triggerButtons.forEach((button) => {
+      button.setAttribute('data-cursor', state);
+    });
+  };
+
+  const updateButtonIcons = (mode) => {
+    buttonIconSets.forEach(({ icnInfo, icnClose, svgInfo, svgClose }) => {
+      if (!icnInfo || !icnClose) {
+        return;
       }
 
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-        
-        const smoother = ScrollSmoother ? ScrollSmoother.get() : null;
-        if (smoother) {
-          smoother.effects();
-        }
+      const isInfoMode = mode === 'info';
 
-        if (pinCaseStudyContent) {
-          pinCaseStudyContent.refresh();
-        }
-      }, 500); // Refresh delay - allows CSS transitions to complete
+      icnInfo.style.display = isInfoMode ? '' : 'none';
+      icnClose.style.display = isInfoMode ? 'none' : '';
+
+      if (svgInfo) {
+        gsap.set(svgInfo, { opacity: isInfoMode ? 1 : 0 });
+      }
+      if (svgClose) {
+        gsap.set(svgClose, { opacity: isInfoMode ? 0 : 1 });
+      }
     });
+  };
+
+  updateButtonIcons('info');
+
+  setAllButtonCursors('info');
+
+  const handleToggle = () => {
+    const isCurrentlyOpen = caseStudyContent.classList.contains('is-open');
+
+    if (isCurrentlyOpen) {
+      caseStudyContent.classList.remove('is-open');
+      setAllButtonCursors('info');
+
+      updateButtonIcons('info');
+    } else {
+      caseStudyContent.classList.add('is-open');
+      setAllButtonCursors('close');
+
+      updateButtonIcons('close');
+    }
+
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+
+      const smoother = ScrollSmoother ? ScrollSmoother.get() : null;
+      if (smoother) {
+        smoother.effects();
+      }
+
+      if (pinCaseStudyContent) {
+        pinCaseStudyContent.refresh();
+      }
+    }, 500); // Refresh delay - allows CSS transitions to complete
+  };
+
+  primaryButton.addEventListener('click', handleToggle);
+
+  if (fixedButton) {
+    fixedButton.addEventListener('click', handleToggle);
   }
+
+  caseStudyToggleHandler = handleToggle;
+}
+
+function csButtonFixed() {
+  const btn = document.querySelector('.fixed-project-button');
+  const trigger = document.querySelector('.cs-content');
+
+  if (!btn || !trigger) {
+    console.warn('csButtonFixed: Required elements not found');
+    return;
+  }
+
+  ScrollTrigger.create({
+    trigger: trigger,
+    start: "top top",
+    end: "bottom bottom",
+    onEnter: () => btn.classList.remove('is-hidden'),
+    onEnterBack: () => btn.classList.remove('is-hidden'),
+    onLeave: () => btn.classList.add('is-hidden'),
+    onLeaveBack: () => btn.classList.add('is-hidden'),
+    // markers: { startColor: "green", endColor: "green" }
+  });
 }
 
 // ------- Case Study Content Pinning (Desktop Only) ------- //
@@ -408,6 +425,7 @@ function caseStudyVideo() {
 // ------- Case Study Template Initialization ------- //
 function initCaseStudyTemplate() {
   toggleCaseStudyContent();
+  csButtonFixed();
   caseStudyVideo();
   pinCaseStudyContent = new PinCaseStudyContent();
 }

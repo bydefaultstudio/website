@@ -6,7 +6,11 @@ Custom Cursor Styling */
     .custom-cursor-active * {
       cursor: none !important;
     }
-  
+
+    .w-editor .custom-cursor-active * {
+      cursor: auto !important;
+    }
+
     :root {
       --cursor--color: var(--brand--green);
       --cursor-10: color-mix(in srgb, var(--cursor--color), transparent 90%);
