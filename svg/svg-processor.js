@@ -233,26 +233,31 @@ function startWatcher() {
   // Set up stdin listener for commands
   process.stdin.setEncoding('utf8');
   process.stdin.on('data', (data) => {
-    const input = data.trim().toLowerCase();
-    
-    if (input === 'process') {
-      console.log('\n🔄 Processing SVGs manually...');
-      processMarkdownFile();
-    } else if (input === 'reset') {
-      resetMarkdownFile();
-    } else if (input === 'quit' || input === 'exit') {
-      console.log('👋 Stopping watcher...');
-      process.exit(0);
-    } else if (input === 'help') {
-      console.log('\n📖 Available commands:');
-      console.log('  process - Manually convert SVGs in the markdown file');
-      console.log('  reset   - Clean up markdown file and return to template');
-      console.log('  quit    - Stop the watcher');
-      console.log('  exit    - Stop the watcher');
-      console.log('  help    - Show this help message\n');
-    } else if (input) {
-      console.log('❓ Unknown command. Type "help" for available commands.');
-    }
+    const commands = data
+      .split(/\r?\n/)
+      .map(line => line.trim().toLowerCase())
+      .filter(line => line.length > 0);
+
+    commands.forEach((input) => {
+      if (input === 'process') {
+        console.log('\n🔄 Processing SVGs manually...');
+        processMarkdownFile();
+      } else if (input === 'reset') {
+        resetMarkdownFile();
+      } else if (input === 'quit' || input === 'exit') {
+        console.log('👋 Stopping watcher...');
+        process.exit(0);
+      } else if (input === 'help') {
+        console.log('\n📖 Available commands:');
+        console.log('  process - Manually convert SVGs in the markdown file');
+        console.log('  reset   - Clean up markdown file and return to template');
+        console.log('  quit    - Stop the watcher');
+        console.log('  exit    - Stop the watcher');
+        console.log('  help    - Show this help message\n');
+      } else {
+        console.log('❓ Unknown command. Type "help" for available commands.');
+      }
+    });
   });
   
   // Disable automatic processing - only process on manual command

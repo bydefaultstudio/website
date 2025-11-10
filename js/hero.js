@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
- * Version: 1.9.7
- * Last Updated: November 9, 2025
+ * Version: 1.9.8
+ * Last Updated: November 10, 2025
  */
 
-console.log("Script - Key Visuals v1.9.7");
+console.log("Script - Key Visuals v1.9.8");
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -30,6 +30,7 @@ class KeyVisualCollection {
     this.lastSpawnTime = 0;
     this.containerSelector = containerSelector;
     this.currentImageIndex = 0;
+    this.counterElement = null;
     
     this.config = this.getResponsiveConfig();
   }
@@ -44,6 +45,7 @@ class KeyVisualCollection {
 
     this.createOverlay();
     this.loadCollection();
+    this.createCounter();
     this.setupEventListeners();
     this.setupResponsiveListener();
     this.isInitialized = true;
@@ -69,6 +71,41 @@ class KeyVisualCollection {
     this.overlay = overlay;
   }
 
+  // Create the counter element to track visual progression
+  createCounter() {
+    if (!this.container) {
+      return;
+    }
+
+    const existingCounter = this.container.querySelector('#key-visual-counter');
+    if (existingCounter) {
+      this.counterElement = existingCounter;
+      this.updateCounterText(0);
+      return;
+    }
+
+    const counter = document.createElement('div');
+    counter.id = 'key-visual-counter';
+    counter.textContent = this.getCounterLabel(0);
+    this.container.appendChild(counter);
+    this.counterElement = counter;
+  }
+
+  // Generate counter label
+  getCounterLabel(displayIndex) {
+    const total = this.collection.length || 0;
+    const current = total === 0 ? 0 : displayIndex;
+    return `${current} of ${total}`;
+  }
+
+  // Update the counter text
+  updateCounterText(displayIndex) {
+    if (!this.counterElement) {
+      return;
+    }
+    this.counterElement.textContent = this.getCounterLabel(displayIndex);
+  }
+
   // Check if device is mobile
   isMobile() {
     const isMobile = window.innerWidth <= 768;
@@ -79,10 +116,10 @@ class KeyVisualCollection {
   getResponsiveConfig() {
     if (this.isMobile()) {
       return {
-        enterDuration: 0.3,        // How fast visuals appear (seconds)
+        enterDuration: 0.4,        // How fast visuals appear (seconds)
         dwellDuration: 0,          // How long visuals stay visible (seconds)
-        exitDuration: 0.8,         // How long exit animation takes (seconds)
-        scaleRange: [0.95, 1.05],  // Size variation range [min, max]
+        exitDuration: 6.0,         // How long exit animation takes (seconds)
+        scaleRange: [0.9, 1.05],  // Size variation range [min, max]
         rotationRange: [-3, 3],    // Rotation range in degrees [min, max]
         driftDistance: 100,        // How far visuals move when exiting (pixels)
         driftXMultiplier: 0.05,    // Horizontal movement multiplier
@@ -117,7 +154,7 @@ class KeyVisualCollection {
         '4:5': '30vw',   // Portrait - smaller width
         '1:1': '35vw',   // Square - medium width
         '2:1': '60vw',   // Ultra-wide landscape - extra large width
-        '9:16': '25vw'   // Ultra-tall portrait - smaller width
+        '9:16': '40vw'   // Ultra-tall portrait - smaller width
       };
       return widths;
     }
@@ -354,6 +391,11 @@ class KeyVisualCollection {
     const keyVisual = this.createKeyVisual(x, y);
     this.animateKeyVisual(keyVisual);
     this.activeKeyVisuals.push(keyVisual);
+
+    const displayIndex = this.collection.length === 0
+      ? 0
+      : (this.currentImageIndex === 0 ? this.collection.length : this.currentImageIndex);
+    this.updateCounterText(displayIndex);
   }
 
   // Create a key visual element
@@ -550,6 +592,9 @@ class KeyVisualCollection {
     this.activeKeyVisuals.forEach(keyVisual => this.removeKeyVisual(keyVisual));
     if (this.overlay && this.overlay.parentNode) {
       this.overlay.parentNode.removeChild(this.overlay);
+    }
+    if (this.counterElement && this.counterElement.parentNode) {
+      this.counterElement.parentNode.removeChild(this.counterElement);
     }
   }
 }

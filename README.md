@@ -10,7 +10,7 @@ This repository and its contents are proprietary and confidential. Unauthorized 
 
 ## Version
 
-Current version: **v1.9.4**
+Current version: **v1.9.8**
 
 ## License
 

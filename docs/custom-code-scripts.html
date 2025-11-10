@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Code Scripts - ByDefault Documentation</title>
+    <meta name="description" content="Complete guide with all Webflow custom code snippets for both production (CDN) and local development (localhost) URLs.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554'
+                        },
+                        gray: {
+                            50: '#f9fafb',
+                            100: '#f3f4f6',
+                            200: '#e5e7eb',
+                            300: '#d1d5db',
+                            400: '#9ca3af',
+                            500: '#6b7280',
+                            600: '#4b5563',
+                            700: '#374151',
+                            800: '#1f2937',
+                            900: '#111827',
+                            950: '#030712'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Minimal custom styles for specific functionality */
+        .root {
+            isolation: isolate;
+        }
+        
+        body {
+            position: relative;
+        }
+        
+        /* Custom scrollbar for sidebar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 3px;
+        }
+        
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Disable scrollbar for code blocks */
+        .scrollbar-none {
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-none::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Override github-markdown-css for our layout */
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        /* Custom code block styling */
+        .markdown-body pre {
+            background-color: #00000008 !important;
+        }
+        
+        .markdown-body pre code {
+            background-color: transparent !important;
+        }
+        
+        /* Ensure proper spacing for our layout */
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .markdown-body h1:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h2:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h3:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h4:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h5:first-child {
+            margin-top: 0;
+        }
+        
+        .markdown-body h6:first-child {
+            margin-top: 0;
+        }
+        
+        /* Ensure proper list styling */
+        .markdown-body ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .markdown-body li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .markdown-body ul ul {
+            list-style-type: circle;
+            margin-top: 0.25rem;
+            margin-bottom: 0;
+        }
+        
+        .markdown-body ul ul ul {
+            list-style-type: square;
+        }
+        
+        /* Code block copy button styles */
+        .code-block-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .copy-code-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e7eb;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            z-index: 10;
+            font-family: inherit;
+        }
+        
+        .copy-code-btn:hover {
+            color: #374151;
+            background-color: #ffffff;
+            border-color: #d1d5db;
+        }
+        
+        .copy-code-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .copy-code-btn.copied {
+            color: #059669;
+            border-color: #10b981;
+            background-color: #ecfdf5;
+        }
+        
+        .copy-code-btn.copied .copy-text::before {
+            content: "Copied!";
+        }
+        
+        .copy-code-btn .copy-icon {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+        
+        .copy-code-btn.copied .copy-icon {
+            display: none;
+        }
+        
+        .copy-code-btn .copy-text {
+            white-space: nowrap;
+        }
+        
+        .copy-code-btn .copy-text::before {
+            content: "Copy code";
+        }
+        
+        /* Ensure code blocks have proper spacing */
+        .code-block-wrapper pre {
+            position: relative;
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        
+        /* Adjust padding to accommodate button */
+        .code-block-wrapper pre code {
+            display: block;
+            padding-right: 0;
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            .copy-code-btn {
+                color: #9ca3af;
+                background-color: rgba(31, 41, 55, 0.9);
+                border-color: #4b5563;
+            }
+            
+            .copy-code-btn:hover {
+                color: #d1d5db;
+                background-color: #1f2937;
+                border-color: #6b7280;
+            }
+            
+            .copy-code-btn.copied {
+                color: #34d399;
+                border-color: #10b981;
+                background-color: rgba(16, 185, 129, 0.1);
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="node_modules/github-markdown-css/github-markdown.css">
+    <!-- Clipboard.js for copy functionality -->
+    <script src="node_modules/clipboard/dist/clipboard.min.js"></script>
+</head>
+<body class="h-full bg-gray-50 text-gray-900 font-sans antialiased">
+    <div class="root">
+        <!-- Header -->
+        <header class=" top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <div class="flex items-center space-x-3">
+                        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-200">
+                            <img src="logo_bydefault_primary.svg" alt="ByDefault Logo" class="h-8 w-auto">
+                            <span class="text-xl font-semibold text-gray-900">Documentation</span>
+                        </a>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-medium bg-primary-100 text-primary-800">v1.0.0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex h-[calc(100vh-4rem)]">
+            <!-- Fixed Sidebar Navigation -->
+            <aside class="w-64 lg:w-72 h-full bg-white border-r border-gray-200/60 flex flex-col shrink-0 overflow-hidden">
+                <nav aria-label="Main navigation" class="flex-1 flex flex-col overflow-hidden">
+                    <div class="flex-1 overflow-y-auto sidebar-scroll">
+                        <div class="p-4 lg:p-6">
+                            
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">overview</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="README.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Documentation</span></a></li>
+      
+        <li><a href="getting-started.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Getting Started</span></a></li>
+      
+        <li><a href="code-structure.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Code Structure</span></a></li>
+      
+        <li><a href="markdown-style.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Markdown Style</span></a></li>
+      
+        <li><a href="git-commands.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Git Commands</span></a></li>
+      
+        <li><a href="quick-reference.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Quick Reference</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">features</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-cursor.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Cursor</span></a></li>
+      
+        <li><a href="audio.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Audio</span></a></li>
+      
+        <li><a href="case-study.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Case Study</span></a></li>
+      
+        <li><a href="hero.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Hero</span></a></li>
+      
+        <li><a href="homepage.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Homepage</span></a></li>
+      
+        <li><a href="blog.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Blog</span></a></li>
+      
+        <li><a href="stacking-shapes.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Stacking Shapes</span></a></li>
+      
+        <li><a href="animations.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Animations</span></a></li>
+      
+        <li><a href="svg-optimizer.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">SVG Optimizer</span></a></li>
+      
+        </ul>
+      </div>
+    
+      <div class="mb-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">deployment</h3>
+        <ul class="space-y-1">
+    
+        <li><a href="custom-code-scripts.html" class="group block px-4 py-3 text-sm bg-primary-50 text-primary-700 border-primary-200 shadow-sm font-medium transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Custom Code Scripts</span></a></li>
+      
+        <li><a href="version-update.html" class="group block px-4 py-3 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-700 border-transparent hover:border-primary-200/50 hover:shadow-sm transition-all duration-200 border hover:shadow-sm"><span class="group-hover:translate-x-1 transition-transform duration-200 inline-block">Version Update</span></a></li>
+      
+        </ul>
+      </div>
+    
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 min-w-0 overflow-y-auto h-full" id="main-content">
+                <!-- Container with responsive max-width and consistent padding -->
+                <div class="w-full max-w-none lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 h-full">
+                    <!-- Responsive grid layout -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 h-full">
+                        <!-- Content Area - Responsive width -->
+                        <div class="xl:col-span-8 xl:h-full min-w-0">
+                            <div class="max-w-4xl">
+                                <article class="markdown-body">
+                                    <div class="flex items-baseline justify-between flex-col md:flex-row -mt-2 mb-8"><p class="text-lg text-gray-600 leading-relaxed">Production and local development code snippets for Webflow</p><a href="custom-code-scripts.md" class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 bg-primary-50 border border-primary-200 text-primary-700 hover:bg-primary-100 hover:text-primary-800 hover:border-primary-300 transition-all duration-200 shadow-sm hover:shadow-md" aria-label="View markdown source" rel="alternate" type="text/markdown">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <title>Markdown</title>
+      <path d="M22.269 19.385H1.731a1.73 1.73 0 0 1-1.73-1.73V6.345a1.73 1.73 0 0 1 1.73-1.73h20.538a1.73 1.73 0 0 1 1.73 1.73v11.308a1.73 1.73 0 0 1-1.73 1.731zm-16.5-3.462v-4.5l2.308 2.885 2.307-2.885v4.5h2.308V8.078h-2.308l-2.307 2.885-2.308-2.885H3.461v7.847zM21.231 12h-2.308V8.077h-2.307V12h-2.308l3.461 4.039z" fill="currentColor"></path>
+    </svg>
+    View as Markdown
+  </a></div><h1 id="custom-code-scripts">Custom Code Scripts</h1>
+<p>Complete guide to all custom code snippets for Webflow. Includes both production (CDN) and local development (localhost) URLs.</p>
+<h2 id="overview">Overview</h2>
+<p>This guide contains only the custom script and CSS links that change with version updates. Simply copy the code blocks and paste them into the appropriate sections in Webflow&#39;s Custom Code settings.</p>
+<blockquote>
+<p><strong>For local development:</strong> Ensure Live Server is running in VS Code on port 5500 before using localhost URLs.</p>
+</blockquote>
+<hr>
+<h2 id="global">Global</h2>
+<h3 id="header">Header</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-1u0ddfyl2" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-1u0ddfyl2" class="language-html">&lt;!-- Custom Cursor CSS --&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/css/cursor.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-f8ra78v8v" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-f8ra78v8v" class="language-html">&lt;!-- Custom Cursor CSS --&gt;
+&lt;link href=&quot;http://127.0.0.1:5500/css/cursor.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+      </div>
+    
+<h3 id="footer">Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-l377c2qc5" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-l377c2qc5" class="language-html">&lt;!-- Global Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/script.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- BD Animation --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/bd-animations.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Custom Cursor JS --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/cursor.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Audio System --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/audio.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-m48t67c23" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-m48t67c23" class="language-html">&lt;!-- Global Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/script.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- BD Animation --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/bd-animations.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Custom Cursor JS --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/cursor.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Audio System --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/audio.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<hr>
+<h2 id="homepage">Homepage</h2>
+<h3 id="header">Header</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-ab37olgvu" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-ab37olgvu" class="language-html">&lt;!-- Hero Section CSS --&gt;
+&lt;link href=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/css/hero.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-qmy5ls2ry" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-qmy5ls2ry" class="language-html">&lt;!-- Hero Section CSS --&gt;
+&lt;link href=&quot;http://127.0.0.1:5500/css/hero.css&quot; rel=&quot;stylesheet&quot;&gt;
+</code></pre>
+      </div>
+    
+<h3 id="footer">Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-vbfjmrj9o" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-vbfjmrj9o" class="language-html">&lt;!-- Splide --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-intersection@0.2.0/dist/js/splide-extension-intersection.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Hero Section JavaScript --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/hero.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Homepage Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/homepage.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-n8sr4lc77" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-n8sr4lc77" class="language-html">&lt;!-- Splide --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5.3/dist/js/splide-extension-auto-scroll.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-intersection@0.2.0/dist/js/splide-extension-intersection.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Hero Section JavaScript --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/hero.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Homepage Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/homepage.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<hr>
+<h2 id="blog-pages">Blog Pages</h2>
+<h3 id="blog-post-footer">Blog Post Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-u6tvzhwji" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-u6tvzhwji" class="language-html">&lt;!-- Blog Template Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/blog-template.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-p6k4akhyl" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-p6k4akhyl" class="language-html">&lt;!-- Blog Template Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/blog-template.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<h3 id="blog-feed-footer">Blog Feed Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-v8in33pbm" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-v8in33pbm" class="language-html">&lt;!-- Blog Feed Scripts (for blog listing pages) --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/blog-feed.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-qmo2h4sl6" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-qmo2h4sl6" class="language-html">&lt;!-- Blog Feed Scripts (for blog listing pages) --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/blog-feed.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<hr>
+<h2 id="case-study-pages">Case Study Pages</h2>
+<h3 id="footer">Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-ww0jezxar" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-ww0jezxar" class="language-html">&lt;!-- Splide --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Case Studies Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/case-study.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Custom Code --&gt;
+&lt;script&gt;
+  document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+    blogPostSlider();
+  });
+&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-ndumqwbec" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-ndumqwbec" class="language-html">&lt;!-- Splide --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Case Studies Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/case-study.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Custom Code --&gt;
+&lt;script&gt;
+  document.addEventListener(&quot;DOMContentLoaded&quot;, () =&gt; {
+    blogPostSlider();
+  });
+&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<hr>
+<h2 id="interactive-shapes-pages">Interactive Shapes Pages</h2>
+<h3 id="stacking-shapes-footer">Stacking Shapes Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-ypxzmg7ym" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-ypxzmg7ym" class="language-html">&lt;!-- Stacking Shapes Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/stacking-shapes.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-v49r8qoq9" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-v49r8qoq9" class="language-html">&lt;!-- Stacking Shapes Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/stacking-shapes.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<h3 id="holding-page-footer">Holding Page Footer</h3>
+<p><strong>Production:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-4gdk9n6ea" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-4gdk9n6ea" class="language-html">&lt;!-- Holding Page Scripts --&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/holding-page.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<p><strong>Local:</strong></p>
+
+      <div class="code-block-wrapper relative">
+        <button class="copy-code-btn" data-clipboard-target="#code-nkm6zru00" type="button" aria-label="Copy code">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span class="copy-text"></span>
+        </button>
+        <pre><code id="code-nkm6zru00" class="language-html">&lt;!-- Holding Page Scripts --&gt;
+&lt;script src=&quot;http://127.0.0.1:5500/js/holding-page.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+      </div>
+    
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+<thead>
+<tr>
+<th>Page Type</th>
+<th>Header</th>
+<th>Footer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>All Pages</strong></td>
+<td>Global Header</td>
+<td>Global Footer</td>
+</tr>
+<tr>
+<td><strong>Homepage</strong></td>
+<td>Home Header</td>
+<td>Home Footer</td>
+</tr>
+<tr>
+<td><strong>Blog Post</strong></td>
+<td>-</td>
+<td>Blog Footer</td>
+</tr>
+<tr>
+<td><strong>Blog Listing</strong></td>
+<td>-</td>
+<td>Blog Feed Footer</td>
+</tr>
+<tr>
+<td><strong>Case Study</strong></td>
+<td>-</td>
+<td>Case Studies Footer</td>
+</tr>
+<tr>
+<td><strong>Stacking Shapes</strong></td>
+<td>-</td>
+<td>Stacking Shapes Footer</td>
+</tr>
+<tr>
+<td><strong>Holding Page</strong></td>
+<td>-</td>
+<td>Holding Page Footer</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>Current Version:</strong> v1.9.7</p>
+<p><strong>Production CDN:</strong> <code>https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/</code><br><strong>Local Server:</strong> <code>http://127.0.0.1:5500</code></p>
+<p><em>Last updated: November 9, 2025</em></p>
+
+                                </article>
+                            </div>
+                        </div>
+                        <!-- Table of Contents - Responsive positioning -->
+                        <div class="xl:col-span-4 xl:h-full">
+                            
+      <div class="sticky top-8">
+        <div class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+          <h3 class="text-sm font-semibold text-gray-900 mb-3">On this page</h3>
+          <div class="space-y-1"><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-0" href="#custom-code-scripts">Custom Code Scripts</a>
+    </li><ul class="ml-4 space-y-1"><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#overview">Overview</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#global">Global</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#homepage">Homepage</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#blog-pages">Blog Pages</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#case-study-pages">Case Study Pages</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#interactive-shapes-pages">Interactive Shapes Pages</a>
+    </li><li class="flex flex-col items-start gap-1">
+      <a class="inline-block text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100/50 px-2 py-1 transition-all duration-200 pl-4" href="#quick-reference">Quick Reference</a>
+    </li></ul></ul></div>
+        </div>
+      </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Copy code functionality -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Initialize Clipboard.js when DOM is ready
+            function initClipboard() {
+                if (typeof ClipboardJS === 'undefined') {
+                    console.warn('Clipboard.js not loaded. Copy functionality disabled.');
+                    return;
+                }
+                
+                // Initialize Clipboard.js for all copy buttons
+                const clipboard = new ClipboardJS('.copy-code-btn');
+                
+                // Handle successful copy
+                clipboard.on('success', function(e) {
+                    const button = e.trigger;
+                    const originalText = button.querySelector('.copy-text');
+                    
+                    // Add 'copied' class for styling
+                    button.classList.add('copied');
+                    
+                    // Reset after 1.5 seconds
+                    setTimeout(function() {
+                        button.classList.remove('copied');
+                    }, 1500);
+                    
+                    // Clear selection
+                    e.clearSelection();
+                });
+                
+                // Handle copy errors (fallback)
+                clipboard.on('error', function(e) {
+                    console.warn('Copy failed:', e);
+                    // Optional: Show error message to user
+                    const button = e.trigger;
+                    const originalText = button.textContent;
+                    button.textContent = 'Copy failed';
+                    button.classList.add('copied');
+                    
+                    setTimeout(function() {
+                        button.textContent = originalText;
+                        button.classList.remove('copied');
+                    }, 1500);
+                });
+            }
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initClipboard);
+            } else {
+                initClipboard();
+            }
+        })();
+    </script>
+</body>
+</html>
