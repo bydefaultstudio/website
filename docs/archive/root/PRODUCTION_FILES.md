@@ -32,9 +32,9 @@ Based on your production setup using jsDelivr CDN, only these files need to be o
 ## Production CDN URLs Format
 
 ```
-https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/script.js
-https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/css/cursor.css
-https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/assets/audio/click.mp3
+https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.9/js/script.js
+https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.9/css/cursor.css
+https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.9/assets/audio/click.mp3
 ```
 
 ## Files NOT Needed (Excluded by .gitignore)
@@ -48,4 +48,4 @@ https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/assets/audio/click.mp
 - README, SETUP, QUICKSTART files
 
 ---
-*Updated: November 2, 2025*
+*Updated: November 11, 2025*

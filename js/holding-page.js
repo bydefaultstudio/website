@@ -2,11 +2,11 @@
  * Script Purpose: Holding Page with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  */
 
-console.log("Script - Holding Page v1.9.8");
+console.log("Script - Holding Page v1.9.9");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;

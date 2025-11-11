@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  */
 
-console.log("Script - Key Visuals v1.9.8");
+console.log("Script - Key Visuals v1.9.9");
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -142,19 +142,19 @@ class KeyVisualCollection {
   getResponsiveDisplayWidths() {
     if (this.isMobile()) {
       return {
-        '16:9': '70vw',  // Landscape - larger on mobile
-        '4:5': '50vw',   // Portrait - medium width
+        '16:9': '80vw',  // Landscape - larger on mobile
+        '4:5': '60vw',   // Portrait - medium width
         '1:1': '55vw',   // Square - medium width
-        '2:1': '60vw',   // Ultra-wide landscape - larger
-        '9:16': '25vw'   // Ultra-tall portrait - smaller
+        '2:1': '80vw',   // Ultra-wide landscape - larger
+        '9:16': '60vw'   // Ultra-tall portrait - smaller
       };
     } else {
       const widths = {
-        '16:9': '45vw',  // Landscape - larger width
+        '16:9': '70vw',  // Landscape - larger width
         '4:5': '30vw',   // Portrait - smaller width
-        '1:1': '35vw',   // Square - medium width
+        '1:1': '50vw',   // Square - medium width
         '2:1': '60vw',   // Ultra-wide landscape - extra large width
-        '9:16': '40vw'   // Ultra-tall portrait - smaller width
+        '9:16': '30vw'   // Ultra-tall portrait - smaller width
       };
       return widths;
     }

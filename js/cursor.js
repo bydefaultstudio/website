@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Desktop custom cursor
  * Author: Erlen Masson
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  */
 
-console.log("Script - Cursor v1.9.8");
+console.log("Script - Cursor v1.9.9");
 
 document.addEventListener("DOMContentLoaded", () => {
   const cursor = document.querySelector(".cursor-default");

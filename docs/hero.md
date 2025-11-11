@@ -258,7 +258,7 @@ If no CMS data is found, the system uses a default collection with placeholder i
 <link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.8.4/css/hero.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.8/js/hero.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.9/js/hero.js"></script>
 ```
 
 ## Troubleshooting

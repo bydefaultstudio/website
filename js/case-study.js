@@ -2,12 +2,12 @@
  * Case Study Template Scripts
  * Author: Erlen Masson
  * Created: 4th July 2025
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  * Purpose: Handles all case study template functionality
  */
 
-console.log("Script Case Study v1.9.8");
+console.log("Script Case Study v1.9.9");
 
 let caseStudyToggleHandler = null;
 

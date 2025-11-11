@@ -1,12 +1,12 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v1.9.8 Local");
+console.log("Script - Homepage v1.9.9");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -69,6 +69,50 @@ function brandLogoScroll() {
   });
 }
 
+// ------- Hero Heading Animation ------- //
+function heroHeadingAnimation() {
+  const heading = document.querySelector(".heading-hero");
+  if (!heading) return;
+
+  // Respect reduced motion preferences
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
+
+  if (heading.dataset.heroAnimated === "1") {
+    return;
+  }
+
+  const split = new SplitText(heading, {
+    type: "words",
+    wordsClass: "heading-hero-word",
+  });
+
+  const words = split.words;
+  if (!words || !words.length) {
+    split.revert();
+    return;
+  }
+
+  gsap.set(words, { opacity: 0, y: 50 });
+
+  gsap
+    .timeline({
+      defaults: { duration: 0.8, ease: "power3.out" },
+      onComplete: () => {
+        split.revert();
+        heading.dataset.heroAnimated = "1";
+      },
+    })
+    .to(words, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.15,
+      delay: 0.3,
+      ease: "power3.out",
+    });
+}
+
 // ------- Mobile Video Autoplay ------- //
 function mobileVideoAutoplay() {
   // Only run on mobile/touch devices
@@ -76,7 +120,7 @@ function mobileVideoAutoplay() {
     return;
   }
 
-  const videos = document.querySelectorAll('.work_post-wrapper .vdo_thumb');
+  const videos = document.querySelectorAll('.work_post-thumb .vdo_thumb');
   let userHasInteracted = false;
 
   // Configure videos for mobile autoplay
@@ -176,44 +220,43 @@ function addCursorAttributesToArrows(splideElement) {
 
 // ------- Sticky Service Cards Animation ------- //
 function stickyCards() {
-  // Performance: Use matchMedia for responsive behavior
-  let mm = gsap.matchMedia();
-  
-  mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
-    gsap.utils.toArray(".service-card-inner").forEach((card, i, cards) => {
-      const isLastCard = i === cards.length - 1;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return;
+  }
 
-      // Skip ScrollTrigger entirely for the last card
-      if (isLastCard) return;
+  gsap.utils.toArray(".service-card-inner").forEach((card, i, cards) => {
+    const isLastCard = i === cards.length - 1;
 
-      // Performance: Cache window.innerHeight to avoid recalculation
-      const viewportHeight = window.innerHeight;
-      const stickyStart = "top 100px";
-      
-      // Generate random Z rotation once per card (-20 to +20 degrees)
-      const randomRotationZ = (Math.random() - 0.5) * 40; // -20 to +20
+    // Skip ScrollTrigger entirely for the last card
+    if (isLastCard) return;
 
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: stickyStart,
-          pin: true,
-          end: `+=${viewportHeight}`, // Performance: Use cached value
-          scrub: 1, // Performance: Use scrub: 1 instead of true for smoother animation
-          pinSpacing: false, // Performance: Prevent layout recalculations
-          onUpdate: (self) => {
-            const progress = self.progress;
-            // Performance: Batch all transforms in single gsap.to call
-            gsap.to(card, { 
-              scale: 1 - progress,
-              rotationZ: randomRotationZ * progress,
-              rotationX: 20 * progress,
-              transformOrigin: "50% center", // Performance: Set transform origin once
-              overwrite: "auto" // Performance: Prevent animation conflicts
-            });
-          },
+    // Performance: Cache window.innerHeight to avoid recalculation
+    const viewportHeight = window.innerHeight;
+    const stickyStart = "top 100px";
+    
+    // Generate random Z rotation once per card (-20 to +20 degrees)
+    const randomRotationZ = (Math.random() - 0.5) * 40; // -20 to +20
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: stickyStart,
+        pin: true,
+        end: `+=${viewportHeight}`, // Performance: Use cached value
+        scrub: 1, // Performance: Use scrub: 1 instead of true for smoother animation
+        pinSpacing: false, // Performance: Prevent layout recalculations
+        onUpdate: (self) => {
+          const progress = self.progress;
+          // Performance: Batch all transforms in single gsap.to call
+          gsap.to(card, { 
+            scale: 1 - progress,
+            rotationZ: randomRotationZ * progress,
+            rotationX: 20 * progress,
+            transformOrigin: "50% center", // Performance: Set transform origin once
+            overwrite: "auto" // Performance: Prevent animation conflicts
+          });
         },
-      });
+      },
     });
   });
 }
@@ -428,6 +471,7 @@ function initTestimonialTextAnimation() {
 document.addEventListener("DOMContentLoaded", () => {
   thumbVideoHover();
   brandLogoScroll();
+  heroHeadingAnimation();
   mobileVideoAutoplay();
   initTestimonialTextAnimation();
   testimonialSlider();

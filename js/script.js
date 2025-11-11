@@ -2,11 +2,11 @@
  * Script Purpose: By Default Custom Scripts
  * Author: Erlen Masson
  * Created: 29th June 2025
- * Version: 1.9.8
- * Last Updated: November 10, 2025
+ * Version: 1.9.9
+ * Last Updated: November 11, 2025
  */
 
-console.log("Script - All v1.9.8");
+console.log("Script - All v1.9.9");
 
 // Check if the device is a touch device
 function isTouchDevice() {
@@ -243,28 +243,62 @@ function blogPostSlider() {
   let blogSliders = document.querySelectorAll(".blog-slider");
 
   for (let splide of blogSliders) {
-    new Splide(splide, {
-      type: "slide",
-      perPage: 3, // Show 3 posts
-      perMove: 1, // Slide 3 posts at a time
+    const slider = new Splide(splide, {
+      type: "loop",
+      perPage: 2, // Show 2 full posts on desktop
+      perMove: 1,
       gap: "2rem", // Adjust spacing between cards
-      arrows: false, // Hide arrows
+      arrows: true,
       pagination: false, // Hide pagination
-      rewind: true, // Loop back to start
       speed: 800, // Slide animation speed
       easing: "ease-out",
+      arrowPath:
+        "M24.1125 24.5117C25.1624 23.4617 24.4188 21.6665 22.934 21.6665H6.66602V18.3332H22.934C24.4188 18.3332 25.1624 16.5379 24.1125 15.488L17.6243 8.99984L19.9993 6.6665L33.3327 19.9998L19.9993 33.3332L17.6243 30.9998L24.1125 24.5117Z",
+      classes: {
+        arrow: "button is-icon-only is-faded is-outline is-pill custom-arrows",
+      },
+      padding: {
+        right: "18%", // Peek at the next slide
+      },
+      trimSpace: false,
 
       breakpoints: {
         991: {
           perPage: 2,
-          perMove: 2,
+          perMove: 1,
+          padding: {
+            right: "12%",
+          },
         },
         600: {
           perPage: 1,
           perMove: 1,
+          padding: {
+            right: 0,
+          },
         },
       },
-    }).mount();
+    });
+
+    const applyArrowAttributes = () => {
+      const prevArrow = slider.root.querySelector('.splide__arrow--prev');
+      const nextArrow = slider.root.querySelector('.splide__arrow--next');
+
+      if (prevArrow) {
+        prevArrow.setAttribute('data-cursor', 'arrow-left');
+        prevArrow.setAttribute('aria-label', 'Previous');
+      }
+
+      if (nextArrow) {
+        nextArrow.setAttribute('data-cursor', 'arrow-right');
+        nextArrow.setAttribute('aria-label', 'Next');
+      }
+    };
+
+    slider.on('mounted', applyArrowAttributes);
+    slider.on('updated', applyArrowAttributes);
+
+    slider.mount();
   }
 }
 

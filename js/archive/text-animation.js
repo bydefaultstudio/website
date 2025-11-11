@@ -1,12 +1,12 @@
 /**
  * Script Purpose: TextAnimations
  * Author: Erlen Masson
- * Version: 1.8.2
+ * Version: 1.9.9
  * Created: 5 Feb 2025
- * Last Updated: October 22, 2025
+ * Last Updated: November 11, 2025
  */
 
-console.log("Anonivate Text Animations v1.8.2");
+console.log("Anonivate Text Animations v1.9.9");
 
 // ------- Configurable Parameters ------- //
 const fadeStart = window.innerWidth < 768 ? "top 100%" : "top 85%";
