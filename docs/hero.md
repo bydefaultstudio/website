@@ -255,10 +255,10 @@ If no CMS data is found, the system uses a default collection with placeholder i
 ### Production CDN
 ```html
 <!-- CSS -->
-<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.8.4/css/hero.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.0.0/css/hero.css" rel="stylesheet">
 
 <!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v1.9.9/js/hero.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.0.0/js/hero.js"></script>
 ```
 
 ## Troubleshooting
@@ -276,6 +276,7 @@ Enable console logging by adding `console.log("Script - Key Visuals v2");` to se
 - Mobile detection status
 
 ## Version History
-- **v2.0.0**: Added aspect ratio system, mobile scroll fix, CMS integration
+- **v2.0.0** (November 14, 2025): Major update - Vimeo iframe embed support, maxWidth feature, performance optimizations, consolidated video code, improved URL decoding
+- **v1.9.9**: Added aspect ratio system, mobile scroll fix, CMS integration
 - **v1.7.1**: Mobile touch handling improvements
 - **v1.7.0**: Initial responsive design implementation

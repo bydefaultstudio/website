@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
- * Version: 1.9.9
- * Last Updated: November 11, 2025
+ * Version: 2.0.0
+ * Last Updated: November 14, 2025
  */
 
-console.log("Script - Key Visuals v1.9.9");
+console.log("Script - Key Visuals v2.0.0");
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -141,20 +141,20 @@ class KeyVisualCollection {
 
   getResponsiveDisplayWidths() {
     if (this.isMobile()) {
-      return {
-        '16:9': '80vw',  // Landscape - larger on mobile
-        '4:5': '60vw',   // Portrait - medium width
-        '1:1': '55vw',   // Square - medium width
-        '2:1': '80vw',   // Ultra-wide landscape - larger
-        '9:16': '60vw'   // Ultra-tall portrait - smaller
+      return { // Mobile widths
+        '16:9': '80vw',
+        '4:5': '60vw',
+        '1:1': '54vw',  
+        '2:1': '80vw',   
+        '9:16': '60vw'   
       };
     } else {
-      const widths = {
-        '16:9': '70vw',  // Landscape - larger width
-        '4:5': '30vw',   // Portrait - smaller width
-        '1:1': '50vw',   // Square - medium width
-        '2:1': '60vw',   // Ultra-wide landscape - extra large width
-        '9:16': '30vw'   // Ultra-tall portrait - smaller width
+      const widths = { // Desktop widths
+        '16:9': '50vw', 
+        '4:5': '30vw',   
+        '1:1': '50vw',   
+        '2:1': '60vw',   
+        '9:16': '30vw'   
       };
       return widths;
     }
@@ -179,6 +179,61 @@ class KeyVisualCollection {
     }
   }
 
+  // Extract Vimeo video ID from URL (handles multiple Vimeo URL formats)
+  // Optimized with single regex pattern for better performance
+  extractVimeoId(url) {
+    if (!url || typeof url !== 'string') return null;
+    
+    // Combined regex pattern to match all Vimeo URL formats at once
+    const match = url.match(/(?:\/playback\/|player\.vimeo\.com\/video\/|vimeo\.com\/|vimeocdn\.com\/.*\/)(\d+)/);
+    return match ? match[1] : null;
+  }
+
+  // Decode URL - optimized to avoid creating DOM elements repeatedly
+  decodeUrl(url) {
+    if (!url || typeof url !== 'string') return url;
+    
+    let decoded = url;
+    
+    // First decode URL encoding
+    try {
+      decoded = decodeURIComponent(decoded);
+    } catch (e) {
+      // URL decode failed, continue with original
+    }
+    
+    // Decode HTML entities using string replacement (faster than DOM manipulation)
+    decoded = decoded
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&#x27;/g, "'");
+    
+    return decoded;
+  }
+
+
+  // Fallback to poster image when video fails
+  fallbackToPoster(visual, keyVisual) {
+    const videoElement = keyVisual.querySelector('video');
+    if (videoElement && visual.poster) {
+      const imgElement = document.createElement('img');
+      imgElement.src = visual.poster;
+      imgElement.alt = visual.alt || 'Key visual';
+      imgElement.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+      videoElement.parentNode.replaceChild(imgElement, videoElement);
+    } else if (!visual.poster) {
+      if (videoElement) {
+        const placeholder = document.createElement('div');
+        placeholder.style.cssText = 'width: 100%; height: 100%; background: #000; display: flex; align-items: center; justify-content: center; color: #fff;';
+        placeholder.textContent = 'Video unavailable';
+        videoElement.parentNode.replaceChild(placeholder, videoElement);
+      }
+    }
+  }
+
   // Parse Webflow CMS inline JSON feed
   parseWebflowCMSFeed() {
     const feedContainer = document.querySelector('#kv-json-feed');
@@ -193,7 +248,11 @@ class KeyVisualCollection {
 
     jsonBlocks.forEach((block, index) => {
       try {
-        const jsonText = block.textContent.trim();
+        let jsonText = block.textContent.trim();
+        
+        // Fix common JSON issues: empty values (e.g., "maxWidth": )
+        // Replace empty values with null
+        jsonText = jsonText.replace(/:\s*([,}])/g, ': null$1');
         
         const item = JSON.parse(jsonText);
         
@@ -212,7 +271,11 @@ class KeyVisualCollection {
           ratio: item.ratio || '16:9',
           weight: item.weight || 1,
           drop: item.drop || null,
-          order: item.order || index
+          order: item.order || index,
+          // Store original Vimeo video ID if it's a progressive redirect URL
+          vimeoId: item.vimeoId || this.extractVimeoId(item.src),
+          // Optional max-width in pixels to prevent upscaling
+          maxWidth: item.maxWidth || null
         };
 
         parsedItems.push(normalizedItem);
@@ -378,13 +441,15 @@ class KeyVisualCollection {
     }
     this.lastSpawnTime = now;
 
+    // Cache container dimensions to avoid repeated getBoundingClientRect calls
     const rect = this.container.getBoundingClientRect();
+    const containerWidth = rect.width;
+    const containerHeight = rect.height;
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     
-
     // Don't spawn too close to edges
-    if (x < 50 || x > rect.width - 50 || y < 50 || y > rect.height - 50) {
+    if (x < 50 || x > containerWidth - 50 || y < 50 || y > containerHeight - 50) {
       return;
     }
 
@@ -414,15 +479,18 @@ class KeyVisualCollection {
     let mediaElement;
     
     if (visual.type === 'video') {
-      // Video: optimized for performance (no controls, no sound, loop)
+      const isVimeoUrl = visual.src.includes('vimeo.com');
+      const decodedSrc = isVimeoUrl ? this.decodeUrl(visual.src) : visual.src;
+      
+      // Create video element with common properties
       mediaElement = document.createElement('video');
-      mediaElement.src = visual.src;
-      mediaElement.muted = true;                    // No sound for performance
-      mediaElement.autoplay = true;                 // Auto-play
-      mediaElement.loop = true;                     // Loop continuously
-      mediaElement.playsInline = true;              // Play inline on mobile
-      mediaElement.controls = false;                // No controls for clean look
-      mediaElement.preload = 'metadata';            // Load metadata for poster
+      mediaElement.src = decodedSrc;
+      mediaElement.muted = true;
+      mediaElement.autoplay = true;
+      mediaElement.loop = true;
+      mediaElement.playsInline = true;
+      mediaElement.controls = false;
+      mediaElement.preload = isVimeoUrl ? 'auto' : 'metadata';
       mediaElement.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
       
       // Set poster image if provided
@@ -430,9 +498,61 @@ class KeyVisualCollection {
         mediaElement.poster = visual.poster;
       }
       
-      // Load and play video when it becomes visible
+      // Optimized play handler - only one event listener needed
+      const handleVideoReady = () => {
+        if (mediaElement.readyState >= 2) {
+          mediaElement.play().catch(() => {
+            // Play failed silently
+          });
+        }
+      };
+      
+      // Single event listener for video ready state
+      const onCanPlay = () => {
+        handleVideoReady();
+        // Remove other listener to avoid duplicate calls
+        mediaElement.removeEventListener('loadeddata', onLoadedData);
+      };
+      
+      const onLoadedData = () => {
+        handleVideoReady();
+        mediaElement.removeEventListener('canplay', onCanPlay);
+      };
+      
+      mediaElement.addEventListener('canplay', onCanPlay, { once: true });
+      mediaElement.addEventListener('loadeddata', onLoadedData, { once: true });
+      
+      // Handle Vimeo format errors by switching to iframe
+      if (isVimeoUrl) {
+        mediaElement.addEventListener('error', (e) => {
+          if (mediaElement.error?.code === 4) {
+            const vimeoId = this.extractVimeoId(decodedSrc);
+            if (vimeoId) {
+              const iframe = document.createElement('iframe');
+              iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&loop=1&muted=1&background=1&controls=0&title=0&byline=0&portrait=0`;
+              iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+              iframe.allowFullscreen = true;
+              iframe.frameBorder = '0';
+              iframe.style.cssText = 'width: 100%; height: 100%; object-fit: cover; border: none;';
+              iframe.setAttribute('data-vimeo-id', vimeoId);
+              
+              if (mediaElement.parentNode) {
+                mediaElement.parentNode.replaceChild(iframe, mediaElement);
+              }
+            } else {
+              this.fallbackToPoster(visual, keyVisual);
+            }
+          }
+        }, { once: true });
+      }
+      
+      // Start loading
       mediaElement.load();
-      mediaElement.play().catch(e => {});
+      
+      // Try immediate play if already ready (optimization)
+      if (mediaElement.readyState >= 2) {
+        handleVideoReady();
+      }
       
     } else if (visual.type === 'gif') {
       // GIF: treat as image for optimal performance
@@ -451,25 +571,35 @@ class KeyVisualCollection {
     
     keyVisual.appendChild(mediaElement);
     
-    // Set common styling with relative positioning within hero container
-    keyVisual.style.cssText = `
+    // Batch DOM operations for better performance
+    const aspectRatio = visual.ratio.replace(':', ' / ');
+    
+    // Build style string with optional max-width
+    let styleString = `
       position: absolute;
       left: ${x}px;
       top: ${y}px;
       width: ${displayWidth};
       aspect-ratio: ${visual.ratio};
       pointer-events: none;
+      --aspect-ratio: ${aspectRatio};
     `;
     
-    // Add source info attributes
+    // Add max-width if provided in CMS to prevent upscaling
+    if (visual.maxWidth && typeof visual.maxWidth === 'number') {
+      styleString += `max-width: ${visual.maxWidth}px;`;
+    }
+    
+    keyVisual.style.cssText = styleString;
+    
+    // Batch attribute setting
     keyVisual.setAttribute('data-type', visual.type || 'image');
     keyVisual.setAttribute('data-ratio', visual.ratio || 'unknown');
     keyVisual.setAttribute('data-display-width', displayWidth);
     keyVisual.setAttribute('data-source-url', visual.src || '');
-    
-    // Set aspect ratio for proper container sizing
-    const aspectRatio = visual.ratio.replace(':', ' / ');
-    keyVisual.style.setProperty('--aspect-ratio', aspectRatio);
+    if (visual.maxWidth) {
+      keyVisual.setAttribute('data-max-width', visual.maxWidth);
+    }
 
     // Set GSAP transform origin to center
     gsap.set(keyVisual, {

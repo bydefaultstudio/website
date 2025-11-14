@@ -66,7 +66,8 @@ body {
 }
 
 .key-visual img,
-.key-visual video {
+.key-visual video,
+.key-visual iframe {
   width: 100%;
   height: 100%;
   object-fit: cover;
