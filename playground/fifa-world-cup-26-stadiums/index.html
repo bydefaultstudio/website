@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    <title>FIFA World Cup 26 Stadiums</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='style.css' />
+</head>
+<body>
+    <div class='map-wrapper'>
+        <div id='map'></div>
+    </div>
+    <div id='mapContent' class='map-content'>
+        <section id='start' class='map-section active'>
+            <h3>Start</h3>
+            <p>Welcome to the FIFA World Cup 26 Stadiums Map. Explore the iconic venues across the United States, Canada, and Mexico that will host the world's biggest football tournament.</p>
+        </section>
+        <!-- CANADA -->
+        <section id='location-1' class='map-section'>
+            <h3>Toronto Stadium – BMO Field</h3>
+            <p><strong>Location:</strong> Toronto, Ontario, Canada</p>
+            <p><strong>Capacity:</strong> ~45,000</p>
+            <p><strong>Opened:</strong> 2007</p>
+            <p><strong>Local team(s):</strong> Toronto FC (MLS)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> 5 group-stage matches + 1 Round of 32 tie</p>
+            <p>Toronto Stadium (BMO Field) is Canada's premier football-specific venue, originally constructed for the FIFA U-20 World Cup 2007™ and expanded significantly for the 2026 tournament. Home to Toronto FC, the stadium's steep stands and intimate design create one of the most atmospheric matchday settings in North America. Hosting six fixtures—including Canada's opening game—it stands at the heart of the nation's football journey and showcases Toronto's global, vibrant energy.</p>
+        </section>
+        <section id='location-2' class='map-section'>
+            <h3>BC Place Vancouver – BC Place</h3>
+            <p><strong>Location:</strong> Vancouver, British Columbia, Canada</p>
+            <p><strong>Capacity:</strong> ~54,000</p>
+            <p><strong>Opened:</strong> 1983</p>
+            <p><strong>Local team(s):</strong> Vancouver Whitecaps FC (MLS), BC Lions (CFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> 5 group-stage matches + Round of 32 + Round of 16 (7 total)</p>
+            <p>BC Place Vancouver is a landmark domed stadium on the Pacific Coast, best known for its dramatic retractable roof and sweeping city views. Having hosted the FIFA Women's World Cup final in 2015, the venue brings a deep legacy of global events. In 2026, with seven matches including knockout rounds, it will immerse fans in a uniquely West Coast blend of atmosphere, architecture, and world-class football.</p>
+        </section>
+        <!-- UNITED STATES -->
+        <section id='location-3' class='map-section'>
+            <h3>Seattle Stadium – Lumen Field</h3>
+            <p><strong>Location:</strong> Seattle, Washington, USA</p>
+            <p><strong>Capacity:</strong> ~68,740</p>
+            <p><strong>Opened:</strong> 2002</p>
+            <p><strong>Local team(s):</strong> Seattle Sounders FC (MLS), Seattle Seahawks (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout tie</p>
+            <p>Seattle Stadium (Lumen Field) is known worldwide for its deafening fan noise and electrifying home support. Overlooking the Seattle skyline, the venue's steep stands create unmatched intensity. For 2026, it brings Pacific Northwest football culture to a global audience through high-energy group and knockout matches.</p>
+        </section>
+        <section id='location-4' class='map-section'>
+            <h3>San Francisco Bay Area Stadium – Levi's Stadium</h3>
+            <p><strong>Location:</strong> Santa Clara, California, USA</p>
+            <p><strong>Capacity:</strong> ~68,500</p>
+            <p><strong>Opened:</strong> 2014</p>
+            <p><strong>Local team(s):</strong> San Francisco 49ers (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>San Francisco Bay Area Stadium (Levi's Stadium) blends modern design with Silicon Valley innovation. Sunlit, open, and technologically advanced, it has hosted major international events and provides a scenic Northern California backdrop. In 2026, it delivers a dynamic stage shaped by West Coast culture and diversity.</p>
+        </section>
+        <section id='location-5' class='map-section'>
+            <h3>Los Angeles Stadium – SoFi Stadium</h3>
+            <p><strong>Location:</strong> Inglewood (Los Angeles), California, USA</p>
+            <p><strong>Capacity:</strong> ~70,000 (expandable)</p>
+            <p><strong>Opened:</strong> 2020</p>
+            <p><strong>Local team(s):</strong> Los Angeles Rams, Los Angeles Chargers (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>Los Angeles Stadium (SoFi Stadium) is a futuristic entertainment complex featuring a sweeping canopy roof and cinematic presentation technology. It embodies Hollywood-level spectacle and next-generation design. In 2026, it will host key matches, delivering a marquee stage worthy of the world's biggest sporting event.</p>
+        </section>
+        <section id='location-6' class='map-section'>
+            <h3>Houston Stadium – NRG Stadium</h3>
+            <p><strong>Location:</strong> Houston, Texas, USA</p>
+            <p><strong>Capacity:</strong> ~72,220</p>
+            <p><strong>Opened:</strong> 2002</p>
+            <p><strong>Local team(s):</strong> Houston Texans (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>Houston Stadium (NRG Stadium) features a retractable roof and a long track record of hosting major events. Its diverse local community and welcoming matchday atmosphere make it one of the most culturally vibrant venues in the tournament. The stadium's combination of energy and hospitality will shine throughout the group and knockout stages.</p>
+        </section>
+        <section id='location-7' class='map-section'>
+            <h3>Dallas Stadium – AT&T Stadium</h3>
+            <p><strong>Location:</strong> Arlington (Dallas–Fort Worth), Texas, USA</p>
+            <p><strong>Capacity:</strong> ~94,000</p>
+            <p><strong>Opened:</strong> 2009</p>
+            <p><strong>Local team(s):</strong> Dallas Cowboys (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout-round fixtures</p>
+            <p>Dallas Stadium (AT&T Stadium) is one of the world's largest and most technologically advanced sporting arenas. Known for its giant HD video board and retractable roof, it offers unmatched spectacle and scale. As a 2026 World Cup venue, it delivers a Texas-sized stage for some of the tournament's most anticipated clashes.</p>
+        </section>
+        <section id='location-8' class='map-section'>
+            <h3>Kansas City Stadium – Arrowhead Stadium</h3>
+            <p><strong>Location:</strong> Kansas City, Missouri, USA</p>
+            <p><strong>Capacity:</strong> ~76,416</p>
+            <p><strong>Opened:</strong> 1972 (renovated 2010)</p>
+            <p><strong>Local team(s):</strong> Kansas City Chiefs (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout tie</p>
+            <p>Kansas City Stadium (Arrowhead Stadium) is famed for being one of the loudest venues in world sport, delivering an unrivaled wall of sound from passionate Midwestern fans. With steep seating and a proud football tradition, it offers a uniquely intense environment for World Cup matches.</p>
+        </section>
+        <section id='location-9' class='map-section'>
+            <h3>Atlanta Stadium – Mercedes-Benz Stadium</h3>
+            <p><strong>Location:</strong> Atlanta, Georgia, USA</p>
+            <p><strong>Capacity:</strong> ~71,000</p>
+            <p><strong>Opened:</strong> 2017</p>
+            <p><strong>Local team(s):</strong> Atlanta United FC (MLS), Atlanta Falcons (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>Atlanta Stadium (Mercedes-Benz Stadium) features one of the world's most innovative designs, highlighted by its unique "oculus" retractable roof. Home to Atlanta United—whose supporters frequently break MLS attendance records—the venue blends cutting-edge engineering with unmatched passion. Its roaring atmosphere will make Atlanta a standout host in the 2026 tournament.</p>
+        </section>
+        <section id='location-10' class='map-section'>
+            <h3>Miami Stadium – Hard Rock Stadium</h3>
+            <p><strong>Location:</strong> Miami Gardens, Florida, USA</p>
+            <p><strong>Capacity:</strong> ~65,300</p>
+            <p><strong>Opened:</strong> 1987 (renovated 2016)</p>
+            <p><strong>Local team(s):</strong> Miami Dolphins (NFL), Miami Hurricanes (NCAA)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>Miami Stadium (Hard Rock Stadium) blends tropical style with major-event infrastructure. Renovated extensively to create an open, airy design, it has hosted global entertainment and sporting spectacles. For 2026, it offers a vibrant, sun-drenched atmosphere reflective of Miami's cultural diversity.</p>
+        </section>
+        <section id='location-11' class='map-section'>
+            <h3>Philadelphia Stadium – Lincoln Financial Field</h3>
+            <p><strong>Location:</strong> Philadelphia, Pennsylvania, USA</p>
+            <p><strong>Capacity:</strong> ~67,594</p>
+            <p><strong>Opened:</strong> 2003</p>
+            <p><strong>Local team(s):</strong> Philadelphia Eagles (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout tie</p>
+            <p>Philadelphia Stadium (Lincoln Financial Field) offers an intense East Coast football atmosphere defined by passionate supporters and rich sporting tradition. With multiple matches scheduled, the venue will showcase Philadelphia's deep love for the game and its vibrant cultural heritage.</p>
+        </section>
+        <section id='location-12' class='map-section'>
+            <h3>New York New Jersey Stadium – MetLife Stadium</h3>
+            <p><strong>Location:</strong> East Rutherford, New Jersey, USA</p>
+            <p><strong>Capacity:</strong> ~82,500</p>
+            <p><strong>Opened:</strong> 2010</p>
+            <p><strong>Local team(s):</strong> New York Giants, New York Jets (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> <em>Final</em> + group-stage matches + knockout rounds</p>
+            <p>New York New Jersey Stadium (MetLife Stadium) will host the 2026 FIFA World Cup™ Final, making it the climactic venue of the entire tournament. Just minutes from Manhattan, it merges massive scale with world-class event production. Its international audience and iconic location ensure an unforgettable finale to the global spectacle.</p>
+        </section>
+        <section id='location-13' class='map-section'>
+            <h3>Boston Stadium – Gillette Stadium</h3>
+            <p><strong>Location:</strong> Foxborough, Massachusetts, USA</p>
+            <p><strong>Capacity:</strong> ~65,878</p>
+            <p><strong>Opened:</strong> 2002</p>
+            <p><strong>Local team(s):</strong> New England Revolution (MLS), New England Patriots (NFL)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout-round ties</p>
+            <p>Boston Stadium (Gillette Stadium) sits at the heart of New England sports culture, blending modern amenities with deep regional pride. As home to both the Revolution and the Patriots, it is built for high-energy events. Hosting multiple 2026 World Cup matches, it will showcase the strength of East Coast football culture and the history-rich Boston region.</p>
+        </section>
+        <!-- MEXICO -->
+        <section id='location-14' class='map-section'>
+            <h3>Estadio Monterrey – Estadio BBVA</h3>
+            <p><strong>Location:</strong> Monterrey, Nuevo León, Mexico</p>
+            <p><strong>Capacity:</strong> ~53,500</p>
+            <p><strong>Opened:</strong> 2015</p>
+            <p><strong>Local team(s):</strong> C.F. Monterrey (Rayados)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout rounds</p>
+            <p>Estadio Monterrey (Estadio BBVA), nicknamed "The Steel Giant," is one of Mexico's most modern arenas, framed by the dramatic Sierra Madre mountains. Home to Rayados, the venue is known for its electric matchday energy and state-of-the-art facilities. For 2026, it provides a spectacular northern Mexican setting for both group and knockout matches.</p>
+        </section>
+        <section id='location-15' class='map-section'>
+            <h3>Estadio Guadalajara – Estadio Akron</h3>
+            <p><strong>Location:</strong> Guadalajara (Zapopan), Jalisco, Mexico</p>
+            <p><strong>Capacity:</strong> ~49,850</p>
+            <p><strong>Opened:</strong> 2010</p>
+            <p><strong>Local team(s):</strong> Club Atlas (Liga MX)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Group-stage matches + knockout-round ties</p>
+            <p>Estadio Guadalajara (Estadio Akron) brings modern Mexican stadium design to the 2026 tournament. With its innovative bowl-shaped architecture and a passionate home crowd through Club Atlas, the venue embodies Guadalajara's football identity. It will host both group-stage and knockout fixtures, combining vibrant city culture with a world-class match environment.</p>
+        </section>
+        <section id='location-16' class='map-section'>
+            <h3>Mexico City Stadium – Estadio Azteca</h3>
+            <p><strong>Location:</strong> Mexico City, Mexico</p>
+            <p><strong>Capacity:</strong> ~87,523</p>
+            <p><strong>Opened:</strong> 1966</p>
+            <p><strong>Local team(s):</strong> Club América (Liga MX)</p>
+            <p><strong>FIFA World Cup 26™ fixtures:</strong> Opening match + multiple group-stage matches + knockout rounds</p>
+            <p>Mexico City Stadium (Estadio Azteca) is one of the most iconic venues in football history—host of the 1970 and 1986 FIFA World Cup finals, and soon to be the first to host a third. Home to Club América and revered by fans across the world, it has witnessed legends like Pelé and Maradona define eras. For 2026, it returns as a cathedral of world football, delivering unmatched atmosphere and historic significance.</p>
+        </section>
+    </div>
+    <!-- Load config.js if it exists (contains MAPBOX_ACCESS_TOKEN) -->
+    <!-- Users should copy config.example.js to config.js and add their token -->
+    <script src='config.js'></script>
+    <script src='/js/playground/fifa-world-cup-26-stadiums.js'></script>
+</body>
+</html>

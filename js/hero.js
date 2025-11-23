@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
- * Version: 2.0.0
- * Last Updated: November 14, 2025
+ * Version: 2.1.0
+ * Last Updated: November 23, 2025
  */
 
-console.log("Script - Key Visuals v2.0.0");
+console.log("Script - Key Visuals v2.1.0");
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -141,7 +141,8 @@ class KeyVisualCollection {
 
   getResponsiveDisplayWidths() {
     if (this.isMobile()) {
-      return { // Mobile widths
+      // Mobile widths
+      return {
         '16:9': '80vw',
         '4:5': '60vw',
         '1:1': '54vw',  
@@ -149,7 +150,8 @@ class KeyVisualCollection {
         '9:16': '60vw'   
       };
     } else {
-      const widths = { // Desktop widths
+      // Desktop widths
+      const widths = {
         '16:9': '50vw', 
         '4:5': '30vw',   
         '1:1': '50vw',   

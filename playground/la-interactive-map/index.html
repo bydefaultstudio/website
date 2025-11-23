@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8' />
+    <title>LA Music & Culture Map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.17.0-beta.1/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='style.css' />
+</head>
+<body>
+    <div class='map-wrapper'>
+        <div id='map'></div>
+    </div>
+    <div id='mapContent' class='map-content'>
+        <section id='start' class='map-section active'>
+            <h3>Start</h3>
+            <p>Welcome to the LA Music & Culture Map. Explore the iconic locations that have shaped the music and street culture of Los Angeles.</p>
+        </section>
+        <section id='location-1' class='map-section'>
+            <h3>Hollywood Walk of Fame</h3>
+            <p>Hollywood Blvd is a massive pop culture and entertainment hub that has served as the stage for music video shoots, awards week outfits and street style, and global tourist culture that references American music. This iconic stretch captures the intersection of entertainment, fashion, and music culture.</p>
+        </section>
+        <section id='location-2' class='map-section'>
+            <h3>Fairfax District (The Block)</h3>
+            <p>North Fairfax Ave is the global epicenter of streetwear, skate culture, and youth fashion. This legendary block has been the backdrop for countless Supreme LA lines, Golf Wang headquarters, Tyler, the Creator meetups, and hundreds of streetwear drops that have defined a generation of style.</p>
+            <p><strong>Key locations:</strong> Supreme LA (439 N Fairfax Ave), Golf Wang (350 N Fairfax Ave), The Hundreds (501 N Fairfax Ave)</p>
+        </section>
+        <section id='location-3' class='map-section'>
+            <h3>The Roxy Theatre / Sunset Strip</h3>
+            <p>9009 Sunset Blvd in West Hollywood is a historic venue for rap, R&B, and rock shows. The Roxy has hosted early performances by hip hop and alternative artists, album release parties, and high energy show culture that has shaped the LA music scene for decades.</p>
+        </section>
+        <section id='location-4' class='map-section'>
+            <h3>Venice Beach Boardwalk</h3>
+            <p>1800 Ocean Front Walk in Venice is where skate culture, hip hop dancers, graffiti, and street art converge. This vibrant boardwalk has been featured in skate videos and street photography, hosted rap cyphers, and showcased graffiti walls that have appeared in countless visuals defining LA's creative energy.</p>
+        </section>
+        <section id='location-5' class='map-section'>
+            <h3>Slauson & Crenshaw (Nipsey Hussle's Block)</h3>
+            <p>3420 W Slauson Ave is where Nipsey Hussle built The Marathon Clothing store and empowered the community. This location represents The Marathon Clothing opening, Nipsey's community initiatives, and the countless fans who continue to pay tribute to his legacy and vision.</p>
+        </section>
+        <section id='location-6' class='map-section'>
+            <h3>Compton / Rosecrans Avenue</h3>
+            <p>W Rosecrans Ave in Compton is the birthplace of West Coast hip hop legends. This iconic street has been referenced in songs by Kendrick Lamar, Dr. Dre, and DJ Quik, serving as a backdrop for documentary filming locations and hip hop photography that has captured the essence of the culture.</p>
+        </section>
+    </div>
+    <!-- Load config.js if it exists (contains MAPBOX_ACCESS_TOKEN) -->
+    <!-- Users should copy config.example.js to config.js and add their token -->
+    <script src='config.js'></script>
+    <script src='/js/playground/la-interactive-map.js'></script>
+</body>
+</html>

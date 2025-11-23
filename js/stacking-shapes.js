@@ -2,11 +2,11 @@
  * Script Purpose: Interactive Stacking Shapes with Matter.js Physics Engine
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 1.9.9
- * Last Updated: November 11, 2025
+ * Version: 2.1.0
+ * Last Updated: November 23, 2025
  */
 
-console.log("Script - Stacking Shapes v1.9.9");
+console.log("Script - Stacking Shapes v2.1.0");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
