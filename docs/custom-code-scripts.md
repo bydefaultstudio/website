@@ -225,7 +225,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- LA Interactive Map Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.0/js/playground/la-interactive-map.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.1/js/playground/la-interactive-map.js"></script>
 ```
 
 **Local:**

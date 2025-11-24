@@ -2,11 +2,11 @@
  * Script Purpose: FIFA World Cup 26 Stadiums Interactive Map
  * Author: Erlen Masson
  * Created: 2025-01-27
- * Version: 2.1.0
+ * Version: 2.1.1
  * Last Updated: November 23, 2025
  */
 
-console.log("Script - Fifa World Cup 26 Stadiums v2.1.0");
+console.log("Script - Fifa World Cup 26 Stadiums v2.1.1");
 
 //
 //------- Configuration -------//

@@ -2,11 +2,11 @@
  * Script Purpose: LA Interactive Map
  * Author: Erlen Masson
  * Created: 2025-01-27
- * Version: 2.1.0
+ * Version: 2.1.1
  * Last Updated: November 23, 2025
  */
 
-console.log("Script - LA Interactive Map v2.1.0");
+console.log("Script - LA Interactive Map v2.1.1");
 
 
 //
@@ -34,8 +34,8 @@ var minPitch = 0;
 var maxPitch = 60;
 
 // ScrollTrigger visibility thresholds
-var sectionVisibilityThreshold = 40;
-var viewportCoverageThreshold = 40; 
+var sectionVisibilityThreshold = 30; // Lowered to catch sections during fast scrolling
+var viewportCoverageThreshold = 30; // Lowered to catch sections during fast scrolling 
 
 // Start location settings
 var startLocationSettings = {
@@ -53,6 +53,7 @@ var map;
 var locations;
 var activeLocationName = 'start';
 var isFlyingToLocation = false;
+var isProgrammaticScroll = false; // Flag to prevent ScrollTrigger from firing during programmatic scrolls
 
 //
 //------- Utility Functions -------//
@@ -112,24 +113,66 @@ function setupLocationScrollTriggers() {
         }
         
         var hasBeenActivated = false;
-        var sectionHeight = section.offsetHeight;
+        
+        // Watch for images loading within this section and refresh ScrollTrigger
+        var sectionImages = section.querySelectorAll('img');
+        sectionImages.forEach(function(img) {
+            if (!img.complete) {
+                img.addEventListener('load', function() {
+                    // Image loaded, refresh ScrollTrigger to recalculate section height
+                    if (typeof ScrollTrigger !== 'undefined') {
+                        ScrollTrigger.refresh();
+                    }
+                });
+                img.addEventListener('error', function() {
+                    // Image failed to load, still refresh to recalculate
+                    if (typeof ScrollTrigger !== 'undefined') {
+                        ScrollTrigger.refresh();
+                    }
+                });
+            }
+        });
         
         ScrollTrigger.create({
             trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
+            start: 'top 80%',
+            end: 'bottom 20%',
             markers: false,
+            invalidateOnRefresh: true,
+            onEnter: function() {
+                // Section entered the active zone - more reliable for fast scrolling
+                if (!isProgrammaticScroll && activeLocationName !== locationName) {
+                    setActiveLocation(locationName);
+                    hasBeenActivated = true;
+                }
+            },
+            onEnterBack: function() {
+                // Section entered the active zone when scrolling back up
+                if (!isProgrammaticScroll && activeLocationName !== locationName) {
+                    setActiveLocation(locationName);
+                    hasBeenActivated = true;
+                }
+            },
             onUpdate: function() {
+                // Fallback: also check during update for sections that might be missed
+                // Calculate section height dynamically to handle lazy-loaded images
+                var sectionHeight = section.offsetHeight;
                 var rect = section.getBoundingClientRect();
-                var visibleTop = Math.max(0, -rect.top);
-                var visibleBottom = Math.min(sectionHeight, viewportHeight - rect.top);
-                var visibleHeight = Math.max(0, visibleBottom - visibleTop);
+                
+                // Calculate visible portion of section in viewport
+                var viewportTop = 0;
+                var viewportBottom = viewportHeight;
+                
+                // Calculate how much of the section is visible
+                var sectionTopInViewport = Math.max(viewportTop, rect.top);
+                var sectionBottomInViewport = Math.min(viewportBottom, rect.bottom);
+                var visibleHeight = Math.max(0, sectionBottomInViewport - sectionTopInViewport);
                 
                 // Calculate section visibility percentage
-                var sectionVisiblePercentage = visibleHeight / sectionHeight;
+                var sectionVisiblePercentage = sectionHeight > 0 ? visibleHeight / sectionHeight : 0;
                 
                 // Calculate viewport coverage percentage
-                var viewportCoveragePercentage = visibleHeight / viewportHeight;
+                var viewportCoveragePercentage = viewportHeight > 0 ? visibleHeight / viewportHeight : 0;
                 
                 // Trigger if EITHER condition is met:
                 // 1. X% of the section is visible (works for shorter sections)
@@ -137,7 +180,8 @@ function setupLocationScrollTriggers() {
                 var shouldBeActive = sectionVisiblePercentage >= sectionThreshold || 
                                     viewportCoveragePercentage >= viewportThreshold;
                 
-                if (shouldBeActive && !hasBeenActivated) {
+                // Don't trigger map zoom if we're programmatically scrolling (e.g., from marker click)
+                if (shouldBeActive && !hasBeenActivated && !isProgrammaticScroll && activeLocationName !== locationName) {
                     hasBeenActivated = true;
                     setActiveLocation(locationName);
                 } else if (!shouldBeActive && hasBeenActivated) {
@@ -405,7 +449,14 @@ function setupMarkerClickHandlers() {
     
     // Handle marker clicks
     map.on('click', 'location-markers', function(e) {
+        if (!e.features || e.features.length === 0) return;
+        
         var locationId = e.features[0].properties.locationId;
+        if (!locationId) {
+            console.warn('Marker clicked but no locationId found in properties');
+            return;
+        }
+        
         scrollToLocationSection(locationId);
     });
 }
@@ -414,8 +465,12 @@ function setupMarkerClickHandlers() {
 function scrollToLocationSection(locationName) {
     var targetSection = document.getElementById(locationName);
     if (!targetSection) {
+        console.warn('Could not find section with id:', locationName);
         return;
     }
+    
+    // Set flag to prevent ScrollTrigger from firing during programmatic scroll
+    isProgrammaticScroll = true;
     
     // Check if ScrollSmoother is active
     var smoother = typeof ScrollSmoother !== 'undefined' ? ScrollSmoother.get() : null;
@@ -424,6 +479,13 @@ function scrollToLocationSection(locationName) {
         // Use ScrollSmoother for smooth scrolling
         var targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
         smoother.scrollTo(targetPosition, true);
+        
+        // Clear flag after scroll completes (ScrollSmoother duration is typically ~1 second)
+        setTimeout(function() {
+            isProgrammaticScroll = false;
+            // Manually trigger the correct location after scroll completes
+            setActiveLocation(locationName);
+        }, 1200);
     } else {
         // Use native scroll with smooth behavior
         var targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
@@ -431,6 +493,13 @@ function scrollToLocationSection(locationName) {
             top: targetPosition,
             behavior: 'smooth'
         });
+        
+        // Clear flag after scroll completes (native smooth scroll is typically ~500ms)
+        setTimeout(function() {
+            isProgrammaticScroll = false;
+            // Manually trigger the correct location after scroll completes
+            setActiveLocation(locationName);
+        }, 800);
     }
 }
 
@@ -523,13 +592,102 @@ document.addEventListener('DOMContentLoaded', function() {
     locations = createLocations();
     initMap();
     
-    // Wait a bit for ScrollSmoother to initialize if it exists
-    setTimeout(function() {
+    // Wait for images to load and ScrollSmoother to initialize
+    function initializeScrollTriggers() {
         setupScrollListeners();
         
         // Refresh ScrollTrigger after setup to ensure proper calculations
         if (typeof ScrollTrigger !== 'undefined') {
             ScrollTrigger.refresh();
+        }
+    }
+    
+    // Wait for ScrollSmoother to initialize if it exists
+    setTimeout(function() {
+        initializeScrollTriggers();
+        
+        // Also refresh when images load (handles lazy-loaded images)
+        // Use IntersectionObserver to detect when images load as they enter viewport
+        var images = document.querySelectorAll('#mapContent img');
+        var imagesLoaded = 0;
+        var totalImages = images.length;
+        var hasRefreshed = false;
+        
+        function checkAndRefresh() {
+            if (!hasRefreshed && typeof ScrollTrigger !== 'undefined') {
+                ScrollTrigger.refresh();
+                hasRefreshed = true;
+            }
+        }
+        
+        if (totalImages > 0) {
+            // Use IntersectionObserver for lazy-loaded images
+            if ('IntersectionObserver' in window) {
+                var imageObserver = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            var img = entry.target;
+                            if (img.complete) {
+                                imagesLoaded++;
+                            } else {
+                                img.addEventListener('load', function() {
+                                    imagesLoaded++;
+                                    if (imagesLoaded === totalImages) {
+                                        checkAndRefresh();
+                                    }
+                                });
+                                img.addEventListener('error', function() {
+                                    imagesLoaded++;
+                                    if (imagesLoaded === totalImages) {
+                                        checkAndRefresh();
+                                    }
+                                });
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, { rootMargin: '50px' });
+                
+                images.forEach(function(img) {
+                    if (img.complete) {
+                        imagesLoaded++;
+                    } else {
+                        imageObserver.observe(img);
+                    }
+                });
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                images.forEach(function(img) {
+                    if (img.complete) {
+                        imagesLoaded++;
+                    } else {
+                        img.addEventListener('load', function() {
+                            imagesLoaded++;
+                            if (imagesLoaded === totalImages) {
+                                checkAndRefresh();
+                            }
+                        });
+                        img.addEventListener('error', function() {
+                            imagesLoaded++;
+                            if (imagesLoaded === totalImages) {
+                                checkAndRefresh();
+                            }
+                        });
+                    }
+                });
+            }
+            
+            // If all images are already loaded
+            if (imagesLoaded === totalImages) {
+                checkAndRefresh();
+            }
+            
+            // Also refresh after a delay to catch any images that load later
+            setTimeout(function() {
+                if (typeof ScrollTrigger !== 'undefined') {
+                    ScrollTrigger.refresh();
+                }
+            }, 2000);
         }
     }, 100);
     
