@@ -12,7 +12,7 @@ Custom Cursor Styling */
     }
 
     :root {
-      --cursor--color: var(--brand--green);
+      --cursor--color: var(--_semantic---text--text-accent);
       --cursor-10: color-mix(in srgb, var(--cursor--color), transparent 90%);
       --cursor-20: color-mix(in srgb, var(--cursor--color), transparent 80%);
       --cursor-50: color-mix(in srgb, var(--cursor--color), transparent 50%);

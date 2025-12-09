@@ -1,12 +1,12 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 2.1.0
- * Last Updated: November 23, 2025
+ * Version: 2.1.2
+ * Last Updated: December 9, 2024
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v2.1.0");
+console.log("Script - Homepage v2.1.2");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {

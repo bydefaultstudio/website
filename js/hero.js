@@ -1,11 +1,11 @@
 /**
  * Script Purpose: Key Visual Collection Spawner
  * Author: Erlen Masson
- * Version: 2.1.0
- * Last Updated: November 23, 2025
+ * Version: 2.1.2
+ * Last Updated: December 9, 2024
  */
 
-console.log("Script - Key Visuals v2.1.0");
+console.log("Script - Key Visuals v2.1.2");
 
 function random(min, max) {
   return Math.random() * (max - min) + min;

@@ -6,7 +6,7 @@
  * Last Updated: November 23, 2025
  */
 
-console.log("Script - LA Interactive Map v2.1.1");
+console.log("Script - LA Interactive Map v2.1.2");
 
 
 //
