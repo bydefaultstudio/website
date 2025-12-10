@@ -1,12 +1,12 @@
 /**
  * Homepage Scripts
  * Author: Erlen Masson
- * Version: 2.1.2
+ * Version: 2.1.3
  * Last Updated: December 9, 2024
  * Purpose: Custom Homepage scripts
  */
 
-console.log("Script - Homepage v2.1.2");
+console.log("Script - Homepage v2.1.3");
 
 // ------- Video Hover Functionality ------- //
 function thumbVideoHover() {
@@ -51,7 +51,7 @@ function brandLogoScroll() {
 
   window.addEventListener('scroll', function() {
     // Add scrolling class to all brand logos
-    const brandLogos = document.querySelectorAll('.work_post-link.thumb-brand-logo');
+    const brandLogos = document.querySelectorAll('.work_post-logo');
     brandLogos.forEach(brandLogo => {
       brandLogo.classList.add('scrolling');
     });
@@ -235,7 +235,13 @@ function stickyCards() {
     const stickyStart = "top 100px";
     
     // Generate random Z rotation once per card (-20 to +20 degrees)
-    const randomRotationZ = (Math.random() - 0.5) * 40; // -20 to +20
+    const randomRotationZ = (Math.random() - 0.5) * 15; // -20 to +20
+
+    // Set initial state to prevent flicker on first frame
+    gsap.set(card, {
+      filter: "brightness(1.0)",
+      transformOrigin: "50% center"
+    });
 
     gsap.timeline({
       scrollTrigger: {
@@ -252,6 +258,7 @@ function stickyCards() {
             scale: 1 - progress,
             rotationZ: randomRotationZ * progress,
             rotationX: 20 * progress,
+            filter: `brightness(${1 - (progress * 0.15)})`, // Darken from 1.0 to 0.3 as user scrolls
             transformOrigin: "50% center", // Performance: Set transform origin once
             overwrite: "auto" // Performance: Prevent animation conflicts
           });

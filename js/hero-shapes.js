@@ -2,11 +2,11 @@
  * Script Purpose: Hero Section with Interactive Stacking Shapes
  * Author: Erlen Masson
  * Created: October 18, 2025
- * Version: 2.1.2
+ * Version: 2.1.3
  * Last Updated: December 9, 2024
  */
 
-console.log("Script - Hero Shapes v2.1.2 local");
+console.log("Script - Hero Shapes v2.1.3");
 // Global variables - use window object to prevent conflicts
 window.stackingShapes = window.stackingShapes || {};
 window.stackingShapes.engine = null;
@@ -24,6 +24,103 @@ window.stackingShapes.audioCtx = null;
 // Audio controlled by main audio system
 window.stackingShapes.soundEnabled = false;
 window.stackingShapes.isInitialized = false;
+
+// ------- Analytics Tracking System ------- //
+window.stackingShapes.analytics = window.stackingShapes.analytics || {
+  hasStarted: false,
+  hasDraggedFirstShape: false,
+  interactionStartTime: null,
+  totalDrags: 0,
+  shapesSet: new Set(),
+  inactivityTimer: null,
+  INACTIVITY_TIMEOUT: 3000 // 3 seconds
+};
+
+// Track event helper - pushes to dataLayer (GTM) or falls back to gtag
+function trackEvent(eventName, eventData = {}) {
+  // Add timestamp if not provided
+  if (!eventData.timestamp) {
+    eventData.timestamp = Date.now();
+  }
+
+  // Push to dataLayer for GTM
+  if (window.dataLayer && Array.isArray(window.dataLayer)) {
+    window.dataLayer.push({
+      event: eventName,
+      ...eventData
+    });
+  } 
+  // Fallback to gtag if available
+  else if (typeof gtag === 'function') {
+    gtag('event', eventName, eventData);
+  }
+}
+
+// Start interaction timer
+function startInteractionTimer() {
+  if (!window.stackingShapes.analytics.interactionStartTime) {
+    window.stackingShapes.analytics.interactionStartTime = Date.now();
+  }
+  
+  // Clear any existing inactivity timer
+  if (window.stackingShapes.analytics.inactivityTimer) {
+    clearTimeout(window.stackingShapes.analytics.inactivityTimer);
+    window.stackingShapes.analytics.inactivityTimer = null;
+  }
+}
+
+// Check for inactivity and send time_spent_interacting if needed
+function checkInactivity() {
+  // Clear existing timer
+  if (window.stackingShapes.analytics.inactivityTimer) {
+    clearTimeout(window.stackingShapes.analytics.inactivityTimer);
+  }
+
+  // Set new timer
+  window.stackingShapes.analytics.inactivityTimer = setTimeout(() => {
+    sendTimeSpentInteracting();
+  }, window.stackingShapes.analytics.INACTIVITY_TIMEOUT);
+}
+
+// Send time_spent_interacting event
+function sendTimeSpentInteracting() {
+  const analytics = window.stackingShapes.analytics;
+  
+  if (!analytics.interactionStartTime) {
+    return; // No interaction started
+  }
+
+  const interactionDuration = Date.now() - analytics.interactionStartTime;
+  
+  trackEvent('time_spent_interacting', {
+    interaction_duration_ms: interactionDuration,
+    total_drags: analytics.totalDrags,
+    shapes_interacted_count: analytics.shapesSet.size,
+    timestamp: Date.now()
+  });
+
+  // Reset interaction timer (but keep state for potential future interactions)
+  analytics.interactionStartTime = null;
+}
+
+// Get shape label from body
+function getShapeLabel(body) {
+  if (!body || !body.label) return null;
+  
+  // Skip logo and walls
+  if (body.label === 'logo' || body.isStatic) return null;
+  
+  return body.label || null;
+}
+
+// Get shape index from body
+function getShapeIndex(body) {
+  if (!window.stackingShapes.shapes || !Array.isArray(window.stackingShapes.shapes)) {
+    return null;
+  }
+  
+  return window.stackingShapes.shapes.indexOf(body);
+}
 
 // ------- Audio System Integration ------- //
 function syncWithMainAudioSystem() {
@@ -127,8 +224,8 @@ function initStackingShapes() {
   
   // Initialize shapes with responsive positioning and scaling
   window.stackingShapes.shapes = [
-    bodyFromPath("shape1", innerWidth * 0.25, canvasHeight * 0.25, "#094C45", "", "#news", initialScale),
-    bodyFromPath("shape2", innerWidth * 0.5, canvasHeight * 0.3, "#F7A3BC", "", "#founders", initialScale),
+    bodyFromPath("shape1", innerWidth * 0.25, canvasHeight * 0.25, "#167255", "", "#news", initialScale),
+    bodyFromPath("shape2", innerWidth * 0.5, canvasHeight * 0.3, "#D92A27", "", "#founders", initialScale),
     bodyFromPath("shape3", innerWidth * 0.75, canvasHeight * 0.3, "#FFB533", "", "#work", initialScale),
     bodyFromPath("shape4", innerWidth * 0.15, canvasHeight * 0.15, "#88D3CD", "", "#about", initialScale),
   ];
@@ -220,6 +317,18 @@ function setupButtonReset() {
       e.preventDefault();
       
       console.log('🔄 Email button clicked - Resetting shapes first');
+      
+      // Track reset button click
+      const analytics = window.stackingShapes.analytics;
+      const interactionDuration = analytics.interactionStartTime 
+        ? Date.now() - analytics.interactionStartTime 
+        : 0;
+      
+      trackEvent('reset_button_clicked', {
+        timestamp: Date.now(),
+        total_drags: analytics.totalDrags,
+        interaction_duration_ms: interactionDuration
+      });
       
       // Reset shapes immediately
       resetShapes();
@@ -533,11 +642,69 @@ function setupStackingShapesEventListeners() {
         e.mouse.position
       )[0];
       if (!hit) return;
+      
+      // Track shape click (not drag - distance < 5px)
+      const shapeLabel = getShapeLabel(hit);
+      if (shapeLabel) {
+        trackEvent('shape_clicked', {
+          shape_label: shapeLabel,
+          timestamp: Date.now()
+        });
+      }
     }
   });
 
-  Matter.Events.on(window.stackingShapes.mouseConstraint, "startdrag", () => {
+  Matter.Events.on(window.stackingShapes.mouseConstraint, "startdrag", (e) => {
     window.stackingShapes.isDragging = true;
+    
+    // Get the dragged body - try mouseConstraint.body first, then query mouse position as fallback
+    let draggedBody = window.stackingShapes.mouseConstraint.body;
+    if (!draggedBody && e && e.mouse) {
+      const hit = Matter.Query.point(
+        Matter.Composite.allBodies(window.stackingShapes.engine.world),
+        e.mouse.position
+      )[0];
+      if (hit) draggedBody = hit;
+    }
+    
+    const shapeLabel = draggedBody ? getShapeLabel(draggedBody) : null;
+    const analytics = window.stackingShapes.analytics;
+    
+    // Track interaction_started (first drag in session)
+    if (!analytics.hasStarted) {
+      analytics.hasStarted = true;
+      startInteractionTimer();
+      
+      trackEvent('interaction_started', {
+        timestamp: Date.now(),
+        shape_label: shapeLabel || null
+      });
+    }
+    
+    // Track first_shape_dragged
+    if (!analytics.hasDraggedFirstShape && shapeLabel) {
+      analytics.hasDraggedFirstShape = true;
+      const shapeIndex = getShapeIndex(draggedBody);
+      
+      trackEvent('first_shape_dragged', {
+        shape_label: shapeLabel,
+        shape_index: shapeIndex,
+        timestamp: Date.now()
+      });
+    }
+    
+    // Track shape_dragged (every drag)
+    if (shapeLabel) {
+      analytics.totalDrags++;
+      analytics.shapesSet.add(shapeLabel);
+      startInteractionTimer();
+      
+      trackEvent('shape_dragged', {
+        shape_label: shapeLabel,
+        total_drags: analytics.totalDrags,
+        timestamp: Date.now()
+      });
+    }
     
     // Disable pointer events on button during drag
     const button = document.getElementById('button-on-canvas');
@@ -547,6 +714,9 @@ function setupStackingShapesEventListeners() {
   });
   Matter.Events.on(window.stackingShapes.mouseConstraint, "enddrag", () => {
     window.stackingShapes.isDragging = false;
+    
+    // Check for inactivity after drag ends
+    checkInactivity();
     
     // Re-enable pointer events on button after drag
     const button = document.getElementById('button-on-canvas');
@@ -834,6 +1004,8 @@ function setupCollisionEvents() {
 
   window.addEventListener("beforeunload", () => {
     try {
+      // Send time_spent_interacting on page unload
+      sendTimeSpentInteracting();
       cleanupStackingShapes();
     } catch (e) {}
   });
