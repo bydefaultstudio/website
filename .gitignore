@@ -94,3 +94,7 @@ GITHUB_REVIEW.md
 # Exclude test and archive JS files
 js/test.js
 js/archive/
+
+# Large video assets (host externally, not in repo)
+assets/videos/
+*.mp4

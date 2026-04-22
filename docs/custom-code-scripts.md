@@ -25,7 +25,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Custom Cursor CSS -->
-<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/css/cursor.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/css/cursor.css" rel="stylesheet">
 ```
 
 **Local:**
@@ -39,16 +39,16 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Global Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/script.js"></script>
 
 <!-- BD Animation -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/bd-animations.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/bd-animations.js"></script>
 
 <!-- Custom Cursor JS -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/cursor.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/cursor.js"></script>
 
 <!-- Audio System -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/audio.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/audio.js"></script>
 ```
 
 **Local:**
@@ -75,13 +75,19 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Hero Section CSS -->
-<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/css/hero.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/css/hero.css" rel="stylesheet">
+
+<!-- Hero Video CSS -->
+<link href="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/css/hero-video.css" rel="stylesheet">
 ```
 
 **Local:**
 ```html
 <!-- Hero Section CSS -->
 <link href="http://127.0.0.1:5500/css/hero.css" rel="stylesheet">
+
+<!-- Hero Video CSS -->
+<link href="http://127.0.0.1:5500/css/hero-video.css" rel="stylesheet">
 ```
 
 ### Footer
@@ -94,10 +100,16 @@ This guide contains only the custom script and CSS links that change with versio
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-intersection@0.2.0/dist/js/splide-extension-intersection.min.js"></script>
 
 <!-- Hero Section JavaScript -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/hero.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/hero.js"></script>
 
 <!-- Homepage Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/homepage.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/homepage.js"></script>
+
+<!-- Hero Shapes (Interactive Physics) -->
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/hero-shapes.js"></script>
+
+<!-- Hero Video (Scroll Expand + Custom Controls) -->
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/hero-video.js"></script>
 ```
 
 **Local:**
@@ -112,6 +124,12 @@ This guide contains only the custom script and CSS links that change with versio
 
 <!-- Homepage Scripts -->
 <script src="http://127.0.0.1:5500/js/homepage.js"></script>
+
+<!-- Hero Shapes (Interactive Physics) -->
+<script src="http://127.0.0.1:5500/js/hero-shapes.js"></script>
+
+<!-- Hero Video (Scroll Expand + Custom Controls) -->
+<script src="http://127.0.0.1:5500/js/hero-video.js"></script>
 ```
 
 ---
@@ -123,7 +141,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Blog Template Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/blog-template.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/blog-template.js"></script>
 ```
 
 **Local:**
@@ -137,7 +155,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Blog Feed Scripts (for blog listing pages) -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/blog-feed.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/blog-feed.js"></script>
 ```
 
 **Local:**
@@ -158,7 +176,7 @@ This guide contains only the custom script and CSS links that change with versio
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
 
 <!-- Case Studies Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/case-study.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/case-study.js"></script>
 
 <!-- Custom Code -->
 <script>
@@ -193,7 +211,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Stacking Shapes Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/stacking-shapes.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/stacking-shapes.js"></script>
 ```
 
 **Local:**
@@ -207,7 +225,7 @@ This guide contains only the custom script and CSS links that change with versio
 **Production:**
 ```html
 <!-- Holding Page Scripts -->
-<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/js/holding-page.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/js/holding-page.js"></script>
 ```
 
 **Local:**
@@ -251,9 +269,9 @@ This guide contains only the custom script and CSS links that change with versio
 
 ---
 
-**Current Version:** v2.1.2
+**Current Version:** v2.2.0
 
-**Production CDN:** `https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.1.2/`
+**Production CDN:** `https://cdn.jsdelivr.net/gh/bydefaultstudio/website@v2.2.0/`
 **Local Server:** `http://127.0.0.1:5500`
 
 *Last updated: December 9, 2024*

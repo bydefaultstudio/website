@@ -2,11 +2,11 @@
  * Script Purpose: Blog feed functionality with overlapping pinned sections
  * Author: Erlen Masson
  * Created: [Date]
- * Version: 2.1.3
+ * Version: 2.2.0
  * Last Updated: December 9, 2024
  */
 
-console.log("Script - Blog Feed v2.1.3");
+console.log("Script - Blog Feed v2.2.0");
 
 //
 //------- Main Functions -------//

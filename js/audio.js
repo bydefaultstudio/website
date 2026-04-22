@@ -3,11 +3,11 @@
  * Script Purpose: Lightweight Audio System for ByDefault Studio
  * Author: Erlen Masson
  * Created: July 2024
- * Version: 2.1.3
+ * Version: 2.2.0
  * Last Updated: December 9, 2024
  */
 
-console.log("Script - Audio v2.1.3");
+console.log("Script - Audio v2.2.0");
 
 //
 //------- Audio System Class -------//

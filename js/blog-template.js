@@ -2,11 +2,11 @@
  * Script Purpose: Blog page functionality and table of contents
  * Author: Erlen Masson
  * Created: 2025-10-12
- * Version: 2.1.3
+ * Version: 2.2.0
  * Last Updated: December 9, 2024
  */
 
-console.log("Script - Blog v2.1.3");
+console.log("Script - Blog v2.2.0");
 
 // ------- Utility Functions ------- //
 function slugifyHeading(text) {
