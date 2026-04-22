@@ -359,7 +359,7 @@ function createLocations() {
             bearing: defaultBearing(),
             pitch: defaultPitch(),
             duration: defaultDuration(),
-            markerImage: 'https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/692279444923fc23e2c6fc46_marker_mexico-city.png',
+            markerImage: 'https://cdn.prod.website-files.com/68e2be176459e98837a31ed9/692279444923fc23e2c6fc46_c78d70e3693ce96e47f8d5019663d0f7_marker_mexico-city.png',
             markerName: 'Mexico City Stadium'
         }
     };
