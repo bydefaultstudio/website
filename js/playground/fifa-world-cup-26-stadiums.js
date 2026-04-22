@@ -2,11 +2,11 @@
  * Script Purpose: FIFA World Cup 26 Stadiums Interactive Map
  * Author: Erlen Masson
  * Created: 2025-01-27
- * Version: 2.1.1
+ * Version: 2.1.2
  * Last Updated: November 23, 2025
  */
 
-console.log("Script - Fifa World Cup 26 Stadiums v2.1.1");
+console.log("Script - Fifa World Cup 26 Stadiums v2.1.2");
 
 //
 //------- Configuration -------//
@@ -474,49 +474,54 @@ function addLocationMarkers() {
     
     function loadNextImage(index) {
         if (index >= totalImages) {
-            // All images loaded, add source and layer
-            map.addSource('location-markers', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'FeatureCollection',
-                    'features': features
-                }
-            });
-            
-            // Add symbol layer with dynamic icon-image based on locationId
-            map.addLayer({
-                'id': 'location-markers',
-                'type': 'symbol',
-                'source': 'location-markers',
-                'layout': {
-                    'icon-image': ['concat', 'marker-', ['get', 'locationId']],
-                    'icon-size': markerSize,
-                    'text-field': ['get', 'title'],
-                    'text-font': [
-                        'Open Sans Semibold',
-                        'Arial Unicode MS Bold'
-                    ],
-                    'text-offset': [0, 3],
-                    'text-anchor': 'top'
-                }
-            });
-            
+            // All images loaded, add source and layer (guard against re-runs)
+            if (!map.getSource('location-markers')) {
+                map.addSource('location-markers', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': features
+                    }
+                });
+            }
+
+            if (!map.getLayer('location-markers')) {
+                map.addLayer({
+                    'id': 'location-markers',
+                    'type': 'symbol',
+                    'source': 'location-markers',
+                    'layout': {
+                        'icon-image': ['concat', 'marker-', ['get', 'locationId']],
+                        'icon-size': markerSize,
+                        'text-field': ['get', 'title'],
+                        'text-font': [
+                            'Open Sans Semibold',
+                            'Arial Unicode MS Bold'
+                        ],
+                        'text-offset': [0, 3],
+                        'text-anchor': 'top'
+                    }
+                });
+            }
+
             // Add click handler for markers
             setupMarkerClickHandlers();
             return;
         }
-        
+
         var locationId = locationIds[index];
         var imageUrl = markerImages[locationId];
-        
+
         map.loadImage(imageUrl, function(error, image) {
-            if (error) {
-                console.error('Error loading marker image for', locationId + ':', error);
+            if (error || !image) {
+                console.error('Error loading marker image for', locationId + ':', error || 'image was undefined');
                 loadedCount++;
                 loadNextImage(index + 1);
             } else {
-                // Add image with unique ID
-                map.addImage('marker-' + locationId, image);
+                // Add image with unique ID (guard against duplicate add)
+                if (!map.hasImage('marker-' + locationId)) {
+                    map.addImage('marker-' + locationId, image);
+                }
                 loadedCount++;
                 loadNextImage(index + 1);
             }
